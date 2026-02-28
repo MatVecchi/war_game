@@ -1,0 +1,64 @@
+[gd_scene format=3 uid="uid://dcuge8a0x5im4"]
+
+[ext_resource type="Script" uid="uid://yvfjm5yhlcvf" path="res://scripts/GameController.gd" id="1_lbhrr"]
+[ext_resource type="Script" uid="uid://bw1jgwp6o3ijl" path="res://scripts/Camera.gd" id="1_uwrxv"]
+[ext_resource type="Texture2D" uid="uid://b11a0khss5o47" path="res://assets/sprites/1000_F_57037494_whUKX0C9VTjRbQ6G2fCvreHXKgIKt9Pf.jpg" id="2_yqjtg"]
+[ext_resource type="Script" uid="uid://dcghr7rghdhgv" path="res://scripts/Province.gd" id="3_lnu2h"]
+[ext_resource type="Script" uid="uid://bfrcgnbxye7tf" path="res://scenes/Background.gd" id="5_iywne"]
+
+[node name="Game" type="Node2D" unique_id=63633635]
+script = ExtResource("1_lbhrr")
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=337608158]
+position = Vector2(2, 0)
+position_smoothing_speed = 10.0
+script = ExtResource("1_uwrxv")
+
+[node name="map" type="Sprite2D" parent="." unique_id=410008263]
+position = Vector2(-70, -23)
+scale = Vector2(5.47, 5.47)
+texture = ExtResource("2_yqjtg")
+
+[node name="Egypt" type="Area2D" parent="." unique_id=1312982784]
+position = Vector2(-13, -65)
+script = ExtResource("3_lnu2h")
+province_id = 1
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Egypt" unique_id=1033763293]
+position = Vector2(13, 65)
+polygon = PackedVector2Array(181, 80, 186, 47, 356, 46, 352, 37, 338, 31, 342, 15, 314, -38, 286, -73, 289, -80, 315, -46, 320, -47, 321, -72, 318, -87, 309, -104, 295, -104, 276, -102, 274, -108, 252, -108, 240, -96, 173, -118)
+
+[node name="Polygon2D" type="Polygon2D" parent="Egypt" unique_id=830984052]
+position = Vector2(249, 109)
+color = Color(0.35686275, 1, 1, 1)
+polygon = PackedVector2Array(-63, -162, -55, 35, -50, 3, 120, 2, 116, -7, 102, -13, 106, -29, 78, -82, 50, -117, 53, -124, 79, -90, 84, -91, 85, -116, 82, -131, 73, -148, 62, -148, 40, -146, 38, -152, 16, -152, 4, -140, -18, -148)
+
+[node name="Libya" type="Area2D" parent="." unique_id=911611962]
+script = ExtResource("3_lnu2h")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Libya" unique_id=453143359]
+position = Vector2(-2, 2)
+polygon = PackedVector2Array(-41, -33, -48, -25, -38, -11, -37, 6, -23, 7, -9, 25, 21, 32, 51, 15, 169, 79, 183, 77, 175, -120, 150, -121, 144, -131, 115, -131, 101, -120, 104, -103, 92, -81, 68, -102, 44, -103, 32, -126, -19, -133, -18, -121, -39, -106, -35, -97, -49, -85, -43, -76)
+
+[node name="Polygon2D" type="Polygon2D" parent="Libya" unique_id=1453118690]
+position = Vector2(-2, 2)
+polygon = PackedVector2Array(-19, -133, -18, -121, -39, -106, -35, -97, -49, -85, -43, -76, -41, -33, -48, -25, -38, -11, -37, 6, -22, 7, -9, 25, 21, 32, 51, 15, 169, 79, 183, 77, 175, -120, 150, -121, 144, -131, 115, -131, 101, -120, 104, -103, 92, -81, 68, -102, 44, -103, 32, -126, 2, -130)
+metadata/id = 0
+
+[node name="Background" type="Area2D" parent="." unique_id=553132931]
+visible = false
+script = ExtResource("5_iywne")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Background" unique_id=1046095186]
+polygon = PackedVector2Array(-2805, 1779, 2665, 1779, 2665, -1825, -2805, -1825)
+
+[node name="NavigationLink2D" type="NavigationLink2D" parent="." unique_id=3384084]
+start_position = Vector2(107, -19)
+
+[node name="NavigationLink2D2" type="NavigationLink2D" parent="NavigationLink2D" unique_id=455730777]
+start_position = Vector2(251, -39)
+end_position = Vector2(107, -19)
+
+[node name="NavigationLink2D" type="NavigationLink2D" parent="NavigationLink2D" unique_id=1077126630]
+start_position = Vector2(148, -119)
+end_position = Vector2(107, -19)
