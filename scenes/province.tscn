@@ -1,0 +1,11 @@
+[gd_scene format=3 uid="uid://b2r5ev6bjtcal"]
+
+[ext_resource type="Script" uid="uid://dcghr7rghdhgv" path="res://scripts/Province.gd" id="1_oqkre"]
+[ext_resource type="PackedScene" uid="uid://djc45rwgx51pp" path="res://scenes/city.tscn" id="2_dn84a"]
+
+[node name="Area2D" type="Area2D" unique_id=1340307946]
+script = ExtResource("1_oqkre")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="." unique_id=27683214]
+
+[node name="City" parent="." unique_id=1609441056 instance=ExtResource("2_dn84a")]

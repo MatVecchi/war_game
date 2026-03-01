@@ -1,0 +1,11 @@
+[gd_scene format=3 uid="uid://djc45rwgx51pp"]
+
+[ext_resource type="Texture2D" uid="uid://bw856iavw6l7e" path="res://assets/sprites/city.png" id="1_bih7l"]
+
+[node name="Node2D" type="Node2D" unique_id=1609441056]
+
+[node name="city" type="Sprite2D" parent="." unique_id=668874838]
+scale = Vector2(0.135, 0.135)
+texture = ExtResource("1_bih7l")
+
+[node name="material" type="Sprite2D" parent="." unique_id=372071414]
