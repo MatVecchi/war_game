@@ -28,6 +28,9 @@ func _on_input_event(_viewport, _event, _shape_idx):
 		emit_signal("province_clicked", province_id)
 		get_viewport().set_input_as_handled()
 		
+func get_city_position():
+	return $Node2D.global_position
+		
 func toggle_selection():
 	selected = not selected
 	if selected:

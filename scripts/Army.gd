@@ -2,16 +2,16 @@ extends Node2D
 
 class_name Army
 
-var path_follow: PathFollow2D
+var travelling: Province
+var direction: int
+const SPEED: int = 10
 
 @export var soldier_number: int
 @export var army_id: int
+@export var player: Agent
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	path_follow = PathFollow2D.new()
-	add_child(path_follow)
-	
 	$Control.scale = Vector2(1, 1)/get_viewport().get_camera_2d().zoom
 	
 func _draw() -> void:
@@ -22,24 +22,25 @@ func _input(_event):
 		$Control.scale = Vector2(1,1)/get_viewport().get_camera_2d().zoom
 
 func _process(delta):
-	if $NavigationAgent2D.is_navigation_finished():
-		return
-	print($NavigationAgent2D.is_target_reachable())	
-	var direction = $NavigationAgent2D.get_next_path_position() - global_position
-	var velocity = direction.normalized() * 100.0   # velocità in pixel/sec
-
-	global_position += velocity * delta
-
+	if travelling != null:
+		if (self.progress_ratio != 1.0 and direction == 1) or (self.progress_ratio != 0.0 and direction == -1):
+			self.progress += SPEED * direction
+		elif travelling.get_city_position() != position:
+			var next_path = get_parent().get_next_path(self)
+			reparent(next_path[0])
+			if get_parent().curve.get_point_position(next_path[1]) == get_parent().curve.get_point_position(0):
+				self.progress_ratio = 0.0
+				direction = 1
+			else:
+				self.progress_ratio = 1.0
+				direction = -1
 	
 func order(city: Province):
-	var game: GameController = get_tree().current_scene
-	var current_node: Path2D
-	var goal: Path2D
-	for el in game.get_children():
-		if el is Path2D and el.position == position:
-			current_node = el
-		elif el is Path2D and el.position == city.position:
-			goal = el
-	var path = game.state.find_path(current_node, goal)
-	path_follow.set_path(path)
-	#agent.target_position = city.position
+	var start = player.routes.get_closest_point(position)
+	var target = player.routes.get_closest_point(city.get_city_position())
+	var points = player.routes.get_id_path(start, target, false)
+	var path = player.graph_to_path[points[0]][0]
+	var point = player.graph_to_path[points[0]][1]
+	var dir = path.get_point_direction(point)
+	if get_parent() != path:
+		reparent(path)

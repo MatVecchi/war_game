@@ -7,10 +7,18 @@
 [ext_resource type="Script" uid="uid://bfrcgnbxye7tf" path="res://scenes/Background.gd" id="5_iywne"]
 [ext_resource type="Script" uid="uid://dlbtk4vaoeyn1" path="res://scripts/Agent.gd" id="6_p57ef"]
 [ext_resource type="PackedScene" uid="uid://djc45rwgx51pp" path="res://scenes/city.tscn" id="7_gee14"]
+[ext_resource type="Script" uid="uid://cixhqyp3nwpac" path="res://scenes/Path.gd" id="8_gee14"]
 
 [sub_resource type="Curve2D" id="Curve2D_u5sy4"]
+bake_interval = 125.96
 _data = {
-"points": PackedVector2Array(0, 0, 0, 0, 255, -81, 0, 0, 0, 0, 176, -26, 0, 0, 0, 0, 57, -42)
+"points": PackedVector2Array(0, 0, 0, 0, 255, -81, 0, 0, 0, 0, 144, -22.000004, 0, 0, 0, 0, 57, -42)
+}
+point_count = 3
+
+[sub_resource type="Curve2D" id="Curve2D_0tnpc"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 164, -18, 0, 0, 0, 0, 132, 46, 0, 0, 0, 0, 43, 71)
 }
 point_count = 3
 
@@ -58,7 +66,10 @@ points = PackedVector2Array(-40, -9, -39, 8, -24, 9, -11, 27, 19, 34, 49, 17, 16
 closed = true
 width = 2.0
 
-[node name="Node2D" parent="Libia Occidentale/Tripoli" unique_id=1609441056 instance=ExtResource("7_gee14")]
+[node name="Node2D2" parent="Libia Occidentale/Tripoli" unique_id=1609441056 instance=ExtResource("7_gee14")]
+position = Vector2(57, -42)
+
+[node name="Node2D" parent="Libia Occidentale/Tripoli" unique_id=1902047853 instance=ExtResource("7_gee14")]
 position = Vector2(57, -42)
 
 [node name="Misurata" type="Area2D" parent="Libia Occidentale" unique_id=1312982784]
@@ -84,4 +95,10 @@ width = 2.0
 position = Vector2(268, -16)
 
 [node name="Path2D" type="Path2D" parent="." unique_id=1313636806]
+position = Vector2(21.999998, 4.000004)
 curve = SubResource("Curve2D_u5sy4")
+script = ExtResource("8_gee14")
+
+[node name="Path2D2" type="Path2D" parent="." unique_id=1394654464]
+curve = SubResource("Curve2D_0tnpc")
+script = ExtResource("8_gee14")
