@@ -3,12 +3,10 @@ extends Node
 class_name GameController
 
 var state: GameState
-var routes: AStar2D
 
 func _ready() -> void:
 	var polys = get_tree().get_nodes_in_group("provinces")
 	var agents = get_tree().get_nodes_in_group("players")
-	var paths = get_tree().get_nodes_in_group("paths")
 	var nodes: Array[Path2D]
 	var bg = get_tree().get_nodes_in_group("background")[0]
 	bg.clear_province.connect(clear_selection)
@@ -17,10 +15,6 @@ func _ready() -> void:
 		if el is Path2D:
 			nodes.append(el)
 	
-	var c := 0
-	for el in paths:
-		if el is not Path2D: continue
-		routes.add_point(c, el.curve.get_point_position(0), 1.0)
 			
 	
 	state = GameState.new(polys, agents, nodes)

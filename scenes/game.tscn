@@ -4,10 +4,10 @@
 [ext_resource type="Script" uid="uid://bw1jgwp6o3ijl" path="res://scripts/Camera.gd" id="1_uwrxv"]
 [ext_resource type="Texture2D" uid="uid://b11a0khss5o47" path="res://assets/sprites/1000_F_57037494_whUKX0C9VTjRbQ6G2fCvreHXKgIKt9Pf.jpg" id="2_yqjtg"]
 [ext_resource type="Script" uid="uid://dcghr7rghdhgv" path="res://scripts/Province.gd" id="3_lnu2h"]
-[ext_resource type="Script" uid="uid://bfrcgnbxye7tf" path="res://scenes/Background.gd" id="5_iywne"]
+[ext_resource type="Script" uid="uid://bfrcgnbxye7tf" path="res://Background.gd" id="5_iywne"]
 [ext_resource type="Script" uid="uid://dlbtk4vaoeyn1" path="res://scripts/Agent.gd" id="6_p57ef"]
 [ext_resource type="PackedScene" uid="uid://djc45rwgx51pp" path="res://scenes/city.tscn" id="7_gee14"]
-[ext_resource type="Script" uid="uid://cixhqyp3nwpac" path="res://scenes/Path.gd" id="8_gee14"]
+[ext_resource type="Script" uid="uid://cixhqyp3nwpac" path="res://scripts/Path.gd" id="8_gee14"]
 
 [sub_resource type="Curve2D" id="Curve2D_u5sy4"]
 bake_interval = 125.96

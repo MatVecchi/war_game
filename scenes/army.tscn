@@ -9,6 +9,7 @@
 
 [node name="Node2D" type="PathFollow2D" unique_id=994501494]
 rotates = false
+cubic_interp = false
 loop = false
 script = ExtResource("1_pimn7")
 

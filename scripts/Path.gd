@@ -25,7 +25,7 @@ func get_paths_points(idx: int):
 func get_point_direction(point: int):
 	if point == 0:
 		return -1
-	elif point == curve.point_count:
+	elif point == curve.point_count - 1:
 		return 1
 	return 0
 

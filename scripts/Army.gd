@@ -2,9 +2,10 @@ extends Node2D
 
 class_name Army
 
-var travelling: Province
+var travelling
+var nodes_travelled: int
 var direction: int
-const SPEED: int = 10
+const SPEED: float = 0.1
 
 @export var soldier_number: int
 @export var army_id: int
@@ -25,15 +26,17 @@ func _process(delta):
 	if travelling != null:
 		if (self.progress_ratio != 1.0 and direction == 1) or (self.progress_ratio != 0.0 and direction == -1):
 			self.progress += SPEED * direction
-		elif travelling.get_city_position() != position:
-			var next_path = get_parent().get_next_path(self)
-			reparent(next_path[0])
-			if get_parent().curve.get_point_position(next_path[1]) == get_parent().curve.get_point_position(0):
-				self.progress_ratio = 0.0
-				direction = 1
-			else:
-				self.progress_ratio = 1.0
-				direction = -1
+		else:
+			nodes_travelled += 1
+			if nodes_travelled == len(travelling):
+				travelling = null
+				return
+			var path = player.graph_to_path[travelling[nodes_travelled]][0]
+			var point = player.graph_to_path[travelling[nodes_travelled]][1]
+			var dir = path.get_point_direction(point)
+			if get_parent() != path:
+				reparent(path)
+			direction = dir
 	
 func order(city: Province):
 	var start = player.routes.get_closest_point(position)
@@ -44,3 +47,6 @@ func order(city: Province):
 	var dir = path.get_point_direction(point)
 	if get_parent() != path:
 		reparent(path)
+	direction = dir
+	travelling = points
+	nodes_travelled = 0

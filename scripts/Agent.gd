@@ -2,7 +2,7 @@ extends Node
 
 class_name Agent
 
-var routes: AStar2D
+var routes: AStar2D = AStar2D.new()
 var graph_to_path = []
 
 @export var color: Color
@@ -12,9 +12,10 @@ var graph_to_path = []
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	add_to_group("players")
+	await get_tree().process_frame
 	var paths = get_tree().get_nodes_in_group("paths")
 	var c := 0
-	var point_mapping = []
+	var point_mapping = {}
 	for el in paths:
 		if el is not Path2D: continue
 		routes.add_point(c, el.curve.get_point_position(0), 1.0)
@@ -22,7 +23,7 @@ func _ready() -> void:
 		routes.connect_points(c, c + 1, true)
 		graph_to_path.insert(c, [el, 0])
 		graph_to_path.insert(c + 1, [el, el.curve.point_count - 1])
-		point_mapping.insert(el, [c, c + 1])
+		point_mapping[el] = [c, c + 1]
 		c += 2
 		
 	for el in paths:
@@ -46,7 +47,7 @@ func _ready() -> void:
 				i = 1
 			routes.connect_points(point_mapping[el][1], point_mapping[s[0]][i], true)
 	
-	await get_tree().process_frame
+	
 	var game: GameController = get_tree().current_scene
 	var childrens = get_children()
 	var army_scene := preload("res://scenes/army.tscn")
@@ -69,7 +70,8 @@ func _ready() -> void:
 	
 	if len(armies) > 0:
 		for x in armies:
-			print(x.position)
+			#print(x.position)
+			pass
 		armies[0].order(game.state.provinces[1])
 	
 	'for el in get_children():
