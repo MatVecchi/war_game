@@ -3,8 +3,10 @@ extends Node
 class_name GameController
 
 var state: GameState
+@export var time_multiplier: float = 1.0
 
 func _ready() -> void:
+	Engine.time_scale = time_multiplier
 	var polys = get_tree().get_nodes_in_group("provinces")
 	var agents = get_tree().get_nodes_in_group("players")
 	var nodes: Array[Path2D]
@@ -110,3 +112,7 @@ class GameState:
 			u = prev[u]
 
 		return path
+
+
+func _on_global_timer_timeout() -> void:
+	pass

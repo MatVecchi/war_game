@@ -9,21 +9,24 @@
 [ext_resource type="PackedScene" uid="uid://djc45rwgx51pp" path="res://scenes/city.tscn" id="7_gee14"]
 [ext_resource type="Script" uid="uid://cixhqyp3nwpac" path="res://scripts/Path.gd" id="8_gee14"]
 
-[sub_resource type="Curve2D" id="Curve2D_u5sy4"]
-bake_interval = 125.96
+[sub_resource type="Curve2D" id="Curve2D_gee14"]
 _data = {
-"points": PackedVector2Array(0, 0, 0, 0, 255, -81, 0, 0, 0, 0, 144, -22.000004, 0, 0, 0, 0, 57, -42)
+"points": PackedVector2Array(0, 0, 0, 0, 166, -18, 0, 0, 0, 0, 57, -42)
 }
-point_count = 3
+point_count = 2
 
 [sub_resource type="Curve2D" id="Curve2D_0tnpc"]
 _data = {
-"points": PackedVector2Array(0, 0, 0, 0, 164, -18, 0, 0, 0, 0, 132, 46, 0, 0, 0, 0, 43, 71)
+"points": PackedVector2Array(0, 0, 0, 0, 166, -18, 0, 0, 0, 0, 255, -81)
 }
-point_count = 3
+point_count = 2
 
 [node name="Game" type="Node2D" unique_id=63633635]
 script = ExtResource("1_lbhrr")
+time_multiplier = 100.0
+
+[node name="GlobalTimer" type="Timer" parent="." unique_id=1661397854]
+autostart = true
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=337608158]
 position = Vector2(2, 0)
@@ -39,6 +42,7 @@ texture = ExtResource("2_yqjtg")
 script = ExtResource("5_iywne")
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Background" unique_id=1046095186]
+position = Vector2(37, -45)
 polygon = PackedVector2Array(-2805, 1779, 2665, 1779, 2665, -1825, -2805, -1825)
 
 [node name="Libia Orientale" type="Node2D" parent="." unique_id=90512913]
@@ -66,9 +70,6 @@ points = PackedVector2Array(-40, -9, -39, 8, -24, 9, -11, 27, 19, 34, 49, 17, 16
 closed = true
 width = 2.0
 
-[node name="Node2D2" parent="Libia Occidentale/Tripoli" unique_id=1609441056 instance=ExtResource("7_gee14")]
-position = Vector2(57, -42)
-
 [node name="Node2D" parent="Libia Occidentale/Tripoli" unique_id=1902047853 instance=ExtResource("7_gee14")]
 position = Vector2(57, -42)
 
@@ -94,11 +95,12 @@ width = 2.0
 [node name="Node2D" parent="Libia Occidentale/Misurata" unique_id=1043360061 instance=ExtResource("7_gee14")]
 position = Vector2(268, -16)
 
-[node name="Path2D" type="Path2D" parent="." unique_id=1313636806]
-position = Vector2(21.999998, 4.000004)
-curve = SubResource("Curve2D_u5sy4")
+[node name="Path2D2" type="Path2D" parent="." unique_id=1394654464]
+curve = SubResource("Curve2D_gee14")
 script = ExtResource("8_gee14")
 
-[node name="Path2D2" type="Path2D" parent="." unique_id=1394654464]
+[node name="Path2D3" type="Path2D" parent="." unique_id=10208583]
 curve = SubResource("Curve2D_0tnpc")
 script = ExtResource("8_gee14")
+
+[connection signal="timeout" from="GlobalTimer" to="." method="_on_global_timer_timeout"]

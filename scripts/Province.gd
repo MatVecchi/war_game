@@ -2,6 +2,7 @@ extends Area2D
 
 class_name Province
 
+var timer: Timer
 @export var province_id: int
 @export var province_name: String
 @export var province_material: Enums.Resources
@@ -15,6 +16,8 @@ signal province_clicked(id)
 
 func _ready():
 	add_to_group("provinces")
+	timer = get_node("/root/Game/GlobalTimer")
+	timer.timeout.connect(_on_global_timer_timeout)
 	connect("input_event", Callable(self, "_on_input_event"))
 	fill.modulate = get_parent().color
 
@@ -27,6 +30,9 @@ func _on_input_event(_viewport, _event, _shape_idx):
 	if Input.is_action_just_released("select_province") and not get_viewport().get_camera_2d().dragged:
 		emit_signal("province_clicked", province_id)
 		get_viewport().set_input_as_handled()
+		
+func _on_global_timer_timeout():
+	pass
 		
 func get_city_position():
 	return $Node2D.global_position
