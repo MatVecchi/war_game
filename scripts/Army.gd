@@ -3,20 +3,24 @@ extends Node2D
 class_name Army
 
 
-var travelling
+var travelling: bool = false
+var path
 var nodes_travelled: int
 var direction: int
 var timer: Timer
+var day_timer: Timer
 var death_count: int = 0
 var rng: RandomNumberGenerator = RandomNumberGenerator.new()
+var day_battle: bool = false
+var province_location: Province
 const SPEED: float = 1.0
-const ATTACK_TIME: float = 60_000.0
-const LIFE_PER_UNIT: float = 10.0
-const ATTACK_PER_UNIT: float = 8.0
-const DEFENSE_PER_UNIT: float = 12.0 
+const ATTACK_TIME: float = 60.0
+const LIFE_PER_UNIT: float = 20.0
+const ATTACK_PER_UNIT: float = 4.0
+const DEFENSE_PER_UNIT: float = 5.0 
 
 @export var soldier_number: int
-@export var life_points: float = 100.0
+@export var life_points: float
 @export var army_id: int
 @export var player: Agent
 
@@ -26,10 +30,17 @@ func _ready() -> void:
 	$Area2D.area_entered.connect(_on_area_entered)
 	timer = get_node("/root/Game/GlobalTimer")
 	timer.timeout.connect(_on_global_timer_timeout)
+	day_timer = get_node("/root/Game/GlobalDayTimer")
+	day_timer.timeout.connect(_on_global_day_timer_timeout)
+	
+	var provinces = get_tree().get_nodes_in_group("provinces")
+	for el in provinces:
+		if el is not Province: continue
+		el.area_entered.connect(_on_province_entered)
 	
 func _draw() -> void:
 	$Control/Label.text = str(soldier_number)
-	$Control/ProgressBar.value = life_points/100*(soldier_number*LIFE_PER_UNIT)
+	$Control/ProgressBar.value = life_points*100/((soldier_number+death_count)*LIFE_PER_UNIT)
 	
 func _input(_event):
 	if Input.is_action_just_pressed("camera_zoom_in") or Input.is_action_just_pressed("camera_zoom_out"):
@@ -44,30 +55,36 @@ func _on_friendly_collision(other: Army):
 		other.merge_armies(self)
 
 func _on_enemy_collision(other: Army):
-	if travelling == null: return
-	travelling = null
-	if other.travelling == null:
+	if not travelling: return
+	travelling = false
+	if not other.travelling:
 		begin_attack(other)
 	else:
 		begin_attack(other)
 		other.begin_attack(self)
 		
 func _on_global_timer_timeout():
-	if travelling != null:
+	if travelling:
 		if (self.progress_ratio != 1.0 and direction == 1) or (self.progress_ratio != 0.0 and direction == -1):
 			self.progress += SPEED * direction
 		else:
 			nodes_travelled += 1
-			if nodes_travelled == len(travelling):
-				travelling = null
+			if nodes_travelled == len(path):
+				travelling = false
 				return
-			var path = player.graph_to_path[travelling[nodes_travelled]][0]
-			var point = player.graph_to_path[travelling[nodes_travelled]][1]
-			var dir = path.get_point_direction(point)
-			if get_parent() != path:
-				reparent(path)
+			var new_path = player.graph_to_path[path[nodes_travelled]][0]
+			var point = player.graph_to_path[path[nodes_travelled]][1]
+			var dir = new_path.get_point_direction(point)
+			if get_parent() != new_path:
+				reparent(new_path)
 			direction = dir
 			
+func _on_global_day_timer_timeout():
+	if day_battle: 
+		day_battle = false
+		return
+	
+	life_points += 10
 func _process(_delta):
 	pass
 	
@@ -79,8 +96,51 @@ func _on_area_entered(area):
 		else:
 			_on_enemy_collision(other)
 			
+func _on_province_entered(el: Province):
+	print("new province ", el)
+	province_location = el
+			
 func _on_battle_timer_timeout(other: Army, battle_timer: Timer):
-	print("attacking...", other, battle_timer)
+	var casual_attacker_multiplier: float = rng.randf_range(0.5, 1.5)
+	var casual_defender_multiplier: float = rng.randf_range(0.5, 1.5)
+	var attacker_strength: float = (soldier_number*ATTACK_PER_UNIT)*life_points/(soldier_number*LIFE_PER_UNIT)
+	var defener_strength: float = (other.soldier_number*other.DEFENSE_PER_UNIT)*other.life_points/(other.soldier_number*other.LIFE_PER_UNIT)
+	var final_attack: float = attacker_strength * casual_attacker_multiplier
+	var final_defense: float = defener_strength * casual_defender_multiplier
+	
+	print("DEFENSE: ", final_defense, " ATTACK: ", final_attack)
+	
+	
+	life_points -= final_defense
+	other.life_points -= final_attack
+	
+	soldier_number -= int(final_defense / LIFE_PER_UNIT)
+	other.soldier_number -= int(final_attack / other.LIFE_PER_UNIT)
+	
+	death_count += int(final_defense / LIFE_PER_UNIT)
+	other.death_count += int(final_attack / other.LIFE_PER_UNIT)
+
+	var battle_finished: bool = false
+	if other.soldier_number <= 0 or other.life_points <= 0:
+		other.queue_free()
+		battle_finished = true
+	else:
+		other.queue_redraw()
+	
+	if (soldier_number <= 0 or life_points <= 0) and not battle_finished:
+		queue_free()
+		battle_finished = true
+	else:
+		queue_redraw()
+	
+	if battle_finished:
+		battle_timer.stop()
+		travelling = true
+	else:
+		battle_timer.start()
+		
+func _get_morale_percentage():
+	return life_points/((soldier_number+death_count)*LIFE_PER_UNIT)*100
 
 func begin_attack(other: Army):
 	var battle_timer := Timer.new()
@@ -88,7 +148,10 @@ func begin_attack(other: Army):
 	battle_timer.one_shot = true
 	battle_timer.timeout.connect(_on_battle_timer_timeout.bind(other, battle_timer))
 	add_child(battle_timer)
+	_on_battle_timer_timeout(other, battle_timer)
 	battle_timer.start()
+	day_battle = true
+	other.day_battle = true
 
 	
 func merge_armies(other: Army):
@@ -102,11 +165,14 @@ func order(city: Province):
 	var target = player.routes.get_closest_point(city.get_city_position())
 	var points = player.routes.get_id_path(start, target, false)
 	print(player.graph_to_path, "------", points, "--------", start, "----------", target, "-----------", player.routes)
-	var path = player.graph_to_path[points[0]][0]
+	var new_path = player.graph_to_path[points[0]][0]
 	var point = player.graph_to_path[points[0]][1]
-	var dir = path.get_point_direction(point)
+	var dir = new_path.get_point_direction(point)
 	if get_parent() != path:
-		reparent(path)
+		reparent(new_path)
+	print("pg ", self.progress_ratio)
+	self.progress_ratio = 1.0
 	direction = dir
-	travelling = points
+	travelling = true
+	path = points
 	nodes_travelled = 0

@@ -4,6 +4,10 @@ class_name Agent
 
 var routes: AStar2D = AStar2D.new()
 var graph_to_path = []
+var resources: Dictionary[Enums.Resources, int] = {
+	Enums.Resources.WOOD: 0,
+	Enums.Resources.IRON: 0
+}
 
 @export var color: Color
 @export var armies: Array[Army]
@@ -55,6 +59,8 @@ func _ready() -> void:
 		var army: Army = army_scene.instantiate()
 		army.army_id = i
 		army.soldier_number = 10
+		army.life_points = army.LIFE_PER_UNIT * 10 * (float(childrens[i].province_morale)/100)
+		print("ARMY: ", army.LIFE_PER_UNIT, " ", childrens[i].province_morale, " ", army.life_points)
 		army.player = self
 		
 		armies.append(army)
@@ -63,7 +69,6 @@ func _ready() -> void:
 				if el is Path2D:
 					var count = el.curve.point_count
 					for j in range(count):
-						print(el.curve.get_point_position(j), childrens[i].get_city_position())
 						if el.curve.get_point_position(j) == childrens[i].get_city_position():
 							el.add_child(army)
 			game.state.add_army_to_province(childrens[i], army)

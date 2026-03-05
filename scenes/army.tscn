@@ -70,7 +70,6 @@ offset_top = 5.0
 offset_right = 56.0
 offset_bottom = 32.0
 value = 100.0
-show_percentage = false
 
 [node name="Area2D" type="Area2D" parent="." unique_id=103693119]
 

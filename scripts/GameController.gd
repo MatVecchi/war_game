@@ -57,7 +57,7 @@ class GameState:
 		
 	func conquer_province(province: Province, agent: Agent):
 		province.reparent(agent)
-		province.fill.modulate = agent.color
+		province.fill.color = agent.color
 		province.province_morale = 20
 		
 	func select_province(id: int):
@@ -76,43 +76,10 @@ class GameState:
 			army = army_scene.instantiate()
 			army.army_id = 0
 			army.soldier_number = 10
+			army.life_points = army.LIFE_PER_UNIT * 10 * (float(province.province_morale)/100)
 			agent.armies.append(army)
 			agent.add_child(army)
 		army.position = province.get_node("Node2D").global_position
-		
-	func find_path(start: Path2D, goal: Path2D) -> Array:
-		var dist = {}
-		var prev = {}
-		var queue = []
-	
-		for node in all_nodes:
-			dist[node] = INF
-			prev[node] = null
-			queue.append(node)
-
-		dist[start] = 0
-
-		while queue.size() > 0:
-			queue.sort_custom(func(a, b): return dist[a] < dist[b])
-			var u = queue.pop_front()
-	
-			if u == goal:
-				break
-
-			for v in u.neighbors:
-				var alt = dist[u] + u.position.distance_to(v.position)
-				if alt < dist[v]:
-					dist[v] = alt
-					prev[v] = u
-
-		var path = []
-		var u = goal
-		while u != null:
-			path.push_front(u)
-			u = prev[u]
-
-		return path
-
 
 func _on_global_timer_timeout() -> void:
 	pass
