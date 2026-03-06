@@ -8,11 +8,18 @@ var day_timer: Timer
 @export var province_name: String
 @export var province_material: Enums.Resources
 @export var double_material: bool
+@export var is_capital: bool
 
 @onready var fill := $Polygon2D
 var selected: bool
 var province_morale: int = 70
 var target_morale: int = 100
+var MATERIAL_TEXTURES := {
+	Enums.ResourcesSprites.WOOD: preload("res://assets/sprites/resources/wood.png"),
+	Enums.ResourcesSprites.WOOD_DOUBLE: preload("res://assets/sprites/resources/wood_double.png"),
+	Enums.ResourcesSprites.IRON: preload("res://assets/sprites/resources/iron.png"),
+	Enums.ResourcesSprites.IRON_DOUBLE: preload("res://assets/sprites/resources/iron_double.png")
+}
 
 signal province_clicked(id)
 
@@ -23,10 +30,11 @@ func _ready():
 	day_timer = get_node("/root/Game/GlobalDayTimer")
 	day_timer.timeout.connect(_on_global_day_timer_timeout)
 	fill.color = get_parent().color
-	
+	$Control/VBoxContainer/HBoxContainer/TextureRect.texture = MATERIAL_TEXTURES[_get_sprite_key()]
+
 func _draw():
-	$Control/ResourceCount.text = str(_get_resource_count())
-	$Control/ProvinceName.text = province_name + ": " + str(province_morale) + "%"
+	$Control/VBoxContainer/HBoxContainer/ResourceCount.text = str(_get_resource_count())
+	$Control/VBoxContainer/ProvinceName.text = province_name + ": " + str(province_morale) + "%"
 	
 func _input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion: return
@@ -63,6 +71,15 @@ func _get_total_morale_penalties():
 	
 func _get_total_morale_bonuses():
 	return 0
+	
+func _get_sprite_key():
+	match province_material:
+		Enums.Resources.WOOD:
+			return Enums.ResourcesSprites.WOOD_DOUBLE if double_material else Enums.ResourcesSprites.WOOD
+
+		Enums.Resources.IRON:
+			return Enums.ResourcesSprites.IRON_DOUBLE if double_material else Enums.ResourcesSprites.IRON
+
 		
 func get_city_position():
 	return $Node2D.global_position

@@ -21,6 +21,10 @@ func _ready() -> void:
 	
 	state = GameState.new(polys, agents, nodes)
 	#state.conquer_province(get_node("Libia Occidentale/Tripoli"), get_node("Libia Orientale"))
+	
+func conquer_province(province: Province, agent: Agent):
+	if not state: return
+	state.conquer_province(province, agent)
 
 func _process(_delta: float) -> void:
 	pass

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b7voob34r7306"
-path="res://.godot/imported/dot_selected.png-f44db151677a2ab101364bbd049fdaac.ctex"
+uid="uid://p5ftbsrqf8wx"
+path="res://.godot/imported/grain_double.png-5df440268f91f60b63530dc14b0da3f8.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/dot_selected.png"
-dest_files=["res://.godot/imported/dot_selected.png-f44db151677a2ab101364bbd049fdaac.ctex"]
+source_file="res://assets/sprites/resources/grain_double.png"
+dest_files=["res://.godot/imported/grain_double.png-5df440268f91f60b63530dc14b0da3f8.ctex"]
 
 [params]
 

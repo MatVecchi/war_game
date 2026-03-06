@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://yvfjm5yhlcvf" path="res://scripts/GameController.gd" id="1_lbhrr"]
 [ext_resource type="Script" uid="uid://bw1jgwp6o3ijl" path="res://scripts/Camera.gd" id="1_uwrxv"]
-[ext_resource type="Texture2D" uid="uid://b11a0khss5o47" path="res://assets/sprites/1000_F_57037494_whUKX0C9VTjRbQ6G2fCvreHXKgIKt9Pf.jpg" id="2_yqjtg"]
+[ext_resource type="Texture2D" uid="uid://b11a0khss5o47" path="res://assets/sprites/map/1000_F_57037494_whUKX0C9VTjRbQ6G2fCvreHXKgIKt9Pf.jpg" id="2_yqjtg"]
 [ext_resource type="Script" uid="uid://dcghr7rghdhgv" path="res://scripts/Province.gd" id="3_lnu2h"]
 [ext_resource type="Script" uid="uid://bfrcgnbxye7tf" path="res://Background.gd" id="5_iywne"]
 [ext_resource type="Script" uid="uid://dlbtk4vaoeyn1" path="res://scripts/Agent.gd" id="6_p57ef"]
@@ -61,15 +61,17 @@ color = Color(0.27883837, 0.6887509, 0.4863233, 1)
 
 [node name="Misurata" type="Area2D" parent="Libia Orientale" unique_id=1312982784]
 position = Vector2(-13, -65)
+collision_mask = 3
 script = ExtResource("3_lnu2h")
 province_id = 1
 province_name = "Misurata"
 province_material = 1
 double_material = true
+is_capital = true
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Libia Orientale/Misurata" unique_id=1033763293]
-position = Vector2(13, 65)
-polygon = PackedVector2Array(181, 80, 186, 47, 356, 46, 352, 37, 338, 31, 342, 15, 314, -38, 286, -73, 289, -80, 315, -46, 320, -47, 321, -72, 318, -87, 309, -104, 295, -104, 276, -102, 274, -108, 252, -108, 240, -96, 173, -118)
+position = Vector2(272.63, 21.692585)
+polygon = PackedVector2Array(-78.630005, 123.30742, -73.630005, 90.30742, 96.369995, 89.30742, 92.369995, 80.30742, 78.369995, 74.30742, 82.369995, 58.307415, 54.369995, 5.307415, 26.369995, -29.692585, 29.369995, -36.692585, 55.369995, -2.692585, 60.369995, -3.692585, 61.369995, -28.692585, 58.369995, -43.692585, 49.369995, -60.692585, 35.369995, -60.692585, 16.369995, -58.692585, 14.369995, -64.69258, -7.630005, -64.69258, -19.630005, -52.692585, -86.630005, -74.69258)
 
 [node name="Polygon2D" type="Polygon2D" parent="Libia Orientale/Misurata" unique_id=830984052]
 position = Vector2(249, 109)
@@ -85,38 +87,49 @@ width = 2.0
 [node name="Node2D" parent="Libia Orientale/Misurata" unique_id=1043360061 instance=ExtResource("7_gee14")]
 position = Vector2(268, -16)
 
-[node name="Control" type="Control" parent="Libia Orientale/Misurata" unique_id=1483792696]
+[node name="Control" type="Control" parent="Libia Orientale/Misurata" unique_id=1518988679]
 layout_mode = 3
 anchors_preset = 0
-offset_left = 248.0
-offset_top = 16.0
-offset_right = 288.0
-offset_bottom = 56.0
-pivot_offset = Vector2(20.035, 20.035)
+offset_left = 248.43
+offset_top = -10.435
+offset_right = 288.42938
+offset_bottom = 29.564999
+pivot_offset = Vector2(19.865, 0)
 
-[node name="ProvinceName" type="Label" parent="Libia Orientale/Misurata/Control" unique_id=639773053]
-layout_mode = 0
-offset_left = -36.0
-offset_top = -18.0
-offset_right = 4.0
-offset_bottom = 5.0
+[node name="VBoxContainer" type="VBoxContainer" parent="Libia Orientale/Misurata/Control" unique_id=1652751737]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.25
+offset_right = 0.00061035156
+offset_bottom = -10.0
+alignment = 1
 
-[node name="ResourceCount" type="Label" parent="Libia Orientale/Misurata/Control" unique_id=2139704394]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 23.0
+[node name="ProvinceName" type="Label" parent="Libia Orientale/Misurata/Control/VBoxContainer" unique_id=702623429]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Libia Orientale/Misurata/Control/VBoxContainer" unique_id=760359738]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="Libia Orientale/Misurata/Control/VBoxContainer/HBoxContainer" unique_id=1328971668]
+layout_mode = 2
+
+[node name="ResourceCount" type="Label" parent="Libia Orientale/Misurata/Control/VBoxContainer/HBoxContainer" unique_id=660410485]
+layout_mode = 2
 
 [node name="Libia Occidentale" type="Node2D" parent="." unique_id=194198678]
 script = ExtResource("6_p57ef")
 color = Color(0.9235921, 0.40204707, 0.46211284, 1)
 
 [node name="Tripoli" type="Area2D" parent="Libia Occidentale" unique_id=911611962]
+collision_mask = 3
 script = ExtResource("3_lnu2h")
 province_name = "Tripoli"
+is_capital = true
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Libia Occidentale/Tripoli" unique_id=453143359]
-position = Vector2(-2, 2)
-polygon = PackedVector2Array(-41, -33, -48, -25, -38, -11, -37, 6, -23, 7, -9, 25, 21, 32, 51, 15, 169, 79, 183, 77, 175, -120, 150, -121, 144, -131, 115, -131, 101, -120, 104, -103, 92, -81, 68, -102, 44, -103, 32, -126, -19, -133, -18, -121, -39, -106, -35, -97, -49, -85, -43, -76)
+position = Vector2(30.439941, -59.28952)
+polygon = PackedVector2Array(-73.43994, 28.28952, -80.43994, 36.28952, -70.43994, 50.28952, -69.43994, 67.28952, -55.43994, 68.28952, -41.43994, 86.28952, -11.439941, 93.28952, 18.560059, 76.28952, 136.56006, 140.28952, 150.56006, 138.28952, 142.56006, -58.71048, 117.56006, -59.71048, 111.56006, -69.71048, 82.56006, -69.71048, 68.56006, -58.71048, 71.56006, -41.71048, 59.56006, -19.71048, 35.56006, -40.71048, 11.560059, -41.71048, -0.4399414, -64.71048, -51.43994, -71.71048, -50.43994, -59.71048, -71.43994, -44.71048, -67.43994, -35.71048, -81.43994, -23.71048, -75.43994, -14.71048)
 
 [node name="Polygon2D" type="Polygon2D" parent="Libia Occidentale/Tripoli" unique_id=1453118690]
 position = Vector2(-2, 2)
@@ -136,22 +149,30 @@ position = Vector2(57, -42)
 layout_mode = 3
 anchors_preset = 0
 offset_left = 36.0
-offset_top = -16.0
+offset_top = -35.77
 offset_right = 76.0
-offset_bottom = 24.0
+offset_bottom = 4.2299995
 pivot_offset = Vector2(19.865, 0)
 
-[node name="ProvinceName" type="Label" parent="Libia Occidentale/Tripoli/Control" unique_id=1078317351]
-layout_mode = 0
-offset_left = -29.0
-offset_top = -18.0
-offset_right = 11.0
-offset_bottom = 5.0
+[node name="VBoxContainer" type="VBoxContainer" parent="Libia Occidentale/Tripoli/Control" unique_id=1949060521]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.25
+offset_bottom = -10.0
+alignment = 1
 
-[node name="ResourceCount" type="Label" parent="Libia Occidentale/Tripoli/Control" unique_id=1705702435]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 23.0
+[node name="ProvinceName" type="Label" parent="Libia Occidentale/Tripoli/Control/VBoxContainer" unique_id=1078317351]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Libia Occidentale/Tripoli/Control/VBoxContainer" unique_id=2054846573]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="Libia Occidentale/Tripoli/Control/VBoxContainer/HBoxContainer" unique_id=1533157772]
+layout_mode = 2
+
+[node name="ResourceCount" type="Label" parent="Libia Occidentale/Tripoli/Control/VBoxContainer/HBoxContainer" unique_id=1705702435]
+layout_mode = 2
 
 [node name="Path2D2" type="Path2D" parent="." unique_id=1394654464]
 curve = SubResource("Curve2D_gee14")

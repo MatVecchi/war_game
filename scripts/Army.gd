@@ -33,11 +33,6 @@ func _ready() -> void:
 	day_timer = get_node("/root/Game/GlobalDayTimer")
 	day_timer.timeout.connect(_on_global_day_timer_timeout)
 	
-	var provinces = get_tree().get_nodes_in_group("provinces")
-	for el in provinces:
-		if el is not Province: continue
-		el.area_entered.connect(_on_province_entered)
-	
 func _draw() -> void:
 	$Control/Label.text = str(soldier_number)
 	$Control/ProgressBar.value = life_points*100/((soldier_number+death_count)*LIFE_PER_UNIT)
@@ -72,6 +67,7 @@ func _on_global_timer_timeout():
 			nodes_travelled += 1
 			if nodes_travelled == len(path):
 				travelling = false
+				_on_destination_reached()
 				return
 			var new_path = player.graph_to_path[path[nodes_travelled]][0]
 			var point = player.graph_to_path[path[nodes_travelled]][1]
@@ -80,6 +76,12 @@ func _on_global_timer_timeout():
 				reparent(new_path)
 			direction = dir
 			
+func _on_destination_reached():
+	if province_location == null: return
+	if province_location.get_parent() != player:
+		var game: GameController = get_tree().current_scene
+		game.conquer_province(province_location, player)
+
 func _on_global_day_timer_timeout():
 	if day_battle: 
 		day_battle = false
@@ -90,16 +92,15 @@ func _process(_delta):
 	pass
 	
 func _on_area_entered(area):
+	if area is Province:
+		print("new province ", area.get_parent().name, " ", self)
+		province_location = area
 	var other = area.get_parent()
 	if other is Army:
 		if player == other.player:
 			_on_friendly_collision(other)
 		else:
 			_on_enemy_collision(other)
-			
-func _on_province_entered(el: Province):
-	print("new province ", el)
-	province_location = el
 			
 func _on_battle_timer_timeout(other: Army, battle_timer: Timer):
 	var casual_attacker_multiplier: float = rng.randf_range(0.5, 1.5)
@@ -109,7 +110,7 @@ func _on_battle_timer_timeout(other: Army, battle_timer: Timer):
 	var final_attack: float = attacker_strength * casual_attacker_multiplier
 	var final_defense: float = defener_strength * casual_defender_multiplier
 	
-	print("DEFENSE: ", final_defense, " ATTACK: ", final_attack)
+	#print("DEFENSE: ", final_defense, " ATTACK: ", final_attack)
 	
 	
 	life_points -= final_defense
@@ -165,13 +166,13 @@ func order(city: Province):
 	var start = player.routes.get_closest_point(position)
 	var target = player.routes.get_closest_point(city.get_city_position())
 	var points = player.routes.get_id_path(start, target, false)
-	print(player.graph_to_path, "------", points, "--------", start, "----------", target, "-----------", player.routes)
+	#print(player.graph_to_path, "------", points, "--------", start, "----------", target, "-----------", player.routes)
 	var new_path = player.graph_to_path[points[0]][0]
 	var point = player.graph_to_path[points[0]][1]
 	var dir = new_path.get_point_direction(point)
 	if get_parent() != path:
 		reparent(new_path)
-	print("pg ", self.progress_ratio)
+	#print("pg ", self.progress_ratio)
 	self.progress_ratio = 1.0
 	direction = dir
 	travelling = true
