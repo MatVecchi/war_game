@@ -22,18 +22,20 @@ func _ready():
 	timer.timeout.connect(_on_global_timer_timeout)
 	day_timer = get_node("/root/Game/GlobalDayTimer")
 	day_timer.timeout.connect(_on_global_day_timer_timeout)
-	connect("input_event", Callable(self, "_on_input_event"))
 	fill.color = get_parent().color
 	
 func _draw():
 	$Control/ResourceCount.text = str(_get_resource_count())
 	$Control/ProvinceName.text = province_name + ": " + str(province_morale) + "%"
-
-func _on_input_event(_viewport, _event, _shape_idx):
-	if _event is InputEventMouseMotion: return
+	
+func _input(event: InputEvent) -> void:
+	if event is InputEventMouseMotion: return
 	if Input.is_action_just_released("select_province") and not get_viewport().get_camera_2d().dragged:
 		emit_signal("province_clicked", province_id)
 		get_viewport().set_input_as_handled()
+		
+	if Input.is_action_just_pressed("camera_zoom_in") or Input.is_action_just_pressed("camera_zoom_out"):
+		$Control.scale = Vector2(1,1)/get_viewport().get_camera_2d().zoom
 		
 func _on_global_timer_timeout():
 	var agent = get_parent()

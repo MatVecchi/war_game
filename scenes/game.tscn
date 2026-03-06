@@ -92,6 +92,7 @@ offset_left = 248.0
 offset_top = 16.0
 offset_right = 288.0
 offset_bottom = 56.0
+pivot_offset = Vector2(20.035, 20.035)
 
 [node name="ProvinceName" type="Label" parent="Libia Orientale/Misurata/Control" unique_id=639773053]
 layout_mode = 0
@@ -138,6 +139,7 @@ offset_left = 36.0
 offset_top = -16.0
 offset_right = 76.0
 offset_bottom = 24.0
+pivot_offset = Vector2(19.865, 0)
 
 [node name="ProvinceName" type="Label" parent="Libia Occidentale/Tripoli/Control" unique_id=1078317351]
 layout_mode = 0

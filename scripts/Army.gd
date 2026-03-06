@@ -47,10 +47,11 @@ func _input(_event):
 		$Control.scale = Vector2(1,1)/get_viewport().get_camera_2d().zoom
 
 func _on_friendly_collision(other: Army):
-	if travelling == null or other.travelling != null: return
-	if nodes_travelled < len(travelling) - 1: return
+	if not travelling or other.travelling: return
+	if nodes_travelled < len(path) - 1: return
 	
 	var path_points = get_parent().curve
+	
 	if direction == 1 and path_points.get_point_position(path_points.point_count - 1) == other.position:
 		other.merge_armies(self)
 
