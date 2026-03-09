@@ -69,6 +69,9 @@ func _on_global_timer_timeout():
 				travelling = false
 				_on_destination_reached()
 				return
+			if province_location != null and province_location.get_parent() != player and province_location.get_city_position() == position:
+				var game: GameController = get_tree().current_scene
+				game.conquer_province(province_location, player)
 			var new_path = player.graph_to_path[path[nodes_travelled]][0]
 			var point = player.graph_to_path[path[nodes_travelled]][1]
 			var dir = new_path.get_point_direction(point)
@@ -166,13 +169,11 @@ func order(city: Province):
 	var start = player.routes.get_closest_point(position)
 	var target = player.routes.get_closest_point(city.get_city_position())
 	var points = player.routes.get_id_path(start, target, false)
-	#print(player.graph_to_path, "------", points, "--------", start, "----------", target, "-----------", player.routes)
 	var new_path = player.graph_to_path[points[0]][0]
 	var point = player.graph_to_path[points[0]][1]
 	var dir = new_path.get_point_direction(point)
 	if get_parent() != path:
 		reparent(new_path)
-	#print("pg ", self.progress_ratio)
 	self.progress_ratio = 1.0
 	direction = dir
 	travelling = true

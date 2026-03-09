@@ -4,6 +4,7 @@ class_name Province
 
 var timer: Timer
 var day_timer: Timer
+var rng: RandomNumberGenerator = RandomNumberGenerator.new()
 @export var province_id: int
 @export var province_name: String
 @export var province_material: Enums.Resources
@@ -55,8 +56,12 @@ func _on_global_timer_timeout():
 func _on_global_day_timer_timeout():
 	var delta: float = target_morale - province_morale
 	if delta == 0: return
-	
-	province_morale += ceil(delta/100 * 15)
+	var adding: int = ceil(delta/100 * 15)
+	if adding < 3:
+		province_morale += adding
+	else:
+		var adding2: int = rng.randi_range(-3, 3)
+		province_morale += adding + adding2
 	queue_redraw()
 	
 func _get_resource_count():

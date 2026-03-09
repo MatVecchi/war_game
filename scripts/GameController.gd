@@ -62,7 +62,7 @@ class GameState:
 	func conquer_province(province: Province, agent: Agent):
 		province.reparent(agent)
 		province.fill.color = agent.color
-		province.province_morale = 20
+		province.province_morale = 12
 		
 	func select_province(id: int):
 		if get_province_selected() != null && get_province_selected().province_id != id:
