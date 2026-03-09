@@ -4,20 +4,32 @@
 [ext_resource type="Script" uid="uid://bw1jgwp6o3ijl" path="res://scripts/Camera.gd" id="1_uwrxv"]
 [ext_resource type="Texture2D" uid="uid://b11a0khss5o47" path="res://assets/sprites/map/1000_F_57037494_whUKX0C9VTjRbQ6G2fCvreHXKgIKt9Pf.jpg" id="2_yqjtg"]
 [ext_resource type="Script" uid="uid://dcghr7rghdhgv" path="res://scripts/Province.gd" id="3_lnu2h"]
-[ext_resource type="Script" uid="uid://bfrcgnbxye7tf" path="res://Background.gd" id="5_iywne"]
+[ext_resource type="Script" uid="uid://bfrcgnbxye7tf" path="res://scripts/Background.gd" id="5_iywne"]
 [ext_resource type="Script" uid="uid://dlbtk4vaoeyn1" path="res://scripts/Agent.gd" id="6_p57ef"]
 [ext_resource type="PackedScene" uid="uid://djc45rwgx51pp" path="res://scenes/city.tscn" id="7_gee14"]
 [ext_resource type="Script" uid="uid://cixhqyp3nwpac" path="res://scripts/Path.gd" id="8_gee14"]
 
+[sub_resource type="Curve2D" id="Curve2D_kvpfn"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 188, 89, 0, 0, 0, 0, 255, -81)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_vtaks"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 125, 47, 0, 0, 0, 0, 125, 85, 0, 0, 0, 0, 188, 89)
+}
+point_count = 3
+
 [sub_resource type="Curve2D" id="Curve2D_gee14"]
 _data = {
-"points": PackedVector2Array(0, 0, 0, 0, 166, -18, 0, 0, 0, 0, 57, -42)
+"points": PackedVector2Array(0, 0, 0, 0, 114, -9, 0, 0, 0, 0, 120, 20)
 }
 point_count = 2
 
 [sub_resource type="Curve2D" id="Curve2D_0tnpc"]
 _data = {
-"points": PackedVector2Array(0, 0, 0, 0, 166, -18, 0, 0, 0, 0, 255, -81)
+"points": PackedVector2Array(0, 0, 0, 0, 114, -9, 0, 0, 0, 0, 255, -81)
 }
 point_count = 2
 
@@ -37,12 +49,8 @@ position = Vector2(2, 0)
 position_smoothing_speed = 10.0
 script = ExtResource("1_uwrxv")
 
-[node name="map" type="Sprite2D" parent="." unique_id=410008263]
-position = Vector2(-70, -23)
-scale = Vector2(5.47, 5.47)
-texture = ExtResource("2_yqjtg")
-
 [node name="Background" type="Area2D" parent="." unique_id=553132931]
+collision_mask = 3
 script = ExtResource("5_iywne")
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Background" unique_id=1046095186]
@@ -55,8 +63,14 @@ position = Vector2(-36, 44)
 color = Color(0, 0.5219081, 0.521995, 1)
 polygon = PackedVector2Array(-2769, -1870, -2768, 1734, 2702, 1734, 2702, -1870)
 
+[node name="map" type="Sprite2D" parent="." unique_id=410008263]
+position = Vector2(-70, -23)
+scale = Vector2(5.47, 5.47)
+texture = ExtResource("2_yqjtg")
+
 [node name="Libia Orientale" type="Node2D" parent="." unique_id=90512913]
 script = ExtResource("6_p57ef")
+player_name = "Libia Orientale"
 color = Color(0.27883837, 0.6887509, 0.4863233, 1)
 
 [node name="Misurata" type="Area2D" parent="Libia Orientale" unique_id=1312982784]
@@ -71,7 +85,7 @@ is_capital = true
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Libia Orientale/Misurata" unique_id=1033763293]
 position = Vector2(272.63, 21.692585)
-polygon = PackedVector2Array(-78.630005, 123.30742, -73.630005, 90.30742, 96.369995, 89.30742, 92.369995, 80.30742, 78.369995, 74.30742, 82.369995, 58.307415, 54.369995, 5.307415, 26.369995, -29.692585, 29.369995, -36.692585, 55.369995, -2.692585, 60.369995, -3.692585, 61.369995, -28.692585, 58.369995, -43.692585, 49.369995, -60.692585, 35.369995, -60.692585, 16.369995, -58.692585, 14.369995, -64.69258, -7.630005, -64.69258, -19.630005, -52.692585, -86.630005, -74.69258)
+polygon = PackedVector2Array(-78.630005, 122.30742, -73.630005, 90.30742, 96.369995, 89.30742, 92.369995, 80.30742, 78.369995, 74.30742, 82.369995, 58.307415, 54.369995, 5.307415, 26.369995, -29.692585, 29.369995, -36.692585, 55.369995, -2.692585, 60.369995, -3.692585, 61.369995, -28.692585, 58.369995, -43.692585, 49.369995, -60.692585, 35.369995, -60.692585, 16.369995, -58.692585, 14.369995, -64.69258, -7.630005, -64.69258, -19.630005, -52.692585, -86.630005, -74.69258)
 
 [node name="Polygon2D" type="Polygon2D" parent="Libia Orientale/Misurata" unique_id=830984052]
 position = Vector2(249, 109)
@@ -117,8 +131,65 @@ layout_mode = 2
 [node name="ResourceCount" type="Label" parent="Libia Orientale/Misurata/Control/VBoxContainer/HBoxContainer" unique_id=660410485]
 layout_mode = 2
 
+[node name="Nalut" type="Area2D" parent="Libia Orientale" unique_id=1664710210]
+position = Vector2(-19.035, 100)
+collision_mask = 3
+script = ExtResource("3_lnu2h")
+province_id = 1
+province_name = "Nalut"
+double_material = true
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Libia Orientale/Nalut" unique_id=1029810181]
+position = Vector2(272.63, 21.692585)
+polygon = PackedVector2Array(-234.595, -87.69258, -205.595, -77.69258, -187.595, -36.69258, -167.595, -40.69258, -173.595, -14.692581, -157.595, 22.307419, -103.595, 43.30742, 107.405, 53.30742, 107.405, 30.307419, 113.405, 0.30741882, 120.405, -4.692581, 134.405, -16.692581, 117.405, -28.692581, 102.405, -75.69258, -67.595, -74.69258, -72.595, -42.69258, -86.595, -40.69258, -204.595, -104.69258)
+
+[node name="Polygon2D" type="Polygon2D" parent="Libia Orientale/Nalut" unique_id=1002565735]
+position = Vector2(312.035, 125)
+color = Color(0.45359772, 0.43529403, 0.42440614, 1)
+polygon = PackedVector2Array(-107, -178, -112, -146, -126, -144, -244, -208, -274, -191, -245, -181, -227, -140, -207, -144, -213, -118, -197, -81, -143, -60, -84, -57, 68, -50, 68, -73, 74, -103, 81, -108, 95, -120, 78, -132, 71, -157, 63, -179)
+
+[node name="Line2D" type="Line2D" parent="Libia Orientale/Nalut" unique_id=1732879899]
+position = Vector2(13, 65)
+points = PackedVector2Array(25.035, -131, 54.035, -121, 72.035, -80, 92.035, -84, 86.035, -58, 102.035, -21, 156.035, 0, 367.035, 10, 367.035, -13, 373.035, -43, 394.035, -60, 377.035, -72, 362.035, -119, 192.035, -118, 187.035, -86, 173.035, -84, 55.035, -148)
+closed = true
+width = 2.0
+
+[node name="Node2D" parent="Libia Orientale/Nalut" unique_id=1609441056 instance=ExtResource("7_gee14")]
+position = Vector2(207.035, -11)
+
+[node name="Control" type="Control" parent="Libia Orientale/Nalut" unique_id=952523078]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 248.43
+offset_top = -10.435
+offset_right = 288.42938
+offset_bottom = 29.564999
+pivot_offset = Vector2(19.865, 0)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Libia Orientale/Nalut/Control" unique_id=1883343738]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.25
+offset_right = 0.00061035156
+offset_bottom = -10.0
+alignment = 1
+
+[node name="ProvinceName" type="Label" parent="Libia Orientale/Nalut/Control/VBoxContainer" unique_id=1313930874]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Libia Orientale/Nalut/Control/VBoxContainer" unique_id=1183526158]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="Libia Orientale/Nalut/Control/VBoxContainer/HBoxContainer" unique_id=513523463]
+layout_mode = 2
+
+[node name="ResourceCount" type="Label" parent="Libia Orientale/Nalut/Control/VBoxContainer/HBoxContainer" unique_id=1659040228]
+layout_mode = 2
+
 [node name="Libia Occidentale" type="Node2D" parent="." unique_id=194198678]
 script = ExtResource("6_p57ef")
+player_name = "Libia Occidentale"
 color = Color(0.9235921, 0.40204707, 0.46211284, 1)
 
 [node name="Tripoli" type="Area2D" parent="Libia Occidentale" unique_id=911611962]
@@ -143,7 +214,7 @@ closed = true
 width = 2.0
 
 [node name="Node2D" parent="Libia Occidentale/Tripoli" unique_id=1902047853 instance=ExtResource("7_gee14")]
-position = Vector2(57, -42)
+position = Vector2(125, 47)
 
 [node name="Control" type="Control" parent="Libia Occidentale/Tripoli" unique_id=2058449975]
 layout_mode = 3
@@ -174,7 +245,15 @@ layout_mode = 2
 [node name="ResourceCount" type="Label" parent="Libia Occidentale/Tripoli/Control/VBoxContainer/HBoxContainer" unique_id=1705702435]
 layout_mode = 2
 
-[node name="Path2D2" type="Path2D" parent="." unique_id=1394654464]
+[node name="Path2D5" type="Path2D" parent="." unique_id=1799840241]
+curve = SubResource("Curve2D_kvpfn")
+script = ExtResource("8_gee14")
+
+[node name="Path2D4" type="Path2D" parent="." unique_id=618333003]
+curve = SubResource("Curve2D_vtaks")
+script = ExtResource("8_gee14")
+
+[node name="Path2D6" type="Path2D" parent="." unique_id=2119842533]
 curve = SubResource("Curve2D_gee14")
 script = ExtResource("8_gee14")
 

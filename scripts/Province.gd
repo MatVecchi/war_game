@@ -33,7 +33,7 @@ func _ready():
 	$Control/VBoxContainer/HBoxContainer/TextureRect.texture = MATERIAL_TEXTURES[_get_sprite_key()]
 
 func _draw():
-	$Control/VBoxContainer/HBoxContainer/ResourceCount.text = str(_get_resource_count())
+	$Control/VBoxContainer/HBoxContainer/ResourceCount.text = str(_get_daily_resource_count())
 	$Control/VBoxContainer/ProvinceName.text = province_name + ": " + str(province_morale) + "%"
 	
 func _input(event: InputEvent) -> void:
@@ -47,7 +47,7 @@ func _input(event: InputEvent) -> void:
 		
 func _on_global_timer_timeout():
 	var agent = get_parent()
-	agent.resources[province_material] += _get_resource_count()
+	agent.resources[province_material] += _get_daily_resource_count() / 24
 	agent.queue_redraw()
 	
 	target_morale = 100 - _get_total_morale_penalties() + _get_total_morale_bonuses()
@@ -59,7 +59,7 @@ func _on_global_day_timer_timeout():
 	province_morale += ceil(delta/100 * 15)
 	queue_redraw()
 	
-func _get_resource_count():
+func _get_daily_resource_count():
 	var resource_to_add: int = (province_morale * 24) + 750
 	
 	if double_material:
@@ -81,9 +81,38 @@ func _get_sprite_key():
 			return Enums.ResourcesSprites.IRON_DOUBLE if double_material else Enums.ResourcesSprites.IRON
 
 		
-func get_city_position():
+func get_city_position() -> Vector2:
 	return $Node2D.global_position
+	
+func get_province_paths():
+	var global_paths = get_tree().get_nodes_in_group("paths")
+	var paths = []
+	for el in global_paths:
+		if el is not Path: continue
 		
+		var start = el.curve.get_point_position(0)
+		var end = el.curve.get_point_position(el.curve.pont_count - 1)
+		
+		if start == get_city_position():
+			paths.append([el, start])
+		elif end == get_city_position():
+			paths.append([el, end])
+	return paths
+	
+func _notification(what: int) -> void:
+	if get_tree() == null: return
+	if what == NOTIFICATION_PARENTED:
+		for path in get_province_paths():
+				var graph_node_key = 0
+				if path[1] > 0:
+					graph_node_key = 1
+				get_parent().routes.set_point_weight_scale(get_parent().graph_to_path[path[0]][graph_node_key], 1.0)
+				
+				var players = get_tree().get_nodes_in_group("players")
+				for player in players:
+					if player == get_parent(): continue
+					player.routes.set_point_weight_scale(player.graph_to_path[path[0]][graph_node_key], 1.5)
+					
 func toggle_selection():
 	selected = not selected
 	if selected:

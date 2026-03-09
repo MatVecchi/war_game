@@ -4,11 +4,13 @@ class_name Agent
 
 var routes: AStar2D = AStar2D.new()
 var graph_to_path = []
+var path_to_graph = {}
 var resources: Dictionary[Enums.Resources, int] = {
 	Enums.Resources.WOOD: 0,
 	Enums.Resources.IRON: 0
 }
 
+@export var player_name: String
 @export var color: Color
 @export var armies: Array[Army]
 
@@ -19,7 +21,6 @@ func _ready() -> void:
 	await get_tree().process_frame
 	var paths = get_tree().get_nodes_in_group("paths")
 	var c := 0
-	var point_mapping = {}
 	for el in paths:
 		if el is not Path2D: continue
 		routes.add_point(c, el.curve.get_point_position(0), 1.0)
@@ -27,7 +28,7 @@ func _ready() -> void:
 		routes.connect_points(c, c + 1, true)
 		graph_to_path.insert(c, [el, 0])
 		graph_to_path.insert(c + 1, [el, el.curve.point_count - 1])
-		point_mapping[el] = [c, c + 1]
+		path_to_graph[el] = [c, c + 1]
 		c += 2
 		
 	for el in paths:
@@ -41,7 +42,7 @@ func _ready() -> void:
 				i = 0
 			else:
 				i = 1
-			routes.connect_points(point_mapping[el][0], point_mapping[s[0]][i], true)
+			routes.connect_points(path_to_graph[el][0], path_to_graph[s[0]][i], true)
 		
 		for s in connected_points_end:
 			var i
@@ -49,8 +50,18 @@ func _ready() -> void:
 				i = 0
 			else:
 				i = 1
-			routes.connect_points(point_mapping[el][1], point_mapping[s[0]][i], true)
+			routes.connect_points(path_to_graph[el][1], path_to_graph[s[0]][i], true)
 	
+	var provinces = get_tree().get_nodes_in_group("provinces")
+	for el in provinces:
+		if provinces is not Province: continue
+		
+		if el not in get_children():
+			for path in el.get_province_paths():
+				var graph_node_key = 0
+				if path[1] > 0:
+					graph_node_key = 1
+				routes.set_point_weight_scale(graph_to_path[path[0]][graph_node_key], 1.5)
 	
 	var game: GameController = get_tree().current_scene
 	var childrens = get_children()
@@ -60,7 +71,6 @@ func _ready() -> void:
 		army.army_id = i
 		army.soldier_number = 10
 		army.life_points = army.LIFE_PER_UNIT * 10 * (float(childrens[i].province_morale)/100)
-		print("ARMY: ", army.LIFE_PER_UNIT, " ", childrens[i].province_morale, " ", army.life_points)
 		army.player = self
 		
 		armies.append(army)
@@ -73,22 +83,15 @@ func _ready() -> void:
 							el.add_child(army)
 			game.state.add_army_to_province(childrens[i], army)
 	
-	if len(armies) > 0:
+	if len(armies) > 0 and player_name == "Libia Orientale":
 		for x in armies:
 			#print(x.position)
 			pass
-		armies[0].order(game.state.provinces[1])
-	
-	'for el in get_children():
-		if el is Province:
-			el.fill.modulate = color
-			provinces.append(el)
-		if el is Army:
-			armies.append(el)
-	for i in range(len(provinces)):
-		game.state.add_army_to_province(provinces[i], armies[i])'
+		armies[0].order(game.state.provinces[2])
 		
-
+func get_province_owner(province: Province) -> bool:
+	if province == null: return false
+	return province.get_parent() == self
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
