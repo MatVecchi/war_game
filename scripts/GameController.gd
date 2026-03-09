@@ -22,14 +22,14 @@ func _ready() -> void:
 	state = GameState.new(polys, agents, nodes)
 	#state.conquer_province(get_node("Libia Occidentale/Tripoli"), get_node("Libia Orientale"))
 	
-func conquer_province(province: Province, agent: Agent):
+func conquer_province(province: Province, agent: Agent) -> void:
 	if not state: return
 	state.conquer_province(province, agent)
 
 func _process(_delta: float) -> void:
 	pass
 	
-func clear_selection():
+func clear_selection() -> void:
 	var p = state.get_province_selected()
 	if p != null:
 		p.toggle_selection()
@@ -47,24 +47,24 @@ class GameState:
 		for el in provinces:
 			el.province_clicked.connect(self.select_province)
 			
-	func get_province(id: int):
+	func get_province(id: int) -> Province:
 		for el in self.provinces:
 			if el.province_id == id:
 				return el
 		return null
 	
-	func get_province_selected():
+	func get_province_selected() -> Province:
 		return province_selected
 	
-	func set_province_selected(new_province):
+	func set_province_selected(new_province) -> void:
 		province_selected = new_province
 		
-	func conquer_province(province: Province, agent: Agent):
+	func conquer_province(province: Province, agent: Agent) -> void:
 		province.reparent(agent)
 		province.fill.color = agent.color
 		province.province_morale = 12
 		
-	func select_province(id: int):
+	func select_province(id: int) -> void:
 		if get_province_selected() != null && get_province_selected().province_id != id:
 			get_province_selected().toggle_selection()
 		var el = get_province(id)
@@ -73,7 +73,7 @@ class GameState:
 		else:
 			set_province_selected(null)
 			
-	func add_army_to_province(province: Province, army: Army):
+	func add_army_to_province(province: Province, army: Army) -> void:
 		var agent = province.get_parent()
 		if army == null:
 			var army_scene = preload("res://scenes/army.tscn")
