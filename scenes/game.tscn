@@ -11,19 +11,19 @@
 
 [sub_resource type="Curve2D" id="Curve2D_kvpfn"]
 _data = {
-"points": PackedVector2Array(0, 0, 0, 0, 188, 89, 0, 0, 0, 0, 255, -81)
+"points": PackedVector2Array(0, 0, 0, 0, 180, 98, 0, 0, 0, 0, 255, -81)
 }
 point_count = 2
 
 [sub_resource type="Curve2D" id="Curve2D_vtaks"]
 _data = {
-"points": PackedVector2Array(0, 0, 0, 0, 125, 47, 0, 0, 0, 0, 125, 85, 0, 0, 0, 0, 188, 89)
+"points": PackedVector2Array(0, 0, 0, 0, 125, 47, 0, 0, 0, 0, 180, 98)
 }
-point_count = 3
+point_count = 2
 
 [sub_resource type="Curve2D" id="Curve2D_gee14"]
 _data = {
-"points": PackedVector2Array(0, 0, 0, 0, 114, -9, 0, 0, 0, 0, 120, 20)
+"points": PackedVector2Array(0, 0, 0, 0, 114, -9, 0, 0, 0, 0, 123, 37)
 }
 point_count = 2
 
@@ -38,6 +38,10 @@ script = ExtResource("1_lbhrr")
 time_multiplier = 100.0
 
 [node name="GlobalTimer" type="Timer" parent="." unique_id=1661397854]
+autostart = true
+
+[node name="GlobalHourTimer" type="Timer" parent="." unique_id=1275185995]
+wait_time = 60.0
 autostart = true
 
 [node name="GlobalDayTimer" type="Timer" parent="." unique_id=1632933546]
@@ -79,8 +83,7 @@ collision_mask = 3
 script = ExtResource("3_lnu2h")
 province_id = 1
 province_name = "Misurata"
-province_material = 1
-double_material = true
+province_material = 2
 is_capital = true
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Libia Orientale/Misurata" unique_id=1033763293]
@@ -137,6 +140,7 @@ collision_mask = 3
 script = ExtResource("3_lnu2h")
 province_id = 1
 province_name = "Nalut"
+province_material = 5
 double_material = true
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Libia Orientale/Nalut" unique_id=1029810181]
@@ -155,7 +159,7 @@ closed = true
 width = 2.0
 
 [node name="Node2D" parent="Libia Orientale/Nalut" unique_id=1609441056 instance=ExtResource("7_gee14")]
-position = Vector2(207.035, -11)
+position = Vector2(199.035, -2)
 
 [node name="Control" type="Control" parent="Libia Orientale/Nalut" unique_id=952523078]
 layout_mode = 3

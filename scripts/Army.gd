@@ -8,6 +8,7 @@ var path
 var nodes_travelled: int
 var direction: int
 var timer: Timer
+var hour_timer: Timer
 var day_timer: Timer
 var death_count: int = 0
 var rng: RandomNumberGenerator = RandomNumberGenerator.new()
@@ -19,9 +20,13 @@ const ATTACK_TIME: float = 60.0
 const LIFE_PER_UNIT: float = 20.0
 const ATTACK_PER_UNIT: float = 4.0
 const DEFENSE_PER_UNIT: float = 5.0 
-const ALLY_TERRITORY_SPEED_MULTIPLIER = 0.7
-const ENEMY_TERRITORY_SPEED_MULTIPLIER = 0.35
-const SEA_SPEED_MULTIPLIER = 0.1
+const ALLY_TERRITORY_SPEED_MULTIPLIER: float = 0.7
+const ENEMY_TERRITORY_SPEED_MULTIPLIER: float = 0.35
+const SEA_SPEED_MULTIPLIER: float = 0.1
+const ARMY_DAILY_COST_PER_UNIT = {
+	Enums.Resources.GRAIN: 20,
+	Enums.Resources.OIL: 5
+}
 
 @export var soldier_number: int
 @export var life_points: float
@@ -34,6 +39,8 @@ func _ready() -> void:
 	$Area2D.area_entered.connect(_on_area_entered)
 	timer = get_node("/root/Game/GlobalTimer")
 	timer.timeout.connect(_on_global_timer_timeout)
+	hour_timer = get_node("/root/Game/GlobalHourTimer")
+	hour_timer.timeout.connect(_on_global_hour_timer_timeout)
 	day_timer = get_node("/root/Game/GlobalDayTimer")
 	day_timer.timeout.connect(_on_global_day_timer_timeout)
 	
@@ -50,9 +57,7 @@ func _on_friendly_collision(other: Army) -> void:
 	if nodes_travelled < len(path) - 1: return
 	
 	var path_points = get_parent().curve
-	print("merging ", )
-	if direction == 1 and path_points.get_point_position(path_points.point_count - 1) == other.position or direction == -1 and path_points.get_point_position(0):
-		print("merge")
+	if direction == 1 and path_points.get_point_position(path_points.point_count - 1) == other.position or direction == -1 and path_points.get_point_position(0) == other.position:
 		other.merge_armies(self)
 
 func _on_enemy_collision(other: Army) -> void:
@@ -68,33 +73,35 @@ func _on_global_timer_timeout() -> void:
 	if travelling:
 		if (self.progress_ratio != 1.0 and direction == 1) or (self.progress_ratio != 0.0 and direction == -1):
 			self.progress += current_speed * direction
-			#print("progress: ", self.progress, " speed: ", current_speed, " direction: ", direction)
 		else:
 			nodes_travelled += 1
-			print("checkpoin reached")
 			if nodes_travelled == len(path):
 				travelling = false
 				path = null
 				_on_destination_reached()
 				return
+			
 			if province_location != null and not player.get_province_owner(province_location) and province_location.get_city_position() == position:
 				var game: GameController = get_tree().current_scene
 				game.conquer_province(province_location, player)
+			
 			var new_path = player.graph_to_path[path[nodes_travelled]][0]
 			var point = player.graph_to_path[path[nodes_travelled]][1]
 			var dir = new_path.get_point_direction(point)
-			print("reparent")
 			if get_parent() != new_path:
 				reparent(new_path)
-			print("after reparen ", dir)
 			var distance = new_path.curve.get_point_position(point).distance_to(position)
 			if dir == -1:
 				self.progress = distance
-				print("progress changed. ", distance)
 			else:
 				self.progress = new_path.curve.get_point_position(point).distance_to(new_path.curve.get_point_position(0)) - distance
 			
 			direction = dir
+			
+func _on_global_hour_timer_timeout() -> void:
+	if player == null: return	
+	for i in ARMY_DAILY_COST_PER_UNIT:
+		player.add_resource(i, -ARMY_DAILY_COST_PER_UNIT[i] / 24)
 			
 func _on_destination_reached() -> void:
 	if province_location == null: return
@@ -147,13 +154,13 @@ func _on_battle_timer_timeout(other: Army, battle_timer: Timer) -> void:
 
 	var battle_finished: bool = false
 	if other.soldier_number <= 0 or other.life_points <= 0:
-		other.queue_free()
+		other.destroy_self()
 		battle_finished = true
 	else:
 		other.queue_redraw()
 	
 	if (soldier_number <= 0 or life_points <= 0) and not battle_finished:
-		queue_free()
+		destroy_self()
 		battle_finished = true
 	else:
 		queue_redraw()
@@ -163,6 +170,13 @@ func _on_battle_timer_timeout(other: Army, battle_timer: Timer) -> void:
 		travelling = true
 	else:
 		battle_timer.start()
+		
+func destroy_self() -> void:
+	for i in range(len(player.armies)):
+		if player.armies[i] != self: continue
+		player.armies.remove_at(i)
+		break
+	queue_free()
 		
 func _get_morale_percentage() -> float:
 	return life_points/((soldier_number+death_count)*LIFE_PER_UNIT)*100
@@ -189,7 +203,6 @@ func has_reached_destination() -> bool:
 	return path == null
 	
 func order(city: Province) -> void:
-	print("order to: ", city)
 	var start = player.routes.get_closest_point(position)
 	var target = player.routes.get_closest_point(city.get_city_position())
 	var points = player.routes.get_id_path(start, target, false)
@@ -205,6 +218,6 @@ func order(city: Province) -> void:
 	else:
 		self.progress = new_path.curve.get_point_position(point).distance_to(new_path.curve.get_point_position(0)) - distance
 	direction = dir
-	travelling = true
 	path = points
 	nodes_travelled = 0
+	travelling = true

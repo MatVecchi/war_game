@@ -3,8 +3,10 @@ extends Area2D
 class_name Province
 
 var timer: Timer
+var hour_timer: Timer
 var day_timer: Timer
 var rng: RandomNumberGenerator = RandomNumberGenerator.new()
+var conquered: bool = false
 @export var province_id: int
 @export var province_name: String
 @export var province_material: Enums.Resources
@@ -19,7 +21,17 @@ var MATERIAL_TEXTURES := {
 	Enums.ResourcesSprites.WOOD: preload("res://assets/sprites/resources/wood.png"),
 	Enums.ResourcesSprites.WOOD_DOUBLE: preload("res://assets/sprites/resources/wood_double.png"),
 	Enums.ResourcesSprites.IRON: preload("res://assets/sprites/resources/iron.png"),
-	Enums.ResourcesSprites.IRON_DOUBLE: preload("res://assets/sprites/resources/iron_double.png")
+	Enums.ResourcesSprites.IRON_DOUBLE: preload("res://assets/sprites/resources/iron_double.png"),
+	Enums.ResourcesSprites.OIL: preload("res://assets/sprites/resources/oil.png"),
+	Enums.ResourcesSprites.OIL_DOUBLE: preload("res://assets/sprites/resources/oil_double.png"),
+	Enums.ResourcesSprites.GAS: preload("res://assets/sprites/resources/gas.png"),
+	Enums.ResourcesSprites.GAS_DOUBLE: preload("res://assets/sprites/resources/gas_double.png"),
+	Enums.ResourcesSprites.COAL: preload("res://assets/sprites/resources/coal.png"),
+	Enums.ResourcesSprites.COAL_DOUBLE: preload("res://assets/sprites/resources/coal_double.png"),
+	Enums.ResourcesSprites.GRAIN: preload("res://assets/sprites/resources/grain.png"),
+	Enums.ResourcesSprites.GRAIN_DOUBLE: preload("res://assets/sprites/resources/grain_double.png"),
+	Enums.ResourcesSprites.FISH: preload("res://assets/sprites/resources/fish.png"),
+	Enums.ResourcesSprites.FISH_DOUBLE: preload("res://assets/sprites/resources/fish_double.png"),
 }
 
 signal province_clicked(id)
@@ -28,6 +40,8 @@ func _ready():
 	add_to_group("provinces")
 	timer = get_node("/root/Game/GlobalTimer")
 	timer.timeout.connect(_on_global_timer_timeout)
+	hour_timer = get_node("/root/Game/GlobalHourTimer")
+	hour_timer.timeout.connect(_on_global_hour_timer_timeout)
 	day_timer = get_node("/root/Game/GlobalDayTimer")
 	day_timer.timeout.connect(_on_global_day_timer_timeout)
 	fill.color = get_parent().color
@@ -46,14 +60,19 @@ func _input(event: InputEvent) -> void:
 	if Input.is_action_just_pressed("camera_zoom_in") or Input.is_action_just_pressed("camera_zoom_out"):
 		$Control.scale = Vector2(1,1)/get_viewport().get_camera_2d().zoom
 		
-func _on_global_timer_timeout():
-	var agent = get_parent()
-	agent.resources[province_material] += _get_daily_resource_count() / 24
-	agent.queue_redraw()
-	
+func _on_global_timer_timeout() -> void:
 	target_morale = 100 - _get_total_morale_penalties() + _get_total_morale_bonuses()
 	
-func _on_global_day_timer_timeout():
+func _on_global_hour_timer_timeout() -> void:
+	var agent = get_parent()
+	agent.resources[province_material] += float(_get_daily_resource_count()) / 24
+	agent.resources[Enums.Resources.GOLD] += float(_get_daily_gold_count()) / 24
+	agent.queue_redraw()
+	
+func _on_global_day_timer_timeout() -> void:
+	if conquered:
+		conquered = false
+		return
 	var delta: float = target_morale - province_morale
 	if delta == 0: return
 	var adding: int = ceil(delta/100 * 15)
@@ -64,17 +83,23 @@ func _on_global_day_timer_timeout():
 		province_morale += adding + adding2
 	queue_redraw()
 	
-func _get_daily_resource_count():
+func _get_daily_resource_count() -> int:
 	var resource_to_add: int = (province_morale * 24) + 750
 	
 	if double_material:
 		resource_to_add *= 2
 	return resource_to_add
 	
-func _get_total_morale_penalties():
+func _get_daily_gold_count() -> int:
+	if double_material:
+		return province_morale * 29
+	else:
+		return province_morale * 57
+	
+func _get_total_morale_penalties() -> int:
 	return 0
 	
-func _get_total_morale_bonuses():
+func _get_total_morale_bonuses() -> int:
 	return 0
 	
 func _get_sprite_key():
@@ -84,6 +109,21 @@ func _get_sprite_key():
 
 		Enums.Resources.IRON:
 			return Enums.ResourcesSprites.IRON_DOUBLE if double_material else Enums.ResourcesSprites.IRON
+			
+		Enums.Resources.OIL:
+			return Enums.ResourcesSprites.OIL_DOUBLE if double_material else Enums.ResourcesSprites.OIL
+			
+		Enums.Resources.GAS:
+			return Enums.ResourcesSprites.GAS_DOUBLE if double_material else Enums.ResourcesSprites.GAS
+		
+		Enums.Resources.COAL:
+			return Enums.ResourcesSprites.COAL_DOUBLE if double_material else Enums.ResourcesSprites.COAL
+		
+		Enums.Resources.GRAIN:
+			return Enums.ResourcesSprites.GRAIN_DOUBLE if double_material else Enums.ResourcesSprites.GRAIN
+		
+		Enums.Resources.FISH:
+			return Enums.ResourcesSprites.FISH_DOUBLE if double_material else Enums.ResourcesSprites.FISH
 
 		
 func get_city_position() -> Vector2:
@@ -118,7 +158,7 @@ func _notification(what: int) -> void:
 					if player == get_parent(): continue
 					player.routes.set_point_weight_scale(player.graph_to_path[path[0]][graph_node_key], 1.5)
 					
-func toggle_selection():
+func toggle_selection() -> bool:
 	selected = not selected
 	if selected:
 		fill.color = blend(get_parent().color, Color(0.0, 0.0, 0.0, 0.114))

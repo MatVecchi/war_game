@@ -17,10 +17,7 @@ func _ready() -> void:
 		if el is Path2D:
 			nodes.append(el)
 	
-			
-	
-	state = GameState.new(polys, agents, nodes)
-	#state.conquer_province(get_node("Libia Occidentale/Tripoli"), get_node("Libia Orientale"))
+	state = GameState.new(polys, agents, nodes) # debug
 	
 func conquer_province(province: Province, agent: Agent) -> void:
 	if not state: return
@@ -63,6 +60,7 @@ class GameState:
 		province.reparent(agent)
 		province.fill.color = agent.color
 		province.province_morale = 12
+		province.conquered = true
 		
 	func select_province(id: int) -> void:
 		if get_province_selected() != null && get_province_selected().province_id != id:
