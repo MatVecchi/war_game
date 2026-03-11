@@ -5,19 +5,13 @@ class_name Province
 var timer: Timer
 var hour_timer: Timer
 var day_timer: Timer
+var army_timer: Timer = Timer.new()
 var rng: RandomNumberGenerator = RandomNumberGenerator.new()
 var conquered: bool = false
-@export var province_id: int
-@export var province_name: String
-@export var province_material: Enums.Resources
-@export var double_material: bool
-@export var is_capital: bool
-
-@onready var fill := $Polygon2D
-var selected: bool
-var province_morale: int = 70
-var target_morale: int = 100
-var MATERIAL_TEXTURES := {
+const DEFAULT_ARMY_GENERATION_WAIT: float = 720.0
+const DEFAULT_START_PROVINCE_MORALE: int = 70
+const DEFAULT_START_TARGET_MORALE: int = 100
+const MATERIAL_TEXTURES := {
 	Enums.ResourcesSprites.WOOD: preload("res://assets/sprites/resources/wood.png"),
 	Enums.ResourcesSprites.WOOD_DOUBLE: preload("res://assets/sprites/resources/wood_double.png"),
 	Enums.ResourcesSprites.IRON: preload("res://assets/sprites/resources/iron.png"),
@@ -33,6 +27,17 @@ var MATERIAL_TEXTURES := {
 	Enums.ResourcesSprites.FISH: preload("res://assets/sprites/resources/fish.png"),
 	Enums.ResourcesSprites.FISH_DOUBLE: preload("res://assets/sprites/resources/fish_double.png"),
 }
+@export var province_id: int
+@export var province_name: String
+@export var province_material: Enums.Resources
+@export var double_material: bool
+@export var is_capital: bool
+
+@onready var fill := $Polygon2D
+var selected: bool = false
+var province_morale: int = DEFAULT_START_PROVINCE_MORALE
+var target_morale: int = DEFAULT_START_TARGET_MORALE
+var current_army_timer: float = DEFAULT_ARMY_GENERATION_WAIT
 
 signal province_clicked(id)
 
@@ -44,6 +49,11 @@ func _ready():
 	hour_timer.timeout.connect(_on_global_hour_timer_timeout)
 	day_timer = get_node("/root/Game/GlobalDayTimer")
 	day_timer.timeout.connect(_on_global_day_timer_timeout)
+	current_army_timer = DEFAULT_ARMY_GENERATION_WAIT + DEFAULT_ARMY_GENERATION_WAIT*(float(province_morale)/100)
+	_update_army_timer(current_army_timer)
+	army_timer.timeout.connect(_on_army_timer_timeout)
+	add_child(army_timer)
+	army_timer.start()
 	fill.color = get_parent().color
 	$Control/VBoxContainer/HBoxContainer/TextureRect.texture = MATERIAL_TEXTURES[_get_sprite_key()]
 
@@ -81,7 +91,47 @@ func _on_global_day_timer_timeout() -> void:
 	else:
 		var adding2: int = rng.randi_range(-3, 3)
 		province_morale += adding + adding2
+	current_army_timer = DEFAULT_ARMY_GENERATION_WAIT + DEFAULT_ARMY_GENERATION_WAIT*(float(province_morale)/100)
+	_update_army_timer(current_army_timer)
 	queue_redraw()
+	
+func _update_army_timer(val: float):
+	if army_timer == null: return
+	
+	var time_left = army_timer.time_left
+	var percentage = snapped((army_timer.wait_time - time_left)/army_timer.wait_time*100, 0.001)
+	if percentage == 100:
+		army_timer.wait_time = val
+	else:
+		army_timer.wait_time = val * ((100 - percentage)/100)
+		current_army_timer = val
+	print("update timer: ", val, " ", army_timer.wait_time, " ", (100 - percentage), " ", percentage, " ", time_left)
+	
+func _on_army_timer_timeout() -> void:
+	_update_army_timer(current_army_timer)
+	for el: Army in get_parent().armies:
+		if el.position != get_city_position(): continue
+		el.soldier_number += 1
+		el.life_points += el.LIFE_PER_UNIT * (float(province_morale)/100)
+		el.queue_redraw()
+		return
+	
+	var paths = get_tree().get_nodes_in_group("paths")
+	var game: GameController = get_tree().current_scene
+	var army_scene := preload("res://scenes/army.tscn")
+	var army: Army = army_scene.instantiate()
+	army.army_id = 1
+	army.soldier_number = 1
+	army.life_points = army.LIFE_PER_UNIT * (float(province_morale)/100)
+	army.player = get_parent()
+	get_parent().armies.append(army)
+	for el in paths:
+		if el is Path2D:
+			var count = el.curve.point_count
+			for j in range(count):
+				if el.curve.get_point_position(j) == get_city_position():
+					el.add_child(army)
+	game.state.add_army_to_province(self, army)
 	
 func _get_daily_resource_count() -> int:
 	var resource_to_add: int = (province_morale * 24) + 750

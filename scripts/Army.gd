@@ -110,11 +110,16 @@ func _on_destination_reached() -> void:
 		game.conquer_province(province_location, player)
 
 func _on_global_day_timer_timeout() -> void:
-	if day_battle: 
+	if day_battle or not player.get_province_owner(province_location): 
 		day_battle = false
 		return
 	
-	life_points += 10
+	if province_location.province_morale > 80:
+		life_points += life_points * 0.05
+	elif province_location.province_morale < 20:
+		life_points += life_points * 0.01
+	else:
+		life_points += life_points * 0.02
 	
 func _on_area_entered(area) -> void:
 	if area is Province:

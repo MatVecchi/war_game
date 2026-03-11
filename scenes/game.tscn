@@ -68,6 +68,7 @@ color = Color(0, 0.5219081, 0.521995, 1)
 polygon = PackedVector2Array(-2769, -1870, -2768, 1734, 2702, 1734, 2702, -1870)
 
 [node name="map" type="Sprite2D" parent="." unique_id=410008263]
+visible = false
 position = Vector2(-70, -23)
 scale = Vector2(5.47, 5.47)
 texture = ExtResource("2_yqjtg")

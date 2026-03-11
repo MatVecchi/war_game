@@ -74,7 +74,9 @@ func _ready() -> void:
 	var game: GameController = get_tree().current_scene
 	var children = get_children()
 	var army_scene := preload("res://scenes/army.tscn")
-	for i in range(len(children)):		
+	for i in range(len(children)):
+		if children[i] is not Province: continue	
+			
 		var army: Army = army_scene.instantiate()
 		army.army_id = i
 		army.soldier_number = 10
@@ -82,14 +84,13 @@ func _ready() -> void:
 		army.player = self
 		
 		armies.append(army)
-		if children[i] is Province:
-			for el in paths:
-				if el is Path2D:
-					var count = el.curve.point_count
-					for j in range(count):
-						if el.curve.get_point_position(j) == children[i].get_city_position():
-							el.add_child(army)
-			game.state.add_army_to_province(children[i], army)
+		for el in paths:
+			if el is Path2D:
+				var count = el.curve.point_count
+				for j in range(count):
+					if el.curve.get_point_position(j) == children[i].get_city_position():
+						el.add_child(army)
+		game.state.add_army_to_province(children[i], army)
 	
 	if len(armies) > 0 and player_name == "Libia Orientale":
 		print("provinces ", game.state.provinces) # debug
