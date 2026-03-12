@@ -56,6 +56,41 @@ func _ready():
 	army_timer.start()
 	fill.color = get_parent().color
 	$Control/VBoxContainer/HBoxContainer/TextureRect.texture = MATERIAL_TEXTURES[_get_sprite_key()]
+	await get_tree().process_frame
+	print("neighbors: ", _update_neighbors())
+	
+func _update_neighbors():
+	var neighbors := []
+	var space_state = get_world_2d().direct_space_state
+
+	# 1. Ricostruisci la shape come ConcavePolygonShape2D
+	var poly := $CollisionPolygon2D.polygon
+	var segments := _polygon_to_segments(poly)
+
+	var my_shape := ConcavePolygonShape2D.new()
+	my_shape.set_segments(segments)
+
+	# 2. Trasformazione globale
+	var my_transform := $CollisionPolygon2D.global_transform
+
+	# 3. Parametri della query
+	var params := PhysicsShapeQueryParameters2D.new()
+	params.shape = my_shape
+	params.transform = my_transform
+	params.collide_with_areas = true
+	params.collide_with_bodies = false
+
+	# 4. Query
+	var results := space_state.intersect_shape(params)
+
+	for r in results:
+		var area := r.collider
+		if area is Provincia and area != self:
+			neighbors.append(area)
+
+
+
+
 
 func _draw():
 	$Control/VBoxContainer/HBoxContainer/ResourceCount.text = str(_get_daily_resource_count())
@@ -94,6 +129,7 @@ func _on_global_day_timer_timeout() -> void:
 	current_army_timer = DEFAULT_ARMY_GENERATION_WAIT + DEFAULT_ARMY_GENERATION_WAIT*(float(province_morale)/100)
 	_update_army_timer(current_army_timer)
 	queue_redraw()
+	
 	
 func _update_army_timer(val: float):
 	if army_timer == null: return

@@ -122,20 +122,25 @@ func _on_global_day_timer_timeout() -> void:
 		life_points += life_points * 0.02
 	
 func _on_area_entered(area) -> void:
-	if area is Province:
-		province_location = area
-		if player.get_province_owner(province_location):
-			current_speed = SPEED * ALLY_TERRITORY_SPEED_MULTIPLIER
-		elif province_location is Background:
-			current_speed = SPEED * SEA_SPEED_MULTIPLIER
-		else:
-			current_speed = SPEED * ENEMY_TERRITORY_SPEED_MULTIPLIER
 	var other = area.get_parent()
 	if other is Army:
 		if player == other.player:
 			_on_friendly_collision(other)
 		else:
 			_on_enemy_collision(other)
+	
+func _notification(what: int) -> void:
+	if what != NOTIFICATION_PARENTED: return
+	
+	province_location = get_parent().get_parent()
+	if player.get_province_owner(province_location):
+		current_speed = SPEED * ALLY_TERRITORY_SPEED_MULTIPLIER
+	elif province_location is Background:
+		current_speed = SPEED * SEA_SPEED_MULTIPLIER
+	else:
+		current_speed = SPEED * ENEMY_TERRITORY_SPEED_MULTIPLIER
+	
+		
 			
 func _on_battle_timer_timeout(other: Army, battle_timer: Timer) -> void:
 	var casual_attacker_multiplier: float = rng.randf_range(0.5, 1.5)

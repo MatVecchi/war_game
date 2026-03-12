@@ -94,7 +94,7 @@ func _ready() -> void:
 	
 	if len(armies) > 0 and player_name == "Libia Orientale":
 		print("provinces ", game.state.provinces) # debug
-		armies[0].order(game.state.provinces[2])
+		#armies[0].order(game.state.provinces[2])
 	
 	hour_timer = get_node("/root/Game/GlobalHourTimer")
 	hour_timer.timeout.connect(_on_global_hour_timer_timeout)

@@ -12,6 +12,8 @@
 radius = 5.0
 
 [node name="Army" type="PathFollow2D" unique_id=994501494]
+z_index = 100
+z_as_relative = false
 rotates = false
 cubic_interp = false
 loop = false
