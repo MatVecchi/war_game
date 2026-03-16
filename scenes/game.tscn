@@ -8,6 +8,7 @@
 [ext_resource type="Script" uid="uid://dlbtk4vaoeyn1" path="res://scripts/Agent.gd" id="6_p57ef"]
 [ext_resource type="PackedScene" uid="uid://djc45rwgx51pp" path="res://scenes/city.tscn" id="7_gee14"]
 [ext_resource type="Script" uid="uid://cixhqyp3nwpac" path="res://scripts/Path.gd" id="8_gee14"]
+[ext_resource type="Shader" uid="uid://bxgr8tcci0tvo" path="res://shaders/fog_of_war.gdshader" id="9_0tnpc"]
 
 [sub_resource type="Curve2D" id="Curve2D_dinhu"]
 _data = {
@@ -50,6 +51,9 @@ _data = {
 "points": PackedVector2Array(0, 0, 0, 0, 114, -9, 0, 0, 0, 0, 176, -35)
 }
 point_count = 2
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_vtaks"]
+shader = ExtResource("9_0tnpc")
 
 [node name="Game" type="Node2D" unique_id=63633635]
 script = ExtResource("1_lbhrr")
@@ -301,19 +305,10 @@ script = ExtResource("8_gee14")
 curve = SubResource("Curve2D_0tnpc")
 script = ExtResource("8_gee14")
 
-[node name="Control" type="Control" parent="." unique_id=43116263]
-visible = false
-layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="ColorRect" type="ColorRect" parent="Control" unique_id=1290198438]
-layout_mode = 0
-offset_left = -2805.0
-offset_top = -1826.0
-offset_right = 2666.0
-offset_bottom = 1778.0
-color = Color(0.101960786, 0.101960786, 0.101960786, 0.3254902)
+[node name="FogSprite" type="Sprite2D" parent="." unique_id=1691979937]
+unique_name_in_owner = true
+z_index = 4096
+z_as_relative = false
+material = SubResource("ShaderMaterial_vtaks")
 
 [connection signal="timeout" from="GlobalTimer" to="." method="_on_global_timer_timeout"]

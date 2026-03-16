@@ -24,6 +24,7 @@ var day_battle: bool = false
 var soldier_number_visible: bool = true
 var death_count: int = 0
 var current_speed: float = SPEED
+const VISION_RANGE: int = 90
 const SPEED: float = 1.0
 const ATTACK_TIME: float = 60.0
 const LIFE_PER_UNIT: float = 20.0
@@ -36,9 +37,11 @@ const ARMY_DAILY_COST_PER_UNIT = {
 	Enums.Resources.GRAIN: 20,
 	Enums.Resources.OIL: 5
 }
+@onready var vision_sprite: Sprite2D = %VisionSprite
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	add_to_group("armies")
 	$Control.scale = Vector2(1, 1)/get_viewport().get_camera_2d().zoom	
 	$ObfuscatedVision/CollisionShape2D.shape.radius = $PerfectVision/CollisionShape2D.shape.radius * 1.5
 	$ObfuscatedVision.area_entered.connect(_on_obfuscated_vision_entered)
@@ -52,6 +55,8 @@ func _ready() -> void:
 	hour_timer.timeout.connect(_on_global_hour_timer_timeout)
 	day_timer = get_node("/root/Game/GlobalDayTimer")
 	day_timer.timeout.connect(_on_global_day_timer_timeout)
+	$PerfectVision/CollisionShape2D.shape.radius = VISION_RANGE
+	vision_sprite.texture = create_texture()	
 	
 func _draw() -> void:
 	if soldier_number_visible:
@@ -216,6 +221,18 @@ func _on_battle_timer_timeout(other: Army, battle_timer: Timer) -> void:
 		travelling = true
 	else:
 		battle_timer.start()
+	
+func create_texture() -> GradientTexture2D:
+	var gradient: GradientTexture2D = GradientTexture2D.new()
+	gradient.gradient = Gradient.new()
+	gradient.width = VISION_RANGE * 2
+	gradient.height = VISION_RANGE * 2
+	gradient.fill = GradientTexture2D.FILL_RADIAL
+	gradient.fill_from = Vector2(0.5, 0.5)
+	gradient.fill_to = Vector2(0.0, 0.5)
+	gradient.gradient.interpolation_mode = Gradient.GRADIENT_INTERPOLATE_CONSTANT
+	gradient.gradient.colors = PackedColorArray([Color(255, 255, 255), Color(255, 255, 255, 0)])
+	return gradient
 		
 func destroy_self() -> void:
 	for i in range(len(player.armies)):

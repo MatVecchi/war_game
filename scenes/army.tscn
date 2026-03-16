@@ -17,11 +17,8 @@ radius = 90.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_pimn7"]
 radius = 5.0
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rtv1n"]
-corner_radius_top_left = 900000
-corner_radius_top_right = 900000
-corner_radius_bottom_right = 900000
-corner_radius_bottom_left = 900000
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_rtv1n"]
+blend_mode = 3
 
 [node name="Army" type="PathFollow2D" unique_id=994501494]
 z_index = 100
@@ -135,7 +132,6 @@ input_pickable = false
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=16992329]
 shape = SubResource("CircleShape2D_pimn7")
 
-[node name="Panel" type="Panel" parent="." unique_id=562211405]
-offset_right = 40.0
-offset_bottom = 40.0
-theme_override_styles/panel = SubResource("StyleBoxFlat_rtv1n")
+[node name="VisionSprite" type="Sprite2D" parent="." unique_id=1551099071]
+unique_name_in_owner = true
+material = SubResource("CanvasItemMaterial_rtv1n")
