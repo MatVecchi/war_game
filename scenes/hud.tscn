@@ -1,0 +1,38 @@
+[gd_scene format=3 uid="uid://cx6mfagal8ll4"]
+
+[ext_resource type="Script" uid="uid://cmpx3noks68u0" path="res://scripts/HUD.gd" id="1_ahhtf"]
+
+[node name="Control" type="Control" unique_id=260816110]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ahhtf")
+
+[node name="PanelContainer" type="PanelContainer" parent="." unique_id=1813667870]
+layout_mode = 0
+offset_top = 53.0
+offset_right = 75.0
+offset_bottom = 53.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer" unique_id=794068103]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="PanelContainer/VBoxContainer" unique_id=842090230]
+layout_mode = 2
+text = "Giocatori:"
+
+[node name="AgentSelector" type="OptionButton" parent="PanelContainer/VBoxContainer" unique_id=1700147692]
+layout_mode = 2
+selected = 1
+item_count = 2
+popup/item_0/text = "VISTE"
+popup/item_0/id = 0
+popup/item_0/disabled = true
+popup/item_0/separator = true
+popup/item_1/text = "Spettatore"
+popup/item_1/id = 1
+
+[connection signal="item_selected" from="PanelContainer/VBoxContainer/AgentSelector" to="." method="_on_agent_selector_item_selected"]

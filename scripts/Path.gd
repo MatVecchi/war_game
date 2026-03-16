@@ -5,7 +5,7 @@ class_name Path
 func _ready() -> void:
 	add_to_group("paths")
 	
-func get_paths_points(idx: int):
+func get_paths_points(idx: int) -> Array[Variant]:
 	var paths = get_tree().get_nodes_in_group("paths")
 	var point_position = self.curve.get_point_position(idx)
 	var paths_points = []

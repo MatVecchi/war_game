@@ -2,7 +2,7 @@ extends Node
 
 class_name Agent
 
-var routes: AStar2D = AStar2D.new()
+var routes: GPA2D = GPA2D.new()
 var hour_timer: Timer
 var day_timer: Timer
 var graph_to_path = []
@@ -17,23 +17,31 @@ var resources: Dictionary[Enums.Resources, int] = {
 	Enums.Resources.FISH: 10_000,
 	Enums.Resources.GOLD: 200_000,
 }
+var perfectly_known_armies: Dictionary[Army, int] = {}
+var known_armies: Dictionary[Army, int] = {}
 
 @export var player_name: String
 @export var color: Color
 @export var armies: Array[Army]
 
 
-# Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	add_to_group("players")
 	await get_tree().process_frame
-	var paths = get_tree().get_nodes_in_group("paths")
-	var c := 0
+	var paths: Array[Node] = get_tree().get_nodes_in_group("paths")
+	var c: int = 0
 	for el in paths:
 		if el is not Path2D: continue
-		routes.add_point(c, el.curve.get_point_position(0), 1.0)
-		routes.add_point(c + 1, el.curve.get_point_position(el.curve.point_count - 1), 1.0)
-		routes.connect_points(c, c + 1, true)
+		var start_point_position = el.curve.get_point_position(0)
+		var end_point_position = el.curve.get_point_position(el.curve.point_count - 1)
+		var weight: float
+		if el.get_parent().get_parent() == self:
+			weight = 1.0
+		else:
+			weight = 2.0
+		routes.add_point(c, start_point_position, 1.0)
+		routes.add_point(c + 1, end_point_position, 1.0)
+		routes.connect_points(c, c + 1, weight)
 		graph_to_path.insert(c, [el, 0])
 		graph_to_path.insert(c + 1, [el, el.curve.point_count - 1])
 		path_to_graph[el] = [c, c + 1]
@@ -41,24 +49,30 @@ func _ready() -> void:
 		
 	for el in paths:
 		if el is not Path2D: continue
-		var connected_points_start = el.get_paths_points(0)
-		var connected_points_end = el.get_paths_points(el.curve.point_count - 1)
+		var connected_points_start: Array[Variant] = el.get_paths_points(0)
+		var connected_points_end: Array[Variant] = el.get_paths_points(el.curve.point_count - 1)
+		var weight: float
+		
+		if el.get_parent().get_parent() == self:
+			weight = 1.0
+		else:
+			weight = 1.5
 		
 		for s in connected_points_start:
-			var i
+			var i: int
 			if s[1] == 0:
 				i = 0
 			else:
 				i = 1
-			routes.connect_points(path_to_graph[el][0], path_to_graph[s[0]][i], true)
+			routes.connect_points(path_to_graph[el][0], path_to_graph[s[0]][i], weight)
 		
 		for s in connected_points_end:
-			var i
+			var i: int
 			if s[1] == 0:
 				i = 0
 			else:
 				i = 1
-			routes.connect_points(path_to_graph[el][1], path_to_graph[s[0]][i], true)
+			routes.connect_points(path_to_graph[el][1], path_to_graph[s[0]][i], weight)
 	
 	var provinces = get_tree().get_nodes_in_group("provinces")
 	for el in provinces:
@@ -78,7 +92,7 @@ func _ready() -> void:
 		if children[i] is not Province: continue	
 			
 		var army: Army = army_scene.instantiate()
-		army.army_id = i
+		army.army_id = len(armies)
 		army.soldier_number = 10
 		army.life_points = army.LIFE_PER_UNIT * 10 * (float(children[i].province_morale)/100)
 		army.player = self
@@ -90,11 +104,10 @@ func _ready() -> void:
 				for j in range(count):
 					if el.curve.get_point_position(j) == children[i].get_city_position():
 						el.add_child(army)
-		game.state.add_army_to_province(children[i], army)
+		game.add_army_to_province(children[i], army)
 	
 	if len(armies) > 0 and player_name == "Libia Orientale":
-		print("provinces ", game.state.provinces) # debug
-		#armies[0].order(game.state.provinces[2])
+		armies[0].order(game.provinces[2])
 	
 	hour_timer = get_node("/root/Game/GlobalHourTimer")
 	hour_timer.timeout.connect(_on_global_hour_timer_timeout)
@@ -121,7 +134,40 @@ func _on_global_hour_timer_timeout() -> void:
 		add_resource(i, -ceil(float(total_army_daily_cost[i])/24))
 
 func _on_global_day_timer_timeout() -> void:
-	print(self, resources)
+	print(self, " ", resources, " ", perfectly_known_armies, " ", known_armies, " ", armies)
+	
+func _on_army_destroyed(army: Army):
+	perfectly_known_armies.erase(army)
+	known_armies.erase(army)
+	
+func add_known_army(army: Army):
+	if army in perfectly_known_armies: return
+	known_armies.get_or_add(army, 0)
+	known_armies[army] += 1
+	army.army_destroyed.connect(_on_army_destroyed)
+	army.emit_signal("became_known", army, self)
+	
+func remove_know_army_reference(army: Army):
+	if army not in known_armies: return
+	known_armies[army] -= 1
+	if known_armies[army] == 0:
+		known_armies.erase(army)
+		army.emit_signal("became_unknown", army, self)
+	
+func add_perfectly_known_army(army: Army):
+	if army in known_armies:
+		known_armies.erase(army)
+	perfectly_known_armies.get_or_add(army, 0)
+	perfectly_known_armies[army] += 1
+	army.army_destroyed.connect(_on_army_destroyed)
+	army.emit_signal("became_perfectly_known", army, self)
+	
+func remove_perfectly_know_army_reference(army: Army):
+	if army not in perfectly_known_armies: return
+	perfectly_known_armies[army] -= 1
+	if perfectly_known_armies[army] == 0:
+		perfectly_known_armies.erase(army)
+		army.emit_signal("became_known", army, self)
 		
 func get_province_owner(province: Province) -> bool:
 	if province == null: return false

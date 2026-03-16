@@ -2,18 +2,27 @@ extends Node2D
 
 class_name Army
 
+signal army_destroyed
+signal became_known
+signal became_perfectly_known
+signal became_unknown
 
-var travelling: bool = false
 var path
+var province_location
 var nodes_travelled: int
 var direction: int
 var timer: Timer
 var hour_timer: Timer
 var day_timer: Timer
-var death_count: int = 0
 var rng: RandomNumberGenerator = RandomNumberGenerator.new()
+var soldier_number: int
+var life_points: float
+var army_id: int
+var player: Agent
+var travelling: bool = false
 var day_battle: bool = false
-var province_location
+var soldier_number_visible: bool = true
+var death_count: int = 0
 var current_speed: float = SPEED
 const SPEED: float = 1.0
 const ATTACK_TIME: float = 60.0
@@ -28,14 +37,14 @@ const ARMY_DAILY_COST_PER_UNIT = {
 	Enums.Resources.OIL: 5
 }
 
-@export var soldier_number: int
-@export var life_points: float
-@export var army_id: int
-@export var player: Agent
-
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	$Control.scale = Vector2(1, 1)/get_viewport().get_camera_2d().zoom	
+	$ObfuscatedVision/CollisionShape2D.shape.radius = $PerfectVision/CollisionShape2D.shape.radius * 1.5
+	$ObfuscatedVision.area_entered.connect(_on_obfuscated_vision_entered)
+	$ObfuscatedVision.area_exited.connect(_on_obfuscated_vision_exited)
+	$PerfectVision.area_entered.connect(_on_perfect_vision_entered)
+	$PerfectVision.area_exited.connect(_on_perfect_vision_exited)
 	$Area2D.area_entered.connect(_on_area_entered)
 	timer = get_node("/root/Game/GlobalTimer")
 	timer.timeout.connect(_on_global_timer_timeout)
@@ -45,9 +54,12 @@ func _ready() -> void:
 	day_timer.timeout.connect(_on_global_day_timer_timeout)
 	
 func _draw() -> void:
-	$Control/Label.text = str(soldier_number)
-	$Control/ProgressBar.value = life_points*100/((soldier_number+death_count)*LIFE_PER_UNIT)
-	
+	if soldier_number_visible:
+		$Control/Label.text = str(soldier_number)
+		$Control/ProgressBar.value = life_points*100/((soldier_number+death_count)*LIFE_PER_UNIT)
+	else:
+		$Control/Label.text = "?"
+		$Control/ProgressBar.value = 100
 func _input(_event):
 	if Input.is_action_just_pressed("camera_zoom_in") or Input.is_action_just_pressed("camera_zoom_out"):
 		$Control.scale = Vector2(1,1)/get_viewport().get_camera_2d().zoom
@@ -120,9 +132,33 @@ func _on_global_day_timer_timeout() -> void:
 		life_points += life_points * 0.01
 	else:
 		life_points += life_points * 0.02
+		
+func _on_obfuscated_vision_entered(area: Area2D) -> void:
+	if area.name != "Area2D": return
+	var other: Node = area.get_parent()
+	if other is Army and player != other.player:
+		player.add_known_army(other)
+
+func _on_obfuscated_vision_exited(area: Area2D) -> void:
+	if area.name != "Area2D": return
+	var other: Node = area.get_parent()
+	if other is Army and player != other.player:
+		player.remove_know_army_reference(other)
 	
-func _on_area_entered(area) -> void:
-	var other = area.get_parent()
+func _on_perfect_vision_entered(area: Area2D) -> void:
+	if area.name != "Area2D": return
+	var other: Node = area.get_parent()
+	if other is Army and player != other.player:
+		player.add_perfectly_known_army(other)
+	
+func _on_perfect_vision_exited(area: Area2D) -> void:
+	if area.name != "Area2D": return
+	var other: Node = area.get_parent()
+	if other is Army and player != other.player:
+		player.remove_perfectly_know_army_reference(other)
+	
+func _on_area_entered(area: Area2D) -> void:
+	var other: Node = area.get_parent()
 	if other is Army:
 		if player == other.player:
 			_on_friendly_collision(other)
@@ -130,25 +166,25 @@ func _on_area_entered(area) -> void:
 			_on_enemy_collision(other)
 	
 func _notification(what: int) -> void:
-	if what != NOTIFICATION_PARENTED: return
-	
-	province_location = get_parent().get_parent()
-	if player.get_province_owner(province_location):
-		current_speed = SPEED * ALLY_TERRITORY_SPEED_MULTIPLIER
-	elif province_location is Background:
-		current_speed = SPEED * SEA_SPEED_MULTIPLIER
-	else:
-		current_speed = SPEED * ENEMY_TERRITORY_SPEED_MULTIPLIER
-	
-		
-			
+	if what != NOTIFICATION_PARENTED and what != NOTIFICATION_PREDELETE: return
+
+	if what == NOTIFICATION_PARENTED:
+		province_location = get_parent().get_parent()
+		if player.get_province_owner(province_location):
+			current_speed = SPEED * ALLY_TERRITORY_SPEED_MULTIPLIER
+		elif province_location is Background:
+			current_speed = SPEED * SEA_SPEED_MULTIPLIER
+		else:
+			current_speed = SPEED * ENEMY_TERRITORY_SPEED_MULTIPLIER
+	elif what == NOTIFICATION_PREDELETE:
+		emit_signal("army_destroyed", self)
 func _on_battle_timer_timeout(other: Army, battle_timer: Timer) -> void:
-	var casual_attacker_multiplier: float = rng.randf_range(0.5, 1.5)
-	var casual_defender_multiplier: float = rng.randf_range(0.5, 1.5)
+	var random_attacker_multiplier: float = rng.randf_range(0.5, 1.5)
+	var random_defender_multiplier: float = rng.randf_range(0.5, 1.5)
 	var attacker_strength: float = (soldier_number*ATTACK_PER_UNIT)*life_points/(soldier_number*LIFE_PER_UNIT)
 	var defener_strength: float = (other.soldier_number*other.DEFENSE_PER_UNIT)*other.life_points/(other.soldier_number*other.LIFE_PER_UNIT)
-	var final_attack: float = attacker_strength * casual_attacker_multiplier
-	var final_defense: float = defener_strength * casual_defender_multiplier
+	var final_attack: float = attacker_strength * random_attacker_multiplier
+	var final_defense: float = defener_strength * random_defender_multiplier
 	
 	#print("DEFENSE: ", final_defense, " ATTACK: ", final_attack)
 	

@@ -53,7 +53,7 @@ point_count = 2
 
 [node name="Game" type="Node2D" unique_id=63633635]
 script = ExtResource("1_lbhrr")
-time_multiplier = 100.0
+time_multiplier = 25.0
 
 [node name="GlobalTimer" type="Timer" parent="." unique_id=1661397854]
 autostart = true
@@ -103,7 +103,6 @@ script = ExtResource("3_lnu2h")
 province_id = 1
 province_name = "Misurata"
 province_material = 2
-double_material = null
 is_capital = true
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Libia Orientale/Misurata" unique_id=1033763293]
@@ -172,7 +171,6 @@ province_id = 1
 province_name = "Nalut"
 province_material = 5
 double_material = true
-is_capital = null
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Libia Orientale/Nalut" unique_id=1029810181]
 position = Vector2(272.63, 21.692585)
@@ -241,10 +239,7 @@ color = Color(0.9235921, 0.40204707, 0.46211284, 1)
 collision_layer = 3
 collision_mask = 3
 script = ExtResource("3_lnu2h")
-province_id = null
 province_name = "Tripoli"
-province_material = null
-double_material = null
 is_capital = true
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Libia Occidentale/Tripoli" unique_id=453143359]
@@ -305,5 +300,20 @@ script = ExtResource("8_gee14")
 [node name="Path2D3" type="Path2D" parent="Libia Occidentale/Tripoli" unique_id=10208583]
 curve = SubResource("Curve2D_0tnpc")
 script = ExtResource("8_gee14")
+
+[node name="Control" type="Control" parent="." unique_id=43116263]
+visible = false
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="ColorRect" type="ColorRect" parent="Control" unique_id=1290198438]
+layout_mode = 0
+offset_left = -2805.0
+offset_top = -1826.0
+offset_right = 2666.0
+offset_bottom = 1778.0
+color = Color(0.101960786, 0.101960786, 0.101960786, 0.3254902)
 
 [connection signal="timeout" from="GlobalTimer" to="." method="_on_global_timer_timeout"]

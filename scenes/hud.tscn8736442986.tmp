@@ -1,0 +1,29 @@
+[gd_scene format=3 uid="uid://cx6mfagal8ll4"]
+
+[ext_resource type="Script" uid="uid://cmpx3noks68u0" path="res://scripts/HUD.gd" id="1_ahhtf"]
+
+[node name="Control" type="Control" unique_id=260816110]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ahhtf")
+
+[node name="PanelContainer" type="PanelContainer" parent="." unique_id=1813667870]
+layout_mode = 0
+offset_top = 53.0
+offset_right = 75.0
+offset_bottom = 53.0
+
+[node name="AgentList" type="VBoxContainer" parent="PanelContainer" unique_id=794068103]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="PanelContainer/AgentList" unique_id=842090230]
+layout_mode = 2
+text = "Giocatori:
+"
+
+[node name="OptionButton" type="OptionButton" parent="PanelContainer/AgentList" unique_id=1448837996]
+layout_mode = 2

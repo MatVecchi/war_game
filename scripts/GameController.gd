@@ -2,86 +2,93 @@ extends Node
 
 class_name GameController
 
-var state: GameState
+var provinces: Array[Province] = []
+var hud_scene: Resource = preload("res://scenes/hud.tscn")
+var view: Agent = null
 @export var time_multiplier: float = 1.0
 
 func _ready() -> void:
 	Engine.time_scale = time_multiplier
 	var polys = get_tree().get_nodes_in_group("provinces")
-	var agents = get_tree().get_nodes_in_group("players")
 	var nodes: Array[Path2D]
-	var bg = get_tree().get_nodes_in_group("background")[0]
-	bg.clear_province.connect(clear_selection)
+	
+	for el in polys:
+		if el is not Province: return
+		provinces.append(el)
 	
 	for el in get_children():
 		if el is Path2D:
 			nodes.append(el)
 	
-	state = GameState.new(polys, agents, nodes) # debug
+	create_hud()
+
+func _on_army_became_known(army: Army, player: Agent) -> void:
+	if player != view: return
+	army.soldier_number_visible = false
+	army.show() 
+	army.queue_redraw()
+	
+func _on_army_became_perfectly_known(army: Army, player: Agent) -> void:
+	if player != view: return
+	army.soldier_number_visible = true
+	army.show()
+	army.queue_redraw()
+	
+func _on_army_became_unknown(army: Army, player: Agent) -> void:
+	if player != view: return
+	army.hide()
+	army.queue_redraw()
+	
+func _on_view_changed(player: Agent) -> void:
+	view = player
+	var players = get_tree().get_nodes_in_group("players")
+	for el: Agent in players:
+		if el == player:
+			for army: Army in el.armies:
+				army.show()
+				army.queue_redraw()
+		else:
+			for army: Army in el.armies:
+				if player == null:
+					army.soldier_number_visible = true
+					army.show()
+				elif army in player.known_armies:
+					army.soldier_number_visible = false
+					army.show()
+				elif army in player.perfectly_known_armies:
+					army.soldier_number_visible = true
+					army.show()
+				else:
+					army.hide()
+				army.queue_redraw()
+
+func add_army_to_province(province: Province, army: Army) -> void:
+	var agent: Agent = province.get_parent()
+	if army == null:
+		var army_scene = preload("res://scenes/army.tscn")
+		army = army_scene.instantiate()
+		army.army_id = len(agent.armies)
+		army.soldier_number = 10
+		army.life_points = army.LIFE_PER_UNIT * 10 * (float(province.province_morale)/100)
+		agent.armies.append(army)
+		agent.add_child(army)
+	army.position = province.get_node("Node2D").global_position
+	army.became_known.connect(_on_army_became_known)
+	army.became_perfectly_known.connect(_on_army_became_perfectly_known)
+	army.became_unknown.connect(_on_army_became_unknown)
+	
+	if agent != view and view != null:
+		army.hide()
+
+func create_hud():
+	var canvas_layer = CanvasLayer.new()
+	var hud: Hud = hud_scene.instantiate()
+	canvas_layer.add_child(hud)
+	hud.view_changed.connect(_on_view_changed)
+	get_tree().current_scene.add_child(canvas_layer)
 	
 func conquer_province(province: Province, agent: Agent) -> void:
-	if not state: return
-	state.conquer_province(province, agent)
-
-func _process(_delta: float) -> void:
-	pass
-	
-func clear_selection() -> void:
-	var p = state.get_province_selected()
-	if p != null:
-		p.toggle_selection()
-		state.set_province_selected(null)
-
-class GameState:
-	var provinces
-	var province_selected
-	var players
-	var all_nodes
-	func _init(polys: Array[Node], agents: Array[Node], nodes: Array[Path2D]) -> void:
-		provinces = polys
-		players = agents
-		all_nodes = nodes
-		for el in provinces:
-			el.province_clicked.connect(self.select_province)
-			
-	func get_province(id: int) -> Province:
-		for el in self.provinces:
-			if el.province_id == id:
-				return el
-		return null
-	
-	func get_province_selected() -> Province:
-		return province_selected
-	
-	func set_province_selected(new_province) -> void:
-		province_selected = new_province
-		
-	func conquer_province(province: Province, agent: Agent) -> void:
-		province.reparent(agent)
-		province.fill.color = agent.color
-		province.province_morale = 12
-		province.conquered = true
-		
-	func select_province(id: int) -> void:
-		if get_province_selected() != null && get_province_selected().province_id != id:
-			get_province_selected().toggle_selection()
-		var el = get_province(id)
-		if el.toggle_selection():
-			set_province_selected(el)
-		else:
-			set_province_selected(null)
-			
-	func add_army_to_province(province: Province, army: Army) -> void:
-		var agent = province.get_parent()
-		if army == null:
-			var army_scene = preload("res://scenes/army.tscn")
-			army = army_scene.instantiate()
-			army.army_id = 0
-			army.soldier_number = 10
-			army.life_points = army.LIFE_PER_UNIT * 10 * (float(province.province_morale)/100)
-			agent.armies.append(army)
-			agent.add_child(army)
-		army.position = province.get_node("Node2D").global_position
-
-func _on_global_timer_timeout() -> void:
-	pass
+	province.reparent(agent)
+	province.fill.color = agent.color
+	province.province_morale = 12
+	province.conquered = true

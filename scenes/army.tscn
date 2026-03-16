@@ -8,8 +8,20 @@
 
 [sub_resource type="LabelSettings" id="LabelSettings_pimn7"]
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_rtv1n"]
+radius = 0.01
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_xp2os"]
+radius = 90.0
+
 [sub_resource type="CircleShape2D" id="CircleShape2D_pimn7"]
 radius = 5.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rtv1n"]
+corner_radius_top_left = 900000
+corner_radius_top_right = 900000
+corner_radius_bottom_right = 900000
+corner_radius_bottom_left = 900000
 
 [node name="Army" type="PathFollow2D" unique_id=994501494]
 z_index = 100
@@ -97,10 +109,33 @@ offset_right = 31.0
 offset_bottom = -23.0
 value = 100.0
 
+[node name="ObfuscatedVision" type="Area2D" parent="." unique_id=188735400]
+collision_layer = 4
+collision_mask = 3
+input_pickable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ObfuscatedVision" unique_id=858129302]
+shape = SubResource("CircleShape2D_rtv1n")
+debug_color = Color(0.4596098, 8.4228816e-08, 0.23985586, 0.41960785)
+
+[node name="PerfectVision" type="Area2D" parent="." unique_id=1298620519]
+collision_layer = 8
+collision_mask = 3
+input_pickable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PerfectVision" unique_id=1552180597]
+shape = SubResource("CircleShape2D_xp2os")
+debug_color = Color(0.85763264, 0.33018202, 0.41716227, 0.41960785)
+
 [node name="Area2D" type="Area2D" parent="." unique_id=103693119]
-collision_layer = 3
+collision_layer = 15
 collision_mask = 3
 input_pickable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=16992329]
 shape = SubResource("CircleShape2D_pimn7")
+
+[node name="Panel" type="Panel" parent="." unique_id=562211405]
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_rtv1n")

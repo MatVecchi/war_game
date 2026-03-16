@@ -64,29 +64,29 @@ func _update_neighbors():
 	var space_state = get_world_2d().direct_space_state
 
 	# 1. Ricostruisci la shape come ConcavePolygonShape2D
-	var poly := $CollisionPolygon2D.polygon
-	var segments := _polygon_to_segments(poly)
+	var poly = $CollisionPolygon2D.polygon
+	#var segments = _polygon_to_segments(poly)
 
 	var my_shape := ConcavePolygonShape2D.new()
-	my_shape.set_segments(segments)
+	#my_shape.set_segments(segments)
 
 	# 2. Trasformazione globale
-	var my_transform := $CollisionPolygon2D.global_transform
+	#var my_transform := $CollisionPolygon2D.global_transform
 
 	# 3. Parametri della query
 	var params := PhysicsShapeQueryParameters2D.new()
 	params.shape = my_shape
-	params.transform = my_transform
+	#params.transform = my_transform
 	params.collide_with_areas = true
 	params.collide_with_bodies = false
 
 	# 4. Query
 	var results := space_state.intersect_shape(params)
 
-	for r in results:
-		var area := r.collider
-		if area is Provincia and area != self:
-			neighbors.append(area)
+	#for r in results:
+		#var area := r.collider
+		#if area is Provincia and area != self:
+			#neighbors.append(area)
 
 
 
@@ -100,7 +100,7 @@ func _input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion: return
 	if Input.is_action_just_released("select_province") and not get_viewport().get_camera_2d().dragged:
 		emit_signal("province_clicked", province_id)
-		get_viewport().set_input_as_handled()
+		#get_viewport().set_input_as_handled()
 		
 	if Input.is_action_just_pressed("camera_zoom_in") or Input.is_action_just_pressed("camera_zoom_out"):
 		$Control.scale = Vector2(1,1)/get_viewport().get_camera_2d().zoom
@@ -141,7 +141,6 @@ func _update_army_timer(val: float):
 	else:
 		army_timer.wait_time = val * ((100 - percentage)/100)
 		current_army_timer = val
-	print("update timer: ", val, " ", army_timer.wait_time, " ", (100 - percentage), " ", percentage, " ", time_left)
 	
 func _on_army_timer_timeout() -> void:
 	_update_army_timer(current_army_timer)
@@ -167,7 +166,7 @@ func _on_army_timer_timeout() -> void:
 			for j in range(count):
 				if el.curve.get_point_position(j) == get_city_position():
 					el.add_child(army)
-	game.state.add_army_to_province(self, army)
+	game.add_army_to_province(self, army)
 	
 func _get_daily_resource_count() -> int:
 	var resource_to_add: int = (province_morale * 24) + 750
