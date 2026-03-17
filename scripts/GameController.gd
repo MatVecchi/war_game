@@ -5,18 +5,98 @@ class_name GameController
 var provinces: Array[Province] = []
 var hud_scene: Resource = preload("res://scenes/hud.tscn")
 var view: Agent = null
+var leaderboard: Array[Variant] = []
+var fog_circles: Dictionary[Army, Variant] = {}
 var fog_image: Image
-var vision_images: Array[Image]
+var vision_images: Array[Variant]
+const FOG_OF_WAR_BACKGROUND_COLOR: Color = Color(0.0, 0.0, 0.0, 0.3)
+const FOG_OF_WAR_OUTER_CIRCLE_COLOR: Color = Color(0.0, 0.0, 0.0, 0.1)
+const FOG_OF_WAR_INNER_CIRCLE_COLOR: Color = Color(0.0, 0.0, 0.0, 0.0)
+const FOG_OF_WAR_OUTER_CIRCLE_RADIUS_MULTIPLIER: float = 1.5
 @export var time_multiplier: float = 1.0
 @onready var global_timer: Timer = $GlobalTimer
 @onready var fog_sprite: Sprite2D = %FogSprite
+@onready var fog_material: ShaderMaterial = %FogSprite.material as ShaderMaterial
 @onready var background: Polygon2D = $Background/Polygon2D
 
+func _create_fog() -> void:
+	var world_dimensions: Vector2 = get_collision_rect_size(background)
+		
+	fog_image = Image.create(int(world_dimensions.x), int(world_dimensions.y), false, Image.FORMAT_RGBA8)
+	fog_image.fill(Color(0, 0, 0, 0.5))
+	var fog_texture: ImageTexture = ImageTexture.create_from_image(fog_image)
+	fog_sprite.texture = fog_texture
+	
+	fog_material.set_shader_parameter("color_background", FOG_OF_WAR_BACKGROUND_COLOR)
+	fog_material.set_shader_parameter("color_big", FOG_OF_WAR_OUTER_CIRCLE_COLOR)
+	fog_material.set_shader_parameter("color_small", FOG_OF_WAR_INNER_CIRCLE_COLOR)
+	fog_material.set_shader_parameter("big_radius_multiplier", FOG_OF_WAR_OUTER_CIRCLE_RADIUS_MULTIPLIER)
+
+func _fog_add_circle(army: Army, pos: Vector2, radius: float) -> void:
+	fog_circles[army] = {
+		"position": pos + Vector2(fog_image.get_size()) / 2 + (fog_sprite.global_position * Vector2(-1.0, -1.0)),
+		"radius": radius,
+		"id": len(fog_circles)
+	}
+	
+	var circles_position: Array[Vector2] = []
+	var circles_radius: Array[float] = []
+	
+	for el in fog_circles:
+		circles_position.insert(fog_circles[el]["id"], fog_circles[el]["position"])
+		circles_radius.insert(fog_circles[el]["id"], fog_circles[el]["radius"])
+	
+	fog_material.set_shader_parameter("circle_count", len(fog_circles))
+	fog_material.set_shader_parameter("pos", circles_position)
+	fog_material.set_shader_parameter("small_radius", circles_radius)
+	
+func _fog_del_circle(army: Army) -> void:
+	fog_circles.erase(army)
+	
+	var circles_position: Array[Vector2] = []
+	var circles_radius: Array[float] = []
+	var c: int = 0
+	
+	for el in fog_circles:
+		circles_position.append(fog_circles[el]["position"])
+		circles_radius.append(fog_circles[el]["radius"])
+		
+		fog_circles[el]["id"] = c
+		c += 1
+	
+	fog_material.set_shader_parameter("circle_count", len(fog_circles))
+	fog_material.set_shader_parameter("pos", circles_position)
+	fog_material.set_shader_parameter("small_radius", circles_radius)
+	
+func _fog_map_circles() -> void:
+	var armies: Array[Variant]
+	if view == null:
+		armies = get_tree().get_nodes_in_group("armies")
+	else:
+		armies = view.armies
+		
+	fog_circles.clear()
+	for army: Army in armies:
+		_fog_add_circle(army, army.global_position, army.VISION_RANGE)
+	
+func _fog_update_circle_position(army: Army, new_pos: Vector2) -> void:
+	fog_circles[army]["position"] = new_pos + Vector2(fog_image.get_size()) / 2 + (fog_sprite.global_position * Vector2(-1.0, -1.0))
+	
+	var circles_position: Array[Vector2] = []
+	var circles_radius: Array[float] = []
+	
+	for el in fog_circles:
+		circles_position.insert(fog_circles[el]["id"], fog_circles[el]["position"])
+		circles_radius.insert(fog_circles[el]["id"], fog_circles[el]["radius"])
+	
+	fog_material.set_shader_parameter("pos", circles_position)
+	fog_material.set_shader_parameter("small_radius", circles_radius)
 
 func _ready() -> void:
 	Engine.time_scale = time_multiplier
 	var polys = get_tree().get_nodes_in_group("provinces")
 	var nodes: Array[Path2D]
+	var players: Array[Node] = get_tree().get_nodes_in_group("players")
 	
 	for el in polys:
 		if el is not Province: return
@@ -25,8 +105,14 @@ func _ready() -> void:
 	for el in get_children():
 		if el is Path2D:
 			nodes.append(el)
+			
+	for player: Agent in players:
+		leaderboard.append({"player": player, "points": player.points})
+	leaderboard.sort_custom(_sort_leaderboard)
 	
-	create_hud()
+	_create_hud()
+	_create_fog()
+	_fog_map_circles()
 	global_timer.timeout.connect(_on_global_timer_timeout)
 
 func _on_army_became_known(army: Army, player: Agent) -> void:
@@ -46,8 +132,24 @@ func _on_army_became_unknown(army: Army, player: Agent) -> void:
 	army.hide()
 	army.queue_redraw()
 	
+func _on_army_destroyed(army: Army) -> void:
+	_fog_del_circle(army)
+	
 func _on_global_timer_timeout() -> void:
-	update_fog()
+	var armies: Array[Variant]
+	if view == null:
+		armies = get_tree().get_nodes_in_group("armies")
+	else:
+		armies = view.armies
+	for el: Army in armies:
+		_fog_update_circle_position(el, el.global_position)
+		
+	var players = get_tree().get_nodes_in_group("players")
+	for player: Agent in players:
+		for el in leaderboard:
+			if el["player"] == player:
+				el["points"] = player.points
+	leaderboard.sort_custom(_sort_leaderboard)
 	
 func _on_view_changed(player: Agent) -> void:
 	view = player
@@ -71,6 +173,10 @@ func _on_view_changed(player: Agent) -> void:
 				else:
 					army.hide()
 				army.queue_redraw()
+	_fog_map_circles()
+	
+func _sort_leaderboard(a, b):
+	return a["points"] < b["points"]
 
 func add_army_to_province(province: Province, army: Army) -> void:
 	var agent: Agent = province.get_parent()
@@ -83,16 +189,18 @@ func add_army_to_province(province: Province, army: Army) -> void:
 		agent.armies.append(army)
 		agent.add_child(army)
 	army.position = province.get_node("Node2D").global_position
-	army.army_destroyed.connect(update_vision_images)
+	army.army_destroyed.connect(_on_army_destroyed)
 	army.became_known.connect(_on_army_became_known)
 	army.became_perfectly_known.connect(_on_army_became_perfectly_known)
 	army.became_unknown.connect(_on_army_became_unknown)
-	update_vision_images()
+	
+	if army.player == view or view == null:
+		_fog_add_circle(army, army.position, army.VISION_RANGE)
 	
 	if agent != view and view != null:
 		army.hide()
 
-func create_hud():
+func _create_hud():
 	var canvas_layer = CanvasLayer.new()
 	var hud: Hud = hud_scene.instantiate()
 	canvas_layer.add_child(hud)
@@ -109,7 +217,6 @@ func get_collision_rect_size(poly: Polygon2D) -> Vector2:
 	var pts = poly.polygon
 	if pts.size() != 4:
 		return Vector2.ZERO
-
 	var min_x = pts[0].x
 	var max_x = pts[0].x
 	var min_y = pts[0].y
@@ -122,30 +229,3 @@ func get_collision_rect_size(poly: Polygon2D) -> Vector2:
 		max_y = max(max_y, p.y)
 
 	return Vector2(max_x - min_x, max_y - min_y)
-	
-func update_fog() -> void:
-	var world_dimensions: Vector2 = get_collision_rect_size(background)
-		
-	fog_image = Image.create(int(world_dimensions.x), int(world_dimensions.y), false, Image.FORMAT_RGBA8)
-	fog_image.fill(Color(0, 0, 0, 0.5))
-	var armies: Array[Variant]
-	if view == null:
-		armies = get_tree().get_nodes_in_group("armies")
-	else:
-		armies = view.armies
-		
-	for i in range(len(armies)):
-		var army = armies[i] as Army
-		var vision_dimensions: Vector2i = Vector2i(army.VISION_RANGE * 2, army.VISION_RANGE * 2)
-		var vision_rect: Rect2i = Rect2i(Vector2.ZERO, vision_dimensions)
-		print(army.global_position)
-		fog_image.blend_rect(vision_images[i], vision_rect, army.position + Vector2(fog_image.get_size()) / 2) 
-	var fog_texture: ImageTexture = ImageTexture.create_from_image(fog_image)
-	fog_sprite.texture = fog_texture
-	
-func update_vision_images() -> void:
-	var armies: Array[Node] = get_tree().get_nodes_in_group("armies")
-	vision_images.clear()
-	for army: Army in armies:
-		vision_images.append(army.vision_sprite.texture.get_image())
-		vision_images[len(vision_images) - 1].convert(Image.FORMAT_RGBA8)

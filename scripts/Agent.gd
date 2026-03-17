@@ -17,6 +17,7 @@ var resources: Dictionary[Enums.Resources, int] = {
 	Enums.Resources.FISH: 10_000,
 	Enums.Resources.GOLD: 200_000,
 }
+var points: int = 54
 var perfectly_known_armies: Dictionary[Army, int] = {}
 var known_armies: Dictionary[Army, int] = {}
 

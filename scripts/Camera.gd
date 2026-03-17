@@ -7,7 +7,7 @@ var dragged := false
 var drag_start_mouse_pos := Vector2.ZERO
 var drag_start_camera_pos := Vector2.ZERO
 
-const MIN_ZOOM := 0.0
+const MIN_ZOOM := 1.0
 const MAX_ZOOM := 8.0
 const ZOOM_SPEED := 0.1
 

@@ -11,7 +11,7 @@ var conquered: bool = false
 const DEFAULT_ARMY_GENERATION_WAIT: float = 720.0
 const DEFAULT_START_PROVINCE_MORALE: int = 70
 const DEFAULT_START_TARGET_MORALE: int = 100
-const MATERIAL_TEXTURES := {
+const MATERIAL_TEXTURES: Dictionary[Enums.ResourcesSprites, Resource] = {
 	Enums.ResourcesSprites.WOOD: preload("res://assets/sprites/resources/wood.png"),
 	Enums.ResourcesSprites.WOOD_DOUBLE: preload("res://assets/sprites/resources/wood_double.png"),
 	Enums.ResourcesSprites.IRON: preload("res://assets/sprites/resources/iron.png"),

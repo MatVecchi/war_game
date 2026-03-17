@@ -13,9 +13,8 @@ script = ExtResource("1_ahhtf")
 
 [node name="PanelContainer" type="PanelContainer" parent="." unique_id=1813667870]
 layout_mode = 0
-offset_top = 53.0
-offset_right = 75.0
-offset_bottom = 53.0
+offset_right = 115.0
+offset_bottom = 58.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer" unique_id=794068103]
 layout_mode = 2
@@ -34,5 +33,61 @@ popup/item_0/disabled = true
 popup/item_0/separator = true
 popup/item_1/text = "Spettatore"
 popup/item_1/id = 1
+
+[node name="PanelContainer2" type="PanelContainer" parent="." unique_id=1218842223]
+visible = false
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.96500003
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -0.32000732
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer2" unique_id=816191978]
+layout_mode = 2
+
+[node name="PlayerName" type="Label" parent="PanelContainer2/HBoxContainer" unique_id=793184685]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="PanelContainer2/HBoxContainer" unique_id=13029504]
+layout_mode = 2
+text = ":"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer2/HBoxContainer" unique_id=1669854757]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer2/HBoxContainer/VBoxContainer" unique_id=2021199584]
+layout_mode = 2
+
+[node name="Position" type="Label" parent="PanelContainer2/HBoxContainer/VBoxContainer/HBoxContainer" unique_id=6392583]
+layout_mode = 2
+
+[node name="Label2" type="Label" parent="PanelContainer2/HBoxContainer/VBoxContainer/HBoxContainer" unique_id=472312417]
+layout_mode = 2
+text = "^"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="PanelContainer2/HBoxContainer/VBoxContainer" unique_id=1820619148]
+layout_mode = 2
+
+[node name="PointsCount" type="Label" parent="PanelContainer2/HBoxContainer/VBoxContainer/HBoxContainer2" unique_id=1564178566]
+layout_mode = 2
+
+[node name="Label2" type="Label" parent="PanelContainer2/HBoxContainer/VBoxContainer/HBoxContainer2" unique_id=414098815]
+layout_mode = 2
+text = "/ 1000"
+
+[node name="Leaderboard" type="MenuButton" parent="." unique_id=1246355181]
+layout_mode = 0
+offset_top = 63.0
+offset_right = 80.0
+offset_bottom = 94.0
+text = "Classifica"
+item_count = 1
+popup/item_0/text = "Giocatori"
+popup/item_0/id = 0
+popup/item_0/disabled = true
+popup/item_0/separator = true
 
 [connection signal="item_selected" from="PanelContainer/VBoxContainer/AgentSelector" to="." method="_on_agent_selector_item_selected"]

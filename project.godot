@@ -19,6 +19,14 @@ config/icon="res://icon.svg"
 
 window/size/borderless=true
 
+[editor]
+
+movie_writer/fps=180
+
+[global_group]
+
+timer=""
+
 [input]
 
 camera_pan={

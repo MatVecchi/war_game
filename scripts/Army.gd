@@ -25,6 +25,7 @@ var soldier_number_visible: bool = true
 var death_count: int = 0
 var current_speed: float = SPEED
 const VISION_RANGE: int = 90
+const OBFUSCATED_VISION_MULTIPLIER: float = 1.5
 const SPEED: float = 1.0
 const ATTACK_TIME: float = 60.0
 const LIFE_PER_UNIT: float = 20.0
@@ -37,13 +38,17 @@ const ARMY_DAILY_COST_PER_UNIT = {
 	Enums.Resources.GRAIN: 20,
 	Enums.Resources.OIL: 5
 }
-@onready var vision_sprite: Sprite2D = %VisionSprite
+const MOVE_LINE_COLOR: Color = Color(0.0, 0.711, 0.0, 1.0)
+const ATTACK_LINE_COLOR: Color = Color(0.699, 0.0, 0.0, 1.0)
+
+@onready var direction_line: Line2D = $DirectionLine
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	add_to_group("armies")
 	$Control.scale = Vector2(1, 1)/get_viewport().get_camera_2d().zoom	
-	$ObfuscatedVision/CollisionShape2D.shape.radius = $PerfectVision/CollisionShape2D.shape.radius * 1.5
+	$PerfectVision/CollisionShape2D.shape.radius = VISION_RANGE
+	$ObfuscatedVision/CollisionShape2D.shape.radius = VISION_RANGE * OBFUSCATED_VISION_MULTIPLIER
 	$ObfuscatedVision.area_entered.connect(_on_obfuscated_vision_entered)
 	$ObfuscatedVision.area_exited.connect(_on_obfuscated_vision_exited)
 	$PerfectVision.area_entered.connect(_on_perfect_vision_entered)
@@ -55,8 +60,19 @@ func _ready() -> void:
 	hour_timer.timeout.connect(_on_global_hour_timer_timeout)
 	day_timer = get_node("/root/Game/GlobalDayTimer")
 	day_timer.timeout.connect(_on_global_day_timer_timeout)
-	$PerfectVision/CollisionShape2D.shape.radius = VISION_RANGE
-	vision_sprite.texture = create_texture()	
+	
+	
+func _create_texture(size: Vector2i, gradient_colors: PackedColorArray) -> GradientTexture2D:
+	var gradient: GradientTexture2D = GradientTexture2D.new()
+	gradient.gradient = Gradient.new()
+	gradient.width = size.x
+	gradient.height = size.y
+	gradient.fill = GradientTexture2D.FILL_RADIAL
+	gradient.fill_from = Vector2(0.5, 0.5)
+	gradient.fill_to = Vector2(0.0, 0.5)
+	gradient.gradient.interpolation_mode = Gradient.GRADIENT_INTERPOLATE_CONSTANT
+	gradient.gradient.colors = gradient_colors
+	return gradient
 	
 func _draw() -> void:
 	if soldier_number_visible:
@@ -90,6 +106,13 @@ func _on_global_timer_timeout() -> void:
 	if travelling:
 		if (self.progress_ratio != 1.0 and direction == 1) or (self.progress_ratio != 0.0 and direction == -1):
 			self.progress += current_speed * direction
+			
+			for i in range(nodes_travelled, len(path)):
+				var point_path: Path2D = player.graph_to_path[path[i]][0]
+				var path_point: int = player.graph_to_path[path[i]][1]
+				
+				
+				direction_line.set_point_position(i, to_local(point_path.to_global(point_path.curve.get_point_position(path_point))))
 		else:
 			nodes_travelled += 1
 			if nodes_travelled == len(path):
@@ -121,6 +144,7 @@ func _on_global_hour_timer_timeout() -> void:
 		player.add_resource(i, -ARMY_DAILY_COST_PER_UNIT[i] / 24)
 			
 func _on_destination_reached() -> void:
+	direction_line.points.clear()
 	if province_location == null: return
 	if not player.get_province_owner(province_location):
 		var game: GameController = get_tree().current_scene
@@ -221,18 +245,6 @@ func _on_battle_timer_timeout(other: Army, battle_timer: Timer) -> void:
 		travelling = true
 	else:
 		battle_timer.start()
-	
-func create_texture() -> GradientTexture2D:
-	var gradient: GradientTexture2D = GradientTexture2D.new()
-	gradient.gradient = Gradient.new()
-	gradient.width = VISION_RANGE * 2
-	gradient.height = VISION_RANGE * 2
-	gradient.fill = GradientTexture2D.FILL_RADIAL
-	gradient.fill_from = Vector2(0.5, 0.5)
-	gradient.fill_to = Vector2(0.0, 0.5)
-	gradient.gradient.interpolation_mode = Gradient.GRADIENT_INTERPOLATE_CONSTANT
-	gradient.gradient.colors = PackedColorArray([Color(255, 255, 255), Color(255, 255, 255, 0)])
-	return gradient
 		
 func destroy_self() -> void:
 	for i in range(len(player.armies)):
@@ -266,11 +278,11 @@ func has_reached_destination() -> bool:
 	return path == null
 	
 func order(city: Province) -> void:
-	var start = player.routes.get_closest_point(position)
-	var target = player.routes.get_closest_point(city.get_city_position())
-	var points = player.routes.get_id_path(start, target, false)
-	var new_path = player.graph_to_path[points[0]][0]
-	var point = player.graph_to_path[points[0]][1]
+	var start: int = player.routes.get_closest_point(position)
+	var target: int = player.routes.get_closest_point(city.get_city_position())
+	var points: PackedInt64Array = player.routes.get_id_path(start, target, false)
+	var new_path: Path2D = player.graph_to_path[points[0]][0]
+	var point: int = player.graph_to_path[points[0]][1]
 	var dir = new_path.get_point_direction(point)
 	if get_parent() != path:
 		reparent(new_path)
@@ -284,3 +296,12 @@ func order(city: Province) -> void:
 	path = points
 	nodes_travelled = 0
 	travelling = true
+	
+	direction_line.default_color = MOVE_LINE_COLOR	
+	for graph_point in points:
+		var point_path: Path2D = player.graph_to_path[graph_point][0]
+		var path_point: int = player.graph_to_path[graph_point][1]
+		
+		
+		direction_line.add_point(to_local(point_path.to_global(point_path.curve.get_point_position(path_point))))
+	
