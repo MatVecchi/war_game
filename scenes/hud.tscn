@@ -66,7 +66,7 @@ layout_mode = 2
 
 [node name="Label2" type="Label" parent="PanelContainer2/HBoxContainer/VBoxContainer/HBoxContainer" unique_id=472312417]
 layout_mode = 2
-text = "^"
+text = "°"
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="PanelContainer2/HBoxContainer/VBoxContainer" unique_id=1820619148]
 layout_mode = 2
@@ -78,16 +78,66 @@ layout_mode = 2
 layout_mode = 2
 text = "/ 1000"
 
-[node name="Leaderboard" type="MenuButton" parent="." unique_id=1246355181]
-layout_mode = 0
-offset_top = 63.0
-offset_right = 80.0
-offset_bottom = 94.0
-text = "Classifica"
-item_count = 1
-popup/item_0/text = "Giocatori"
-popup/item_0/id = 0
-popup/item_0/disabled = true
-popup/item_0/separator = true
+[node name="PanelContainer3" type="PanelContainer" parent="." unique_id=1777035911]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -40.0
+offset_bottom = 40.0
+grow_horizontal = 0
 
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer3" unique_id=1525877357]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="PanelContainer3/HBoxContainer" unique_id=1079533394]
+layout_mode = 2
+text = "Giorno: "
+
+[node name="DayCycle" type="Label" parent="PanelContainer3/HBoxContainer" unique_id=516091417]
+layout_mode = 2
+
+[node name="Leaderboard" type="PanelContainer" parent="." unique_id=2071998876]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Leaderboard" unique_id=2129504546]
+layout_mode = 2
+
+[node name="MatchOverText" type="Label" parent="Leaderboard/VBoxContainer" unique_id=1381832866]
+visible = false
+layout_mode = 2
+text = "PARTITA TERMINATA"
+horizontal_alignment = 1
+
+[node name="Label2" type="Label" parent="Leaderboard/VBoxContainer" unique_id=937111475]
+layout_mode = 2
+text = "Classifica:"
+
+[node name="PlayerList" type="VBoxContainer" parent="Leaderboard/VBoxContainer" unique_id=757226672]
+layout_mode = 2
+
+[node name="Button" type="Button" parent="." unique_id=110331019]
+layout_mode = 0
+offset_left = 1.0
+offset_top = 64.0
+offset_right = 81.0
+offset_bottom = 95.0
+text = "Classifica"
+
+[connection signal="gui_input" from="PanelContainer" to="." method="_on_panel_container_gui_input"]
+[connection signal="mouse_entered" from="PanelContainer" to="." method="_on_panel_container_mouse_entered"]
+[connection signal="mouse_exited" from="PanelContainer" to="." method="_on_panel_container_mouse_exited"]
 [connection signal="item_selected" from="PanelContainer/VBoxContainer/AgentSelector" to="." method="_on_agent_selector_item_selected"]
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]

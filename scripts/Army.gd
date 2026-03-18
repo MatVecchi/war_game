@@ -21,6 +21,7 @@ var army_id: int
 var player: Agent
 var travelling: bool = false
 var day_battle: bool = false
+var destroyed: bool = false
 var soldier_number_visible: bool = true
 var death_count: int = 0
 var current_speed: float = SPEED
@@ -42,6 +43,7 @@ const MOVE_LINE_COLOR: Color = Color(0.0, 0.711, 0.0, 1.0)
 const ATTACK_LINE_COLOR: Color = Color(0.699, 0.0, 0.0, 1.0)
 
 @onready var direction_line: Line2D = $DirectionLine
+@onready var direction_line_partial: Line2D = $DirectionLinePartial
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -61,6 +63,8 @@ func _ready() -> void:
 	day_timer = get_node("/root/Game/GlobalDayTimer")
 	day_timer.timeout.connect(_on_global_day_timer_timeout)
 	
+	var game: GameController = get_tree().current_scene
+	game.hud.view_changed.connect(_on_view_changed)
 	
 func _create_texture(size: Vector2i, gradient_colors: PackedColorArray) -> GradientTexture2D:
 	var gradient: GradientTexture2D = GradientTexture2D.new()
@@ -113,6 +117,10 @@ func _on_global_timer_timeout() -> void:
 				
 				
 				direction_line.set_point_position(i, to_local(point_path.to_global(point_path.curve.get_point_position(path_point))))
+			
+			var next_point_path_partial: Path2D = player.graph_to_path[path[nodes_travelled]][0]
+			var next_path_point_partial: int = player.graph_to_path[path[nodes_travelled]][1]			
+			direction_line_partial.set_point_position(1, to_local(next_point_path_partial.to_global(next_point_path_partial.curve.get_point_position(next_path_point_partial))))
 		else:
 			nodes_travelled += 1
 			if nodes_travelled == len(path):
@@ -185,11 +193,13 @@ func _on_perfect_vision_exited(area: Area2D) -> void:
 	var other: Node = area.get_parent()
 	if other is Army and player != other.player:
 		player.remove_perfectly_know_army_reference(other)
+		if not destroyed:
+			player.add_known_army(other)
 	
 func _on_area_entered(area: Area2D) -> void:
 	var other: Node = area.get_parent()
 	if other is Army:
-		if player == other.player:
+		if player == other.player or other.player not in player.player_in_war:
 			_on_friendly_collision(other)
 		else:
 			_on_enemy_collision(other)
@@ -206,6 +216,7 @@ func _notification(what: int) -> void:
 		else:
 			current_speed = SPEED * ENEMY_TERRITORY_SPEED_MULTIPLIER
 	elif what == NOTIFICATION_PREDELETE:
+		destroyed = true
 		emit_signal("army_destroyed", self)
 func _on_battle_timer_timeout(other: Army, battle_timer: Timer) -> void:
 	var random_attacker_multiplier: float = rng.randf_range(0.5, 1.5)
@@ -245,6 +256,14 @@ func _on_battle_timer_timeout(other: Army, battle_timer: Timer) -> void:
 		travelling = true
 	else:
 		battle_timer.start()
+		
+func _on_view_changed(view: Agent) -> void:
+	if view == null or view == player:
+		direction_line.show()
+		direction_line_partial.hide()
+	else:
+		direction_line.hide()
+		direction_line_partial.show()
 		
 func destroy_self() -> void:
 	for i in range(len(player.armies)):
@@ -297,11 +316,23 @@ func order(city: Province) -> void:
 	nodes_travelled = 0
 	travelling = true
 	
-	direction_line.default_color = MOVE_LINE_COLOR	
+	direction_line.default_color = MOVE_LINE_COLOR
+	direction_line.clear_points()
+	
+	direction_line_partial.default_color = MOVE_LINE_COLOR
+	direction_line_partial.clear_points()
 	for graph_point in points:
 		var point_path: Path2D = player.graph_to_path[graph_point][0]
 		var path_point: int = player.graph_to_path[graph_point][1]
 		
 		
 		direction_line.add_point(to_local(point_path.to_global(point_path.curve.get_point_position(path_point))))
+
+	var point_path_partial: Path2D = player.graph_to_path[path[0]][0]
+	var path_point_partial: int = player.graph_to_path[path[0]][1]
+	var next_point_path_partial: Path2D = player.graph_to_path[path[1]][0]
+	var next_path_point_partial: int = player.graph_to_path[path[1]][1]
+	
+	direction_line_partial.add_point(to_local(point_path_partial.to_global(point_path_partial.curve.get_point_position(path_point_partial))))
+	direction_line_partial.add_point(to_local(next_point_path_partial.to_global(next_point_path_partial.curve.get_point_position(next_path_point_partial))))
 	

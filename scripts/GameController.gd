@@ -2,19 +2,30 @@ extends Node
 
 class_name GameController
 
+signal match_over
+
 var provinces: Array[Province] = []
 var hud_scene: Resource = preload("res://scenes/hud.tscn")
 var view: Agent = null
 var leaderboard: Array[Variant] = []
+var day_cycle: int = 1
 var fog_circles: Dictionary[Army, Variant] = {}
 var fog_image: Image
 var vision_images: Array[Variant]
+var hud: Hud
 const FOG_OF_WAR_BACKGROUND_COLOR: Color = Color(0.0, 0.0, 0.0, 0.3)
 const FOG_OF_WAR_OUTER_CIRCLE_COLOR: Color = Color(0.0, 0.0, 0.0, 0.1)
 const FOG_OF_WAR_INNER_CIRCLE_COLOR: Color = Color(0.0, 0.0, 0.0, 0.0)
 const FOG_OF_WAR_OUTER_CIRCLE_RADIUS_MULTIPLIER: float = 1.5
+const VIEW_AGENT_COLOR: Color = Color("b4ceaf")
+const VIEW_ALLY_COLOR: Color = Color("81919b")
+const VIEW_ENEMY_COLOR: Color = Color("c18d8c")
+const VIEW_NEUTRAL_COLOR: Color = Color("bdbaa6")
 @export var time_multiplier: float = 1.0
+@export var game_length: int = 90
 @onready var global_timer: Timer = $GlobalTimer
+@onready var global_hour_timer: Timer = $GlobalHourTimer
+@onready var global_day_timer: Timer = $GlobalDayTimer
 @onready var fog_sprite: Sprite2D = %FogSprite
 @onready var fog_material: ShaderMaterial = %FogSprite.material as ShaderMaterial
 @onready var background: Polygon2D = $Background/Polygon2D
@@ -50,6 +61,12 @@ func _fog_add_circle(army: Army, pos: Vector2, radius: float) -> void:
 	fog_material.set_shader_parameter("pos", circles_position)
 	fog_material.set_shader_parameter("small_radius", circles_radius)
 	
+func _fog_clear_circles() -> void:
+	fog_circles.clear()
+	fog_material.set_shader_parameter("circle_count", 0)
+	fog_material.set_shader_parameter("pos", [])
+	fog_material.set_shader_parameter("small_radius", [])
+	
 func _fog_del_circle(army: Army) -> void:
 	fog_circles.erase(army)
 	
@@ -74,8 +91,7 @@ func _fog_map_circles() -> void:
 		armies = get_tree().get_nodes_in_group("armies")
 	else:
 		armies = view.armies
-		
-	fog_circles.clear()
+	_fog_clear_circles()
 	for army: Army in armies:
 		_fog_add_circle(army, army.global_position, army.VISION_RANGE)
 	
@@ -108,12 +124,27 @@ func _ready() -> void:
 			
 	for player: Agent in players:
 		leaderboard.append({"player": player, "points": player.points})
+		player.war_declared.connect(_on_war_declared)
 	leaderboard.sort_custom(_sort_leaderboard)
 	
 	_create_hud()
 	_create_fog()
 	_fog_map_circles()
+	_set_provinces_color()
 	global_timer.timeout.connect(_on_global_timer_timeout)
+
+func _set_provinces_color() -> void:
+	if view == null:
+		for province: Province in provinces:
+			province.fill.color = VIEW_NEUTRAL_COLOR
+	else:
+		for province: Province in provinces:
+			if province.get_parent() == view:
+				province.fill.color = VIEW_AGENT_COLOR
+			elif (province.get_parent() as Agent) in view.player_in_war:
+				province.fill.color = VIEW_ENEMY_COLOR
+			else:
+				province.fill.color = VIEW_NEUTRAL_COLOR
 
 func _on_army_became_known(army: Army, player: Agent) -> void:
 	if player != view: return
@@ -174,6 +205,10 @@ func _on_view_changed(player: Agent) -> void:
 					army.hide()
 				army.queue_redraw()
 	_fog_map_circles()
+	_set_provinces_color()
+	
+func _on_war_declared(_from_player: Agent, _to_player: Agent) -> void:
+	_set_provinces_color()
 	
 func _sort_leaderboard(a, b):
 	return a["points"] < b["points"]
@@ -202,7 +237,7 @@ func add_army_to_province(province: Province, army: Army) -> void:
 
 func _create_hud():
 	var canvas_layer = CanvasLayer.new()
-	var hud: Hud = hud_scene.instantiate()
+	hud = hud_scene.instantiate()
 	canvas_layer.add_child(hud)
 	hud.view_changed.connect(_on_view_changed)
 	get_tree().current_scene.add_child(canvas_layer)
@@ -229,3 +264,14 @@ func get_collision_rect_size(poly: Polygon2D) -> Vector2:
 		max_y = max(max_y, p.y)
 
 	return Vector2(max_x - min_x, max_y - min_y)
+
+
+func _on_global_day_timer_timeout() -> void:
+	day_cycle += 1
+	if day_cycle > game_length:
+		global_timer.stop()
+		global_hour_timer.stop()
+		global_day_timer.stop()
+		day_cycle = game_length
+		emit_signal("match_over")
+		

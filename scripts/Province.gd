@@ -8,9 +8,17 @@ var day_timer: Timer
 var army_timer: Timer = Timer.new()
 var rng: RandomNumberGenerator = RandomNumberGenerator.new()
 var conquered: bool = false
+var selected: bool = false
+var province_morale: int = DEFAULT_START_PROVINCE_MORALE
+var target_morale: int = DEFAULT_START_TARGET_MORALE
+var current_army_timer: float = DEFAULT_ARMY_GENERATION_WAIT
+var neighbors: Array[Area2D] = []
+var buildings: Array[Enums.Buildings] = []
+var borders: Array[Line2D] = []
 const DEFAULT_ARMY_GENERATION_WAIT: float = 720.0
 const DEFAULT_START_PROVINCE_MORALE: int = 70
 const DEFAULT_START_TARGET_MORALE: int = 100
+const CAPITAL_COLOR_BACKGROUND: Color = Color(0.0, 0.0, 0.0, 0.5)
 const MATERIAL_TEXTURES: Dictionary[Enums.ResourcesSprites, Resource] = {
 	Enums.ResourcesSprites.WOOD: preload("res://assets/sprites/resources/wood.png"),
 	Enums.ResourcesSprites.WOOD_DOUBLE: preload("res://assets/sprites/resources/wood_double.png"),
@@ -34,12 +42,8 @@ const MATERIAL_TEXTURES: Dictionary[Enums.ResourcesSprites, Resource] = {
 @export var is_capital: bool
 
 @onready var fill := $Polygon2D
-var selected: bool = false
-var province_morale: int = DEFAULT_START_PROVINCE_MORALE
-var target_morale: int = DEFAULT_START_TARGET_MORALE
-var current_army_timer: float = DEFAULT_ARMY_GENERATION_WAIT
-
-signal province_clicked(id)
+@onready var collision_polygon: CollisionPolygon2D = $CollisionPolygon2D
+@onready var province_border: Line2D = $ProvinceBorder
 
 func _ready():
 	add_to_group("provinces")
@@ -54,54 +58,137 @@ func _ready():
 	army_timer.timeout.connect(_on_army_timer_timeout)
 	add_child(army_timer)
 	army_timer.start()
-	fill.color = get_parent().color
-	$Control/VBoxContainer/HBoxContainer/TextureRect.texture = MATERIAL_TEXTURES[_get_sprite_key()]
-	await get_tree().process_frame
-	print("neighbors: ", _update_neighbors())
 	
-func _update_neighbors():
-	var neighbors := []
-	var space_state = get_world_2d().direct_space_state
+	$Control/VBoxContainer/HBoxContainer/TextureRect.texture = MATERIAL_TEXTURES[_get_sprite_key()]
+	
+	for el in collision_polygon.polygon:
+		province_border.add_point(el)
 
-	# 1. Ricostruisci la shape come ConcavePolygonShape2D
-	var poly = $CollisionPolygon2D.polygon
-	#var segments = _polygon_to_segments(poly)
+	var game: GameController = get_tree().current_scene
+	game.match_over.connect(_on_match_over)
+	
+	neighbors = await _get_neighbors(1.1)
+	neighbors = neighbors.filter(func(a: Area2D): return a.get_parent() != get_parent())
+	_set_borders()
+	
+	if is_capital:
+		buildings.append(Enums.Buildings.CAPITAL)
+	print(neighbors)
+	
+func _set_borders() -> void:
+	for j in neighbors:
+		var poly1 := PackedVector2Array()
+		for p in j.get_node("CollisionPolygon2D").polygon:
+			poly1.append(to_local(j.get_node("CollisionPolygon2D").to_global(p)))
 
-	var my_shape := ConcavePolygonShape2D.new()
-	#my_shape.set_segments(segments)
+		var poly2 := PackedVector2Array()
+		for p in collision_polygon.polygon:
+			poly2.append(p)
 
-	# 2. Trasformazione globale
-	#var my_transform := $CollisionPolygon2D.global_transform
+		var inter = get_shared_edges(poly1, poly2)
+		
+		var poly_global := PackedVector2Array()
+		for p in collision_polygon.polygon:
+			poly_global.append(collision_polygon.to_global(p))
+		#var sea = get_sea_edges(poly_global, inter)
+		var l = Line2D.new()
+		l.width = 5.0
+		l.default_color = Color(1.0, 1.0, 1.0, 0.784)
+		l.joint_mode = Line2D.LINE_JOINT_ROUND
+		for polygon_ in inter:
+			for p in polygon_:
+				l.add_point(p)
+		add_child(l)
+		borders.append(l)
 
-	# 3. Parametri della query
-	var params := PhysicsShapeQueryParameters2D.new()
-	params.shape = my_shape
-	#params.transform = my_transform
-	params.collide_with_areas = true
-	params.collide_with_bodies = false
+		print("inter:", inter)
 
-	# 4. Query
-	var results := space_state.intersect_shape(params)
+func _get_neighbors(scale_factor: float) -> Array[Area2D]:
+	var polygon: PackedVector2Array = collision_polygon.polygon
+	
+	var center = Vector2.ZERO
+	for point in polygon:
+		center += point
+	center /= polygon.size()
+	
+	var scaled_polygon = PackedVector2Array()
+	for point in polygon:
+		var direction = point - center
+		scaled_polygon.append(center + direction * scale_factor)
+	
+	collision_polygon.polygon = scaled_polygon
+	await get_tree().physics_frame
+	await get_tree().physics_frame
+	
+	var res: Array[Area2D] = []
+	for collision in get_overlapping_areas():
+		res.append(collision)
 
-	#for r in results:
-		#var area := r.collider
-		#if area is Provincia and area != self:
-			#neighbors.append(area)
+	collision_polygon.polygon = polygon
+	collision_polygon.queue_redraw()
+	await get_tree().process_frame
+	
+	return res
+	
+func get_shared_edges(poly1: PackedVector2Array, poly2: PackedVector2Array, epsilon := 0.1) -> Array:
+	var shared := []
 
+	for i in range(poly1.size()):
+		var a1 = poly1[i]
+		var a2 = poly1[(i + 1) % poly1.size()]
 
+		for j in range(poly2.size()):
+			var b1 = poly2[j]
+			var b2 = poly2[(j + 1) % poly2.size()]
 
+			# Controllo se i segmenti coincidono (inversi o diretti)
+			if a1.distance_to(b1) < epsilon and a2.distance_to(b2) < epsilon:
+				shared.append([a1, a2])
+			elif a1.distance_to(b2) < epsilon and a2.distance_to(b1) < epsilon:
+				shared.append([a1, a2])
 
+	return shared
+	
+func get_edges(poly: PackedVector2Array) -> Array:
+	var edges := []
+	for i in range(poly.size()):
+		var a = poly[i]
+		var b = poly[(i + 1) % poly.size()]
+		edges.append([a, b])
+	return edges
+	
+func segments_equal(a1, a2, b1, b2, epsilon := 0.1) -> bool:
+	return (
+		(a1.distance_to(b1) < epsilon and a2.distance_to(b2) < epsilon)
+		or
+		(a1.distance_to(b2) < epsilon and a2.distance_to(b1) < epsilon)
+	)
+	
+func get_sea_edges(poly: PackedVector2Array, shared_edges: Array) -> Array:
+	var sea := []
+	var all_edges = get_edges(poly)
+
+	for e in all_edges:
+		var is_shared = false
+		for s in shared_edges:
+			if segments_equal(e[0], e[1], s[0], s[1]):
+				is_shared = true
+				break
+		if not is_shared:
+			sea.append(e)
+	return sea
 
 func _draw():
 	$Control/VBoxContainer/HBoxContainer/ResourceCount.text = str(_get_daily_resource_count())
-	$Control/VBoxContainer/ProvinceName.text = province_name + ": " + str(province_morale) + "%"
+	$Control/VBoxContainer/PanelContainer/ProvinceName.text = province_name + ": " + str(province_morale) + "%"
+	var style := StyleBoxFlat.new()
+	if is_capital:
+		style.bg_color = CAPITAL_COLOR_BACKGROUND
+	else:
+		style.bg_color = Color(Color.TRANSPARENT)
+	$Control/VBoxContainer/PanelContainer.add_theme_stylebox_override("panel", style)
 	
-func _input(event: InputEvent) -> void:
-	if event is InputEventMouseMotion: return
-	if Input.is_action_just_released("select_province") and not get_viewport().get_camera_2d().dragged:
-		emit_signal("province_clicked", province_id)
-		#get_viewport().set_input_as_handled()
-		
+func _input(_event: InputEvent) -> void:
 	if Input.is_action_just_pressed("camera_zoom_in") or Input.is_action_just_pressed("camera_zoom_out"):
 		$Control.scale = Vector2(1,1)/get_viewport().get_camera_2d().zoom
 		
@@ -130,6 +217,8 @@ func _on_global_day_timer_timeout() -> void:
 	_update_army_timer(current_army_timer)
 	queue_redraw()
 	
+func _on_match_over() -> void:
+	army_timer.stop()
 	
 func _update_army_timer(val: float):
 	if army_timer == null: return

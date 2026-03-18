@@ -2,14 +2,15 @@ extends Camera2D
 
 class_name Camera
 
-var dragging := false
-var dragged := false
-var drag_start_mouse_pos := Vector2.ZERO
-var drag_start_camera_pos := Vector2.ZERO
+var dragging: bool = false
+var dragged: bool = false
+var input_enabled: bool = true
+var drag_start_mouse_pos: Vector2 = Vector2.ZERO
+var drag_start_camera_pos: Vector2 = Vector2.ZERO
 
-const MIN_ZOOM := 1.0
-const MAX_ZOOM := 8.0
-const ZOOM_SPEED := 0.1
+const MIN_ZOOM: float = 1.0
+const MAX_ZOOM: float = 8.0
+const ZOOM_SPEED: float = 0.1
 
 func handleZoom(s: float):	
 	if s != 1.0 and s != -1.0: return
@@ -36,13 +37,14 @@ func _process(_delta):
 		dragged = true
 		position = drag_start_camera_pos - moveVector * 1/zoom.x
 
-func _input(_event):
-	if Input.is_action_just_pressed("camera_pan"):
-		handlePan(true)
-		dragged = false
+func _input(_event: InputEvent) -> void:
+	if input_enabled:
+		if Input.is_action_just_pressed("camera_pan"):
+			handlePan(true)
+			dragged = false
+		handleZoom(Input.get_axis("camera_zoom_out","camera_zoom_in"))
 	if Input.is_action_just_released("camera_pan"):
 		handlePan(false)
-	handleZoom(Input.get_axis("camera_zoom_out","camera_zoom_in"))
 
 func _ready() -> void:
 	pass

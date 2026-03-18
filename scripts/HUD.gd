@@ -23,7 +23,10 @@ const MATERIAL_TEXTURES: Dictionary[Enums.Resources, Resource] = {
 @onready var player_name_label: Label = $PanelContainer2/HBoxContainer/PlayerName
 @onready var position_label: Label = $PanelContainer2/HBoxContainer/VBoxContainer/HBoxContainer/Position
 @onready var points_count_label: Label = $PanelContainer2/HBoxContainer/VBoxContainer/HBoxContainer2/PointsCount
-@onready var leaderboard: MenuButton = $Leaderboard
+@onready var day_cycle_label: Label = $PanelContainer3/HBoxContainer/DayCycle
+@onready var leaderboard_container: PanelContainer = $Leaderboard
+@onready var match_over_text_label: Label = $Leaderboard/VBoxContainer/MatchOverText
+@onready var player_list_container: VBoxContainer = $Leaderboard/VBoxContainer/PlayerList
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -49,18 +52,32 @@ func _ready() -> void:
 			resources_count[k] = resource_count
 	
 	var game: GameController = get_tree().current_scene 
-	var popup: PopupMenu = leaderboard.get_popup()
-	popup.clear()  # pulisce eventuali voci precedenti
-
-	for entry in game.leaderboard:
-		var player_name = entry["player"].player_name
-		var points = entry["points"]
-		popup.add_item("%s: %d pts" % [player_name, points])
+	for i in range(len(game.leaderboard)):
+		var player_name = game.leaderboard[i]["player"].player_name
+		var points = game.leaderboard[i]["points"]
+		var label: Label = Label.new()
+		label.text = "%d° - %s: %d pts" % [i + 1, player_name, points]
+		player_list_container.add_child(label)
+	
+	day_cycle_label.text = str(game.day_cycle)
 	queue_redraw()
 	
 	var timer: Timer = get_tree().get_nodes_in_group("timer")[0]
+	var day_timer: Timer = get_tree().get_nodes_in_group("day_timer")[0]
+	
 	timer.timeout.connect(_on_timer_timeout)
-
+	day_timer.timeout.connect(_on_day_timer_timeout)
+	game.match_over.connect(_on_match_over)
+	
+	agent_selector.mouse_filter = Control.MOUSE_FILTER_PASS
+	
+func _draw() -> void:
+	var cam: Camera = get_viewport().get_camera_2d()
+	if leaderboard_container.visible:
+		cam.input_enabled = false
+	else:
+		cam.input_enabled = true
+	
 func _on_agent_selector_item_selected(index: int) -> void:
 	var game: GameController = get_tree().current_scene
 	var player: Agent = agent_selector.get_item_metadata(index)
@@ -111,13 +128,28 @@ func _on_timer_timeout():
 	position_label.text = str(leaderboard_position + 1)
 	points_count_label.text = str(player.points)
 	
-	var popup: PopupMenu = leaderboard.get_popup()
-	popup.clear()  # pulisce eventuali voci precedenti
-
-	for entry in game.leaderboard:
-		var player_name = entry["player"].player_name
-		var points = entry["points"]
-		popup.add_item("%s: %d pts" % [player_name, points])
+	for entry in player_list_container.get_children():
+		entry.queue_free()
+	
+	for i in range(len(game.leaderboard)):
+		var player_name = game.leaderboard[i]["player"].player_name
+		var points = game.leaderboard[i]["points"]
+		var label: Label = Label.new()
+		label.text = "%d° - %s: %d pts" % [i + 1, player_name, points]
+		player_list_container.add_child(label)
 
 	queue_redraw()
 	
+func _on_day_timer_timeout():
+	var game: GameController = get_tree().current_scene
+	day_cycle_label.text = str(game.day_cycle)
+	queue_redraw()
+
+func _on_match_over() -> void:
+	match_over_text_label.show()
+	leaderboard_container.show()
+	queue_redraw()
+
+func _on_button_pressed() -> void:
+	leaderboard_container.visible = not leaderboard_container.visible
+	queue_redraw()

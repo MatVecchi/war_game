@@ -15,7 +15,7 @@ radius = 0.01
 radius = 90.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_pimn7"]
-radius = 5.0
+radius = 2.0
 
 [node name="Army" type="PathFollow2D" unique_id=994501494]
 z_index = 100
@@ -79,7 +79,6 @@ offset_top = -23.0
 offset_right = 33.0
 grow_horizontal = 2
 grow_vertical = 0
-text = "ciao"
 label_settings = SubResource("LabelSettings_pimn7")
 horizontal_alignment = 1
 
@@ -132,6 +131,13 @@ input_pickable = false
 shape = SubResource("CircleShape2D_pimn7")
 
 [node name="DirectionLine" type="Line2D" parent="." unique_id=247724026]
+z_index = 10
+z_as_relative = false
+width = 1.0
+antialiased = true
+
+[node name="DirectionLinePartial" type="Line2D" parent="." unique_id=1030498801]
+visible = false
 z_index = 10
 z_as_relative = false
 width = 1.0

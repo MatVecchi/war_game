@@ -2,6 +2,10 @@ extends Node
 
 class_name Agent
 
+signal war_declared
+signal peace_requested
+signal alliance_requested
+
 var routes: GPA2D = GPA2D.new()
 var hour_timer: Timer
 var day_timer: Timer
@@ -20,10 +24,14 @@ var resources: Dictionary[Enums.Resources, int] = {
 var points: int = 54
 var perfectly_known_armies: Dictionary[Army, int] = {}
 var known_armies: Dictionary[Army, int] = {}
+var player_in_war: Array[Agent] = []
 
 @export var player_name: String
 @export var color: Color
 @export var armies: Array[Army]
+
+@onready var player_name_control: Control = $Control
+@onready var player_name_label: Label = $Control/PlayerName
 
 
 func _ready() -> void:
@@ -108,12 +116,17 @@ func _ready() -> void:
 		game.add_army_to_province(children[i], army)
 	
 	if len(armies) > 0 and player_name == "Libia Orientale":
-		armies[0].order(game.provinces[2])
+		#armies[0].order(game.provinces[2])
+		declare_war(get_tree().current_scene.get_node("Libia Occidentale"))
+		pass
 	
 	hour_timer = get_node("/root/Game/GlobalHourTimer")
 	hour_timer.timeout.connect(_on_global_hour_timer_timeout)
 	day_timer = get_node("/root/Game/GlobalDayTimer")
 	day_timer.timeout.connect(_on_global_day_timer_timeout)
+	
+	player_name_label.text = player_name
+	player_name_control.queue_redraw()
 	
 func _on_global_hour_timer_timeout() -> void:
 	var total_army_daily_cost: Dictionary[Enums.Resources, int] = {
@@ -135,7 +148,7 @@ func _on_global_hour_timer_timeout() -> void:
 		add_resource(i, -ceil(float(total_army_daily_cost[i])/24))
 
 func _on_global_day_timer_timeout() -> void:
-	print(self, " ", resources, " ", perfectly_known_armies, " ", known_armies, " ", armies)
+	pass
 	
 func _on_army_destroyed(army: Army):
 	perfectly_known_armies.erase(army)
@@ -147,6 +160,19 @@ func add_known_army(army: Army):
 	known_armies[army] += 1
 	army.army_destroyed.connect(_on_army_destroyed)
 	army.emit_signal("became_known", army, self)
+	
+func declare_war(player: Agent) -> void:
+	if player in player_in_war: return
+
+	player_in_war.append(player)
+	player.declare_war(self)
+	emit_signal("war_declared", self, player)
+	
+func request_peace(player: Agent) -> void:
+	emit_signal("peace_requested", self, player)
+	
+func request_alliance(player: Agent) -> void:
+	emit_signal("alliance_requested", self, player)
 	
 func remove_know_army_reference(army: Army):
 	if army not in known_armies: return
@@ -168,7 +194,7 @@ func remove_perfectly_know_army_reference(army: Army):
 	perfectly_known_armies[army] -= 1
 	if perfectly_known_armies[army] == 0:
 		perfectly_known_armies.erase(army)
-		army.emit_signal("became_known", army, self)
+		army.emit_signal("became_unknown", army, self)
 		
 func get_province_owner(province: Province) -> bool:
 	if province == null: return false

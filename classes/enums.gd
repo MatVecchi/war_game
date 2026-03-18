@@ -47,3 +47,9 @@ enum ProvinceMoralePenalties {
 enum ProvinceMoraleBonuses {
 	CAPITAL,
 }
+
+enum Buildings {
+	CAPITAL,
+	FORT,
+	RECRUIT_CENTER,
+}

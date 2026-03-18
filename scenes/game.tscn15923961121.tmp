@@ -1,0 +1,385 @@
+[gd_scene format=3 uid="uid://dcuge8a0x5im4"]
+
+[ext_resource type="Script" uid="uid://yvfjm5yhlcvf" path="res://scripts/GameController.gd" id="1_lbhrr"]
+[ext_resource type="Script" uid="uid://bw1jgwp6o3ijl" path="res://scripts/Camera.gd" id="1_uwrxv"]
+[ext_resource type="Texture2D" uid="uid://b11a0khss5o47" path="res://assets/sprites/map/1000_F_57037494_whUKX0C9VTjRbQ6G2fCvreHXKgIKt9Pf.jpg" id="2_yqjtg"]
+[ext_resource type="Script" uid="uid://dcghr7rghdhgv" path="res://scripts/Province.gd" id="3_lnu2h"]
+[ext_resource type="Script" uid="uid://bfrcgnbxye7tf" path="res://scripts/Background.gd" id="5_iywne"]
+[ext_resource type="Script" uid="uid://dlbtk4vaoeyn1" path="res://scripts/Agent.gd" id="6_p57ef"]
+[ext_resource type="PackedScene" uid="uid://djc45rwgx51pp" path="res://scenes/city.tscn" id="7_gee14"]
+[ext_resource type="Script" uid="uid://cixhqyp3nwpac" path="res://scripts/Path.gd" id="8_gee14"]
+[ext_resource type="Shader" uid="uid://bxgr8tcci0tvo" path="res://shaders/fog_of_war.gdshader" id="9_0tnpc"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_vtaks"]
+shader = ExtResource("9_0tnpc")
+shader_parameter/color_background = Color(0, 0, 0, 0.5)
+shader_parameter/color_big = Color(0, 0, 0, 0.3)
+shader_parameter/color_small = Color(0, 0, 0, 0)
+shader_parameter/circle_count = 2
+shader_parameter/pos = PackedVector2Array(200, 50, 100, 100, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+shader_parameter/small_radius = PackedFloat32Array(90, 90, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+shader_parameter/big_radius_multiplier = 1.5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kvpfn"]
+bg_color = Color(0, 0, 0, 0)
+
+[sub_resource type="Curve2D" id="Curve2D_dinhu"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 202, 47, 0, 0, 0, 0, 255, -81)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_trtic"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 255, -81, 0, 0, 0, 0, 176, -35)
+}
+point_count = 2
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vtaks"]
+bg_color = Color(0, 0, 0, 0)
+
+[sub_resource type="Curve2D" id="Curve2D_kvpfn"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 180, 98, 0, 0, 0, 0, 202, 47)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_vtaks"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 154, 74, 0, 0, 0, 0, 180, 98)
+}
+point_count = 2
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0tnpc"]
+bg_color = Color(0, 0, 0, 0)
+
+[sub_resource type="Curve2D" id="Curve2D_kvuet"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 154, 74, 0, 0, 0, 0, 125, 47)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_gee14"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 114, -9, 0, 0, 0, 0, 125, 47)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_0tnpc"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 114, -9, 0, 0, 0, 0, 176, -35)
+}
+point_count = 2
+
+[node name="Game" type="Node2D" unique_id=63633635]
+script = ExtResource("1_lbhrr")
+time_multiplier = 50.0
+
+[node name="GlobalTimer" type="Timer" parent="." unique_id=1661397854 groups=["timer"]]
+autostart = true
+
+[node name="GlobalHourTimer" type="Timer" parent="." unique_id=1275185995]
+wait_time = 60.0
+autostart = true
+
+[node name="GlobalDayTimer" type="Timer" parent="." unique_id=1632933546 groups=["day_timer"]]
+wait_time = 1440.0
+autostart = true
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=337608158]
+position = Vector2(2, 0)
+position_smoothing_speed = 10.0
+script = ExtResource("1_uwrxv")
+
+[node name="FogSprite" type="Sprite2D" parent="." unique_id=1691979937]
+unique_name_in_owner = true
+z_index = 4096
+z_as_relative = false
+material = SubResource("ShaderMaterial_vtaks")
+position = Vector2(-70, -24.33)
+
+[node name="Background" type="Area2D" parent="." unique_id=553132931]
+collision_mask = 3
+script = ExtResource("5_iywne")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Background" unique_id=1046095186]
+modulate = Color(0, 0.5219081, 0.521995, 1)
+position = Vector2(0, -1)
+polygon = PackedVector2Array(-2805, 1779, 2665, 1779, 2665, -1825, -2805, -1825)
+
+[node name="Polygon2D" type="Polygon2D" parent="Background" unique_id=1431215430]
+position = Vector2(-36, 44)
+color = Color(0, 0.5219081, 0.521995, 1)
+polygon = PackedVector2Array(-2769, -1870, -2768, 1734, 2702, 1734, 2702, -1870)
+
+[node name="map" type="Sprite2D" parent="." unique_id=410008263]
+visible = false
+position = Vector2(-70, -23)
+scale = Vector2(5.47, 5.47)
+texture = ExtResource("2_yqjtg")
+
+[node name="Libia Orientale" type="Node2D" parent="." unique_id=90512913]
+script = ExtResource("6_p57ef")
+player_name = "Libia Orientale"
+color = Color(0.27883837, 0.6887509, 0.4863233, 1)
+
+[node name="Control" type="Control" parent="Libia Orientale" unique_id=1871983426]
+z_index = 1
+layout_mode = 3
+anchors_preset = 0
+offset_left = 218.115
+offset_right = 356.0
+offset_bottom = 40.0
+rotation = -0.7679449
+
+[node name="PlayerName" type="Label" parent="Libia Orientale/Control" unique_id=910330857]
+layout_mode = 0
+offset_left = -63.59282
+offset_top = 48.412052
+offset_right = 67.40718
+offset_bottom = 71.41205
+uppercase = true
+
+[node name="Misurata" type="Area2D" parent="Libia Orientale" unique_id=1312982784]
+position = Vector2(-13, -65)
+collision_mask = 3
+script = ExtResource("3_lnu2h")
+province_id = 1
+province_name = "Misurata"
+province_material = 2
+double_material = null
+is_capital = true
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Libia Orientale/Misurata" unique_id=1033763293]
+position = Vector2(272.63, 21.692585)
+polygon = PackedVector2Array(-78.630005, 122.30742, -73.630005, 90.30742, 96.369995, 89.30742, 92.369995, 80.30742, 78.369995, 74.30742, 82.369995, 58.307415, 54.369995, 5.307415, 26.369995, -29.692585, 29.369995, -36.692585, 55.369995, -2.692585, 60.369995, -3.692585, 61.369995, -28.692585, 58.369995, -43.692585, 49.369995, -60.692585, 35.369995, -60.692585, 16.369995, -58.692585, 14.369995, -64.69258, -7.630005, -64.69258, -19.630005, -52.692585, -86.630005, -74.69258)
+
+[node name="Polygon2D" type="Polygon2D" parent="Libia Orientale/Misurata" unique_id=830984052]
+position = Vector2(249, 109)
+color = Color(0.45359772, 0.43529403, 0.42440614, 1)
+polygon = PackedVector2Array(-63, -162, -55, 35, -50, 3, 120, 2, 116, -7, 102, -13, 106, -29, 78, -82, 50, -117, 53, -124, 79, -90, 84, -91, 85, -116, 82, -131, 73, -148, 62, -148, 40, -146, 38, -152, 16, -152, 4, -140, -18, -148)
+
+[node name="Line2D" type="Line2D" parent="Libia Orientale/Misurata" unique_id=1271259207]
+position = Vector2(13, 65)
+points = PackedVector2Array(181, 80, 186, 47, 356, 46, 352, 37, 338, 31, 342, 15, 314, -38, 286, -73, 289, -80, 315, -46, 320, -47, 321, -73, 318, -87, 309, -104, 297, -104, 276, -102, 274, -108, 252, -108, 240, -96, 173, -118)
+closed = true
+width = 2.0
+
+[node name="Node2D" parent="Libia Orientale/Misurata" unique_id=1043360061 instance=ExtResource("7_gee14")]
+position = Vector2(268, -16)
+
+[node name="Control" type="Control" parent="Libia Orientale/Misurata" unique_id=1518988679]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 248.43
+offset_top = -10.435
+offset_right = 288.42938
+offset_bottom = 29.564999
+pivot_offset = Vector2(19.865, 0)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Libia Orientale/Misurata/Control" unique_id=1652751737]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.25
+offset_right = 0.00061035156
+offset_bottom = -10.0
+alignment = 1
+
+[node name="PanelContainer" type="PanelContainer" parent="Libia Orientale/Misurata/Control/VBoxContainer" unique_id=498804157]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_kvpfn")
+
+[node name="ProvinceName" type="Label" parent="Libia Orientale/Misurata/Control/VBoxContainer/PanelContainer" unique_id=1103367652]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Libia Orientale/Misurata/Control/VBoxContainer" unique_id=760359738]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="Libia Orientale/Misurata/Control/VBoxContainer/HBoxContainer" unique_id=1328971668]
+layout_mode = 2
+
+[node name="ResourceCount" type="Label" parent="Libia Orientale/Misurata/Control/VBoxContainer/HBoxContainer" unique_id=660410485]
+layout_mode = 2
+
+[node name="Path2D7" type="Path2D" parent="Libia Orientale/Misurata" unique_id=507172771]
+position = Vector2(13, 65)
+curve = SubResource("Curve2D_dinhu")
+script = ExtResource("8_gee14")
+
+[node name="Path2D4" type="Path2D" parent="Libia Orientale/Misurata" unique_id=1886978764]
+position = Vector2(13, 65)
+curve = SubResource("Curve2D_trtic")
+script = ExtResource("8_gee14")
+
+[node name="Nalut" type="Area2D" parent="Libia Orientale" unique_id=1664710210]
+position = Vector2(-19.035, 100)
+collision_mask = 3
+script = ExtResource("3_lnu2h")
+province_id = 1
+province_name = "Nalut"
+province_material = 5
+double_material = true
+is_capital = null
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Libia Orientale/Nalut" unique_id=1029810181]
+position = Vector2(272.63, 21.692585)
+polygon = PackedVector2Array(-234.595, -87.69258, -205.595, -77.69258, -187.595, -36.69258, -167.595, -40.69258, -173.595, -14.692581, -157.595, 22.307419, -103.595, 43.30742, 107.405, 53.30742, 107.405, 30.307419, 113.405, 0.30741882, 120.405, -4.692581, 134.405, -16.692581, 117.405, -28.692581, 102.405, -75.69258, -67.595, -74.69258, -72.595, -42.69258, -86.595, -40.69258, -204.595, -104.69258)
+
+[node name="Polygon2D" type="Polygon2D" parent="Libia Orientale/Nalut" unique_id=1002565735]
+position = Vector2(312.035, 125)
+color = Color(0.45359772, 0.43529403, 0.42440614, 1)
+polygon = PackedVector2Array(-107, -178, -112, -146, -126, -144, -244, -208, -274, -191, -245, -181, -227, -140, -207, -144, -213, -118, -197, -81, -143, -60, -84, -57, 68, -50, 68, -73, 74, -103, 81, -108, 95, -120, 78, -132, 71, -157, 63, -179)
+
+[node name="Line2D" type="Line2D" parent="Libia Orientale/Nalut" unique_id=1732879899]
+position = Vector2(13, 65)
+points = PackedVector2Array(25.035, -131, 54.035, -121, 72.035, -80, 92.035, -84, 86.035, -58, 102.035, -21, 156.035, 0, 367.035, 10, 367.035, -13, 373.035, -43, 394.035, -60, 377.035, -72, 362.035, -119, 192.035, -118, 187.035, -86, 173.035, -84, 55.035, -148)
+closed = true
+width = 2.0
+
+[node name="Node2D" parent="Libia Orientale/Nalut" unique_id=1609441056 instance=ExtResource("7_gee14")]
+position = Vector2(199.035, -2)
+
+[node name="Control" type="Control" parent="Libia Orientale/Nalut" unique_id=952523078]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 248.43
+offset_top = -10.435
+offset_right = 288.42938
+offset_bottom = 29.564999
+pivot_offset = Vector2(19.865, 0)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Libia Orientale/Nalut/Control" unique_id=1883343738]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.25
+offset_right = 0.00061035156
+offset_bottom = -10.0
+alignment = 1
+
+[node name="PanelContainer" type="PanelContainer" parent="Libia Orientale/Nalut/Control/VBoxContainer" unique_id=242696267]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_vtaks")
+
+[node name="ProvinceName" type="Label" parent="Libia Orientale/Nalut/Control/VBoxContainer/PanelContainer" unique_id=1313930874]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Libia Orientale/Nalut/Control/VBoxContainer" unique_id=1183526158]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="Libia Orientale/Nalut/Control/VBoxContainer/HBoxContainer" unique_id=513523463]
+layout_mode = 2
+
+[node name="ResourceCount" type="Label" parent="Libia Orientale/Nalut/Control/VBoxContainer/HBoxContainer" unique_id=1659040228]
+layout_mode = 2
+
+[node name="Path2D5" type="Path2D" parent="Libia Orientale/Nalut" unique_id=1799840241]
+position = Vector2(19.035, -100)
+curve = SubResource("Curve2D_kvpfn")
+script = ExtResource("8_gee14")
+
+[node name="Path2D4" type="Path2D" parent="Libia Orientale/Nalut" unique_id=618333003]
+position = Vector2(19.035, -100)
+curve = SubResource("Curve2D_vtaks")
+script = ExtResource("8_gee14")
+
+[node name="Libia Occidentale" type="Node2D" parent="." unique_id=194198678]
+script = ExtResource("6_p57ef")
+player_name = "Libia Occidentale"
+color = Color(0.9235921, 0.40204707, 0.46211284, 1)
+
+[node name="Tripoli" type="Area2D" parent="Libia Occidentale" unique_id=911611962]
+collision_layer = 3
+collision_mask = 3
+script = ExtResource("3_lnu2h")
+province_id = null
+province_name = "Tripoli"
+province_material = null
+double_material = null
+is_capital = true
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Libia Occidentale/Tripoli" unique_id=453143359]
+position = Vector2(30.439941, -59.28952)
+polygon = PackedVector2Array(-73.43994, 28.28952, -80.43994, 36.28952, -70.43994, 50.28952, -69.43994, 67.28952, -55.43994, 68.28952, -41.43994, 86.28952, -11.439941, 93.28952, 18.560059, 76.28952, 136.56006, 140.28952, 150.56006, 138.28952, 142.56006, -58.71048, 117.56006, -59.71048, 111.56006, -69.71048, 82.56006, -69.71048, 68.56006, -58.71048, 71.56006, -41.71048, 59.56006, -19.71048, 35.56006, -40.71048, 11.560059, -41.71048, -0.4399414, -64.71048, -51.43994, -71.71048, -50.43994, -59.71048, -71.43994, -44.71048, -67.43994, -35.71048, -81.43994, -23.71048, -75.43994, -14.71048)
+
+[node name="Polygon2D" type="Polygon2D" parent="Libia Occidentale/Tripoli" unique_id=1453118690]
+position = Vector2(-2, 2)
+color = Color(0.45359772, 0.43529403, 0.42440614, 1)
+polygon = PackedVector2Array(-19, -133, -18, -121, -39, -106, -35, -97, -49, -85, -43, -76, -41, -33, -48, -25, -38, -11, -37, 6, -22, 7, -9, 25, 21, 32, 51, 15, 169, 79, 183, 77, 175, -120, 150, -121, 144, -131, 115, -131, 101, -120, 104, -103, 92, -81, 68, -102, 44, -103, 32, -126, 2, -130)
+metadata/id = 0
+
+[node name="Line2D" type="Line2D" parent="Libia Occidentale/Tripoli" unique_id=423717658]
+points = PackedVector2Array(-40, -9, -39, 8, -24, 9, -11, 27, 19, 34, 49, 17, 167, 81, 181, 79, 173, -118, 148, -119, 142, -129, 113, -129, 99, -118, 102, -101, 90, -79, 66, -100, 42, -101, 30, -124, -21, -131, -20, -119, -41, -104, -37, -95, -51, -83, -45, -74, -43, -31, -50, -23)
+closed = true
+width = 2.0
+
+[node name="Node2D" parent="Libia Occidentale/Tripoli" unique_id=1902047853 instance=ExtResource("7_gee14")]
+position = Vector2(125, 47)
+
+[node name="Control" type="Control" parent="Libia Occidentale/Tripoli" unique_id=2058449975]
+z_index = 2
+layout_mode = 3
+anchors_preset = 0
+offset_left = 36.0
+offset_top = -35.77
+offset_right = 76.0
+offset_bottom = 4.2299995
+pivot_offset = Vector2(19.865, 0)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Libia Occidentale/Tripoli/Control" unique_id=1949060521]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.25
+offset_bottom = -10.0
+alignment = 1
+
+[node name="PanelContainer" type="PanelContainer" parent="Libia Occidentale/Tripoli/Control/VBoxContainer" unique_id=1427071734]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_0tnpc")
+
+[node name="ProvinceName" type="Label" parent="Libia Occidentale/Tripoli/Control/VBoxContainer/PanelContainer" unique_id=353814883]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Libia Occidentale/Tripoli/Control/VBoxContainer" unique_id=2054846573]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="Libia Occidentale/Tripoli/Control/VBoxContainer/HBoxContainer" unique_id=1533157772]
+layout_mode = 2
+
+[node name="ResourceCount" type="Label" parent="Libia Occidentale/Tripoli/Control/VBoxContainer/HBoxContainer" unique_id=1705702435]
+layout_mode = 2
+
+[node name="Path2D5" type="Path2D" parent="Libia Occidentale/Tripoli" unique_id=913322896]
+curve = SubResource("Curve2D_kvuet")
+script = ExtResource("8_gee14")
+
+[node name="Path2D6" type="Path2D" parent="Libia Occidentale/Tripoli" unique_id=2119842533]
+curve = SubResource("Curve2D_gee14")
+script = ExtResource("8_gee14")
+
+[node name="Path2D3" type="Path2D" parent="Libia Occidentale/Tripoli" unique_id=10208583]
+curve = SubResource("Curve2D_0tnpc")
+script = ExtResource("8_gee14")
+
+[node name="Control" type="Control" parent="Libia Occidentale" unique_id=1317036708]
+z_index = 1
+layout_mode = 3
+anchors_preset = 0
+offset_left = 76.0
+offset_top = -91.0
+offset_right = 213.885
+offset_bottom = -51.0
+rotation = 0.51138145
+
+[node name="PlayerName" type="Label" parent="Libia Occidentale/Control" unique_id=1646959065]
+layout_mode = 0
+offset_left = -63.59282
+offset_top = 48.412052
+offset_right = 67.40718
+offset_bottom = 71.41205
+uppercase = true
+
+[connection signal="timeout" from="GlobalTimer" to="." method="_on_global_timer_timeout"]
+[connection signal="timeout" from="GlobalDayTimer" to="." method="_on_global_day_timer_timeout"]
