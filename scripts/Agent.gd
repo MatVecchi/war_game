@@ -41,8 +41,8 @@ func _ready() -> void:
 	var c: int = 0
 	for el in paths:
 		if el is not Path2D: continue
-		var start_point_position = el.curve.get_point_position(0)
-		var end_point_position = el.curve.get_point_position(el.curve.point_count - 1)
+		var start_point_position = el.to_global(el.curve.get_point_position(0))
+		var end_point_position = el.to_global(el.curve.get_point_position(el.curve.point_count - 1))
 		var weight: float
 		if el.get_parent().get_parent() == self:
 			weight = 1.0
@@ -113,10 +113,11 @@ func _ready() -> void:
 				for j in range(count):
 					if el.curve.get_point_position(j) == children[i].get_city_position():
 						el.add_child(army)
+						break
 		game.add_army_to_province(children[i], army)
 	
 	if len(armies) > 0 and player_name == "Libia Orientale":
-		#armies[0].order(game.provinces[2])
+		armies[0].order(game.provinces[2])
 		declare_war(get_tree().current_scene.get_node("Libia Occidentale"))
 		pass
 	
