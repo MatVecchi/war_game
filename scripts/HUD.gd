@@ -19,7 +19,7 @@ const MATERIAL_TEXTURES: Dictionary[Enums.Resources, Resource] = {
 }
 @onready var agent_selector: OptionButton = $PanelContainer/VBoxContainer/AgentSelector
 @onready var agent_info_panel: PanelContainer = $PanelContainer2
-@onready var agent_info: HBoxContainer = $PanelContainer2/HBoxContainer
+@onready var agent_info: HBoxContainer = %ResourceContainer
 @onready var player_name_label: Label = $PanelContainer2/HBoxContainer/PlayerName
 @onready var position_label: Label = $PanelContainer2/HBoxContainer/VBoxContainer/HBoxContainer/Position
 @onready var points_count_label: Label = $PanelContainer2/HBoxContainer/VBoxContainer/HBoxContainer2/PointsCount
@@ -41,6 +41,7 @@ func _ready() -> void:
 		
 	for k in MATERIAL_TEXTURES:
 			var resource_container: HBoxContainer = HBoxContainer.new()
+			resource_container.size_flags_horizontal = Control.SIZE_EXPAND
 			var resource_image: TextureRect = TextureRect.new()
 			var resource_count: Label = Label.new()
 			
@@ -55,9 +56,17 @@ func _ready() -> void:
 	for i in range(len(game.leaderboard)):
 		var player_name = game.leaderboard[i]["player"].player_name
 		var points = game.leaderboard[i]["points"]
-		var label: Label = Label.new()
-		label.text = "%d° - %s: %d pts" % [i + 1, player_name, points]
-		player_list_container.add_child(label)
+		var container: HBoxContainer = HBoxContainer.new()
+		var label_name: Label = Label.new()
+		var label_points: Label = Label.new()
+		label_name.text = "%d° - %s:" % [i + 1, player_name]
+		label_points.text = "%d pts" % [points]
+		label_points.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		label_points.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
+		
+		container.add_child(label_name)
+		container.add_child(label_points)
+		player_list_container.add_child(container)
 	
 	day_cycle_label.text = str(game.day_cycle)
 	queue_redraw()

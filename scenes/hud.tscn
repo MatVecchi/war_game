@@ -78,6 +78,17 @@ layout_mode = 2
 layout_mode = 2
 text = "/ 1000"
 
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer2/HBoxContainer" unique_id=1189845502]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 50
+theme_override_constants/margin_right = 50
+
+[node name="ResourceContainer" type="HBoxContainer" parent="PanelContainer2/HBoxContainer/MarginContainer" unique_id=115582553]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+
 [node name="PanelContainer3" type="PanelContainer" parent="." unique_id=1777035911]
 layout_mode = 1
 anchors_preset = 1
