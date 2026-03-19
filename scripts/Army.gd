@@ -298,8 +298,9 @@ func has_reached_destination() -> bool:
 	
 func order(city: Province) -> void:
 	var start: int = player.routes.get_closest_point(position)
-	var target: int = player.routes.get_closest_point(city.get_city_position())
+	var target: int = player.routes.get_closest_point(city.to_global(city.get_city_position()))
 	var points: PackedInt64Array = player.routes.get_id_path(start, target, false)
+	print("points ", points)
 	var new_path: Path2D = player.graph_to_path[points[0]][0]
 	var point: int = player.graph_to_path[points[0]][1]
 	var dir = new_path.get_point_direction(point)

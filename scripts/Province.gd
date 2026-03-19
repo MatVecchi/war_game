@@ -13,8 +13,8 @@ var province_morale: int = DEFAULT_START_PROVINCE_MORALE
 var target_morale: int = DEFAULT_START_TARGET_MORALE
 var current_army_timer: float = DEFAULT_ARMY_GENERATION_WAIT
 var neighbors: Array[Area2D] = []
-var buildings: Array[Enums.Buildings] = []
 var borders: Array[Line2D] = []
+var buildings: Dictionary[Enums.Buildings, Building] = {}
 const DEFAULT_ARMY_GENERATION_WAIT: float = 720.0
 const DEFAULT_START_PROVINCE_MORALE: int = 70
 const DEFAULT_START_TARGET_MORALE: int = 100
@@ -39,7 +39,7 @@ const MATERIAL_TEXTURES: Dictionary[Enums.ResourcesSprites, Resource] = {
 @export var province_name: String
 @export var province_material: Enums.Resources
 @export var double_material: bool
-@export var is_capital: bool
+@export var startup_buildings: Array[Enums.Buildings]
 
 @onready var fill := $Polygon2D
 @onready var collision_polygon: CollisionPolygon2D = $CollisionPolygon2D
@@ -71,8 +71,23 @@ func _ready():
 	neighbors = neighbors.filter(func(a: Area2D): return a.get_parent() != get_parent())
 	_set_borders()
 	
-	if is_capital:
-		buildings.append(Enums.Buildings.CAPITAL)
+	if Enums.Buildings.CAPITAL in startup_buildings:
+		buildings.get_or_add(Enums.Buildings.CAPITAL, Capital.new())
+		
+	for child in get_children():
+		if child is not Path2D: continue
+		child = child as Path2D
+		var curve: Curve2D = child.curve
+		var path_line: Line2D = Line2D.new()
+		path_line.width = 1.0
+		path_line.default_color = Color(0.0, 0.0, 0.0, 0.2)
+		for i in range(curve.point_count):
+			var pos: Vector2 = curve.get_point_position(i)
+			path_line.add_point(pos)
+		add_child(path_line)
+		
+	queue_redraw()
+	
 	print(neighbors)
 	
 func _set_borders() -> void:
@@ -90,7 +105,7 @@ func _set_borders() -> void:
 		var poly_global := PackedVector2Array()
 		for p in collision_polygon.polygon:
 			poly_global.append(collision_polygon.to_global(p))
-		#var sea = get_sea_edges(poly_global, inter)
+
 		var l = Line2D.new()
 		l.width = 5.0
 		l.default_color = Color(1.0, 1.0, 1.0, 0.784)
@@ -100,8 +115,6 @@ func _set_borders() -> void:
 				l.add_point(p)
 		add_child(l)
 		borders.append(l)
-
-		print("inter:", inter)
 
 func _get_neighbors(scale_factor: float) -> Array[Area2D]:
 	var polygon: PackedVector2Array = collision_polygon.polygon
@@ -182,7 +195,7 @@ func _draw():
 	$Control/VBoxContainer/HBoxContainer/ResourceCount.text = str(_get_daily_resource_count())
 	$Control/VBoxContainer/PanelContainer/ProvinceName.text = province_name + ": " + str(province_morale) + "%"
 	var style := StyleBoxFlat.new()
-	if is_capital:
+	if Enums.Buildings.CAPITAL in buildings:
 		style.bg_color = CAPITAL_COLOR_BACKGROUND
 	else:
 		style.bg_color = Color(Color.TRANSPARENT)
@@ -301,7 +314,7 @@ func _get_sprite_key():
 
 		
 func get_city_position() -> Vector2:
-	return $Node2D.global_position
+	return $Node2D.position
 	
 func get_province_paths():
 	var global_paths = get_tree().get_nodes_in_group("paths")

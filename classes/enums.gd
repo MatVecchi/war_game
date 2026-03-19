@@ -53,3 +53,9 @@ enum Buildings {
 	FORT,
 	RECRUIT_CENTER,
 }
+
+enum BuildingStates {
+	FUNCTIONING,
+	DAMAGED,
+	NOT_BUILT,
+}

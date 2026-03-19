@@ -125,6 +125,15 @@ func _ready() -> void:
 	for player: Agent in players:
 		leaderboard.append({"player": player, "points": player.points})
 		player.war_declared.connect(_on_war_declared)
+		
+		var capital: Province = null
+		for province in player.get_children():
+			if province is not Province: continue
+			province = province as Province
+			if Enums.Buildings.CAPITAL in province.buildings and capital == null:
+				capital = province
+			elif Enums.Buildings.CAPITAL in province.buildings:
+				province.buildings.remove_at(province.buildings.find(Enums.Buildings.CAPITAL))
 	leaderboard.sort_custom(_sort_leaderboard)
 	
 	_create_hud()
@@ -223,7 +232,7 @@ func add_army_to_province(province: Province, army: Army) -> void:
 		army.life_points = army.LIFE_PER_UNIT * 10 * (float(province.province_morale)/100)
 		agent.armies.append(army)
 		agent.add_child(army)
-	army.position = province.get_node("Node2D").global_position
+		army.position = province.get_city_position()
 	army.army_destroyed.connect(_on_army_destroyed)
 	army.became_known.connect(_on_army_became_known)
 	army.became_perfectly_known.connect(_on_army_became_perfectly_known)
