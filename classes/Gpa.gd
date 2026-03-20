@@ -23,82 +23,100 @@ func get_closest_point(to_position: Vector2, include_disabled: bool = false) -> 
 	return closest_point.id
 	
 func get_id_path(from_id: int, to_id: int, allow_partial_path: bool = false) -> PackedInt64Array:
-		# Distanze iniziali
-	var dist := {}
-	var prev := {}
-	var visited := {}
+	# Controlli di sicurezza iniziali
+	if from_id < 0 or from_id >= graph.size() or to_id < 0 or to_id >= graph.size():
+		return PackedInt64Array()
+	if graph[from_id] == null or graph[to_id] == null:
+		return PackedInt64Array()
+	if graph[from_id].disabled:
+		return PackedInt64Array()
 
-	for node in graph:
-		dist[node.id] = INF
-		prev[node.id] = null
-		visited[node.id] = false
+	var open_set: Array[int] = [from_id]
+	var came_from: Dictionary = {}
+	
+	var g_score: Dictionary = {}
+	g_score[from_id] = 0.0
+	
+	var f_score: Dictionary = {}
+	f_score[from_id] = _heuristic(from_id, to_id)
+	
+	# Variabili per tracciare il percorso parziale
+	var closest_node: int = from_id
+	var min_h_score: float = f_score[from_id]
 
-	dist[from_id] = 0.0
-
-	# Priority queue manuale (O(n²), ma ok per grafi piccoli)
-	while true:
-		var current = null
-		var current_dist := INF
-
-		# Trova il nodo non visitato con distanza minore
-		for id in dist.keys():
-			if not visited[id] and dist[id] < current_dist:
-				current = id
-				current_dist = dist[id]
-
-		if current == null:
-			break  # Nessun nodo raggiungibile rimasto
-
-		visited[current] = true
-
-		# Se abbiamo raggiunto la destinazione, possiamo fermarci
+	while open_set.size() > 0:
+		# Trova il nodo in open_set con l'f_score più basso
+		var current_index: int = 0
+		var current: int = open_set[0]
+		var lowest_f: float = f_score.get(current, INF)
+		
+		for i in range(1, open_set.size()):
+			var node_id = open_set[i]
+			var f = f_score.get(node_id, INF)
+			if f < lowest_f:
+				lowest_f = f
+				current = node_id
+				current_index = i
+				
+		# Se abbiamo raggiunto la destinazione, ricostruiamo il percorso
 		if current == to_id:
-			break
-
-		var node := graph[current]
-		if node.disabled:
-			continue
-
-		# Esplora i vicini
-		for edge in node.connections:
-			var neighbor = edge.get_to_id()
-			var neighbor_node := graph[neighbor]
+			return _reconstruct_path(came_from, current)
+			
+		open_set.remove_at(current_index)
+		var current_node: GPANode = graph[current]
+		
+		# Analizza i vicini
+		for edge in current_node.connections:
+			var neighbor_id: int = edge.get_to_id()
+			var neighbor_node: GPANode = graph[neighbor_id]
+			
 			if neighbor_node.disabled:
 				continue
+				
+			# Calcola il costo (g_score) verso questo vicino, moltiplicato per il suo weight_scale
+			var tentative_g: float = g_score[current] + (edge.get_weight() * neighbor_node.weight_scale)
+			
+			# Se abbiamo trovato un percorso migliore per arrivare a neighbor_id
+			if tentative_g < g_score.get(neighbor_id, INF):
+				came_from[neighbor_id] = current
+				g_score[neighbor_id] = tentative_g
+				
+				var h: float = _heuristic(neighbor_id, to_id)
+				f_score[neighbor_id] = tentative_g + h
+				
+				# Aggiorna il nodo più vicino per il calcolo del partial path
+				if h < min_h_score:
+					min_h_score = h
+					closest_node = neighbor_id
+					
+				if not open_set.has(neighbor_id):
+					open_set.append(neighbor_id)
+					
+	# Se il ciclo finisce e non abbiamo trovato target_id, controlliamo allow_partial_path
+	if allow_partial_path and closest_node != from_id:
+		return _reconstruct_path(came_from, closest_node)
+		
+	# Nessun percorso trovato
+	return PackedInt64Array()
 
-			# Costo effettivo: peso arco * weight_scale del nodo di arrivo
-			var cost = edge.get_weight() * neighbor_node.weight_scale
-			var new_dist = dist[current] + cost
+# --- FUNZIONI DI SUPPORTO ---
 
-			if new_dist < dist[neighbor]:
-				dist[neighbor] = new_dist
-				prev[neighbor] = current
+# Calcola la distanza in linea d'aria tra due nodi (Euristica A*)
+func _heuristic(from_id: int, to_id: int) -> float:
+	return graph[from_id].position.distance_to(graph[to_id].position)
 
-	# Ricostruzione del percorso
-	var path := []
-	var cur = to_id
-
-	if prev[cur] == null and cur != from_id:
-		if allow_partial_path:
-			# Trova il nodo più vicino raggiungibile
-			var best := from_id
-			var best_dist = dist[from_id]
-			for id in dist.keys():
-				if dist[id] < best_dist:
-					best = id
-					best_dist = dist[id]
-			cur = best
-		else:
-			return []
-
-	while cur != null:
-		path.append(cur)
-		cur = prev[cur]
-
+# Ricostruisce il percorso a ritroso dal dizionario came_from
+func _reconstruct_path(came_from: Dictionary, current: int) -> PackedInt64Array:
+	var path: PackedInt64Array = PackedInt64Array()
+	path.append(current)
+	while came_from.has(current):
+		current = came_from[current]
+		path.append(current)
+		
+	# Inverti per avere il percorso dal punto di partenza alla destinazione
 	path.reverse()
-	return PackedInt64Array(path)
+	return path
 
-	
 func get_point_position(id: int) -> Vector2:
 	return graph[id].position
 
@@ -113,7 +131,71 @@ func set_connection_weight(from_id: int, to_id: int, weight: float) -> void:
 	
 func set_point_weight_scale(id: int, weight_scale: float) -> void:
 	graph[id].weight_scale = weight_scale
-
+	
+func debug_graph(tree: SceneTree, time: float = -1.0) -> void:
+	var graph_container: Node = Node.new()
+	print("Graph:")
+	for node in graph:
+		var l: Line2D = Line2D.new()
+		var t: Label = Label.new()
+		var circle: Line2D = _debug_create_circle(node.position, 5.0, Color(1.0, 0.0, 0.0, 1.0))
+		t.position = node.position
+		t.text = str(node.id)
+		t.scale = Vector2(0.5, 0.5)
+		circle.add_child(t)
+		graph_container.add_child(circle)
+		
+		l.width = 1.0
+		l.default_color = Color(1.0, 0.0, 0.0, 1.0)
+		l.add_point(node.position)
+		print(node.id, " ", node.position, " ", node.weight_scale, " Connections:")
+		for c in node.connections:
+			l.add_point(graph[c.get_to_id()].position)
+			print(graph[c.get_to_id()].id)
+		graph_container.add_child(l)
+		
+	tree.current_scene.add_child(graph_container)
+	if time != -1.0:
+		await tree.create_timer(time).timeout
+		tree.current_scene.remove_child(graph_container)
+	
+func debug_path(start: int, target: int, tree: SceneTree, time: float = -1.0) -> void:
+	var path_container: Node = Node.new()
+	var path = get_id_path(start, target)
+	print(path, start, target)
+	for point in path:
+		var node = graph[point]
+		var l: Line2D = Line2D.new()
+		var color: Color
+		
+		if point == start:
+			color = Color(0.0, 0.0, 1.0, 1.0)
+		else:
+			color = Color(0.0, 1.0, 0.0, 1.0)
+			
+		var circle: Line2D = _debug_create_circle(node.position, 5.0, color)
+		l.width = 1.0
+		l.default_color = Color(0.0, 1.0, 0.0, 1.0)
+		l.add_point(node.position)
+		
+		path_container.add_child(l)
+		path_container.add_child(circle)
+	tree.current_scene.add_child(path_container)
+	if time != -1.0:
+		await tree.create_timer(time).timeout
+		tree.current_scene.remove_child(path_container)
+	
+func _debug_create_circle(center: Vector2, radius: float, color: Color, points: int = 64) -> Line2D:
+	var pts: Array[Vector2] = []
+	var line: Line2D = Line2D.new()
+	line.width = 1.0
+	line.default_color = color
+	line.closed = true
+	for i in range(points):
+		var angle = TAU * float(i) / points
+		pts.append(center + Vector2(cos(angle), sin(angle)) * radius)
+	line.points = pts
+	return line
 
 class GPANode:
 	var id: int

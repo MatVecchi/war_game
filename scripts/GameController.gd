@@ -222,17 +222,31 @@ func _on_war_declared(_from_player: Agent, _to_player: Agent) -> void:
 func _sort_leaderboard(a, b):
 	return a["points"] < b["points"]
 
-func add_army_to_province(province: Province, army: Army) -> void:
+func add_army_to_province(province: Province, army: Army = null, sn: int = 10) -> void:
 	var agent: Agent = province.get_parent()
 	if army == null:
+		var paths: Array[Node] = get_tree().get_nodes_in_group("paths")
 		var army_scene = preload("res://scenes/army.tscn")
 		army = army_scene.instantiate()
 		army.army_id = len(agent.armies)
-		army.soldier_number = 10
+		army.soldier_number = sn
 		army.life_points = army.LIFE_PER_UNIT * 10 * (float(province.province_morale)/100)
+		army.player = agent
 		agent.armies.append(army)
-		agent.add_child(army)
-		army.position = province.get_city_position()
+
+		for el in paths:
+			if el is Path2D:
+				var count: int = el.curve.point_count
+				var found: bool = false
+				for j in range(count):
+					if el.curve.get_point_position(j) == province.get_city_position():
+						el.add_child(army)
+						if j != 0:
+							army.progress_ratio = 1.0
+						found = true
+						break
+				if found:
+					break
 	army.army_destroyed.connect(_on_army_destroyed)
 	army.became_known.connect(_on_army_became_known)
 	army.became_perfectly_known.connect(_on_army_became_perfectly_known)
@@ -252,10 +266,24 @@ func _create_hud():
 	get_tree().current_scene.add_child(canvas_layer)
 	
 func conquer_province(province: Province, agent: Agent) -> void:
+	var previous_player: Agent = province.get_parent()
 	province.reparent(agent)
-	province.fill.color = agent.color
 	province.province_morale = 12
 	province.conquered = true
+
+	if view == null or (view != province.get_parent() and province.get_parent() not in view.player_in_war):
+		province.fill.color = VIEW_NEUTRAL_COLOR
+	elif view == province.get_parent():
+		province.fill.color = VIEW_AGENT_COLOR
+	elif view != province.get_parent() and province.get_parent() in view.player_in_war:
+		province.fill.color = VIEW_ENEMY_COLOR
+	
+	province.set_borders()
+	for el in province.neighbors:
+		if el is not Province: continue
+		el.set_borders()
+	previous_player.update_name_position()
+	agent.update_name_position()
 	
 func get_collision_rect_size(poly: Polygon2D) -> Vector2:
 	var pts = poly.polygon

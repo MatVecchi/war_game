@@ -68,11 +68,12 @@ func _ready():
 	game.match_over.connect(_on_match_over)
 	
 	neighbors = await _get_neighbors(1.1)
-	neighbors = neighbors.filter(func(a: Area2D): return a.get_parent() != get_parent())
-	_set_borders()
+	set_borders()
 	
 	if Enums.Buildings.CAPITAL in startup_buildings:
 		buildings.get_or_add(Enums.Buildings.CAPITAL, Capital.new())
+	if Enums.Buildings.RECRUIT_CENTER in startup_buildings:
+		buildings.get_or_add(Enums.Buildings.RECRUIT_CENTER, RecruitCenter.new())
 		
 	for child in get_children():
 		if child is not Path2D: continue
@@ -90,8 +91,14 @@ func _ready():
 	
 	print(neighbors)
 	
-func _set_borders() -> void:
+func set_borders() -> void:
+	borders.clear()
+	for i in get_children():
+		if i is not Line2D or i.name == "ProvinceBorder": continue
+		remove_child(i)
+
 	for j in neighbors:
+		if j.get_parent() == get_parent(): continue
 		var poly1 := PackedVector2Array()
 		for p in j.get_node("CollisionPolygon2D").polygon:
 			poly1.append(to_local(j.get_node("CollisionPolygon2D").to_global(p)))
@@ -115,6 +122,9 @@ func _set_borders() -> void:
 				l.add_point(p)
 		add_child(l)
 		borders.append(l)
+		
+func has_building(building: Enums.Buildings):
+	return building in buildings
 
 func _get_neighbors(scale_factor: float) -> Array[Area2D]:
 	var polygon: PackedVector2Array = collision_polygon.polygon
@@ -161,35 +171,6 @@ func get_shared_edges(poly1: PackedVector2Array, poly2: PackedVector2Array, epsi
 				shared.append([a1, a2])
 
 	return shared
-	
-func get_edges(poly: PackedVector2Array) -> Array:
-	var edges := []
-	for i in range(poly.size()):
-		var a = poly[i]
-		var b = poly[(i + 1) % poly.size()]
-		edges.append([a, b])
-	return edges
-	
-func segments_equal(a1, a2, b1, b2, epsilon := 0.1) -> bool:
-	return (
-		(a1.distance_to(b1) < epsilon and a2.distance_to(b2) < epsilon)
-		or
-		(a1.distance_to(b2) < epsilon and a2.distance_to(b1) < epsilon)
-	)
-	
-func get_sea_edges(poly: PackedVector2Array, shared_edges: Array) -> Array:
-	var sea := []
-	var all_edges = get_edges(poly)
-
-	for e in all_edges:
-		var is_shared = false
-		for s in shared_edges:
-			if segments_equal(e[0], e[1], s[0], s[1]):
-				is_shared = true
-				break
-		if not is_shared:
-			sea.append(e)
-	return sea
 
 func _draw():
 	$Control/VBoxContainer/HBoxContainer/ResourceCount.text = str(_get_daily_resource_count())
@@ -201,12 +182,19 @@ func _draw():
 		style.bg_color = Color(Color.TRANSPARENT)
 	$Control/VBoxContainer/PanelContainer.add_theme_stylebox_override("panel", style)
 	
+	
+	
 func _input(_event: InputEvent) -> void:
 	if Input.is_action_just_pressed("camera_zoom_in") or Input.is_action_just_pressed("camera_zoom_out"):
 		$Control.scale = Vector2(1,1)/get_viewport().get_camera_2d().zoom
 		
 func _on_global_timer_timeout() -> void:
 	target_morale = 100 - _get_total_morale_penalties() + _get_total_morale_bonuses()
+
+	if not has_building(Enums.Buildings.RECRUIT_CENTER) and not army_timer.paused:
+		army_timer.stop()
+	elif has_building(Enums.Buildings.RECRUIT_CENTER) and army_timer.paused:
+		army_timer.start()
 	
 func _on_global_hour_timer_timeout() -> void:
 	var agent = get_parent()
@@ -247,28 +235,14 @@ func _update_army_timer(val: float):
 func _on_army_timer_timeout() -> void:
 	_update_army_timer(current_army_timer)
 	for el: Army in get_parent().armies:
-		if el.position != get_city_position(): continue
+		if el.global_position != to_global(get_city_position()): continue
 		el.soldier_number += 1
 		el.life_points += el.LIFE_PER_UNIT * (float(province_morale)/100)
 		el.queue_redraw()
 		return
 	
-	var paths = get_tree().get_nodes_in_group("paths")
 	var game: GameController = get_tree().current_scene
-	var army_scene := preload("res://scenes/army.tscn")
-	var army: Army = army_scene.instantiate()
-	army.army_id = 1
-	army.soldier_number = 1
-	army.life_points = army.LIFE_PER_UNIT * (float(province_morale)/100)
-	army.player = get_parent()
-	get_parent().armies.append(army)
-	for el in paths:
-		if el is Path2D:
-			var count = el.curve.point_count
-			for j in range(count):
-				if el.curve.get_point_position(j) == get_city_position():
-					el.add_child(army)
-	game.add_army_to_province(self, army)
+	game.add_army_to_province(self, null, 1)
 	
 func _get_daily_resource_count() -> int:
 	var resource_to_add: int = (province_morale * 24) + 750

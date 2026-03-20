@@ -2,6 +2,8 @@
 
 [ext_resource type="Script" uid="uid://cmpx3noks68u0" path="res://scripts/HUD.gd" id="1_ahhtf"]
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_ahhtf"]
+
 [node name="Control" type="Control" unique_id=260816110]
 layout_mode = 3
 anchors_preset = 15
@@ -146,6 +148,9 @@ offset_top = 64.0
 offset_right = 81.0
 offset_bottom = 95.0
 text = "Classifica"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1556247122]
+shape = SubResource("CircleShape2D_ahhtf")
 
 [connection signal="gui_input" from="PanelContainer" to="." method="_on_panel_container_gui_input"]
 [connection signal="mouse_entered" from="PanelContainer" to="." method="_on_panel_container_mouse_entered"]

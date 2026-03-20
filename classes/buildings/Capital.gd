@@ -10,3 +10,5 @@ func _init():
 		Enums.Resources.WOOD: 5_000
 	}
 	build_time = 720.0
+	
+	super()

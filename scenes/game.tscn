@@ -55,7 +55,7 @@ bg_color = Color(0, 0, 0, 0)
 
 [sub_resource type="Curve2D" id="Curve2D_kvuet"]
 _data = {
-"points": PackedVector2Array(0, 0, 0, 0, 154, 74, 0, 0, 0, 0, 125, 47)
+"points": PackedVector2Array(0, 0, 0, 0, 125, 47, 0, 0, 0, 0, 154, 74)
 }
 point_count = 2
 
@@ -130,7 +130,7 @@ script = ExtResource("3_lnu2h")
 province_id = 1
 province_name = "Misurata"
 province_material = 2
-startup_buildings = Array[int]([0])
+startup_buildings = Array[int]([0, 2])
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Libia Orientale/Misurata" unique_id=1033763293]
 polygon = PackedVector2Array(-79, 118, -74, 86, 96, 85, 92, 76, 78, 70, 82, 54, 54, 1, 26, -34, 29, -41, 55, -7, 60, -8, 61, -33, 58, -48, 49, -65, 38, -65, 16, -63, 14, -69, -8, -69, -20, -57, -87, -79)
@@ -199,6 +199,7 @@ province_id = 1
 province_name = "Nalut"
 province_material = 5
 double_material = true
+startup_buildings = Array[int]([2])
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Libia Orientale/Nalut" unique_id=1029810181]
 polygon = PackedVector2Array(-151, -76, -122, -67, -104, -26, -84, -30, -90, -4, -74, 32, -20, 54, 191, 65, 191, 41, 197, 11, 217, -5, 201, -18, 194, -43, 186, -64, 16, -63, 11, -31, -3, -29, -121, -93)
@@ -287,7 +288,7 @@ collision_layer = 3
 collision_mask = 3
 script = ExtResource("3_lnu2h")
 province_name = "Tripoli"
-startup_buildings = Array[int]([0])
+startup_buildings = Array[int]([0, 2])
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Libia Occidentale/Tripoli" unique_id=453143359]
 polygon = PackedVector2Array(-43, -31, -50, -23, -40, -9, -39, 8, -24, 9, -11, 27, 19, 34, 49, 17, 167, 81, 181, 79, 173, -118, 148, -119, 142, -129, 113, -129, 99, -118, 102, -101, 90, -79, 66, -100, 42, -101, 30, -124, -21, -131, -20, -119, -41, -104, -37, -95, -51, -83, -45, -74)

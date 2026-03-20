@@ -16,8 +16,8 @@ var build_time: float
 var daily_cost: Dictionary[Enums.Resources, int]
 
 func _init():
-	assert(get_script() != Building, "Abstract class not implemented")
-	
+	pass
+
 func has_enough_resources(player: Agent) -> bool:
 	for k in build_cost:
 		if player.resources[k] < build_cost[k]:

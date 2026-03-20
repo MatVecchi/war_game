@@ -30,7 +30,7 @@ const OBFUSCATED_VISION_MULTIPLIER: float = 1.5
 const SPEED: float = 1.0
 const ATTACK_TIME: float = 60.0
 const LIFE_PER_UNIT: float = 20.0
-const ATTACK_PER_UNIT: float = 4.0
+const ATTACK_PER_UNIT: float = 10.0
 const DEFENSE_PER_UNIT: float = 5.0 
 const ALLY_TERRITORY_SPEED_MULTIPLIER: float = 0.7
 const ENEMY_TERRITORY_SPEED_MULTIPLIER: float = 0.35
@@ -297,10 +297,9 @@ func has_reached_destination() -> bool:
 	return path == null
 	
 func order(city: Province) -> void:
-	var start: int = player.routes.get_closest_point(position)
+	var start: int = player.routes.get_closest_point(global_position)
 	var target: int = player.routes.get_closest_point(city.to_global(city.get_city_position()))
 	var points: PackedInt64Array = player.routes.get_id_path(start, target, false)
-	print("points ", points)
 	var new_path: Path2D = player.graph_to_path[points[0]][0]
 	var point: int = player.graph_to_path[points[0]][1]
 	var dir = new_path.get_point_direction(point)
@@ -336,4 +335,3 @@ func order(city: Province) -> void:
 	
 	direction_line_partial.add_point(to_local(point_path_partial.to_global(point_path_partial.curve.get_point_position(path_point_partial))))
 	direction_line_partial.add_point(to_local(next_point_path_partial.to_global(next_point_path_partial.curve.get_point_position(next_path_point_partial))))
-	

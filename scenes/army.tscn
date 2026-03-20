@@ -133,12 +133,12 @@ shape = SubResource("CircleShape2D_pimn7")
 [node name="DirectionLine" type="Line2D" parent="." unique_id=247724026]
 z_index = 10
 z_as_relative = false
-width = 1.0
+width = 1.5
 antialiased = true
 
 [node name="DirectionLinePartial" type="Line2D" parent="." unique_id=1030498801]
 visible = false
 z_index = 10
 z_as_relative = false
-width = 1.0
+width = 1.5
 antialiased = true

@@ -1,4 +1,4 @@
-extends Node
+extends Node2D
 
 class_name Agent
 
@@ -96,25 +96,9 @@ func _ready() -> void:
 	
 	var game: GameController = get_tree().current_scene
 	var children = get_children()
-	var army_scene := preload("res://scenes/army.tscn")
 	for i in range(len(children)):
 		if children[i] is not Province: continue	
-			
-		var army: Army = army_scene.instantiate()
-		army.army_id = len(armies)
-		army.soldier_number = 10
-		army.life_points = army.LIFE_PER_UNIT * 10 * (float(children[i].province_morale)/100)
-		army.player = self
-		
-		armies.append(army)
-		for el in paths:
-			if el is Path2D:
-				var count = el.curve.point_count
-				for j in range(count):
-					if el.curve.get_point_position(j) == children[i].get_city_position():
-						el.add_child(army)
-						break
-		game.add_army_to_province(children[i], army)
+		game.add_army_to_province(children[i])
 	
 	if len(armies) > 0 and player_name == "Libia Orientale":
 		armies[0].order(game.provinces[2])
@@ -127,7 +111,7 @@ func _ready() -> void:
 	day_timer.timeout.connect(_on_global_day_timer_timeout)
 	
 	player_name_label.text = player_name
-	player_name_control.queue_redraw()
+	update_name_position()
 	
 func _on_global_hour_timer_timeout() -> void:
 	var total_army_daily_cost: Dictionary[Enums.Resources, int] = {
@@ -151,11 +135,173 @@ func _on_global_hour_timer_timeout() -> void:
 func _on_global_day_timer_timeout() -> void:
 	pass
 	
-func _on_army_destroyed(army: Army):
+func _on_army_destroyed(army: Army) -> void:
 	perfectly_known_armies.erase(army)
-	known_armies.erase(army)
+	known_armies.erase(army)	
+		
+func get_nation_outer_borders(epsilon: float = 0.1) -> Array:
+	var provinces = get_children()
+	var all_edges := []
 	
-func add_known_army(army: Army):
+	# 1. Raccogliamo TUTTI i bordi di TUTTE le province appartenenti a questa nazione
+	for province in provinces:
+		# Opzionale: un controllo di sicurezza per assicurarsi che il nodo sia valido
+		if not "collision_polygon" in province or province.collision_polygon == null:
+			continue
+			
+		var poly: PackedVector2Array = province.collision_polygon.polygon
+		for i in range(poly.size()):
+			var p1 = poly[i]
+			var p2 = poly[(i + 1) % poly.size()]
+			all_edges.append([p1, p2])
+			
+	var nation_outer_borders := []
+	var internal_indices := [] # Teniamo traccia degli indici dei bordi già identificati come interni
+	
+	# 2. Filtriamo i bordi: teniamo solo quelli che non hanno "doppioni"
+	for i in range(all_edges.size()):
+		# Se questo bordo è già stato accoppiato (è la metà di un confine condiviso), saltalo
+		if i in internal_indices:
+			continue 
+			
+		var edge_a = all_edges[i]
+		var is_shared = false
+		
+		# Confrontiamolo con i bordi successivi
+		for j in range(i + 1, all_edges.size()):
+			if j in internal_indices:
+				continue
+				
+			var edge_b = all_edges[j]
+			
+			var a1 = edge_a[0]
+			var a2 = edge_a[1]
+			var b1 = edge_b[0]
+			var b2 = edge_b[1]
+			
+			# Applichiamo la stessa logica di tolleranza spaziale (epsilon) della tua funzione
+			if (a1.distance_to(b1) < epsilon and a2.distance_to(b2) < epsilon) or \
+			   (a1.distance_to(b2) < epsilon and a2.distance_to(b1) < epsilon):
+				is_shared = true
+				internal_indices.append(j) # Segniamo anche il bordo 'b' come interno per risparmiare calcoli
+				break # Abbiamo trovato il partner, è un confine interno
+		
+		# Se dopo aver controllato tutti gli altri bordi non abbiamo trovato sovrapposizioni, è esterno
+		if not is_shared:
+			nation_outer_borders.append(edge_a)
+			
+	# Restituisce un Array di Array di Vector2 (es. [[v1, v2], [v3, v4], ...])
+	return nation_outer_borders
+	
+func get_nation_center() -> Vector2:
+	var total_area := 0.0
+	var weighted_centroid := Vector2.ZERO
+	var provinces = get_children()
+	
+	for province in provinces:
+		if not "collision_polygon" in province or province.collision_polygon == null:
+			continue
+			
+		var poly: PackedVector2Array = province.collision_polygon.polygon
+		var count := poly.size()
+		if count < 3:
+			continue
+			
+		var area := 0.0
+		var centroid := Vector2.ZERO
+		
+		# Usiamo la formula di Gauss per calcolare il vero centro geometrico
+		for i in range(count):
+			# Convertiamo i punti locali in coordinate GLOBALI
+			var p1 = province.to_global(poly[i])
+			var p2 = province.to_global(poly[(i + 1) % count])
+			
+			var cross_product = (p1.x * p2.y) - (p2.x * p1.y)
+			area += cross_product
+			centroid.x += (p1.x + p2.x) * cross_product
+			centroid.y += (p1.y + p2.y) * cross_product
+			
+		area *= 0.5
+		if area != 0.0:
+			centroid /= (6.0 * area)
+			
+		var abs_area = abs(area)
+		weighted_centroid += centroid * abs_area
+		total_area += abs_area
+		
+	# Se fallisce per qualche motivo, restituisce la posizione dell'Agent
+	if total_area == 0.0:
+		return global_position
+		
+	# Restituisce le coordinate GLOBALI esatte del centro
+	return weighted_centroid / total_area
+	
+func get_nation_bounds() -> Rect2:
+	var min_pos = Vector2(INF, INF)
+	var max_pos = Vector2(-INF, -INF)
+	var has_points = false
+	
+	for province in get_children():
+		if not "collision_polygon" in province or province.collision_polygon == null:
+			continue
+			
+		var poly: PackedVector2Array = province.collision_polygon.polygon
+		for point in poly:
+			# Convertiamo i punti in coordinate globali per avere una stima reale
+			var global_point = province.to_global(point)
+			min_pos.x = min(min_pos.x, global_point.x)
+			min_pos.y = min(min_pos.y, global_point.y)
+			max_pos.x = max(max_pos.x, global_point.x)
+			max_pos.y = max(max_pos.y, global_point.y)
+			has_points = true
+			
+	if not has_points:
+		return Rect2(global_position, Vector2.ZERO)
+		
+	# Restituisce un Rect2 che contiene la nazione intera
+	return Rect2(min_pos, max_pos - min_pos)
+
+func update_name_position() -> void:
+	var new_position = get_nation_center()
+	
+	if new_position == Vector2.ZERO or (new_position == global_position and get_children().is_empty()):
+		if is_instance_valid(player_name_control):
+			player_name_control.queue_free()
+		return
+		
+	# 1. Troviamo lo spazio massimo disponibile
+	var nation_rect = get_nation_bounds()
+	
+	# Usiamo l'80% dello spazio per avere un margine di sicurezza dai bordi
+	var margin_factor = 0.8
+	var max_width = nation_rect.size.x * margin_factor
+	var max_height = nation_rect.size.y * margin_factor
+	
+	# 2. Resettiamo la scala a 1 per avere le proporzioni pulite prima del calcolo
+	player_name_label.scale = Vector2.ONE
+	
+	# 3. Calcoliamo di quanto dobbiamo scalare
+	var scale_factor = 1.0
+	
+	# Se la label è più grande dello spazio consentito, troviamo il fattore di riduzione
+	if player_name_label.size.x > max_width or player_name_label.size.y > max_height:
+		var scale_x = max_width / player_name_label.size.x
+		var scale_y = max_height / player_name_label.size.y
+		
+		# Prendiamo il valore più piccolo per evitare che il testo si deformi (mantieni le proporzioni)
+		scale_factor = min(scale_x, scale_y)
+		
+	# Applichiamo la scala
+	player_name_label.scale = Vector2(scale_factor, scale_factor)
+	
+	# 4. Centriamo la Label tenendo conto della sua nuova dimensione scalata
+	var scaled_size = player_name_label.size * scale_factor
+	var label_offset = scaled_size / 2.0
+	player_name_label.global_position = new_position - label_offset
+	
+	player_name_control.queue_redraw()
+	
+func add_known_army(army: Army) -> void:
 	if army in perfectly_known_armies: return
 	known_armies.get_or_add(army, 0)
 	known_armies[army] += 1
