@@ -1,0 +1,4045 @@
+[gd_scene format=3 uid="uid://dcuge8a0x5im4"]
+
+[ext_resource type="Script" uid="uid://yvfjm5yhlcvf" path="res://scripts/GameController.gd" id="1_lbhrr"]
+[ext_resource type="Script" uid="uid://bw1jgwp6o3ijl" path="res://scripts/Camera.gd" id="1_uwrxv"]
+[ext_resource type="Script" uid="uid://dcghr7rghdhgv" path="res://scripts/Province.gd" id="3_lnu2h"]
+[ext_resource type="Texture2D" uid="uid://bgh5nbyftyx64" path="res://assets/sprites/map/reference_1.png" id="5_0tnpc"]
+[ext_resource type="Script" uid="uid://bfrcgnbxye7tf" path="res://scripts/Background.gd" id="5_iywne"]
+[ext_resource type="Texture2D" uid="uid://cd40w8ascckub" path="res://assets/sprites/map/water_point.png" id="5_kvpfn"]
+[ext_resource type="Texture2D" uid="uid://ci7iu17nfqf6e" path="res://assets/sprites/map/reference_2.png" id="5_vtaks"]
+[ext_resource type="Script" uid="uid://dlbtk4vaoeyn1" path="res://scripts/Agent.gd" id="6_p57ef"]
+[ext_resource type="PackedScene" uid="uid://djc45rwgx51pp" path="res://scenes/city.tscn" id="7_gee14"]
+[ext_resource type="Texture2D" uid="uid://ciut4187bg2o6" path="res://assets/sprites/map/reference_3.png" id="8_dinhu"]
+[ext_resource type="Script" uid="uid://cixhqyp3nwpac" path="res://scripts/Path.gd" id="8_gee14"]
+[ext_resource type="Shader" uid="uid://bxgr8tcci0tvo" path="res://shaders/fog_of_war.gdshader" id="9_0tnpc"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_vtaks"]
+shader = ExtResource("9_0tnpc")
+shader_parameter/color_background = Color(0, 0, 0, 0.5)
+shader_parameter/color_big = Color(0, 0, 0, 0.3)
+shader_parameter/color_small = Color(0, 0, 0, 0)
+shader_parameter/circle_count = 2
+shader_parameter/pos = PackedVector2Array(200, 50, 100, 100, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+shader_parameter/small_radius = PackedFloat32Array(90, 90, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+shader_parameter/big_radius_multiplier = 1.5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kvpfn"]
+bg_color = Color(0, 0, 0, 0)
+
+[sub_resource type="Curve2D" id="Curve2D_dinhu"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -142, 168, 0, 0, 0, 0, -147, 150)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_ir15t"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -142, 168, 0, 0, 0, 0, -83, 176)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_ca42v"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -142, 168, 0, 0, 0, 0, -172, 169)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_rysoc"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -142, 168, 0, 0, 0, 0, -141, 189)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_trtic"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -142, 168, 0, 0, 0, 0, -126, 148)
+}
+point_count = 2
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vtaks"]
+bg_color = Color(0, 0, 0, 0)
+
+[sub_resource type="Curve2D" id="Curve2D_kvpfn"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -53, 66, 0, 0, 0, 0, -13, 63)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_ssvqc"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -53, 66, 0, 0, 0, 0, -69, 48)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_264po"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -53, 66, 0, 0, 0, 0, -102, 86)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_1kice"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -53, 66, 0, 0, 0, 0, -33, 91)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_5newe"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -53, 66, 0, 0, 0, 0, -13, 97)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_vtaks"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -53, 66, 0, 0, 0, 0, -51, 40)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_37s47"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -313, -1, 0, 0, 0, 0, -272, -24)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_bt5mj"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -313, -1, 0, 0, 0, 0, -297, 29)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_e1j6l"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -313, -1, 0, 0, 0, 0, -279, -55)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_pl11u"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -313, -1, 0, 0, 0, 0, -248, -11)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_bhx41"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -313, -1, 0, 0, 0, 0, -317, -35)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_qnb83"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -313, -1, 0, 0, 0, 0, -327, -7)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_sww3w"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -313, -1, 0, 0, 0, 0, -343, 22)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_suyxu"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -400, -11, 0, 0, 0, 0, -373, -6)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_sgl2t"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -382, -13, 0, 0, 0, 0, -373, -6)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_qouja"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -346, 26, 0, 0, 0, 0, -373, -6)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_wljb1"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -346, 26, 0, 0, 0, 0, -354, 29)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_v2yb1"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -349, 49, 0, 0, 0, 0, -344, 41)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_js0lu"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -334, 75, 0, 0, 0, 0, -344, 41)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_gxtfn"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -346, 26, 0, 0, 0, 0, -344, 41)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_twgab"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -346, 26, 0, 0, 0, 0, -314, 53)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_02fa5"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -346, 26, 0, 0, 0, 0, -343, 22)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_nepv3"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -392, -29, 0, 0, 0, 0, -414, -30)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_7025r"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -392, -29, 0, 0, 0, 0, -414, -39)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_m4url"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -392, -29, 0, 0, 0, 0, -398, -45)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_8ool0"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -392, -29, 0, 0, 0, 0, -375, -47)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_pr1ej"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -392, -29, 0, 0, 0, 0, -327, -7)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_05nbr"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -392, -29, 0, 0, 0, 0, -382, -13)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_0sl42"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -743, -295, 0, 0, 0, 0, -771, -281)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_oaba0"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -743, -295, 0, 0, 0, 0, -788, -324)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_458eo"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -759, -335, 0, 0, 0, 0, -746, -321)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_h3rex"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -747, -342, 0, 0, 0, 0, -746, -321)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_fedci"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -743, -295, 0, 0, 0, 0, -746, -321)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_8qswn"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -743, -295, 0, 0, 0, 0, -714, -346)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_rm0al"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -743, -295, 0, 0, 0, 0, -714, -298)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_i4re6"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -743, -295, 0, 0, 0, 0, -738, -265)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_pf7vy"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -1351, -733, 0, 0, 0, 0, -1358, -732)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_o8ni1"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -1373, -742, 0, 0, 0, 0, -1395, -707)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_3hbvx"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -1373, -742, 0, 0, 0, 0, -1394, -738)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_q8j3a"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -1373, -742, 0, 0, 0, 0, -1380, -776)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_ms3bu"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -1373, -742, 0, 0, 0, 0, -1366, -764)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_7ixpq"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -1373, -742, 0, 0, 0, 0, -1358, -732)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_bk1p3"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -1373, -742, 0, 0, 0, 0, -1337, -695)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_n8ral"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -1311, -751, 0, 0, 0, 0, -1351, -733)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_yd4ix"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -1311, -751, 0, 0, 0, 0, -1324, -765)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_66xif"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -1311, -751, 0, 0, 0, 0, -1299, -787)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_bnuda"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -1311, -751, 0, 0, 0, 0, -1272, -750)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_0rmfi"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -1311, -751, 0, 0, 0, 0, -1259, -722)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_xbak0"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -1311, -751, 0, 0, 0, 0, -1299, -715)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_3x28f"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -1347, -787, 0, 0, 0, 0, -1366, -764)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_l6q63"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -1347, -787, 0, 0, 0, 0, -1367, -789)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_mmvbu"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -1347, -787, 0, 0, 0, 0, -1357, -798)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_weeiq"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -1347, -787, 0, 0, 0, 0, -1325, -825)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_uxocx"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -1347, -787, 0, 0, 0, 0, -1304, -792)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_7nv0b"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -1347, -787, 0, 0, 0, 0, -1324, -765)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_o8oq8"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -1304, -792, 0, 0, 0, 0, -1294, -793)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_sxt1d"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -1299, -787, 0, 0, 0, 0, -1294, -793)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_2iuns"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -1262, -796, 0, 0, 0, 0, -1294, -793)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_7gkqi"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -1262, -796, 0, 0, 0, 0, -1288, -822)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_753oq"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -1262, -796, 0, 0, 0, 0, -1233, -813)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_3x338"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -1262, -796, 0, 0, 0, 0, -1247, -769)
+}
+point_count = 2
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0tnpc"]
+bg_color = Color(0, 0, 0, 0)
+
+[sub_resource type="Curve2D" id="Curve2D_kvuet"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -32, 88, 0, 0, 0, 0, -49, 87)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_1yg85"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -20, 104, 0, 0, 0, 0, -24, 95)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_s0g06"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -32, 88, 0, 0, 0, 0, -43, 55)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_2gnni"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -32, 88, 0, 0, 0, 0, -25, 74)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_vgxg3"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -32, 88, 0, 0, 0, 0, -7, 91)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_4nbsr"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -32, 88, 0, 0, 0, 0, -24, 95)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_0tnpc"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -32, 88, 0, 0, 0, 0, -34, 94)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_fkywm"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -16, 58, 0, 0, 0, 0, -42, 49)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_dku7i"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -16, 58, 0, 0, 0, 0, -22, 47)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_veaf0"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 26, 33, 0, 0, 0, 0, -1, 45)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_flw08"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -16, 58, 0, 0, 0, 0, -1, 45)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_84hbc"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -16, 58, 0, 0, 0, 0, 3, 82)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_15b3c"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -16, 58, 0, 0, 0, 0, -25, 74)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_veukt"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -68, 85, 0, 0, 0, 0, -67, 98)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_nbjts"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -68, 85, 0, 0, 0, 0, -76, 86)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_i1hsc"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -68, 85, 0, 0, 0, 0, -65, 51)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_ounyb"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -68, 85, 0, 0, 0, 0, -49, 87)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_iekjf"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -97, 90, 0, 0, 0, 0, -76, 86)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_okmmv"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -97, 90, 0, 0, 0, 0, -79, 105)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_ja1h7"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -97, 90, 0, 0, 0, 0, -100, 91)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_p4npv"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -117, 72, 0, 0, 0, 0, -102, 82)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_xjcjm"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -104, 65, 0, 0, 0, 0, -102, 82)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_tc8uq"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -97, 90, 0, 0, 0, 0, -102, 82)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_h5tdf"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -97, 90, 0, 0, 0, 0, -87, 57)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_xbifu"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -64, 41, 0, 0, 0, 0, -96, 38)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_gdf8r"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -64, 41, 0, 0, 0, 0, -80, 33)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_x8trd"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -64, 41, 0, 0, 0, 0, -63, 11)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_s33c4"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -64, 41, 0, 0, 0, 0, -41, 36)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_3hv4c"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -64, 41, 0, 0, 0, 0, -42, 49)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_vniw0"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -64, 41, 0, 0, 0, 0, -43, 55)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_lddog"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -64, 41, 0, 0, 0, 0, -65, 51)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_boxkr"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -64, 41, 0, 0, 0, 0, -87, 57)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_de5we"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -29, 31, 0, 0, 0, 0, -46, 3)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_8tghg"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -29, 31, 0, 0, 0, 0, 11, 7)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_473mq"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -29, 31, 0, 0, 0, 0, -22, 47)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_1va0p"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -29, 31, 0, 0, 0, 0, -41, 36)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_2tvof"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -85, -15, 0, 0, 0, 0, -84, 11)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_fsry6"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -71, -7, 0, 0, 0, 0, -84, 11)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_eky20"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -88, 30, 0, 0, 0, 0, -94, 29)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_o3ulk"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -118, 3, 0, 0, 0, 0, -95, 13)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_ghitk"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -103, -9, 0, 0, 0, 0, -95, 13)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_rundi"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -88, 30, 0, 0, 0, 0, -95, 13)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_7kwaa"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -88, 30, 0, 0, 0, 0, -84, 11)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_jye5l"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -88, 30, 0, 0, 0, 0, -80, 33)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_rvhxa"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -48, -53, 0, 0, 0, 0, -48, -46)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_rekj2"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -63, -24, 0, 0, 0, 0, -70, -27)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_ip3rd"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -63, -24, 0, 0, 0, 0, -48, -46)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_s6met"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -63, -24, 0, 0, 0, 0, -9, -13)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_7itva"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -63, -24, 0, 0, 0, 0, -46, 3)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_o5ny5"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -63, -24, 0, 0, 0, 0, -63, 11)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_7ss2i"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -63, -24, 0, 0, 0, 0, -71, -7)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_65ua2"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -89, -32, 0, 0, 0, 0, -114, -32)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_mowrl"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -89, -32, 0, 0, 0, 0, -100, -46)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_g3qou"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -89, -32, 0, 0, 0, 0, -77, -57)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_awynl"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -89, -32, 0, 0, 0, 0, -70, -27)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_1id2h"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -89, -32, 0, 0, 0, 0, -85, -15)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_vnd7u"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -171, -8, 0, 0, 0, 0, -181, 17)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_fccuv"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -171, -8, 0, 0, 0, 0, -196, -10)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_vvi2r"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -171, -8, 0, 0, 0, 0, -166, -25)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_r2n6p"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -171, -8, 0, 0, 0, 0, -118, 3)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_deyyv"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -171, -8, 0, 0, 0, 0, -137, 12)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_h1bth"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -52, -240, 0, 0, 0, 0, -35, -220)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_6cwij"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -21, -163, 0, 0, 0, 0, -35, -220)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_bqsge"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -21, -163, 0, 0, 0, 0, -24, -146)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_k2jov"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 56, -156, 0, 0, 0, 0, -24, -146)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_osiit"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -59, -139, 0, 0, 0, 0, -10, -107)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_kpl5h"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -91, -119, 0, 0, 0, 0, -67, -131)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_nej56"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -96, -87, 0, 0, 0, 0, -67, -131)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_vgiqa"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -77, -57, 0, 0, 0, 0, -65, -94)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_1uieh"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -48, -53, 0, 0, 0, 0, -65, -94)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_x2ts8"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -59, -139, 0, 0, 0, 0, -65, -94)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_1fiuy"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -59, -139, 0, 0, 0, 0, -67, -131)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_fikvi"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -59, -139, 0, 0, 0, 0, -71, -149)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_iwdqm"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -59, -139, 0, 0, 0, 0, -24, -146)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_l0ny2"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -59, -139, 0, 0, 0, 0, -36, -98)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_uaaia"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 42, 29, 0, 0, 0, 0, 72, 58)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_hy75c"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 35, 55, 0, 0, 0, 0, 44, 45)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_vaoao"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 42, 29, 0, 0, 0, 0, 44, 45)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_g33qm"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 42, 29, 0, 0, 0, 0, 29, 17)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_bkxpl"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 26, 33, 0, 0, 0, 0, 29, 17)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_y2jf0"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 18, 2, 0, 0, 0, 0, 29, 17)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_1fd0d"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 18, 2, 0, 0, 0, 0, 85, 10)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_0mjh4"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 18, 2, 0, 0, 0, 0, 46, -19)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_wvj0x"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -36, -98, 0, 0, 0, 0, -11, -68)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_d1om7"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 18, 2, 0, 0, 0, 0, -11, -68)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_g0jan"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 18, 2, 0, 0, 0, 0, -9, -13)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_uh8v6"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 18, 2, 0, 0, 0, 0, 11, 7)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_x1ulb"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 225, 109, 0, 0, 0, 0, 203, 57)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_k4q15"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 225, 109, 0, 0, 0, 0, 242, 52)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_7bpt6"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 225, 109, 0, 0, 0, 0, 200, 141)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_rowo6"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 177, 137, 0, 0, 0, 0, 200, 141)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_max3w"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 205, 179, 0, 0, 0, 0, 200, 141)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_nmeq6"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 157, 173, 0, 0, 0, 0, 184, 174)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_yr4ag"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 205, 179, 0, 0, 0, 0, 276, 138)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_ae4wi"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 205, 179, 0, 0, 0, 0, 198, 212)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_n5r5x"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 205, 179, 0, 0, 0, 0, 222, 207)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_x5xn3"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 205, 179, 0, 0, 0, 0, 184, 174)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_152wt"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 205, 179, 0, 0, 0, 0, 196, 186)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_rjeju"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 148, 84, 0, 0, 0, 0, 134, 109)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_gm07v"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 148, 84, 0, 0, 0, 0, 149, 56)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_texxq"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 127, 67, 0, 0, 0, 0, 149, 56)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_331gb"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 205, -39, 0, 0, 0, 0, 149, 56)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_bdqdv"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 205, -39, 0, 0, 0, 0, 85, 10)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_f4ip4"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 205, -39, 0, 0, 0, 0, 110, -46)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_4kxhu"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 205, -39, 0, 0, 0, 0, 191, -62)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_2gimc"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 205, -39, 0, 0, 0, 0, 231, -61)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_vv4rj"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 205, -39, 0, 0, 0, 0, 203, 57)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_nc1gq"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 205, -39, 0, 0, 0, 0, 229, -12)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_pf1dq"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 77, -145, 0, 0, 0, 0, 70, -82)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_qw3q1"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 87, -48, 0, 0, 0, 0, 70, -82)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_yakp7"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 87, -48, 0, 0, 0, 0, -10, -107)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_hlvme"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 87, -48, 0, 0, 0, 0, 46, -19)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_rso44"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 87, -48, 0, 0, 0, 0, 97, -67)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_7fux8"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 87, -48, 0, 0, 0, 0, 110, -46)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_i0g1p"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 134, -141, 0, 0, 0, 0, 107, -152)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_7mokv"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 134, -141, 0, 0, 0, 0, 116, -171)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_ougo0"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 134, -141, 0, 0, 0, 0, 197, -180)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_jmpbw"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 134, -141, 0, 0, 0, 0, 217, -100)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_4hyal"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 134, -141, 0, 0, 0, 0, 191, -62)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_qxstk"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 134, -141, 0, 0, 0, 0, 97, -67)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_tif2q"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 235, -214, 0, 0, 0, 0, 220, -241)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_gmo45"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 235, -214, 0, 0, 0, 0, 268, -279)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_rdi5s"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 235, -214, 0, 0, 0, 0, 297, -240)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_7xxeg"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 235, -214, 0, 0, 0, 0, 337, -174)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_k0l5t"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 235, -214, 0, 0, 0, 0, 245, -151)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_0pnci"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 235, -214, 0, 0, 0, 0, 198, -205)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_03dbc"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 235, -214, 0, 0, 0, 0, 197, -180)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_tyid6"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 256, -81, 0, 0, 0, 0, 217, -100)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_8djkq"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 256, -81, 0, 0, 0, 0, 245, -151)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_8wuql"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 256, -81, 0, 0, 0, 0, 314, -136)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_tmhwu"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 256, -81, 0, 0, 0, 0, 275, -86)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_oa88d"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 256, -81, 0, 0, 0, 0, 266, -40)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_lygv6"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 256, -81, 0, 0, 0, 0, 231, -61)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_ufjh3"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 305, 51, 0, 0, 0, 0, 314, -45)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_eio5l"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 299, -37, 0, 0, 0, 0, 314, -45)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_7l6q4"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 331, -101, 0, 0, 0, 0, 314, -45)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_jqiwq"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 331, -101, 0, 0, 0, 0, 351, -29)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_08jcq"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 331, -101, 0, 0, 0, 0, 351, -141)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_e07sx"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 331, -101, 0, 0, 0, 0, 275, -86)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_yhaf3"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 280, 114, 0, 0, 0, 0, 275, 71)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_1swxn"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 284, 82, 0, 0, 0, 0, 275, 71)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_ub10f"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 250, 11, 0, 0, 0, 0, 275, 71)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_mpqr6"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 250, 11, 0, 0, 0, 0, 242, 52)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_q6tk8"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 250, 11, 0, 0, 0, 0, 229, -12)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_e3n7k"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 250, 11, 0, 0, 0, 0, 299, -37)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_vpp0n"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 250, 11, 0, 0, 0, 0, 266, -40)
+}
+point_count = 2
+
+[node name="Game" type="Node2D" unique_id=63633635]
+script = ExtResource("1_lbhrr")
+time_multiplier = 50.0
+
+[node name="GlobalTimer" type="Timer" parent="." unique_id=1661397854 groups=["timer"]]
+autostart = true
+
+[node name="GlobalHourTimer" type="Timer" parent="." unique_id=1275185995]
+wait_time = 60.0
+autostart = true
+
+[node name="GlobalDayTimer" type="Timer" parent="." unique_id=1632933546 groups=["day_timer"]]
+wait_time = 1440.0
+autostart = true
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=337608158]
+position = Vector2(2, 0)
+position_smoothing_speed = 10.0
+script = ExtResource("1_uwrxv")
+
+[node name="FogSprite" type="Sprite2D" parent="." unique_id=1691979937]
+unique_name_in_owner = true
+z_index = 4096
+z_as_relative = false
+material = SubResource("ShaderMaterial_vtaks")
+position = Vector2(-70, -24.33)
+
+[node name="Background" type="Area2D" parent="." unique_id=553132931]
+collision_mask = 3
+script = ExtResource("5_iywne")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Background" unique_id=1046095186]
+polygon = PackedVector2Array(-2805, 1779, 2665, 1779, 2665, -1825, -2805, -1825)
+
+[node name="Polygon2D" type="Polygon2D" parent="Background" unique_id=1431215430]
+color = Color(0, 0.52156866, 0.52156866, 1)
+polygon = PackedVector2Array(-2769, -1870, -2768, 1734, 2702, 1734, 2702, -1870)
+
+[node name="WaterPoint2" type="Sprite2D" parent="Background" unique_id=1366143924]
+position = Vector2(-176.00002, -115)
+scale = Vector2(0.39, 0.39)
+texture = ExtResource("5_kvpfn")
+
+[node name="WaterPoint" type="Sprite2D" parent="Background" unique_id=1266309619]
+position = Vector2(-162, -84)
+scale = Vector2(0.39, 0.39)
+texture = ExtResource("5_kvpfn")
+
+[node name="WaterPoint3" type="Sprite2D" parent="Background" unique_id=588860795]
+position = Vector2(-102, -138)
+scale = Vector2(0.39, 0.39)
+texture = ExtResource("5_kvpfn")
+
+[node name="WaterPoint4" type="Sprite2D" parent="Background" unique_id=316010509]
+position = Vector2(-160, -58.999992)
+scale = Vector2(0.39, 0.39)
+texture = ExtResource("5_kvpfn")
+
+[node name="WaterPoint5" type="Sprite2D" parent="Background" unique_id=45932269]
+position = Vector2(-211, -41.999992)
+scale = Vector2(0.39, 0.39)
+texture = ExtResource("5_kvpfn")
+
+[node name="WaterPoint6" type="Sprite2D" parent="Background" unique_id=900025763]
+position = Vector2(-226, -104.99999)
+scale = Vector2(0.39, 0.39)
+texture = ExtResource("5_kvpfn")
+
+[node name="WaterPoint7" type="Sprite2D" parent="Background" unique_id=1705386821]
+position = Vector2(-247, -64.99999)
+scale = Vector2(0.39, 0.39)
+texture = ExtResource("5_kvpfn")
+
+[node name="WaterPoint8" type="Sprite2D" parent="Background" unique_id=1120368598]
+position = Vector2(-250, -16.999992)
+scale = Vector2(0.39, 0.39)
+texture = ExtResource("5_kvpfn")
+
+[node name="WaterPoint9" type="Sprite2D" parent="Background" unique_id=396329134]
+position = Vector2(-230.99998, 14)
+scale = Vector2(0.39, 0.39)
+texture = ExtResource("5_kvpfn")
+
+[node name="WaterPoint10" type="Sprite2D" parent="Background" unique_id=1614283871]
+position = Vector2(-274, 3)
+scale = Vector2(0.39, 0.39)
+texture = ExtResource("5_kvpfn")
+
+[node name="WaterPoint11" type="Sprite2D" parent="Background" unique_id=1793573808]
+position = Vector2(-290, 41)
+scale = Vector2(0.39, 0.39)
+texture = ExtResource("5_kvpfn")
+
+[node name="WaterPoint12" type="Sprite2D" parent="Background" unique_id=1088069115]
+position = Vector2(-334, 37)
+scale = Vector2(0.39, 0.39)
+texture = ExtResource("5_kvpfn")
+
+[node name="WaterPoint13" type="Sprite2D" parent="Background" unique_id=1388100592]
+position = Vector2(-340, 3)
+scale = Vector2(0.39, 0.39)
+texture = ExtResource("5_kvpfn")
+
+[node name="Reference3" type="Sprite2D" parent="." unique_id=962097219]
+position = Vector2(-271, -224)
+scale = Vector2(0.61, 0.61)
+texture = ExtResource("8_dinhu")
+
+[node name="Reference2" type="Sprite2D" parent="." unique_id=380657170]
+position = Vector2(115, -44)
+scale = Vector2(0.6, 0.6)
+texture = ExtResource("5_vtaks")
+
+[node name="Reference" type="Sprite2D" parent="." unique_id=337092061]
+position = Vector2(-26, 98.00001)
+scale = Vector2(0.6, 0.6)
+texture = ExtResource("5_0tnpc")
+
+[node name="Ucraina" type="Node2D" parent="." unique_id=90512913]
+script = ExtResource("6_p57ef")
+
+[node name="Kharkov" type="Area2D" parent="Ucraina" unique_id=1312982784]
+position = Vector2(260, -39)
+collision_mask = 3
+script = ExtResource("3_lnu2h")
+startup_buildings = Array[int]([0, 2])
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Ucraina/Kharkov" unique_id=1033763293]
+polygon = PackedVector2Array(-106, 198, -100, 198, -97, 196, -93, 193, -86, 183, -83, 176, -79, 171, -72, 166, -72, 160, -76, 152, -84, 148, -90, 148, -97, 145, -103, 147, -111, 145, -113, 148, -109, 153, -122, 152, -128, 146, -135, 141, -137, 144, -139, 146, -143, 148, -147, 150, -152, 152, -159, 154, -164, 153, -168, 151, -171, 148, -171, 144, -172, 142, -178, 141, -179, 139, -179, 133, -182, 130, -186, 131, -191, 132, -197, 133, -200, 139, -201, 144, -197, 150, -193, 151, -191, 159, -183, 159, -179, 162, -179, 165, -174, 167, -163, 178, -156, 177, -149, 179, -146, 184, -147, 193, -141, 189, -139, 185, -130, 190, -130, 194, -126, 196, -116, 196, -109, 199)
+
+[node name="Polygon2D" type="Polygon2D" parent="Ucraina/Kharkov" unique_id=830984052]
+color = Color(0.45490196, 0.43529412, 0.42352942, 1)
+
+[node name="ProvinceBorder" type="Line2D" parent="Ucraina/Kharkov" unique_id=1271259207]
+closed = true
+width = 0.3
+default_color = Color(1, 1, 1, 0.78431374)
+joint_mode = 2
+
+[node name="Node2D" parent="Ucraina/Kharkov" unique_id=1043360061 instance=ExtResource("7_gee14")]
+position = Vector2(-142, 168)
+
+[node name="Control" type="Control" parent="Ucraina/Kharkov" unique_id=1518988679]
+layout_mode = 3
+anchors_preset = 0
+offset_left = -24.570007
+offset_top = -36.33499
+offset_right = 15.429382
+offset_bottom = 3.6650085
+pivot_offset = Vector2(19.865, 0)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Ucraina/Kharkov/Control" unique_id=1652751737]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.25
+offset_right = 0.00061035156
+offset_bottom = -10.0
+alignment = 1
+
+[node name="PanelContainer" type="PanelContainer" parent="Ucraina/Kharkov/Control/VBoxContainer" unique_id=498804157]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_kvpfn")
+
+[node name="ProvinceName" type="Label" parent="Ucraina/Kharkov/Control/VBoxContainer/PanelContainer" unique_id=1103367652]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Ucraina/Kharkov/Control/VBoxContainer" unique_id=760359738]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="Ucraina/Kharkov/Control/VBoxContainer/HBoxContainer" unique_id=1328971668]
+layout_mode = 2
+
+[node name="ResourceCount" type="Label" parent="Ucraina/Kharkov/Control/VBoxContainer/HBoxContainer" unique_id=660410485]
+layout_mode = 2
+
+[node name="Path2D7" type="Path2D" parent="Ucraina/Kharkov" unique_id=507172771]
+curve = SubResource("Curve2D_dinhu")
+script = ExtResource("8_gee14")
+
+[node name="Path2D8" type="Path2D" parent="Ucraina/Kharkov" unique_id=473374728]
+curve = SubResource("Curve2D_ir15t")
+script = ExtResource("8_gee14")
+
+[node name="Path2D6" type="Path2D" parent="Ucraina/Kharkov" unique_id=1131517098]
+curve = SubResource("Curve2D_ca42v")
+script = ExtResource("8_gee14")
+
+[node name="Path2D5" type="Path2D" parent="Ucraina/Kharkov" unique_id=1285826649]
+curve = SubResource("Curve2D_rysoc")
+script = ExtResource("8_gee14")
+
+[node name="Path2D4" type="Path2D" parent="Ucraina/Kharkov" unique_id=1886978764]
+curve = SubResource("Curve2D_trtic")
+script = ExtResource("8_gee14")
+
+[node name="Ekaterinoslav" type="Area2D" parent="Ucraina" unique_id=1664710210]
+position = Vector2(170, 110)
+collision_mask = 3
+script = ExtResource("3_lnu2h")
+province_material = 2
+startup_buildings = Array[int]([2])
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Ucraina/Ekaterinoslav" unique_id=1029810181]
+polygon = PackedVector2Array(-7, 87, -5, 82, -4, 73, -7, 68, -13, 63, -10, 60, -10, 57, -3, 52, 12, 50, 14, 47, 21, 45, 23, 42, 23, 38, 20, 35, 15, 33, 4, 34, -3, 44, -7, 47, -10, 49, -16, 49, -19, 50, -26, 47, -36, 47, -40, 45, -40, 41, -49, 36, -51, 40, -57, 44, -60, 49, -69, 48, -78, 48, -83, 51, -83, 55, -79, 58, -80, 60, -85, 59, -85, 62, -92, 59, -97, 56, -99, 59, -98, 61, -97, 65, -97, 72, -102, 71, -100, 78, -100, 82, -102, 86, -100, 88, -97, 87, -91, 87, -87, 85, -85, 82, -82, 84, -82, 88, -83, 91, -78, 95, -68, 93, -61, 94, -57, 91, -56, 86, -44, 87, -33, 91, -28, 90, -21, 100, -18, 102, -14, 100, -13, 97, -10, 97, -8, 95)
+
+[node name="Polygon2D" type="Polygon2D" parent="Ucraina/Ekaterinoslav" unique_id=1002565735]
+color = Color(0.45490196, 0.43529412, 0.42352942, 1)
+
+[node name="ProvinceBorder" type="Line2D" parent="Ucraina/Ekaterinoslav" unique_id=1732879899]
+closed = true
+width = 0.3
+default_color = Color(1, 1, 1, 0.78431374)
+joint_mode = 2
+
+[node name="Node2D" parent="Ucraina/Ekaterinoslav" unique_id=1609441056 instance=ExtResource("7_gee14")]
+position = Vector2(-53, 66)
+
+[node name="Control" type="Control" parent="Ucraina/Ekaterinoslav" unique_id=952523078]
+layout_mode = 3
+anchors_preset = 0
+offset_left = -72.35
+offset_top = 57.13
+offset_right = -32.350586
+offset_bottom = 97.13004
+pivot_offset = Vector2(19.865, 0)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Ucraina/Ekaterinoslav/Control" unique_id=1883343738]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.25
+offset_right = 0.00061035156
+offset_bottom = -10.0
+alignment = 1
+
+[node name="PanelContainer" type="PanelContainer" parent="Ucraina/Ekaterinoslav/Control/VBoxContainer" unique_id=242696267]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_vtaks")
+
+[node name="ProvinceName" type="Label" parent="Ucraina/Ekaterinoslav/Control/VBoxContainer/PanelContainer" unique_id=1313930874]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Ucraina/Ekaterinoslav/Control/VBoxContainer" unique_id=1183526158]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="Ucraina/Ekaterinoslav/Control/VBoxContainer/HBoxContainer" unique_id=513523463]
+layout_mode = 2
+
+[node name="ResourceCount" type="Label" parent="Ucraina/Ekaterinoslav/Control/VBoxContainer/HBoxContainer" unique_id=1659040228]
+layout_mode = 2
+
+[node name="Path2D5" type="Path2D" parent="Ucraina/Ekaterinoslav" unique_id=1799840241]
+curve = SubResource("Curve2D_kvpfn")
+script = ExtResource("8_gee14")
+
+[node name="Path2D9" type="Path2D" parent="Ucraina/Ekaterinoslav" unique_id=1744358850]
+curve = SubResource("Curve2D_ssvqc")
+script = ExtResource("8_gee14")
+
+[node name="Path2D8" type="Path2D" parent="Ucraina/Ekaterinoslav" unique_id=211893734]
+curve = SubResource("Curve2D_264po")
+script = ExtResource("8_gee14")
+
+[node name="Path2D7" type="Path2D" parent="Ucraina/Ekaterinoslav" unique_id=1658110770]
+curve = SubResource("Curve2D_1kice")
+script = ExtResource("8_gee14")
+
+[node name="Path2D6" type="Path2D" parent="Ucraina/Ekaterinoslav" unique_id=336243418]
+curve = SubResource("Curve2D_5newe")
+script = ExtResource("8_gee14")
+
+[node name="Path2D4" type="Path2D" parent="Ucraina/Ekaterinoslav" unique_id=618333003]
+curve = SubResource("Curve2D_vtaks")
+script = ExtResource("8_gee14")
+
+[node name="Cherson" type="Area2D" parent="Ucraina" unique_id=416463245]
+position = Vector2(340, 220)
+collision_mask = 3
+script = ExtResource("3_lnu2h")
+province_material = 1
+double_material = true
+startup_buildings = Array[int]([2])
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Ucraina/Cherson" unique_id=186605642]
+polygon = PackedVector2Array(-253, -19, -248, -15, -248, -11, -245, 1, -247, 4, -250, 5, -247, 10, -253, 15, -264, 19, -264, 21, -274, 27, -274, 28, -289, 32, -297, 29, -301, 33, -305, 34, -311, 47, -319, 42, -321, 38, -326, 37, -338, 30, -342, 26, -343, 22, -349, 14, -345, 8, -345, -1, -343, -5, -331, -5, -327, -7, -323, -9, -318, -15, -321, -22, -324, -26, -324, -35, -317, -35, -310, -38, -303, -39, -298, -42, -294, -45, -292, -49, -287, -53, -283, -57, -279, -55, -275, -55, -269, -51, -268, -49, -267, -45, -267, -38, -272, -39, -270, -32, -270, -28, -272, -24, -270, -22, -267, -23, -261, -23, -257, -25, -255, -28, -252, -26, -252, -22)
+
+[node name="Polygon2D" type="Polygon2D" parent="Ucraina/Cherson" unique_id=842982198]
+color = Color(0.45490196, 0.43529412, 0.42352942, 1)
+
+[node name="ProvinceBorder" type="Line2D" parent="Ucraina/Cherson" unique_id=1336503170]
+closed = true
+width = 0.3
+default_color = Color(1, 1, 1, 0.78431374)
+joint_mode = 2
+
+[node name="Node2D" parent="Ucraina/Cherson" unique_id=1965261426 instance=ExtResource("7_gee14")]
+position = Vector2(-313, -1)
+
+[node name="Control" type="Control" parent="Ucraina/Cherson" unique_id=2017776780]
+layout_mode = 3
+anchors_preset = 0
+offset_left = -72.35
+offset_top = 57.13
+offset_right = -32.350586
+offset_bottom = 97.13004
+pivot_offset = Vector2(19.865, 0)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Ucraina/Cherson/Control" unique_id=355523321]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.25
+offset_right = 0.00061035156
+offset_bottom = -10.0
+alignment = 1
+
+[node name="PanelContainer" type="PanelContainer" parent="Ucraina/Cherson/Control/VBoxContainer" unique_id=2146294503]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_vtaks")
+
+[node name="ProvinceName" type="Label" parent="Ucraina/Cherson/Control/VBoxContainer/PanelContainer" unique_id=1448812028]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Ucraina/Cherson/Control/VBoxContainer" unique_id=961375420]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="Ucraina/Cherson/Control/VBoxContainer/HBoxContainer" unique_id=1168218854]
+layout_mode = 2
+
+[node name="ResourceCount" type="Label" parent="Ucraina/Cherson/Control/VBoxContainer/HBoxContainer" unique_id=462339508]
+layout_mode = 2
+
+[node name="Path2D5" type="Path2D" parent="Ucraina/Cherson" unique_id=333510123]
+curve = SubResource("Curve2D_37s47")
+script = ExtResource("8_gee14")
+
+[node name="Path2D9" type="Path2D" parent="Ucraina/Cherson" unique_id=1546229258]
+curve = SubResource("Curve2D_bt5mj")
+script = ExtResource("8_gee14")
+
+[node name="Path2D8" type="Path2D" parent="Ucraina/Cherson" unique_id=1029068246]
+curve = SubResource("Curve2D_e1j6l")
+script = ExtResource("8_gee14")
+
+[node name="Path2D7" type="Path2D" parent="Ucraina/Cherson" unique_id=443083291]
+curve = SubResource("Curve2D_pl11u")
+script = ExtResource("8_gee14")
+
+[node name="Path2D6" type="Path2D" parent="Ucraina/Cherson" unique_id=626141381]
+curve = SubResource("Curve2D_bhx41")
+script = ExtResource("8_gee14")
+
+[node name="Path2D10" type="Path2D" parent="Ucraina/Cherson" unique_id=396271827]
+curve = SubResource("Curve2D_qnb83")
+script = ExtResource("8_gee14")
+
+[node name="Path2D4" type="Path2D" parent="Ucraina/Cherson" unique_id=1219206770]
+curve = SubResource("Curve2D_sww3w")
+script = ExtResource("8_gee14")
+
+[node name="Kishinev" type="Area2D" parent="Ucraina" unique_id=75195331]
+position = Vector2(340, 220)
+collision_mask = 3
+script = ExtResource("3_lnu2h")
+province_material = 6
+startup_buildings = Array[int]([2])
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Ucraina/Kishinev" unique_id=404740384]
+polygon = PackedVector2Array(-349, 14, -343, 22, -342, 26, -338, 30, -326, 37, -321, 38, -319, 42, -311, 47, -314, 53, -315, 59, -316, 64, -318, 65, -319, 63, -327, 69, -327, 72, -332, 72, -331, 75, -334, 75, -340, 73, -344, 70, -347, 64, -349, 49, -350, 42, -350, 36, -354, 29, -357, 24, -363, 24, -368, 16, -376, 9, -377, 5, -380, -1, -384, -7, -390, -7, -392, -5, -394, -5, -397, -6, -400, -11, -402, -17, -396, -16, -389, -15, -382, -13, -373, -11, -366, -7, -360, -3, -355, 1, -355, 4, -352, 8)
+
+[node name="Polygon2D" type="Polygon2D" parent="Ucraina/Kishinev" unique_id=1120788722]
+color = Color(0.45490196, 0.43529412, 0.42352942, 1)
+
+[node name="ProvinceBorder" type="Line2D" parent="Ucraina/Kishinev" unique_id=182730895]
+closed = true
+width = 0.3
+default_color = Color(1, 1, 1, 0.78431374)
+joint_mode = 2
+
+[node name="Node2D" parent="Ucraina/Kishinev" unique_id=1411310723 instance=ExtResource("7_gee14")]
+position = Vector2(-346, 26)
+
+[node name="Control" type="Control" parent="Ucraina/Kishinev" unique_id=502868838]
+layout_mode = 3
+anchors_preset = 0
+offset_left = -72.35
+offset_top = 57.13
+offset_right = -32.350586
+offset_bottom = 97.13004
+pivot_offset = Vector2(19.865, 0)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Ucraina/Kishinev/Control" unique_id=1973947255]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.25
+offset_right = 0.00061035156
+offset_bottom = -10.0
+alignment = 1
+
+[node name="PanelContainer" type="PanelContainer" parent="Ucraina/Kishinev/Control/VBoxContainer" unique_id=1502550993]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_vtaks")
+
+[node name="ProvinceName" type="Label" parent="Ucraina/Kishinev/Control/VBoxContainer/PanelContainer" unique_id=630317792]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Ucraina/Kishinev/Control/VBoxContainer" unique_id=666346305]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="Ucraina/Kishinev/Control/VBoxContainer/HBoxContainer" unique_id=483979223]
+layout_mode = 2
+
+[node name="ResourceCount" type="Label" parent="Ucraina/Kishinev/Control/VBoxContainer/HBoxContainer" unique_id=649216672]
+layout_mode = 2
+
+[node name="Path2D11" type="Path2D" parent="Ucraina/Kishinev" unique_id=89984687]
+curve = SubResource("Curve2D_suyxu")
+script = ExtResource("8_gee14")
+
+[node name="Path2D10" type="Path2D" parent="Ucraina/Kishinev" unique_id=2094901082]
+curve = SubResource("Curve2D_sgl2t")
+script = ExtResource("8_gee14")
+
+[node name="Path2D9" type="Path2D" parent="Ucraina/Kishinev" unique_id=806015765]
+curve = SubResource("Curve2D_qouja")
+script = ExtResource("8_gee14")
+
+[node name="Path2D8" type="Path2D" parent="Ucraina/Kishinev" unique_id=245621826]
+curve = SubResource("Curve2D_wljb1")
+script = ExtResource("8_gee14")
+
+[node name="Path2D13" type="Path2D" parent="Ucraina/Kishinev" unique_id=553996341]
+curve = SubResource("Curve2D_v2yb1")
+script = ExtResource("8_gee14")
+
+[node name="Path2D12" type="Path2D" parent="Ucraina/Kishinev" unique_id=1259727132]
+curve = SubResource("Curve2D_js0lu")
+script = ExtResource("8_gee14")
+
+[node name="Path2D7" type="Path2D" parent="Ucraina/Kishinev" unique_id=1872327377]
+curve = SubResource("Curve2D_gxtfn")
+script = ExtResource("8_gee14")
+
+[node name="Path2D6" type="Path2D" parent="Ucraina/Kishinev" unique_id=440971]
+curve = SubResource("Curve2D_twgab")
+script = ExtResource("8_gee14")
+
+[node name="Path2D5" type="Path2D" parent="Ucraina/Kishinev" unique_id=1010323821]
+curve = SubResource("Curve2D_02fa5")
+script = ExtResource("8_gee14")
+
+[node name="Podolia" type="Area2D" parent="Ucraina" unique_id=993487886]
+position = Vector2(340, 220)
+collision_mask = 3
+script = ExtResource("3_lnu2h")
+province_material = 4
+startup_buildings = Array[int]([2])
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Ucraina/Podolia" unique_id=713735921]
+polygon = PackedVector2Array(-355, 1, -355, 4, -352, 8, -349, 14, -345, 8, -345, -1, -343, -5, -331, -5, -327, -7, -323, -9, -318, -15, -321, -22, -324, -26, -331, -26, -334, -24, -341, -24, -345, -34, -348, -37, -352, -37, -355, -35, -363, -35, -374, -44, -375, -47, -376, -49, -376, -56, -384, -56, -387, -55, -389, -55, -396, -50, -394, -48, -396, -46, -398, -45, -403, -44, -407, -44, -410, -40, -413, -41, -414, -39, -416, -35, -414, -30, -409, -27, -409, -23, -402, -17, -389, -15, -382, -13, -373, -11, -366, -7, -360, -3)
+
+[node name="Polygon2D" type="Polygon2D" parent="Ucraina/Podolia" unique_id=70621648]
+color = Color(0.45490196, 0.43529412, 0.42352942, 1)
+
+[node name="ProvinceBorder" type="Line2D" parent="Ucraina/Podolia" unique_id=1836663357]
+closed = true
+width = 0.3
+default_color = Color(1, 1, 1, 0.78431374)
+joint_mode = 2
+
+[node name="Node2D" parent="Ucraina/Podolia" unique_id=185404527 instance=ExtResource("7_gee14")]
+position = Vector2(-392, -29)
+
+[node name="Control" type="Control" parent="Ucraina/Podolia" unique_id=417564374]
+layout_mode = 3
+anchors_preset = 0
+offset_left = -72.35
+offset_top = 57.13
+offset_right = -32.350586
+offset_bottom = 97.13004
+pivot_offset = Vector2(19.865, 0)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Ucraina/Podolia/Control" unique_id=1812672183]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.25
+offset_right = 0.00061035156
+offset_bottom = -10.0
+alignment = 1
+
+[node name="PanelContainer" type="PanelContainer" parent="Ucraina/Podolia/Control/VBoxContainer" unique_id=1047102505]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_vtaks")
+
+[node name="ProvinceName" type="Label" parent="Ucraina/Podolia/Control/VBoxContainer/PanelContainer" unique_id=1725920136]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Ucraina/Podolia/Control/VBoxContainer" unique_id=1465006521]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="Ucraina/Podolia/Control/VBoxContainer/HBoxContainer" unique_id=1811914055]
+layout_mode = 2
+
+[node name="ResourceCount" type="Label" parent="Ucraina/Podolia/Control/VBoxContainer/HBoxContainer" unique_id=1654198657]
+layout_mode = 2
+
+[node name="Path2D16" type="Path2D" parent="Ucraina/Podolia" unique_id=1856263185]
+curve = SubResource("Curve2D_nepv3")
+script = ExtResource("8_gee14")
+
+[node name="Path2D15" type="Path2D" parent="Ucraina/Podolia" unique_id=1224430278]
+curve = SubResource("Curve2D_7025r")
+script = ExtResource("8_gee14")
+
+[node name="Path2D14" type="Path2D" parent="Ucraina/Podolia" unique_id=1790462030]
+curve = SubResource("Curve2D_m4url")
+script = ExtResource("8_gee14")
+
+[node name="Path2D13" type="Path2D" parent="Ucraina/Podolia" unique_id=2110428194]
+curve = SubResource("Curve2D_8ool0")
+script = ExtResource("8_gee14")
+
+[node name="Path2D12" type="Path2D" parent="Ucraina/Podolia" unique_id=2054592462]
+curve = SubResource("Curve2D_pr1ej")
+script = ExtResource("8_gee14")
+
+[node name="Path2D11" type="Path2D" parent="Ucraina/Podolia" unique_id=148031037]
+curve = SubResource("Curve2D_05nbr")
+script = ExtResource("8_gee14")
+
+[node name="Volhynia" type="Area2D" parent="Ucraina" unique_id=1406111760]
+position = Vector2(680, 440)
+collision_mask = 3
+script = ExtResource("3_lnu2h")
+startup_buildings = Array[int]([2])
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Ucraina/Volhynia" unique_id=763015837]
+polygon = PackedVector2Array(-736, -270, -729, -275, -727, -275, -724, -276, -716, -276, -716, -279, -714, -282, -710, -282, -708, -283, -708, -286, -707, -287, -713, -294, -712, -295, -714, -298, -716, -301, -714, -301, -713, -304, -717, -307, -718, -309, -718, -312, -716, -314, -713, -310, -711, -310, -711, -313, -707, -313, -705, -311, -703, -313, -704, -317, -707, -319, -707, -325, -708, -328, -707, -330, -706, -333, -704, -335, -701, -336, -706, -340, -706, -345, -708, -345, -714, -346, -721, -345, -727, -343, -731, -345, -739, -344, -742, -342, -747, -342, -750, -340, -754, -337, -756, -335, -759, -335, -762, -327, -766, -333, -766, -338, -775, -345, -781, -345, -784, -329, -788, -324, -784, -316, -777, -308, -773, -302, -774, -300, -780, -300, -780, -297, -771, -290, -773, -282, -771, -281, -767, -279, -770, -275, -764, -274, -763, -278, -755, -275, -750, -270, -753, -261, -750, -260, -747, -264, -743, -264, -738, -265, -736, -266, -734, -268)
+
+[node name="Polygon2D" type="Polygon2D" parent="Ucraina/Volhynia" unique_id=355270572]
+color = Color(0.45490196, 0.43529412, 0.42352942, 1)
+
+[node name="ProvinceBorder" type="Line2D" parent="Ucraina/Volhynia" unique_id=1228956323]
+closed = true
+width = 0.3
+default_color = Color(1, 1, 1, 0.78431374)
+joint_mode = 2
+
+[node name="Node2D" parent="Ucraina/Volhynia" unique_id=1619242564 instance=ExtResource("7_gee14")]
+position = Vector2(-743, -295)
+
+[node name="Control" type="Control" parent="Ucraina/Volhynia" unique_id=1339609585]
+layout_mode = 3
+anchors_preset = 0
+offset_left = -72.35
+offset_top = 57.13
+offset_right = -32.350586
+offset_bottom = 97.13004
+pivot_offset = Vector2(19.865, 0)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Ucraina/Volhynia/Control" unique_id=478072828]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.25
+offset_right = 0.00061035156
+offset_bottom = -10.0
+alignment = 1
+
+[node name="PanelContainer" type="PanelContainer" parent="Ucraina/Volhynia/Control/VBoxContainer" unique_id=185768281]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_vtaks")
+
+[node name="ProvinceName" type="Label" parent="Ucraina/Volhynia/Control/VBoxContainer/PanelContainer" unique_id=1034322704]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Ucraina/Volhynia/Control/VBoxContainer" unique_id=1335538139]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="Ucraina/Volhynia/Control/VBoxContainer/HBoxContainer" unique_id=481705000]
+layout_mode = 2
+
+[node name="ResourceCount" type="Label" parent="Ucraina/Volhynia/Control/VBoxContainer/HBoxContainer" unique_id=1225310242]
+layout_mode = 2
+
+[node name="Path2D14" type="Path2D" parent="Ucraina/Volhynia" unique_id=1192809151]
+curve = SubResource("Curve2D_0sl42")
+script = ExtResource("8_gee14")
+
+[node name="Path2D15" type="Path2D" parent="Ucraina/Volhynia" unique_id=273752987]
+curve = SubResource("Curve2D_oaba0")
+script = ExtResource("8_gee14")
+
+[node name="Path2D18" type="Path2D" parent="Ucraina/Volhynia" unique_id=36841553]
+curve = SubResource("Curve2D_458eo")
+script = ExtResource("8_gee14")
+
+[node name="Path2D17" type="Path2D" parent="Ucraina/Volhynia" unique_id=786481702]
+curve = SubResource("Curve2D_h3rex")
+script = ExtResource("8_gee14")
+
+[node name="Path2D16" type="Path2D" parent="Ucraina/Volhynia" unique_id=78760635]
+curve = SubResource("Curve2D_fedci")
+script = ExtResource("8_gee14")
+
+[node name="Path2D13" type="Path2D" parent="Ucraina/Volhynia" unique_id=2064288342]
+curve = SubResource("Curve2D_8qswn")
+script = ExtResource("8_gee14")
+
+[node name="Path2D12" type="Path2D" parent="Ucraina/Volhynia" unique_id=974145742]
+curve = SubResource("Curve2D_rm0al")
+script = ExtResource("8_gee14")
+
+[node name="Path2D11" type="Path2D" parent="Ucraina/Volhynia" unique_id=1690876573]
+curve = SubResource("Curve2D_i4re6")
+script = ExtResource("8_gee14")
+
+[node name="Kiev" type="Area2D" parent="Ucraina" unique_id=2074642897]
+position = Vector2(1360, 880)
+collision_mask = 3
+script = ExtResource("3_lnu2h")
+province_material = 5
+double_material = true
+startup_buildings = Array[int]([2])
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Ucraina/Kiev" unique_id=1167539713]
+polygon = PackedVector2Array(-1391, -753, -1391, -750, -1393, -750, -1396, -754, -1398, -752, -1398, -749, -1397, -747, -1393, -744, -1394, -741, -1396, -741, -1392, -735, -1393, -734, -1387, -727, -1388, -726, -1388, -723, -1390, -722, -1394, -722, -1396, -719, -1396, -709, -1395, -707, -1394, -704, -1383, -695, -1375, -695, -1372, -697, -1368, -697, -1365, -694, -1361, -684, -1354, -684, -1351, -686, -1344, -686, -1344, -695, -1337, -695, -1330, -698, -1323, -699, -1318, -702, -1314, -705, -1312, -709, -1307, -713, -1303, -717, -1308, -717, -1312, -718, -1318, -718, -1320, -720, -1322, -720, -1323, -719, -1325, -719, -1327, -721, -1336, -725, -1338, -728, -1338, -732, -1343, -732, -1346, -731, -1351, -733, -1355, -734, -1359, -739, -1363, -745, -1365, -748, -1366, -757, -1363, -761, -1366, -764, -1374, -772, -1377, -777, -1380, -776, -1381, -776, -1384, -775, -1386, -773, -1387, -770, -1388, -768, -1387, -765, -1387, -759, -1384, -757, -1383, -753, -1385, -751, -1387, -753)
+
+[node name="Polygon2D" type="Polygon2D" parent="Ucraina/Kiev" unique_id=970880852]
+color = Color(0.45490196, 0.43529412, 0.42352942, 1)
+
+[node name="ProvinceBorder" type="Line2D" parent="Ucraina/Kiev" unique_id=30087187]
+closed = true
+width = 0.3
+default_color = Color(1, 1, 1, 0.78431374)
+joint_mode = 2
+
+[node name="Node2D" parent="Ucraina/Kiev" unique_id=990024673 instance=ExtResource("7_gee14")]
+position = Vector2(-1373, -742)
+
+[node name="Control" type="Control" parent="Ucraina/Kiev" unique_id=73222819]
+layout_mode = 3
+anchors_preset = 0
+offset_left = -72.35
+offset_top = 57.13
+offset_right = -32.350586
+offset_bottom = 97.13004
+pivot_offset = Vector2(19.865, 0)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Ucraina/Kiev/Control" unique_id=1381110547]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.25
+offset_right = 0.00061035156
+offset_bottom = -10.0
+alignment = 1
+
+[node name="PanelContainer" type="PanelContainer" parent="Ucraina/Kiev/Control/VBoxContainer" unique_id=2010797195]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_vtaks")
+
+[node name="ProvinceName" type="Label" parent="Ucraina/Kiev/Control/VBoxContainer/PanelContainer" unique_id=1090230405]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Ucraina/Kiev/Control/VBoxContainer" unique_id=1275605353]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="Ucraina/Kiev/Control/VBoxContainer/HBoxContainer" unique_id=1855801131]
+layout_mode = 2
+
+[node name="ResourceCount" type="Label" parent="Ucraina/Kiev/Control/VBoxContainer/HBoxContainer" unique_id=947057940]
+layout_mode = 2
+
+[node name="Path2D7" type="Path2D" parent="Ucraina/Kiev" unique_id=1810070317]
+curve = SubResource("Curve2D_pf7vy")
+script = ExtResource("8_gee14")
+
+[node name="Path2D6" type="Path2D" parent="Ucraina/Kiev" unique_id=724278037]
+curve = SubResource("Curve2D_o8ni1")
+script = ExtResource("8_gee14")
+
+[node name="Path2D5" type="Path2D" parent="Ucraina/Kiev" unique_id=674142778]
+curve = SubResource("Curve2D_3hbvx")
+script = ExtResource("8_gee14")
+
+[node name="Path2D4" type="Path2D" parent="Ucraina/Kiev" unique_id=997562446]
+curve = SubResource("Curve2D_q8j3a")
+script = ExtResource("8_gee14")
+
+[node name="Path2D3" type="Path2D" parent="Ucraina/Kiev" unique_id=1026537706]
+curve = SubResource("Curve2D_ms3bu")
+script = ExtResource("8_gee14")
+
+[node name="Path2D2" type="Path2D" parent="Ucraina/Kiev" unique_id=787540196]
+curve = SubResource("Curve2D_7ixpq")
+script = ExtResource("8_gee14")
+
+[node name="Path2D" type="Path2D" parent="Ucraina/Kiev" unique_id=1217882097]
+curve = SubResource("Curve2D_bk1p3")
+script = ExtResource("8_gee14")
+
+[node name="Poltava" type="Area2D" parent="Ucraina" unique_id=13181018]
+position = Vector2(1360, 880)
+collision_mask = 3
+script = ExtResource("3_lnu2h")
+province_material = 1
+startup_buildings = Array[int]([2])
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Ucraina/Poltava" unique_id=1993627878]
+polygon = PackedVector2Array(-1338, -732, -1338, -728, -1336, -725, -1327, -721, -1325, -719, -1323, -719, -1322, -720, -1320, -720, -1318, -718, -1312, -718, -1308, -717, -1303, -717, -1299, -715, -1295, -715, -1289, -711, -1287, -714, -1282, -711, -1275, -708, -1275, -711, -1270, -710, -1269, -712, -1273, -715, -1273, -719, -1268, -722, -1259, -722, -1250, -721, -1247, -726, -1246, -735, -1249, -740, -1256, -742, -1263, -741, -1272, -750, -1274, -752, -1279, -754, -1279, -757, -1283, -760, -1291, -760, -1293, -768, -1297, -769, -1301, -775, -1300, -780, -1297, -786, -1299, -787, -1301, -787, -1305, -785, -1308, -786, -1311, -783, -1312, -779, -1313, -778, -1311, -775, -1312, -773, -1313, -771, -1317, -768, -1322, -768, -1324, -765, -1331, -765, -1332, -762, -1337, -756, -1342, -753, -1345, -753, -1349, -748, -1354, -746, -1355, -743, -1355, -734, -1351, -733, -1346, -731, -1343, -732)
+
+[node name="Polygon2D" type="Polygon2D" parent="Ucraina/Poltava" unique_id=1561990070]
+color = Color(0.45490196, 0.43529412, 0.42352942, 1)
+
+[node name="ProvinceBorder" type="Line2D" parent="Ucraina/Poltava" unique_id=1632436725]
+closed = true
+width = 0.3
+default_color = Color(1, 1, 1, 0.78431374)
+joint_mode = 2
+
+[node name="Node2D" parent="Ucraina/Poltava" unique_id=1155145615 instance=ExtResource("7_gee14")]
+position = Vector2(-1311, -751)
+
+[node name="Control" type="Control" parent="Ucraina/Poltava" unique_id=512456597]
+layout_mode = 3
+anchors_preset = 0
+offset_left = -72.35
+offset_top = 57.13
+offset_right = -32.350586
+offset_bottom = 97.13004
+pivot_offset = Vector2(19.865, 0)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Ucraina/Poltava/Control" unique_id=2129835304]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.25
+offset_right = 0.00061035156
+offset_bottom = -10.0
+alignment = 1
+
+[node name="PanelContainer" type="PanelContainer" parent="Ucraina/Poltava/Control/VBoxContainer" unique_id=665745608]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_vtaks")
+
+[node name="ProvinceName" type="Label" parent="Ucraina/Poltava/Control/VBoxContainer/PanelContainer" unique_id=1155919951]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Ucraina/Poltava/Control/VBoxContainer" unique_id=2002747778]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="Ucraina/Poltava/Control/VBoxContainer/HBoxContainer" unique_id=631267670]
+layout_mode = 2
+
+[node name="ResourceCount" type="Label" parent="Ucraina/Poltava/Control/VBoxContainer/HBoxContainer" unique_id=1530390601]
+layout_mode = 2
+
+[node name="Path2D6" type="Path2D" parent="Ucraina/Poltava" unique_id=1457072892]
+curve = SubResource("Curve2D_n8ral")
+script = ExtResource("8_gee14")
+
+[node name="Path2D5" type="Path2D" parent="Ucraina/Poltava" unique_id=627318289]
+curve = SubResource("Curve2D_yd4ix")
+script = ExtResource("8_gee14")
+
+[node name="Path2D4" type="Path2D" parent="Ucraina/Poltava" unique_id=1215028860]
+curve = SubResource("Curve2D_66xif")
+script = ExtResource("8_gee14")
+
+[node name="Path2D3" type="Path2D" parent="Ucraina/Poltava" unique_id=77929530]
+curve = SubResource("Curve2D_bnuda")
+script = ExtResource("8_gee14")
+
+[node name="Path2D2" type="Path2D" parent="Ucraina/Poltava" unique_id=431705089]
+curve = SubResource("Curve2D_0rmfi")
+script = ExtResource("8_gee14")
+
+[node name="Path2D" type="Path2D" parent="Ucraina/Poltava" unique_id=1548970805]
+curve = SubResource("Curve2D_xbak0")
+script = ExtResource("8_gee14")
+
+[node name="Chernigov" type="Area2D" parent="Ucraina" unique_id=966810768]
+position = Vector2(1360, 880)
+collision_mask = 3
+script = ExtResource("3_lnu2h")
+province_material = 5
+startup_buildings = Array[int]([2])
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Ucraina/Chernigov" unique_id=874376552]
+polygon = PackedVector2Array(-1345, -753, -1342, -753, -1337, -756, -1332, -762, -1331, -765, -1324, -765, -1322, -768, -1317, -768, -1313, -771, -1311, -775, -1313, -778, -1312, -779, -1311, -783, -1308, -786, -1304, -789, -1304, -792, -1302, -799, -1302, -802, -1306, -806, -1308, -811, -1313, -814, -1317, -814, -1322, -810, -1324, -811, -1323, -813, -1323, -820, -1325, -825, -1330, -828, -1336, -824, -1336, -822, -1341, -822, -1343, -825, -1343, -828, -1347, -831, -1350, -830, -1354, -830, -1359, -831, -1363, -830, -1361, -827, -1362, -825, -1366, -824, -1366, -823, -1356, -815, -1358, -812, -1356, -809, -1352, -805, -1348, -803, -1347, -802, -1349, -799, -1356, -799, -1357, -798, -1361, -794, -1365, -794, -1367, -789, -1370, -784, -1370, -779, -1368, -776, -1369, -772, -1374, -772, -1366, -764, -1363, -761, -1366, -757, -1365, -748, -1359, -739, -1355, -734, -1355, -743, -1354, -746, -1349, -748)
+
+[node name="Polygon2D" type="Polygon2D" parent="Ucraina/Chernigov" unique_id=2104488279]
+color = Color(0.45490196, 0.43529412, 0.42352942, 1)
+
+[node name="ProvinceBorder" type="Line2D" parent="Ucraina/Chernigov" unique_id=216686136]
+closed = true
+width = 0.3
+default_color = Color(1, 1, 1, 0.78431374)
+joint_mode = 2
+
+[node name="Node2D" parent="Ucraina/Chernigov" unique_id=200714278 instance=ExtResource("7_gee14")]
+position = Vector2(-1347, -787)
+
+[node name="Control" type="Control" parent="Ucraina/Chernigov" unique_id=429219323]
+layout_mode = 3
+anchors_preset = 0
+offset_left = -72.35
+offset_top = 57.13
+offset_right = -32.350586
+offset_bottom = 97.13004
+pivot_offset = Vector2(19.865, 0)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Ucraina/Chernigov/Control" unique_id=741522537]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.25
+offset_right = 0.00061035156
+offset_bottom = -10.0
+alignment = 1
+
+[node name="PanelContainer" type="PanelContainer" parent="Ucraina/Chernigov/Control/VBoxContainer" unique_id=1773299370]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_vtaks")
+
+[node name="ProvinceName" type="Label" parent="Ucraina/Chernigov/Control/VBoxContainer/PanelContainer" unique_id=1593208025]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Ucraina/Chernigov/Control/VBoxContainer" unique_id=1240883833]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="Ucraina/Chernigov/Control/VBoxContainer/HBoxContainer" unique_id=2108091007]
+layout_mode = 2
+
+[node name="ResourceCount" type="Label" parent="Ucraina/Chernigov/Control/VBoxContainer/HBoxContainer" unique_id=718621874]
+layout_mode = 2
+
+[node name="Path2D6" type="Path2D" parent="Ucraina/Chernigov" unique_id=248460395]
+curve = SubResource("Curve2D_3x28f")
+script = ExtResource("8_gee14")
+
+[node name="Path2D5" type="Path2D" parent="Ucraina/Chernigov" unique_id=1176553813]
+curve = SubResource("Curve2D_l6q63")
+script = ExtResource("8_gee14")
+
+[node name="Path2D4" type="Path2D" parent="Ucraina/Chernigov" unique_id=1253849304]
+curve = SubResource("Curve2D_mmvbu")
+script = ExtResource("8_gee14")
+
+[node name="Path2D3" type="Path2D" parent="Ucraina/Chernigov" unique_id=1377428699]
+curve = SubResource("Curve2D_weeiq")
+script = ExtResource("8_gee14")
+
+[node name="Path2D2" type="Path2D" parent="Ucraina/Chernigov" unique_id=1422625108]
+curve = SubResource("Curve2D_uxocx")
+script = ExtResource("8_gee14")
+
+[node name="Path2D" type="Path2D" parent="Ucraina/Chernigov" unique_id=356844873]
+curve = SubResource("Curve2D_7nv0b")
+script = ExtResource("8_gee14")
+
+[node name="Kursk" type="Area2D" parent="Ucraina" unique_id=648594118]
+position = Vector2(1360, 880)
+collision_mask = 3
+script = ExtResource("3_lnu2h")
+province_material = 5
+startup_buildings = Array[int]([2])
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Ucraina/Kursk" unique_id=1594476527]
+polygon = PackedVector2Array(-1292, -823, -1296, -820, -1298, -816, -1292, -810, -1297, -809, -1298, -801, -1302, -802, -1302, -799, -1304, -792, -1304, -789, -1308, -786, -1305, -785, -1301, -787, -1299, -787, -1297, -786, -1291, -787, -1286, -788, -1282, -789, -1279, -786, -1279, -780, -1278, -778, -1272, -777, -1271, -775, -1271, -771, -1268, -768, -1264, -766, -1259, -765, -1252, -767, -1247, -769, -1243, -771, -1239, -773, -1237, -775, -1235, -778, -1235, -780, -1231, -783, -1226, -782, -1221, -787, -1222, -791, -1218, -795, -1220, -800, -1222, -801, -1225, -801, -1225, -806, -1227, -809, -1233, -813, -1238, -818, -1240, -822, -1249, -821, -1255, -827, -1260, -825, -1263, -827, -1268, -827, -1270, -824, -1273, -822, -1276, -819, -1288, -822)
+
+[node name="Polygon2D" type="Polygon2D" parent="Ucraina/Kursk" unique_id=1004880999]
+color = Color(0.45490196, 0.43529412, 0.42352942, 1)
+
+[node name="ProvinceBorder" type="Line2D" parent="Ucraina/Kursk" unique_id=1503695128]
+closed = true
+width = 0.3
+default_color = Color(1, 1, 1, 0.78431374)
+joint_mode = 2
+
+[node name="Node2D" parent="Ucraina/Kursk" unique_id=1088177847 instance=ExtResource("7_gee14")]
+position = Vector2(-1262, -796)
+
+[node name="Control" type="Control" parent="Ucraina/Kursk" unique_id=899751541]
+layout_mode = 3
+anchors_preset = 0
+offset_left = -72.35
+offset_top = 57.13
+offset_right = -32.350586
+offset_bottom = 97.13004
+pivot_offset = Vector2(19.865, 0)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Ucraina/Kursk/Control" unique_id=277571452]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.25
+offset_right = 0.00061035156
+offset_bottom = -10.0
+alignment = 1
+
+[node name="PanelContainer" type="PanelContainer" parent="Ucraina/Kursk/Control/VBoxContainer" unique_id=1879408734]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_vtaks")
+
+[node name="ProvinceName" type="Label" parent="Ucraina/Kursk/Control/VBoxContainer/PanelContainer" unique_id=1054366206]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Ucraina/Kursk/Control/VBoxContainer" unique_id=1771722046]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="Ucraina/Kursk/Control/VBoxContainer/HBoxContainer" unique_id=1568816167]
+layout_mode = 2
+
+[node name="ResourceCount" type="Label" parent="Ucraina/Kursk/Control/VBoxContainer/HBoxContainer" unique_id=991738734]
+layout_mode = 2
+
+[node name="Path2D6" type="Path2D" parent="Ucraina/Kursk" unique_id=1188634945]
+curve = SubResource("Curve2D_o8oq8")
+script = ExtResource("8_gee14")
+
+[node name="Path2D5" type="Path2D" parent="Ucraina/Kursk" unique_id=684289329]
+curve = SubResource("Curve2D_sxt1d")
+script = ExtResource("8_gee14")
+
+[node name="Path2D4" type="Path2D" parent="Ucraina/Kursk" unique_id=580082171]
+curve = SubResource("Curve2D_2iuns")
+script = ExtResource("8_gee14")
+
+[node name="Path2D3" type="Path2D" parent="Ucraina/Kursk" unique_id=2125424502]
+curve = SubResource("Curve2D_7gkqi")
+script = ExtResource("8_gee14")
+
+[node name="Path2D2" type="Path2D" parent="Ucraina/Kursk" unique_id=1590706289]
+curve = SubResource("Curve2D_753oq")
+script = ExtResource("8_gee14")
+
+[node name="Path2D" type="Path2D" parent="Ucraina/Kursk" unique_id=556341154]
+curve = SubResource("Curve2D_3x338")
+script = ExtResource("8_gee14")
+
+[node name="Control" type="Control" parent="Ucraina" unique_id=1871983426]
+z_index = 1
+layout_mode = 3
+anchors_preset = 0
+offset_left = 218.115
+offset_right = 356.0
+offset_bottom = 40.0
+
+[node name="PlayerName" type="Label" parent="Ucraina/Control" unique_id=910330857]
+layout_mode = 0
+offset_left = -63.59282
+offset_top = 48.412052
+offset_right = 67.40718
+offset_bottom = 71.41205
+theme_override_colors/font_color = Color(1, 1, 1, 0.7490196)
+uppercase = true
+
+[node name="Lituania" type="Node2D" parent="." unique_id=194198678]
+script = ExtResource("6_p57ef")
+
+[node name="Control" type="Control" parent="Lituania" unique_id=1317036708]
+z_index = 1
+layout_mode = 3
+anchors_preset = 0
+offset_left = 76.0
+offset_top = -91.0
+offset_right = 213.885
+offset_bottom = -51.0
+rotation = 0.51138145
+
+[node name="PlayerName" type="Label" parent="Lituania/Control" unique_id=1646959065]
+layout_mode = 0
+offset_left = -63.59282
+offset_top = 48.412052
+offset_right = 67.40718
+offset_bottom = 71.41205
+theme_override_colors/font_color = Color(1, 1, 1, 0.7490196)
+uppercase = true
+
+[node name="Mozyr" type="Area2D" parent="Lituania" unique_id=911611962]
+collision_layer = 3
+collision_mask = 3
+script = ExtResource("3_lnu2h")
+province_material = 3
+startup_buildings = Array[int]([2])
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Lituania/Mozyr" unique_id=453143359]
+polygon = PackedVector2Array(-51, 95, -47, 97, -41, 95, -34, 94, -28, 95, -26, 95, -26, 100, -21, 104, -20, 104, -17, 103, -14, 108, -9, 108, -8, 104, -10, 101, -10, 96, -7, 91, -5, 86, -8, 86, -9, 84, -14, 83, -16, 77, -25, 74, -31, 72, -31, 63, -33, 59, -36, 56, -42, 52, -43, 55, -44, 57, -46, 61, -45, 66, -43, 78, -46, 83, -49, 87)
+
+[node name="Polygon2D" type="Polygon2D" parent="Lituania/Mozyr" unique_id=1453118690]
+color = Color(0.45359772, 0.43529403, 0.42440614, 1)
+metadata/id = 0
+
+[node name="ProvinceBorder" type="Line2D" parent="Lituania/Mozyr" unique_id=423717658]
+closed = true
+width = 0.3
+default_color = Color(1, 1, 1, 0.78431374)
+joint_mode = 2
+
+[node name="Node2D" parent="Lituania/Mozyr" unique_id=1902047853 instance=ExtResource("7_gee14")]
+position = Vector2(-32, 88)
+
+[node name="Control" type="Control" parent="Lituania/Mozyr" unique_id=2058449975]
+z_index = 2
+layout_mode = 3
+anchors_preset = 0
+offset_left = 36.0
+offset_top = -35.77
+offset_right = 76.0
+offset_bottom = 4.2299995
+pivot_offset = Vector2(19.865, 0)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Lituania/Mozyr/Control" unique_id=1949060521]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.25
+offset_bottom = -10.0
+alignment = 1
+
+[node name="PanelContainer" type="PanelContainer" parent="Lituania/Mozyr/Control/VBoxContainer" unique_id=1427071734]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_0tnpc")
+
+[node name="ProvinceName" type="Label" parent="Lituania/Mozyr/Control/VBoxContainer/PanelContainer" unique_id=353814883]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Lituania/Mozyr/Control/VBoxContainer" unique_id=2054846573]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="Lituania/Mozyr/Control/VBoxContainer/HBoxContainer" unique_id=1533157772]
+layout_mode = 2
+
+[node name="ResourceCount" type="Label" parent="Lituania/Mozyr/Control/VBoxContainer/HBoxContainer" unique_id=1705702435]
+layout_mode = 2
+
+[node name="Path2D7" type="Path2D" parent="Lituania/Mozyr" unique_id=1497466053]
+curve = SubResource("Curve2D_kvuet")
+script = ExtResource("8_gee14")
+
+[node name="Path2D3" type="Path2D" parent="Lituania/Mozyr" unique_id=30742880]
+curve = SubResource("Curve2D_1yg85")
+script = ExtResource("8_gee14")
+
+[node name="Path2D6" type="Path2D" parent="Lituania/Mozyr" unique_id=884774350]
+curve = SubResource("Curve2D_s0g06")
+script = ExtResource("8_gee14")
+
+[node name="Path2D5" type="Path2D" parent="Lituania/Mozyr" unique_id=1929967676]
+curve = SubResource("Curve2D_2gnni")
+script = ExtResource("8_gee14")
+
+[node name="Path2D4" type="Path2D" parent="Lituania/Mozyr" unique_id=960130287]
+curve = SubResource("Curve2D_vgxg3")
+script = ExtResource("8_gee14")
+
+[node name="Path2D2" type="Path2D" parent="Lituania/Mozyr" unique_id=1724105950]
+curve = SubResource("Curve2D_4nbsr")
+script = ExtResource("8_gee14")
+
+[node name="Path2D" type="Path2D" parent="Lituania/Mozyr" unique_id=10208583]
+curve = SubResource("Curve2D_0tnpc")
+script = ExtResource("8_gee14")
+
+[node name="Homyel" type="Area2D" parent="Lituania" unique_id=1546099905]
+collision_layer = 3
+collision_mask = 3
+script = ExtResource("3_lnu2h")
+province_material = 4
+startup_buildings = Array[int]([2])
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Lituania/Homyel" unique_id=97742666]
+polygon = PackedVector2Array(-42, 52, -36, 56, -33, 59, -31, 63, -31, 72, -25, 74, -16, 77, -14, 83, -9, 84, -8, 86, -5, 86, -1, 86, 3, 82, 4, 81, 11, 81, 13, 78, 12, 77, 8, 75, 4, 71, 2, 68, 4, 65, -6, 57, -6, 56, -2, 55, -1, 53, -3, 50, 1, 49, 6, 50, 10, 50, 13, 49, 17, 52, 17, 55, 19, 58, 24, 58, 24, 56, 30, 52, 35, 55, 41, 45, 40, 42, 29, 37, 26, 33, 24, 32, 11, 32, 10, 30, 3, 33, 2, 29, -2, 31, -5, 30, -5, 27, -7, 25, -14, 26, -16, 28, -16, 30, -13, 38, -14, 41, -19, 49, -22, 47, -28, 44, -38, 44, -41, 47, -42, 49)
+
+[node name="Polygon2D" type="Polygon2D" parent="Lituania/Homyel" unique_id=76350238]
+color = Color(0.45359772, 0.43529403, 0.42440614, 1)
+metadata/id = 0
+
+[node name="ProvinceBorder" type="Line2D" parent="Lituania/Homyel" unique_id=208975919]
+closed = true
+width = 0.3
+default_color = Color(1, 1, 1, 0.78431374)
+joint_mode = 2
+
+[node name="Node2D" parent="Lituania/Homyel" unique_id=905822760 instance=ExtResource("7_gee14")]
+position = Vector2(-16, 58)
+
+[node name="Control" type="Control" parent="Lituania/Homyel" unique_id=943616723]
+z_index = 2
+layout_mode = 3
+anchors_preset = 0
+offset_left = 36.0
+offset_top = -35.77
+offset_right = 76.0
+offset_bottom = 4.2299995
+pivot_offset = Vector2(19.865, 0)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Lituania/Homyel/Control" unique_id=1678595290]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.25
+offset_bottom = -10.0
+alignment = 1
+
+[node name="PanelContainer" type="PanelContainer" parent="Lituania/Homyel/Control/VBoxContainer" unique_id=1572446795]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_0tnpc")
+
+[node name="ProvinceName" type="Label" parent="Lituania/Homyel/Control/VBoxContainer/PanelContainer" unique_id=319515758]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Lituania/Homyel/Control/VBoxContainer" unique_id=1787983872]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="Lituania/Homyel/Control/VBoxContainer/HBoxContainer" unique_id=596212929]
+layout_mode = 2
+
+[node name="ResourceCount" type="Label" parent="Lituania/Homyel/Control/VBoxContainer/HBoxContainer" unique_id=1963270977]
+layout_mode = 2
+
+[node name="Path2D5" type="Path2D" parent="Lituania/Homyel" unique_id=1016656211]
+curve = SubResource("Curve2D_fkywm")
+script = ExtResource("8_gee14")
+
+[node name="Path2D4" type="Path2D" parent="Lituania/Homyel" unique_id=2123477750]
+curve = SubResource("Curve2D_dku7i")
+script = ExtResource("8_gee14")
+
+[node name="Path2D6" type="Path2D" parent="Lituania/Homyel" unique_id=2047498588]
+curve = SubResource("Curve2D_veaf0")
+script = ExtResource("8_gee14")
+
+[node name="Path2D3" type="Path2D" parent="Lituania/Homyel" unique_id=780173668]
+curve = SubResource("Curve2D_flw08")
+script = ExtResource("8_gee14")
+
+[node name="Path2D2" type="Path2D" parent="Lituania/Homyel" unique_id=1725583976]
+curve = SubResource("Curve2D_84hbc")
+script = ExtResource("8_gee14")
+
+[node name="Path2D" type="Path2D" parent="Lituania/Homyel" unique_id=867604272]
+curve = SubResource("Curve2D_15b3c")
+script = ExtResource("8_gee14")
+
+[node name="Pinsk" type="Area2D" parent="Lituania" unique_id=552622118]
+collision_layer = 3
+collision_mask = 3
+script = ExtResource("3_lnu2h")
+province_material = 4
+startup_buildings = Array[int]([2])
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Lituania/Pinsk" unique_id=538329097]
+polygon = PackedVector2Array(-70, 100, -67, 98, -62, 98, -59, 96, -51, 95, -49, 87, -46, 83, -43, 78, -45, 66, -46, 61, -44, 57, -47, 57, -48, 53, -51, 52, -56, 50, -62, 51, -65, 51, -71, 49, -81, 58, -74, 73, -74, 80, -75, 84, -76, 86, -76, 90, -73, 95)
+
+[node name="Polygon2D" type="Polygon2D" parent="Lituania/Pinsk" unique_id=1310593509]
+color = Color(0.45359772, 0.43529403, 0.42440614, 1)
+metadata/id = 0
+
+[node name="ProvinceBorder" type="Line2D" parent="Lituania/Pinsk" unique_id=325461657]
+closed = true
+width = 0.3
+default_color = Color(1, 1, 1, 0.78431374)
+joint_mode = 2
+
+[node name="Node2D" parent="Lituania/Pinsk" unique_id=824257320 instance=ExtResource("7_gee14")]
+position = Vector2(-68, 85)
+
+[node name="Control" type="Control" parent="Lituania/Pinsk" unique_id=302115642]
+z_index = 2
+layout_mode = 3
+anchors_preset = 0
+offset_left = 36.0
+offset_top = -35.77
+offset_right = 76.0
+offset_bottom = 4.2299995
+pivot_offset = Vector2(19.865, 0)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Lituania/Pinsk/Control" unique_id=1390170821]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.25
+offset_bottom = -10.0
+alignment = 1
+
+[node name="PanelContainer" type="PanelContainer" parent="Lituania/Pinsk/Control/VBoxContainer" unique_id=1468866588]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_0tnpc")
+
+[node name="ProvinceName" type="Label" parent="Lituania/Pinsk/Control/VBoxContainer/PanelContainer" unique_id=710828226]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Lituania/Pinsk/Control/VBoxContainer" unique_id=1654032134]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="Lituania/Pinsk/Control/VBoxContainer/HBoxContainer" unique_id=2044231142]
+layout_mode = 2
+
+[node name="ResourceCount" type="Label" parent="Lituania/Pinsk/Control/VBoxContainer/HBoxContainer" unique_id=40946517]
+layout_mode = 2
+
+[node name="Path2D4" type="Path2D" parent="Lituania/Pinsk" unique_id=261512215]
+curve = SubResource("Curve2D_veukt")
+script = ExtResource("8_gee14")
+
+[node name="Path2D3" type="Path2D" parent="Lituania/Pinsk" unique_id=1290850062]
+curve = SubResource("Curve2D_nbjts")
+script = ExtResource("8_gee14")
+
+[node name="Path2D2" type="Path2D" parent="Lituania/Pinsk" unique_id=268283182]
+curve = SubResource("Curve2D_i1hsc")
+script = ExtResource("8_gee14")
+
+[node name="Path2D" type="Path2D" parent="Lituania/Pinsk" unique_id=1348598996]
+curve = SubResource("Curve2D_ounyb")
+script = ExtResource("8_gee14")
+
+[node name="Brest-Litovsk" type="Area2D" parent="Lituania" unique_id=508350117]
+collision_layer = 3
+collision_mask = 3
+script = ExtResource("3_lnu2h")
+province_material = 5
+startup_buildings = Array[int]([2])
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Lituania/Brest-Litovsk" unique_id=1151307574]
+polygon = PackedVector2Array(-86, 102, -86, 107, -82, 113, -79, 105, -76, 105, -74, 103, -70, 100, -76, 90, -76, 86, -75, 84, -74, 80, -74, 73, -81, 58, -83, 60, -84, 60, -87, 57, -90, 56, -91, 58, -96, 62, -104, 65, -113, 66, -117, 72, -122, 74, -124, 79, -122, 84, -117, 88, -106, 83, -101, 89, -100, 91, -101, 95, -95, 95)
+
+[node name="Polygon2D" type="Polygon2D" parent="Lituania/Brest-Litovsk" unique_id=2076010602]
+color = Color(0.45359772, 0.43529403, 0.42440614, 1)
+metadata/id = 0
+
+[node name="ProvinceBorder" type="Line2D" parent="Lituania/Brest-Litovsk" unique_id=1202397217]
+closed = true
+width = 0.3
+default_color = Color(1, 1, 1, 0.78431374)
+joint_mode = 2
+
+[node name="Node2D" parent="Lituania/Brest-Litovsk" unique_id=2045262590 instance=ExtResource("7_gee14")]
+position = Vector2(-97, 90)
+
+[node name="Control" type="Control" parent="Lituania/Brest-Litovsk" unique_id=1306729891]
+z_index = 2
+layout_mode = 3
+anchors_preset = 0
+offset_left = 36.0
+offset_top = -35.77
+offset_right = 76.0
+offset_bottom = 4.2299995
+pivot_offset = Vector2(19.865, 0)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Lituania/Brest-Litovsk/Control" unique_id=924214863]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.25
+offset_bottom = -10.0
+alignment = 1
+
+[node name="PanelContainer" type="PanelContainer" parent="Lituania/Brest-Litovsk/Control/VBoxContainer" unique_id=973316975]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_0tnpc")
+
+[node name="ProvinceName" type="Label" parent="Lituania/Brest-Litovsk/Control/VBoxContainer/PanelContainer" unique_id=2051216880]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Lituania/Brest-Litovsk/Control/VBoxContainer" unique_id=1678227738]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="Lituania/Brest-Litovsk/Control/VBoxContainer/HBoxContainer" unique_id=1510610750]
+layout_mode = 2
+
+[node name="ResourceCount" type="Label" parent="Lituania/Brest-Litovsk/Control/VBoxContainer/HBoxContainer" unique_id=681660443]
+layout_mode = 2
+
+[node name="Path2D5" type="Path2D" parent="Lituania/Brest-Litovsk" unique_id=2114084583]
+curve = SubResource("Curve2D_iekjf")
+script = ExtResource("8_gee14")
+
+[node name="Path2D4" type="Path2D" parent="Lituania/Brest-Litovsk" unique_id=536443064]
+curve = SubResource("Curve2D_okmmv")
+script = ExtResource("8_gee14")
+
+[node name="Path2D3" type="Path2D" parent="Lituania/Brest-Litovsk" unique_id=240348971]
+curve = SubResource("Curve2D_ja1h7")
+script = ExtResource("8_gee14")
+
+[node name="Path2D7" type="Path2D" parent="Lituania/Brest-Litovsk" unique_id=792019689]
+curve = SubResource("Curve2D_p4npv")
+script = ExtResource("8_gee14")
+
+[node name="Path2D6" type="Path2D" parent="Lituania/Brest-Litovsk" unique_id=1325910135]
+curve = SubResource("Curve2D_xjcjm")
+script = ExtResource("8_gee14")
+
+[node name="Path2D2" type="Path2D" parent="Lituania/Brest-Litovsk" unique_id=150509034]
+curve = SubResource("Curve2D_tc8uq")
+script = ExtResource("8_gee14")
+
+[node name="Path2D" type="Path2D" parent="Lituania/Brest-Litovsk" unique_id=368357238]
+curve = SubResource("Curve2D_h5tdf")
+script = ExtResource("8_gee14")
+
+[node name="Minsk" type="Area2D" parent="Lituania" unique_id=1807221793]
+collision_layer = 3
+collision_mask = 3
+script = ExtResource("3_lnu2h")
+province_material = 4
+double_material = true
+startup_buildings = Array[int]([2])
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Lituania/Minsk" unique_id=1915943408]
+polygon = PackedVector2Array(-84, 60, -83, 60, -81, 58, -71, 49, -65, 51, -62, 51, -56, 50, -51, 52, -48, 53, -47, 57, -44, 57, -43, 55, -42, 52, -42, 49, -41, 47, -38, 44, -38, 37, -41, 36, -44, 34, -44, 30, -43, 28, -45, 27, -50, 27, -53, 22, -58, 9, -61, 11, -63, 11, -67, 11, -71, 13, -75, 16, -79, 15, -79, 18, -78, 22, -78, 29, -80, 33, -82, 36, -86, 38, -91, 37, -95, 35, -96, 38, -97, 42, -97, 48, -90, 54, -90, 56, -87, 57)
+
+[node name="Polygon2D" type="Polygon2D" parent="Lituania/Minsk" unique_id=1219147829]
+color = Color(0.45359772, 0.43529403, 0.42440614, 1)
+metadata/id = 0
+
+[node name="ProvinceBorder" type="Line2D" parent="Lituania/Minsk" unique_id=943506962]
+closed = true
+width = 0.3
+default_color = Color(1, 1, 1, 0.78431374)
+joint_mode = 2
+
+[node name="Node2D" parent="Lituania/Minsk" unique_id=1570925965 instance=ExtResource("7_gee14")]
+position = Vector2(-64, 41)
+
+[node name="Control" type="Control" parent="Lituania/Minsk" unique_id=434813917]
+z_index = 2
+layout_mode = 3
+anchors_preset = 0
+offset_left = 36.0
+offset_top = -35.77
+offset_right = 76.0
+offset_bottom = 4.2299995
+pivot_offset = Vector2(19.865, 0)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Lituania/Minsk/Control" unique_id=579751136]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.25
+offset_bottom = -10.0
+alignment = 1
+
+[node name="PanelContainer" type="PanelContainer" parent="Lituania/Minsk/Control/VBoxContainer" unique_id=1595837962]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_0tnpc")
+
+[node name="ProvinceName" type="Label" parent="Lituania/Minsk/Control/VBoxContainer/PanelContainer" unique_id=1922222176]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Lituania/Minsk/Control/VBoxContainer" unique_id=618642303]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="Lituania/Minsk/Control/VBoxContainer/HBoxContainer" unique_id=1755342290]
+layout_mode = 2
+
+[node name="ResourceCount" type="Label" parent="Lituania/Minsk/Control/VBoxContainer/HBoxContainer" unique_id=1737727005]
+layout_mode = 2
+
+[node name="Path2D8" type="Path2D" parent="Lituania/Minsk" unique_id=586491233]
+curve = SubResource("Curve2D_xbifu")
+script = ExtResource("8_gee14")
+
+[node name="Path2D7" type="Path2D" parent="Lituania/Minsk" unique_id=467470017]
+curve = SubResource("Curve2D_gdf8r")
+script = ExtResource("8_gee14")
+
+[node name="Path2D6" type="Path2D" parent="Lituania/Minsk" unique_id=278810432]
+curve = SubResource("Curve2D_x8trd")
+script = ExtResource("8_gee14")
+
+[node name="Path2D5" type="Path2D" parent="Lituania/Minsk" unique_id=856713867]
+curve = SubResource("Curve2D_s33c4")
+script = ExtResource("8_gee14")
+
+[node name="Path2D4" type="Path2D" parent="Lituania/Minsk" unique_id=1119281319]
+curve = SubResource("Curve2D_3hv4c")
+script = ExtResource("8_gee14")
+
+[node name="Path2D3" type="Path2D" parent="Lituania/Minsk" unique_id=902918419]
+curve = SubResource("Curve2D_vniw0")
+script = ExtResource("8_gee14")
+
+[node name="Path2D2" type="Path2D" parent="Lituania/Minsk" unique_id=1461601389]
+curve = SubResource("Curve2D_lddog")
+script = ExtResource("8_gee14")
+
+[node name="Path2D" type="Path2D" parent="Lituania/Minsk" unique_id=1955286927]
+curve = SubResource("Curve2D_boxkr")
+script = ExtResource("8_gee14")
+
+[node name="Mogilev" type="Area2D" parent="Lituania" unique_id=1816611262]
+collision_layer = 3
+collision_mask = 3
+script = ExtResource("3_lnu2h")
+startup_buildings = Array[int]([2])
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Lituania/Mogilev" unique_id=1724042957]
+polygon = PackedVector2Array(-58, 9, -53, 22, -50, 27, -45, 27, -43, 28, -44, 30, -44, 34, -41, 36, -38, 37, -38, 44, -28, 44, -22, 47, -19, 49, -14, 41, -13, 38, -16, 30, -16, 28, -14, 26, -7, 25, -5, 27, -5, 30, -2, 31, 2, 29, 3, 33, 10, 30, 11, 32, 24, 32, 18, 22, 18, 16, 15, 10, 11, 7, 6, 4, 0, 7, -8, 3, -11, -1, -8, -3, -8, -7, -17, -3, -19, -6, -26, -4, -30, -2, -36, -2, -43, -5, -44, -3, -44, 2, -46, 3, -49, 6, -53, 8)
+
+[node name="Polygon2D" type="Polygon2D" parent="Lituania/Mogilev" unique_id=1681978003]
+color = Color(0.45359772, 0.43529403, 0.42440614, 1)
+metadata/id = 0
+
+[node name="ProvinceBorder" type="Line2D" parent="Lituania/Mogilev" unique_id=28116176]
+closed = true
+width = 0.3
+default_color = Color(1, 1, 1, 0.78431374)
+joint_mode = 2
+
+[node name="Node2D" parent="Lituania/Mogilev" unique_id=1444229155 instance=ExtResource("7_gee14")]
+position = Vector2(-29, 31)
+
+[node name="Control" type="Control" parent="Lituania/Mogilev" unique_id=2146786198]
+z_index = 2
+layout_mode = 3
+anchors_preset = 0
+offset_left = 36.0
+offset_top = -35.77
+offset_right = 76.0
+offset_bottom = 4.2299995
+pivot_offset = Vector2(19.865, 0)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Lituania/Mogilev/Control" unique_id=81242052]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.25
+offset_bottom = -10.0
+alignment = 1
+
+[node name="PanelContainer" type="PanelContainer" parent="Lituania/Mogilev/Control/VBoxContainer" unique_id=1734298568]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_0tnpc")
+
+[node name="ProvinceName" type="Label" parent="Lituania/Mogilev/Control/VBoxContainer/PanelContainer" unique_id=1106024633]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Lituania/Mogilev/Control/VBoxContainer" unique_id=1560953698]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="Lituania/Mogilev/Control/VBoxContainer/HBoxContainer" unique_id=2037716625]
+layout_mode = 2
+
+[node name="ResourceCount" type="Label" parent="Lituania/Mogilev/Control/VBoxContainer/HBoxContainer" unique_id=1618605258]
+layout_mode = 2
+
+[node name="Path2D4" type="Path2D" parent="Lituania/Mogilev" unique_id=858564942]
+curve = SubResource("Curve2D_de5we")
+script = ExtResource("8_gee14")
+
+[node name="Path2D3" type="Path2D" parent="Lituania/Mogilev" unique_id=1190179770]
+curve = SubResource("Curve2D_8tghg")
+script = ExtResource("8_gee14")
+
+[node name="Path2D2" type="Path2D" parent="Lituania/Mogilev" unique_id=2087773481]
+curve = SubResource("Curve2D_473mq")
+script = ExtResource("8_gee14")
+
+[node name="Path2D" type="Path2D" parent="Lituania/Mogilev" unique_id=1785722824]
+curve = SubResource("Curve2D_1va0p")
+script = ExtResource("8_gee14")
+
+[node name="Vilnius" type="Area2D" parent="Lituania" unique_id=1457882798]
+collision_layer = 3
+collision_mask = 3
+script = ExtResource("3_lnu2h")
+startup_buildings = Array[int]([0, 2])
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Lituania/Vilnius" unique_id=1183820014]
+polygon = PackedVector2Array(-95, 35, -91, 37, -86, 38, -82, 36, -80, 33, -78, 29, -78, 22, -79, 18, -79, 15, -78, 12, -74, 10, -75, 9, -73, 7, -69, 7, -66, 5, -66, 4, -68, 3, -68, -1, -71, -7, -76, -14, -78, -15, -81, -14, -84, -16, -85, -15, -88, -12, -94, -9, -103, -9, -110, -9, -115, -14, -118, -9, -119, -3, -118, 3, -120, 5, -125, 9, -110, 9, -103, 12, -94, 29)
+
+[node name="Polygon2D" type="Polygon2D" parent="Lituania/Vilnius" unique_id=1721256595]
+color = Color(0.45359772, 0.43529403, 0.42440614, 1)
+metadata/id = 0
+
+[node name="ProvinceBorder" type="Line2D" parent="Lituania/Vilnius" unique_id=879188315]
+closed = true
+width = 0.3
+default_color = Color(1, 1, 1, 0.78431374)
+joint_mode = 2
+
+[node name="Node2D" parent="Lituania/Vilnius" unique_id=1984131834 instance=ExtResource("7_gee14")]
+position = Vector2(-88, 30)
+
+[node name="Control" type="Control" parent="Lituania/Vilnius" unique_id=1675305917]
+z_index = 2
+layout_mode = 3
+anchors_preset = 0
+offset_left = 36.0
+offset_top = -35.77
+offset_right = 76.0
+offset_bottom = 4.2299995
+pivot_offset = Vector2(19.865, 0)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Lituania/Vilnius/Control" unique_id=968099803]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.25
+offset_bottom = -10.0
+alignment = 1
+
+[node name="PanelContainer" type="PanelContainer" parent="Lituania/Vilnius/Control/VBoxContainer" unique_id=754793406]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_0tnpc")
+
+[node name="ProvinceName" type="Label" parent="Lituania/Vilnius/Control/VBoxContainer/PanelContainer" unique_id=850296353]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Lituania/Vilnius/Control/VBoxContainer" unique_id=1097970882]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="Lituania/Vilnius/Control/VBoxContainer/HBoxContainer" unique_id=1259733778]
+layout_mode = 2
+
+[node name="ResourceCount" type="Label" parent="Lituania/Vilnius/Control/VBoxContainer/HBoxContainer" unique_id=731299959]
+layout_mode = 2
+
+[node name="Path2D6" type="Path2D" parent="Lituania/Vilnius" unique_id=1807597888]
+curve = SubResource("Curve2D_2tvof")
+script = ExtResource("8_gee14")
+
+[node name="Path2D5" type="Path2D" parent="Lituania/Vilnius" unique_id=36992535]
+curve = SubResource("Curve2D_fsry6")
+script = ExtResource("8_gee14")
+
+[node name="Path2D4" type="Path2D" parent="Lituania/Vilnius" unique_id=424974764]
+curve = SubResource("Curve2D_eky20")
+script = ExtResource("8_gee14")
+
+[node name="Path2D8" type="Path2D" parent="Lituania/Vilnius" unique_id=1269209792]
+curve = SubResource("Curve2D_o3ulk")
+script = ExtResource("8_gee14")
+
+[node name="Path2D7" type="Path2D" parent="Lituania/Vilnius" unique_id=251779685]
+curve = SubResource("Curve2D_ghitk")
+script = ExtResource("8_gee14")
+
+[node name="Path2D3" type="Path2D" parent="Lituania/Vilnius" unique_id=1418123134]
+curve = SubResource("Curve2D_rundi")
+script = ExtResource("8_gee14")
+
+[node name="Path2D2" type="Path2D" parent="Lituania/Vilnius" unique_id=280688911]
+curve = SubResource("Curve2D_7kwaa")
+script = ExtResource("8_gee14")
+
+[node name="Path2D" type="Path2D" parent="Lituania/Vilnius" unique_id=1296026062]
+curve = SubResource("Curve2D_jye5l")
+script = ExtResource("8_gee14")
+
+[node name="Orsha" type="Area2D" parent="Lituania" unique_id=734437132]
+collision_layer = 3
+collision_mask = 3
+script = ExtResource("3_lnu2h")
+province_material = 5
+double_material = true
+startup_buildings = Array[int]([2])
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Lituania/Orsha" unique_id=2012157909]
+polygon = PackedVector2Array(-78, -15, -76, -14, -71, -7, -68, -1, -68, 3, -66, 4, -66, 5, -69, 7, -73, 7, -75, 9, -74, 10, -78, 12, -79, 15, -75, 16, -71, 13, -67, 11, -63, 11, -61, 11, -58, 9, -53, 8, -49, 6, -46, 3, -44, 2, -44, -3, -43, -5, -36, -2, -30, -2, -26, -4, -19, -6, -15, -10, -10, -10, -9, -13, -4, -14, -9, -24, -4, -30, -3, -37, -10, -43, -25, -45, -36, -50, -40, -55, -46, -55, -48, -53, -51, -50, -54, -47, -62, -43, -69, -36, -70, -31, -70, -23, -73, -18)
+
+[node name="Polygon2D" type="Polygon2D" parent="Lituania/Orsha" unique_id=1284802427]
+color = Color(0.45359772, 0.43529403, 0.42440614, 1)
+metadata/id = 0
+
+[node name="ProvinceBorder" type="Line2D" parent="Lituania/Orsha" unique_id=1692481128]
+closed = true
+width = 0.3
+default_color = Color(1, 1, 1, 0.78431374)
+joint_mode = 2
+
+[node name="Node2D" parent="Lituania/Orsha" unique_id=1124857309 instance=ExtResource("7_gee14")]
+position = Vector2(-63, -24)
+
+[node name="Control" type="Control" parent="Lituania/Orsha" unique_id=364958275]
+z_index = 2
+layout_mode = 3
+anchors_preset = 0
+offset_left = 36.0
+offset_top = -35.77
+offset_right = 76.0
+offset_bottom = 4.2299995
+pivot_offset = Vector2(19.865, 0)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Lituania/Orsha/Control" unique_id=1326997417]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.25
+offset_bottom = -10.0
+alignment = 1
+
+[node name="PanelContainer" type="PanelContainer" parent="Lituania/Orsha/Control/VBoxContainer" unique_id=1530054606]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_0tnpc")
+
+[node name="ProvinceName" type="Label" parent="Lituania/Orsha/Control/VBoxContainer/PanelContainer" unique_id=128849344]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Lituania/Orsha/Control/VBoxContainer" unique_id=1400995592]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="Lituania/Orsha/Control/VBoxContainer/HBoxContainer" unique_id=2034915394]
+layout_mode = 2
+
+[node name="ResourceCount" type="Label" parent="Lituania/Orsha/Control/VBoxContainer/HBoxContainer" unique_id=1283860116]
+layout_mode = 2
+
+[node name="Path2D7" type="Path2D" parent="Lituania/Orsha" unique_id=1318128196]
+curve = SubResource("Curve2D_rvhxa")
+script = ExtResource("8_gee14")
+
+[node name="Path2D6" type="Path2D" parent="Lituania/Orsha" unique_id=1137587484]
+curve = SubResource("Curve2D_rekj2")
+script = ExtResource("8_gee14")
+
+[node name="Path2D5" type="Path2D" parent="Lituania/Orsha" unique_id=80776883]
+curve = SubResource("Curve2D_ip3rd")
+script = ExtResource("8_gee14")
+
+[node name="Path2D4" type="Path2D" parent="Lituania/Orsha" unique_id=1460754238]
+curve = SubResource("Curve2D_s6met")
+script = ExtResource("8_gee14")
+
+[node name="Path2D3" type="Path2D" parent="Lituania/Orsha" unique_id=871867991]
+curve = SubResource("Curve2D_7itva")
+script = ExtResource("8_gee14")
+
+[node name="Path2D2" type="Path2D" parent="Lituania/Orsha" unique_id=2032678417]
+curve = SubResource("Curve2D_o5ny5")
+script = ExtResource("8_gee14")
+
+[node name="Path2D" type="Path2D" parent="Lituania/Orsha" unique_id=392402485]
+curve = SubResource("Curve2D_7ss2i")
+script = ExtResource("8_gee14")
+
+[node name="Vicebsk" type="Area2D" parent="Lituania" unique_id=274704157]
+collision_layer = 3
+collision_mask = 3
+script = ExtResource("3_lnu2h")
+startup_buildings = Array[int]([2])
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Lituania/Vicebsk" unique_id=2098535096]
+polygon = PackedVector2Array(-88, -12, -85, -15, -84, -16, -81, -14, -78, -15, -73, -18, -70, -23, -70, -27, -70, -31, -69, -36, -62, -43, -54, -47, -50, -51, -58, -53, -66, -54, -71, -51, -74, -56, -77, -57, -83, -64, -82, -72, -88, -79, -93, -80, -93, -78, -95, -71, -97, -69, -95, -65, -96, -59, -97, -56, -98, -53, -100, -52, -100, -46, -101, -42, -109, -40, -110, -37, -113, -37, -117, -39, -123, -37, -117, -35, -114, -32, -105, -21, -103, -18, -91, -17)
+
+[node name="Polygon2D" type="Polygon2D" parent="Lituania/Vicebsk" unique_id=547804001]
+color = Color(0.45359772, 0.43529403, 0.42440614, 1)
+metadata/id = 0
+
+[node name="ProvinceBorder" type="Line2D" parent="Lituania/Vicebsk" unique_id=195474487]
+closed = true
+width = 0.3
+default_color = Color(1, 1, 1, 0.78431374)
+joint_mode = 2
+
+[node name="Node2D" parent="Lituania/Vicebsk" unique_id=1236605030 instance=ExtResource("7_gee14")]
+position = Vector2(-89, -32)
+
+[node name="Control" type="Control" parent="Lituania/Vicebsk" unique_id=1905657960]
+z_index = 2
+layout_mode = 3
+anchors_preset = 0
+offset_left = 36.0
+offset_top = -35.77
+offset_right = 76.0
+offset_bottom = 4.2299995
+pivot_offset = Vector2(19.865, 0)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Lituania/Vicebsk/Control" unique_id=1176900877]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.25
+offset_bottom = -10.0
+alignment = 1
+
+[node name="PanelContainer" type="PanelContainer" parent="Lituania/Vicebsk/Control/VBoxContainer" unique_id=1109290028]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_0tnpc")
+
+[node name="ProvinceName" type="Label" parent="Lituania/Vicebsk/Control/VBoxContainer/PanelContainer" unique_id=534394645]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Lituania/Vicebsk/Control/VBoxContainer" unique_id=1904504104]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="Lituania/Vicebsk/Control/VBoxContainer/HBoxContainer" unique_id=132986934]
+layout_mode = 2
+
+[node name="ResourceCount" type="Label" parent="Lituania/Vicebsk/Control/VBoxContainer/HBoxContainer" unique_id=1394421089]
+layout_mode = 2
+
+[node name="Path2D5" type="Path2D" parent="Lituania/Vicebsk" unique_id=2074946030]
+curve = SubResource("Curve2D_65ua2")
+script = ExtResource("8_gee14")
+
+[node name="Path2D4" type="Path2D" parent="Lituania/Vicebsk" unique_id=430690141]
+curve = SubResource("Curve2D_mowrl")
+script = ExtResource("8_gee14")
+
+[node name="Path2D3" type="Path2D" parent="Lituania/Vicebsk" unique_id=1959098275]
+curve = SubResource("Curve2D_g3qou")
+script = ExtResource("8_gee14")
+
+[node name="Path2D2" type="Path2D" parent="Lituania/Vicebsk" unique_id=1970104178]
+curve = SubResource("Curve2D_awynl")
+script = ExtResource("8_gee14")
+
+[node name="Path2D" type="Path2D" parent="Lituania/Vicebsk" unique_id=735316285]
+curve = SubResource("Curve2D_1id2h")
+script = ExtResource("8_gee14")
+
+[node name="Klaipeda" type="Area2D" parent="Lituania" unique_id=1317560866]
+collision_layer = 3
+collision_mask = 3
+script = ExtResource("3_lnu2h")
+province_material = 6
+startup_buildings = Array[int]([2])
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Lituania/Klaipeda" unique_id=1163070672]
+polygon = PackedVector2Array(-125, 9, -120, 5, -118, 3, -119, -3, -118, -9, -115, -14, -119, -27, -122, -22, -122, -20, -125, -21, -129, -24, -132, -23, -134, -26, -138, -26, -149, -22, -151, -23, -157, -23, -160, -25, -166, -25, -170, -22, -174, -24, -182, -22, -188, -21, -192, -20, -193, -16, -196, -17, -196, -10, -199, -6, -193, -3, -192, 3, -190, 3, -181, 17, -179, 19, -172, 18, -172, 20, -164, 19, -156, 13, -147, 11, -137, 12, -130, 11, -127, 9)
+
+[node name="Polygon2D" type="Polygon2D" parent="Lituania/Klaipeda" unique_id=1570668712]
+color = Color(0.45359772, 0.43529403, 0.42440614, 1)
+metadata/id = 0
+
+[node name="ProvinceBorder" type="Line2D" parent="Lituania/Klaipeda" unique_id=1989972156]
+closed = true
+width = 0.3
+default_color = Color(1, 1, 1, 0.78431374)
+joint_mode = 2
+
+[node name="Node2D" parent="Lituania/Klaipeda" unique_id=951011713 instance=ExtResource("7_gee14")]
+position = Vector2(-171, -8)
+
+[node name="Control" type="Control" parent="Lituania/Klaipeda" unique_id=1913834704]
+z_index = 2
+layout_mode = 3
+anchors_preset = 0
+offset_left = 36.0
+offset_top = -35.77
+offset_right = 76.0
+offset_bottom = 4.2299995
+pivot_offset = Vector2(19.865, 0)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Lituania/Klaipeda/Control" unique_id=408029659]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.25
+offset_bottom = -10.0
+alignment = 1
+
+[node name="PanelContainer" type="PanelContainer" parent="Lituania/Klaipeda/Control/VBoxContainer" unique_id=732562136]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_0tnpc")
+
+[node name="ProvinceName" type="Label" parent="Lituania/Klaipeda/Control/VBoxContainer/PanelContainer" unique_id=1383741535]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Lituania/Klaipeda/Control/VBoxContainer" unique_id=1151932141]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="Lituania/Klaipeda/Control/VBoxContainer/HBoxContainer" unique_id=2043846847]
+layout_mode = 2
+
+[node name="ResourceCount" type="Label" parent="Lituania/Klaipeda/Control/VBoxContainer/HBoxContainer" unique_id=26219995]
+layout_mode = 2
+
+[node name="Path2D5" type="Path2D" parent="Lituania/Klaipeda" unique_id=560176945]
+curve = SubResource("Curve2D_vnd7u")
+script = ExtResource("8_gee14")
+
+[node name="Path2D4" type="Path2D" parent="Lituania/Klaipeda" unique_id=622087562]
+curve = SubResource("Curve2D_fccuv")
+script = ExtResource("8_gee14")
+
+[node name="Path2D3" type="Path2D" parent="Lituania/Klaipeda" unique_id=653112438]
+curve = SubResource("Curve2D_vvi2r")
+script = ExtResource("8_gee14")
+
+[node name="Path2D2" type="Path2D" parent="Lituania/Klaipeda" unique_id=2113485696]
+curve = SubResource("Curve2D_r2n6p")
+script = ExtResource("8_gee14")
+
+[node name="Path2D" type="Path2D" parent="Lituania/Klaipeda" unique_id=985540777]
+curve = SubResource("Curve2D_deyyv")
+script = ExtResource("8_gee14")
+
+[node name="Russia" type="Node2D" parent="." unique_id=958607592]
+script = ExtResource("6_p57ef")
+
+[node name="Control" type="Control" parent="Russia" unique_id=809405281]
+z_index = 1
+layout_mode = 3
+anchors_preset = 0
+offset_left = 76.0
+offset_top = -91.0
+offset_right = 213.885
+offset_bottom = -51.0
+rotation = -0.073303826
+
+[node name="PlayerName" type="Label" parent="Russia/Control" unique_id=1748106717]
+layout_mode = 0
+offset_left = -63.59282
+offset_top = 48.412052
+offset_right = 67.40718
+offset_bottom = 71.41205
+theme_override_colors/font_color = Color(1, 1, 1, 0.7490196)
+uppercase = true
+
+[node name="San Pietroburgo" type="Area2D" parent="Russia" unique_id=2068493460]
+collision_layer = 3
+collision_mask = 3
+script = ExtResource("3_lnu2h")
+province_material = 6
+double_material = true
+startup_buildings = Array[int]([0, 2])
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Russia/San Pietroburgo" unique_id=1787314894]
+polygon = PackedVector2Array(-93, -80, -88, -79, -82, -72, -83, -64, -77, -57, -74, -56, -71, -51, -66, -54, -58, -53, -50, -51, -48, -53, -46, -55, -40, -55, -36, -50, -25, -45, -10, -43, -9, -46, -9, -49, -11, -52, -11, -58, -14, -64, -21, -68, -29, -67, -40, -69, -54, -91, -52, -95, -45, -98, -36, -98, -31, -97, -25, -92, -19, -94, -13, -91, -12, -97, -8, -100, -11, -105, -10, -107, -3, -112, 2, -109, 9, -113, 16, -120, 19, -127, 26, -135, 23, -138, 23, -143, 37, -145, 42, -141, 56, -145, 56, -156, 53, -164, 51, -171, 45, -168, 41, -170, 42, -176, 33, -184, 25, -182, 21, -190, 17, -187, 11, -188, 8, -189, 9, -193, 6, -199, 3, -200, -2, -198, -5, -199, -12, -205, -16, -205, -18, -210, -14, -208, -19, -217, -14, -217, -15, -219, -20, -221, -25, -228, -22, -229, -18, -223, -12, -221, -11, -218, -6, -217, -9, -221, -5, -221, -3, -222, -5, -223, -4, -225, -5, -229, -14, -231, -15, -229, -19, -231, -23, -235, -26, -237, -24, -239, -32, -243, -39, -242, -44, -246, -45, -249, -47, -245, -52, -240, -55, -230, -48, -230, -43, -221, -46, -215, -45, -212, -40, -213, -37, -203, -40, -203, -44, -208, -52, -203, -50, -198, -46, -196, -44, -191, -46, -187, -37, -185, -31, -181, -30, -175, -25, -167, -27, -163, -25, -156, -29, -150, -32, -153, -39, -153, -42, -151, -40, -147, -45, -144, -48, -144, -58, -154, -64, -155, -66, -150, -71, -149, -70, -144, -63, -141, -65, -136, -75, -138, -78, -134, -78, -131, -89, -129, -89, -124, -93, -125, -94, -123, -91, -119, -94, -113, -101, -115, -101, -107, -93, -100, -93, -94, -98, -90, -96, -87)
+
+[node name="Polygon2D" type="Polygon2D" parent="Russia/San Pietroburgo" unique_id=1554544681]
+color = Color(0.45359772, 0.43529403, 0.42440614, 1)
+metadata/id = 0
+
+[node name="ProvinceBorder" type="Line2D" parent="Russia/San Pietroburgo" unique_id=305071753]
+closed = true
+width = 0.3
+default_color = Color(1, 1, 1, 0.78431374)
+joint_mode = 2
+
+[node name="Node2D" parent="Russia/San Pietroburgo" unique_id=140722812 instance=ExtResource("7_gee14")]
+position = Vector2(-59, -139)
+
+[node name="Control" type="Control" parent="Russia/San Pietroburgo" unique_id=2061818737]
+z_index = 2
+layout_mode = 3
+anchors_preset = 0
+offset_left = 36.0
+offset_top = -35.77
+offset_right = 76.0
+offset_bottom = 4.2299995
+pivot_offset = Vector2(19.865, 0)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Russia/San Pietroburgo/Control" unique_id=273637515]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.25
+offset_bottom = -10.0
+alignment = 1
+
+[node name="PanelContainer" type="PanelContainer" parent="Russia/San Pietroburgo/Control/VBoxContainer" unique_id=1534517857]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_0tnpc")
+
+[node name="ProvinceName" type="Label" parent="Russia/San Pietroburgo/Control/VBoxContainer/PanelContainer" unique_id=1128760830]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Russia/San Pietroburgo/Control/VBoxContainer" unique_id=1599243383]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="Russia/San Pietroburgo/Control/VBoxContainer/HBoxContainer" unique_id=346564585]
+layout_mode = 2
+
+[node name="ResourceCount" type="Label" parent="Russia/San Pietroburgo/Control/VBoxContainer/HBoxContainer" unique_id=2089047574]
+layout_mode = 2
+
+[node name="Path2D15" type="Path2D" parent="Russia/San Pietroburgo" unique_id=1323915495]
+curve = SubResource("Curve2D_h1bth")
+script = ExtResource("8_gee14")
+
+[node name="Path2D14" type="Path2D" parent="Russia/San Pietroburgo" unique_id=859800288]
+curve = SubResource("Curve2D_6cwij")
+script = ExtResource("8_gee14")
+
+[node name="Path2D13" type="Path2D" parent="Russia/San Pietroburgo" unique_id=756231347]
+curve = SubResource("Curve2D_bqsge")
+script = ExtResource("8_gee14")
+
+[node name="Path2D12" type="Path2D" parent="Russia/San Pietroburgo" unique_id=657681591]
+curve = SubResource("Curve2D_k2jov")
+script = ExtResource("8_gee14")
+
+[node name="Path2D11" type="Path2D" parent="Russia/San Pietroburgo" unique_id=1364620410]
+curve = SubResource("Curve2D_osiit")
+script = ExtResource("8_gee14")
+
+[node name="Path2D10" type="Path2D" parent="Russia/San Pietroburgo" unique_id=1349532115]
+curve = SubResource("Curve2D_kpl5h")
+script = ExtResource("8_gee14")
+
+[node name="Path2D9" type="Path2D" parent="Russia/San Pietroburgo" unique_id=469024088]
+curve = SubResource("Curve2D_nej56")
+script = ExtResource("8_gee14")
+
+[node name="Path2D8" type="Path2D" parent="Russia/San Pietroburgo" unique_id=1792140876]
+curve = SubResource("Curve2D_vgiqa")
+script = ExtResource("8_gee14")
+
+[node name="Path2D7" type="Path2D" parent="Russia/San Pietroburgo" unique_id=784774520]
+curve = SubResource("Curve2D_1uieh")
+script = ExtResource("8_gee14")
+
+[node name="Path2D6" type="Path2D" parent="Russia/San Pietroburgo" unique_id=859351687]
+curve = SubResource("Curve2D_x2ts8")
+script = ExtResource("8_gee14")
+
+[node name="Path2D5" type="Path2D" parent="Russia/San Pietroburgo" unique_id=1778320680]
+curve = SubResource("Curve2D_1fiuy")
+script = ExtResource("8_gee14")
+
+[node name="Path2D4" type="Path2D" parent="Russia/San Pietroburgo" unique_id=1328219012]
+curve = SubResource("Curve2D_fikvi")
+script = ExtResource("8_gee14")
+
+[node name="Path2D3" type="Path2D" parent="Russia/San Pietroburgo" unique_id=600591378]
+curve = SubResource("Curve2D_iwdqm")
+script = ExtResource("8_gee14")
+
+[node name="Path2D" type="Path2D" parent="Russia/San Pietroburgo" unique_id=1474855664]
+curve = SubResource("Curve2D_l0ny2")
+script = ExtResource("8_gee14")
+
+[node name="Smolensk" type="Area2D" parent="Russia" unique_id=738172958]
+collision_layer = 3
+collision_mask = 3
+script = ExtResource("3_lnu2h")
+province_material = 1
+startup_buildings = Array[int]([2])
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Russia/Smolensk" unique_id=1612230469]
+polygon = PackedVector2Array(-10, -43, -3, -37, -4, -30, -9, -24, -4, -14, -9, -13, -10, -10, -15, -10, -19, -6, -17, -3, -8, -7, -8, -3, -11, -1, -8, 3, 0, 7, 6, 4, 11, 7, 15, 10, 18, 16, 18, 22, 24, 32, 26, 33, 29, 37, 40, 42, 41, 45, 35, 55, 37, 60, 37, 67, 36, 69, 38, 70, 43, 66, 47, 66, 52, 69, 54, 74, 58, 78, 62, 79, 63, 71, 68, 70, 62, 64, 64, 60, 68, 57, 72, 58, 84, 61, 87, 58, 90, 56, 86, 50, 87, 44, 90, 38, 95, 32, 93, 26, 89, 22, 86, 15, 85, 10, 86, 4, 80, 4, 80, 1, 78, -4, 68, -7, 51, -7, 46, -19, 45, -26, 39, -30, 37, -43, 31, -46, 23, -47, 20, -50, 23, -51, 16, -59, 12, -61, 4, -72, 2, -72, -4, -79, -10, -88, -13, -91, -19, -94, -25, -92, -31, -97, -36, -98, -45, -98, -52, -95, -54, -91, -40, -69, -29, -67, -21, -68, -14, -64, -11, -58, -11, -52, -9, -49, -9, -46)
+
+[node name="Polygon2D" type="Polygon2D" parent="Russia/Smolensk" unique_id=931310410]
+color = Color(0.45359772, 0.43529403, 0.42440614, 1)
+metadata/id = 0
+
+[node name="ProvinceBorder" type="Line2D" parent="Russia/Smolensk" unique_id=1027348261]
+closed = true
+width = 0.3
+default_color = Color(1, 1, 1, 0.78431374)
+joint_mode = 2
+
+[node name="Node2D" parent="Russia/Smolensk" unique_id=272452858 instance=ExtResource("7_gee14")]
+position = Vector2(18, 2)
+
+[node name="Control" type="Control" parent="Russia/Smolensk" unique_id=1036709063]
+z_index = 2
+layout_mode = 3
+anchors_preset = 0
+offset_left = 36.0
+offset_top = -35.77
+offset_right = 76.0
+offset_bottom = 4.2299995
+pivot_offset = Vector2(19.865, 0)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Russia/Smolensk/Control" unique_id=281400148]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.25
+offset_bottom = -10.0
+alignment = 1
+
+[node name="PanelContainer" type="PanelContainer" parent="Russia/Smolensk/Control/VBoxContainer" unique_id=437074566]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_0tnpc")
+
+[node name="ProvinceName" type="Label" parent="Russia/Smolensk/Control/VBoxContainer/PanelContainer" unique_id=2021962924]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Russia/Smolensk/Control/VBoxContainer" unique_id=432402515]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="Russia/Smolensk/Control/VBoxContainer/HBoxContainer" unique_id=2023349234]
+layout_mode = 2
+
+[node name="ResourceCount" type="Label" parent="Russia/Smolensk/Control/VBoxContainer/HBoxContainer" unique_id=1446197375]
+layout_mode = 2
+
+[node name="Path2D12" type="Path2D" parent="Russia/Smolensk" unique_id=585744533]
+curve = SubResource("Curve2D_uaaia")
+script = ExtResource("8_gee14")
+
+[node name="Path2D11" type="Path2D" parent="Russia/Smolensk" unique_id=1569792864]
+curve = SubResource("Curve2D_hy75c")
+script = ExtResource("8_gee14")
+
+[node name="Path2D10" type="Path2D" parent="Russia/Smolensk" unique_id=20166619]
+curve = SubResource("Curve2D_vaoao")
+script = ExtResource("8_gee14")
+
+[node name="Path2D9" type="Path2D" parent="Russia/Smolensk" unique_id=1415777691]
+curve = SubResource("Curve2D_g33qm")
+script = ExtResource("8_gee14")
+
+[node name="Path2D8" type="Path2D" parent="Russia/Smolensk" unique_id=231552502]
+curve = SubResource("Curve2D_bkxpl")
+script = ExtResource("8_gee14")
+
+[node name="Path2D7" type="Path2D" parent="Russia/Smolensk" unique_id=746769061]
+curve = SubResource("Curve2D_y2jf0")
+script = ExtResource("8_gee14")
+
+[node name="Path2D6" type="Path2D" parent="Russia/Smolensk" unique_id=436589690]
+curve = SubResource("Curve2D_1fd0d")
+script = ExtResource("8_gee14")
+
+[node name="Path2D5" type="Path2D" parent="Russia/Smolensk" unique_id=1605221269]
+curve = SubResource("Curve2D_0mjh4")
+script = ExtResource("8_gee14")
+
+[node name="Path2D4" type="Path2D" parent="Russia/Smolensk" unique_id=962516845]
+curve = SubResource("Curve2D_wvj0x")
+script = ExtResource("8_gee14")
+
+[node name="Path2D3" type="Path2D" parent="Russia/Smolensk" unique_id=1912993094]
+curve = SubResource("Curve2D_d1om7")
+script = ExtResource("8_gee14")
+
+[node name="Path2D2" type="Path2D" parent="Russia/Smolensk" unique_id=1113327166]
+curve = SubResource("Curve2D_g0jan")
+script = ExtResource("8_gee14")
+
+[node name="Path2D" type="Path2D" parent="Russia/Smolensk" unique_id=488096054]
+curve = SubResource("Curve2D_uh8v6")
+script = ExtResource("8_gee14")
+
+[node name="Rostov sul Don" type="Area2D" parent="Russia" unique_id=1352766243]
+collision_layer = 3
+collision_mask = 3
+script = ExtResource("3_lnu2h")
+province_material = 2
+startup_buildings = Array[int]([2])
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Russia/Rostov sul Don" unique_id=1867163225]
+polygon = PackedVector2Array(184, 113, 188, 121, 188, 127, 181, 132, 177, 137, 174, 144, 185, 143, 190, 145, 193, 148, 193, 152, 191, 155, 184, 157, 182, 160, 167, 162, 160, 167, 160, 170, 157, 173, 163, 178, 166, 183, 165, 192, 163, 197, 162, 205, 165, 201, 174, 198, 181, 192, 184, 178, 186, 180, 186, 187, 184, 190, 188, 192, 190, 187, 188, 185, 189, 180, 193, 181, 193, 183, 196, 186, 197, 189, 200, 191, 200, 193, 195, 193, 192, 195, 192, 197, 188, 199, 185, 202, 180, 211, 198, 212, 204, 212, 211, 209, 222, 207, 236, 205, 241, 202, 251, 201, 253, 194, 260, 190, 271, 188, 279, 191, 287, 187, 288, 178, 287, 163, 280, 151, 281, 148, 276, 138, 274, 129, 270, 114, 271, 104, 275, 94, 264, 86, 263, 76, 265, 65, 264, 58, 257, 53, 242, 52, 234, 52, 229, 46, 217, 44, 216, 48, 206, 53, 203, 57, 199, 61, 200, 65, 198, 68, 201, 70, 201, 73, 205, 83, 205, 87, 206, 89, 202, 95, 204, 98, 196, 104, 194, 107)
+
+[node name="Polygon2D" type="Polygon2D" parent="Russia/Rostov sul Don" unique_id=756176850]
+color = Color(0.45359772, 0.43529403, 0.42440614, 1)
+metadata/id = 0
+
+[node name="ProvinceBorder" type="Line2D" parent="Russia/Rostov sul Don" unique_id=1191940507]
+closed = true
+width = 0.3
+default_color = Color(1, 1, 1, 0.78431374)
+joint_mode = 2
+
+[node name="Node2D" parent="Russia/Rostov sul Don" unique_id=51959084 instance=ExtResource("7_gee14")]
+position = Vector2(205, 179)
+
+[node name="Control" type="Control" parent="Russia/Rostov sul Don" unique_id=1287826407]
+z_index = 2
+layout_mode = 3
+anchors_preset = 0
+offset_left = 36.0
+offset_top = -35.77
+offset_right = 76.0
+offset_bottom = 4.2299995
+pivot_offset = Vector2(19.865, 0)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Russia/Rostov sul Don/Control" unique_id=1061392658]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.25
+offset_bottom = -10.0
+alignment = 1
+
+[node name="PanelContainer" type="PanelContainer" parent="Russia/Rostov sul Don/Control/VBoxContainer" unique_id=1809880606]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_0tnpc")
+
+[node name="ProvinceName" type="Label" parent="Russia/Rostov sul Don/Control/VBoxContainer/PanelContainer" unique_id=1909530938]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Russia/Rostov sul Don/Control/VBoxContainer" unique_id=1365975039]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="Russia/Rostov sul Don/Control/VBoxContainer/HBoxContainer" unique_id=359970187]
+layout_mode = 2
+
+[node name="ResourceCount" type="Label" parent="Russia/Rostov sul Don/Control/VBoxContainer/HBoxContainer" unique_id=1817973753]
+layout_mode = 2
+
+[node name="Path2D10" type="Path2D" parent="Russia/Rostov sul Don" unique_id=1065019915]
+curve = SubResource("Curve2D_x1ulb")
+script = ExtResource("8_gee14")
+
+[node name="Path2D9" type="Path2D" parent="Russia/Rostov sul Don" unique_id=26563438]
+curve = SubResource("Curve2D_k4q15")
+script = ExtResource("8_gee14")
+
+[node name="Path2D8" type="Path2D" parent="Russia/Rostov sul Don" unique_id=784759870]
+curve = SubResource("Curve2D_7bpt6")
+script = ExtResource("8_gee14")
+
+[node name="Path2D7" type="Path2D" parent="Russia/Rostov sul Don" unique_id=711317175]
+curve = SubResource("Curve2D_rowo6")
+script = ExtResource("8_gee14")
+
+[node name="Path2D6" type="Path2D" parent="Russia/Rostov sul Don" unique_id=1677392172]
+curve = SubResource("Curve2D_max3w")
+script = ExtResource("8_gee14")
+
+[node name="Path2D5" type="Path2D" parent="Russia/Rostov sul Don" unique_id=247295648]
+curve = SubResource("Curve2D_nmeq6")
+script = ExtResource("8_gee14")
+
+[node name="Path2D4" type="Path2D" parent="Russia/Rostov sul Don" unique_id=122635048]
+curve = SubResource("Curve2D_yr4ag")
+script = ExtResource("8_gee14")
+
+[node name="Path2D11" type="Path2D" parent="Russia/Rostov sul Don" unique_id=1918395191]
+curve = SubResource("Curve2D_ae4wi")
+script = ExtResource("8_gee14")
+
+[node name="Path2D3" type="Path2D" parent="Russia/Rostov sul Don" unique_id=478076130]
+curve = SubResource("Curve2D_n5r5x")
+script = ExtResource("8_gee14")
+
+[node name="Path2D2" type="Path2D" parent="Russia/Rostov sul Don" unique_id=335277287]
+curve = SubResource("Curve2D_x5xn3")
+script = ExtResource("8_gee14")
+
+[node name="Path2D" type="Path2D" parent="Russia/Rostov sul Don" unique_id=1357455198]
+curve = SubResource("Curve2D_152wt")
+script = ExtResource("8_gee14")
+
+[node name="Penza" type="Area2D" parent="Russia" unique_id=257445249]
+collision_layer = 3
+collision_mask = 3
+script = ExtResource("3_lnu2h")
+province_material = 5
+startup_buildings = Array[int]([2])
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Russia/Penza" unique_id=2085289032]
+polygon = PackedVector2Array(80, 1, 80, 4, 86, 4, 85, 10, 86, 15, 89, 22, 93, 26, 95, 32, 90, 38, 87, 44, 86, 50, 90, 56, 92, 53, 97, 53, 100, 55, 105, 53, 111, 59, 120, 58, 122, 62, 127, 67, 133, 71, 135, 74, 135, 79, 138, 79, 140, 80, 142, 85, 138, 89, 139, 93, 134, 98, 129, 97, 125, 100, 125, 102, 132, 107, 134, 109, 138, 113, 151, 114, 147, 109, 149, 106, 157, 108, 163, 106, 170, 109, 176, 109, 184, 113, 194, 107, 196, 104, 204, 98, 202, 95, 206, 89, 205, 87, 205, 83, 201, 73, 201, 70, 198, 68, 200, 65, 199, 61, 203, 57, 206, 53, 216, 48, 217, 44, 216, 39, 211, 37, 209, 30, 213, 25, 207, 19, 209, 12, 208, 4, 211, -2, 217, -4, 220, -8, 227, -9, 228, -11, 229, -12, 234, -15, 239, -23, 245, -25, 252, -34, 254, -39, 262, -42, 262, -45, 259, -46, 258, -50, 254, -51, 250, -54, 244, -54, 244, -52, 239, -51, 233, -53, 234, -56, 231, -61, 226, -66, 223, -66, 221, -62, 217, -62, 213, -58, 206, -59, 199, -62, 191, -62, 186, -62, 182, -58, 175, -64, 170, -60, 168, -57, 163, -60, 157, -60, 155, -58, 152, -57, 149, -52, 138, -62, 133, -63, 129, -61, 124, -62, 118, -62, 109, -59, 109, -50, 110, -46, 111, -37, 106, -33, 98, -29, 92, -28, 88, -22, 86, -15, 83, -12, 83, -8, 84, -3)
+
+[node name="Polygon2D" type="Polygon2D" parent="Russia/Penza" unique_id=374178511]
+color = Color(0.45359772, 0.43529403, 0.42440614, 1)
+metadata/id = 0
+
+[node name="ProvinceBorder" type="Line2D" parent="Russia/Penza" unique_id=1129068305]
+closed = true
+width = 0.3
+default_color = Color(1, 1, 1, 0.78431374)
+joint_mode = 2
+
+[node name="Node2D" parent="Russia/Penza" unique_id=1362518491 instance=ExtResource("7_gee14")]
+position = Vector2(205, -39)
+
+[node name="Control" type="Control" parent="Russia/Penza" unique_id=1475763457]
+z_index = 2
+layout_mode = 3
+anchors_preset = 0
+offset_left = 36.0
+offset_top = -35.77
+offset_right = 76.0
+offset_bottom = 4.2299995
+pivot_offset = Vector2(19.865, 0)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Russia/Penza/Control" unique_id=1550001303]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.25
+offset_bottom = -10.0
+alignment = 1
+
+[node name="PanelContainer" type="PanelContainer" parent="Russia/Penza/Control/VBoxContainer" unique_id=801221684]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_0tnpc")
+
+[node name="ProvinceName" type="Label" parent="Russia/Penza/Control/VBoxContainer/PanelContainer" unique_id=1993624765]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Russia/Penza/Control/VBoxContainer" unique_id=611586722]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="Russia/Penza/Control/VBoxContainer/HBoxContainer" unique_id=742681536]
+layout_mode = 2
+
+[node name="ResourceCount" type="Label" parent="Russia/Penza/Control/VBoxContainer/HBoxContainer" unique_id=58378644]
+layout_mode = 2
+
+[node name="Path2D10" type="Path2D" parent="Russia/Penza" unique_id=1143822080]
+curve = SubResource("Curve2D_rjeju")
+script = ExtResource("8_gee14")
+
+[node name="Path2D9" type="Path2D" parent="Russia/Penza" unique_id=423307393]
+curve = SubResource("Curve2D_gm07v")
+script = ExtResource("8_gee14")
+
+[node name="Path2D8" type="Path2D" parent="Russia/Penza" unique_id=1563818304]
+curve = SubResource("Curve2D_texxq")
+script = ExtResource("8_gee14")
+
+[node name="Path2D7" type="Path2D" parent="Russia/Penza" unique_id=1408223716]
+curve = SubResource("Curve2D_331gb")
+script = ExtResource("8_gee14")
+
+[node name="Path2D6" type="Path2D" parent="Russia/Penza" unique_id=1361570646]
+curve = SubResource("Curve2D_bdqdv")
+script = ExtResource("8_gee14")
+
+[node name="Path2D5" type="Path2D" parent="Russia/Penza" unique_id=1110714062]
+curve = SubResource("Curve2D_f4ip4")
+script = ExtResource("8_gee14")
+
+[node name="Path2D4" type="Path2D" parent="Russia/Penza" unique_id=235848745]
+curve = SubResource("Curve2D_4kxhu")
+script = ExtResource("8_gee14")
+
+[node name="Path2D3" type="Path2D" parent="Russia/Penza" unique_id=934327]
+curve = SubResource("Curve2D_2gimc")
+script = ExtResource("8_gee14")
+
+[node name="Path2D2" type="Path2D" parent="Russia/Penza" unique_id=1933605286]
+curve = SubResource("Curve2D_vv4rj")
+script = ExtResource("8_gee14")
+
+[node name="Path2D" type="Path2D" parent="Russia/Penza" unique_id=1651470804]
+curve = SubResource("Curve2D_nc1gq")
+script = ExtResource("8_gee14")
+
+[node name="Mosca" type="Area2D" parent="Russia" unique_id=944870637]
+collision_layer = 3
+collision_mask = 3
+script = ExtResource("3_lnu2h")
+province_material = 2
+startup_buildings = Array[int]([2])
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Russia/Mosca" unique_id=1888231643]
+polygon = PackedVector2Array(56, -145, 42, -141, 37, -145, 23, -143, 23, -138, 26, -135, 19, -127, 16, -120, 9, -113, 2, -109, -3, -112, -10, -107, -11, -105, -8, -100, -12, -97, -13, -91, -10, -88, -4, -79, 2, -72, 4, -72, 12, -61, 16, -59, 23, -51, 20, -50, 23, -47, 31, -46, 37, -43, 39, -30, 45, -26, 46, -19, 51, -7, 68, -7, 78, -4, 80, 1, 84, -3, 83, -8, 83, -12, 86, -15, 88, -22, 92, -28, 98, -29, 106, -33, 111, -37, 110, -46, 109, -50, 109, -59, 99, -64, 97, -67, 89, -72, 78, -75, 75, -81, 79, -84, 78, -92, 81, -97, 90, -98, 98, -94, 107, -95, 107, -101, 112, -107, 112, -114, 107, -123, 110, -127, 107, -134, 113, -138, 111, -145, 103, -144, 99, -141, 87, -144, 81, -141, 77, -145, 69, -143)
+
+[node name="Polygon2D" type="Polygon2D" parent="Russia/Mosca" unique_id=128008495]
+color = Color(0.45359772, 0.43529403, 0.42440614, 1)
+metadata/id = 0
+
+[node name="ProvinceBorder" type="Line2D" parent="Russia/Mosca" unique_id=881109325]
+closed = true
+width = 0.3
+default_color = Color(1, 1, 1, 0.78431374)
+joint_mode = 2
+
+[node name="Node2D" parent="Russia/Mosca" unique_id=1458553734 instance=ExtResource("7_gee14")]
+position = Vector2(87, -48)
+
+[node name="Control" type="Control" parent="Russia/Mosca" unique_id=1430606273]
+z_index = 2
+layout_mode = 3
+anchors_preset = 0
+offset_left = 36.0
+offset_top = -35.77
+offset_right = 76.0
+offset_bottom = 4.2299995
+pivot_offset = Vector2(19.865, 0)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Russia/Mosca/Control" unique_id=1745736954]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.25
+offset_bottom = -10.0
+alignment = 1
+
+[node name="PanelContainer" type="PanelContainer" parent="Russia/Mosca/Control/VBoxContainer" unique_id=126736001]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_0tnpc")
+
+[node name="ProvinceName" type="Label" parent="Russia/Mosca/Control/VBoxContainer/PanelContainer" unique_id=1406278876]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Russia/Mosca/Control/VBoxContainer" unique_id=1768733001]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="Russia/Mosca/Control/VBoxContainer/HBoxContainer" unique_id=45371599]
+layout_mode = 2
+
+[node name="ResourceCount" type="Label" parent="Russia/Mosca/Control/VBoxContainer/HBoxContainer" unique_id=1693999998]
+layout_mode = 2
+
+[node name="Path2D6" type="Path2D" parent="Russia/Mosca" unique_id=703052547]
+curve = SubResource("Curve2D_pf1dq")
+script = ExtResource("8_gee14")
+
+[node name="Path2D5" type="Path2D" parent="Russia/Mosca" unique_id=325085768]
+curve = SubResource("Curve2D_qw3q1")
+script = ExtResource("8_gee14")
+
+[node name="Path2D4" type="Path2D" parent="Russia/Mosca" unique_id=1052086218]
+curve = SubResource("Curve2D_yakp7")
+script = ExtResource("8_gee14")
+
+[node name="Path2D3" type="Path2D" parent="Russia/Mosca" unique_id=1157108578]
+curve = SubResource("Curve2D_hlvme")
+script = ExtResource("8_gee14")
+
+[node name="Path2D2" type="Path2D" parent="Russia/Mosca" unique_id=1434794135]
+curve = SubResource("Curve2D_rso44")
+script = ExtResource("8_gee14")
+
+[node name="Path2D" type="Path2D" parent="Russia/Mosca" unique_id=1665561368]
+curve = SubResource("Curve2D_7fux8")
+script = ExtResource("8_gee14")
+
+[node name="Kostroma" type="Area2D" parent="Russia" unique_id=1846502059]
+collision_layer = 3
+collision_mask = 3
+script = ExtResource("3_lnu2h")
+province_material = 1
+double_material = true
+startup_buildings = Array[int]([2])
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Russia/Kostroma" unique_id=74916613]
+polygon = PackedVector2Array(111, -145, 113, -138, 107, -134, 110, -127, 107, -123, 112, -114, 112, -107, 107, -101, 107, -95, 98, -94, 90, -98, 81, -97, 78, -92, 79, -84, 75, -81, 78, -75, 89, -72, 97, -67, 99, -64, 109, -59, 118, -62, 124, -62, 129, -61, 133, -63, 138, -62, 149, -52, 152, -57, 155, -58, 157, -60, 163, -60, 168, -57, 170, -60, 175, -64, 182, -58, 186, -62, 191, -62, 199, -62, 206, -59, 213, -58, 217, -62, 221, -62, 223, -66, 226, -66, 220, -83, 217, -85, 218, -91, 217, -100, 214, -104, 218, -109, 217, -117, 216, -121, 218, -126, 211, -127, 209, -130, 210, -133, 209, -137, 205, -137, 203, -142, 200, -144, 199, -148, 202, -150, 203, -158, 210, -160, 211, -163, 214, -164, 214, -171, 216, -174, 212, -175, 209, -173, 204, -176, 200, -176, 197, -180, 192, -182, 192, -186, 194, -191, 183, -194, 175, -189, 171, -189, 159, -184, 150, -188, 144, -187, 139, -191, 135, -183, 129, -179, 118, -180, 119, -175, 116, -171, 109, -165, 105, -158, 107, -152, 107, -146)
+
+[node name="Polygon2D" type="Polygon2D" parent="Russia/Kostroma" unique_id=1712740746]
+color = Color(0.45359772, 0.43529403, 0.42440614, 1)
+metadata/id = 0
+
+[node name="ProvinceBorder" type="Line2D" parent="Russia/Kostroma" unique_id=1112017409]
+closed = true
+width = 0.3
+default_color = Color(1, 1, 1, 0.78431374)
+joint_mode = 2
+
+[node name="Node2D" parent="Russia/Kostroma" unique_id=1987176405 instance=ExtResource("7_gee14")]
+position = Vector2(134, -141)
+
+[node name="Control" type="Control" parent="Russia/Kostroma" unique_id=993653975]
+z_index = 2
+layout_mode = 3
+anchors_preset = 0
+offset_left = 36.0
+offset_top = -35.77
+offset_right = 76.0
+offset_bottom = 4.2299995
+pivot_offset = Vector2(19.865, 0)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Russia/Kostroma/Control" unique_id=1818325729]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.25
+offset_bottom = -10.0
+alignment = 1
+
+[node name="PanelContainer" type="PanelContainer" parent="Russia/Kostroma/Control/VBoxContainer" unique_id=145221066]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_0tnpc")
+
+[node name="ProvinceName" type="Label" parent="Russia/Kostroma/Control/VBoxContainer/PanelContainer" unique_id=1203733542]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Russia/Kostroma/Control/VBoxContainer" unique_id=720487566]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="Russia/Kostroma/Control/VBoxContainer/HBoxContainer" unique_id=1998502102]
+layout_mode = 2
+
+[node name="ResourceCount" type="Label" parent="Russia/Kostroma/Control/VBoxContainer/HBoxContainer" unique_id=1971422485]
+layout_mode = 2
+
+[node name="Path2D6" type="Path2D" parent="Russia/Kostroma" unique_id=762069154]
+curve = SubResource("Curve2D_i0g1p")
+script = ExtResource("8_gee14")
+
+[node name="Path2D5" type="Path2D" parent="Russia/Kostroma" unique_id=619772487]
+curve = SubResource("Curve2D_7mokv")
+script = ExtResource("8_gee14")
+
+[node name="Path2D4" type="Path2D" parent="Russia/Kostroma" unique_id=2092872948]
+curve = SubResource("Curve2D_ougo0")
+script = ExtResource("8_gee14")
+
+[node name="Path2D3" type="Path2D" parent="Russia/Kostroma" unique_id=642494917]
+curve = SubResource("Curve2D_jmpbw")
+script = ExtResource("8_gee14")
+
+[node name="Path2D2" type="Path2D" parent="Russia/Kostroma" unique_id=958456511]
+curve = SubResource("Curve2D_4hyal")
+script = ExtResource("8_gee14")
+
+[node name="Path2D" type="Path2D" parent="Russia/Kostroma" unique_id=1819580370]
+curve = SubResource("Curve2D_qxstk")
+script = ExtResource("8_gee14")
+
+[node name="Viatka" type="Area2D" parent="Russia" unique_id=1281070113]
+collision_layer = 3
+collision_mask = 3
+script = ExtResource("3_lnu2h")
+province_material = 5
+startup_buildings = Array[int]([2])
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Russia/Viatka" unique_id=22175335]
+polygon = PackedVector2Array(194, -191, 192, -186, 192, -182, 197, -180, 200, -176, 204, -176, 209, -173, 212, -175, 216, -174, 214, -171, 214, -164, 211, -163, 210, -160, 203, -158, 202, -150, 199, -148, 200, -144, 203, -142, 205, -137, 209, -137, 215, -137, 225, -140, 233, -146, 240, -150, 245, -151, 249, -153, 255, -153, 262, -156, 267, -154, 277, -153, 283, -157, 303, -154, 306, -148, 313, -142, 316, -152, 321, -153, 321, -157, 320, -161, 325, -167, 329, -166, 335, -170, 337, -174, 340, -178, 337, -182, 329, -184, 324, -189, 322, -199, 318, -205, 321, -210, 320, -217, 310, -226, 304, -233, 297, -240, 298, -246, 292, -256, 293, -258, 288, -255, 283, -255, 283, -255, 274, -274, 268, -279, 264, -281, 264, -279, 256, -271, 245, -270, 244, -256, 240, -259, 234, -259, 230, -252, 225, -248, 222, -243, 220, -241, 213, -237, 214, -229, 206, -229, 203, -227, 204, -223, 208, -216, 196, -209, 198, -205, 201, -203, 202, -199, 208, -196, 202, -192)
+
+[node name="Polygon2D" type="Polygon2D" parent="Russia/Viatka" unique_id=1473782035]
+color = Color(0.45359772, 0.43529403, 0.42440614, 1)
+metadata/id = 0
+
+[node name="ProvinceBorder" type="Line2D" parent="Russia/Viatka" unique_id=1714231510]
+closed = true
+width = 0.3
+default_color = Color(1, 1, 1, 0.78431374)
+joint_mode = 2
+
+[node name="Node2D" parent="Russia/Viatka" unique_id=1810334597 instance=ExtResource("7_gee14")]
+position = Vector2(235, -214)
+
+[node name="Control" type="Control" parent="Russia/Viatka" unique_id=1215714301]
+z_index = 2
+layout_mode = 3
+anchors_preset = 0
+offset_left = 36.0
+offset_top = -35.77
+offset_right = 76.0
+offset_bottom = 4.2299995
+pivot_offset = Vector2(19.865, 0)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Russia/Viatka/Control" unique_id=1942683088]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.25
+offset_bottom = -10.0
+alignment = 1
+
+[node name="PanelContainer" type="PanelContainer" parent="Russia/Viatka/Control/VBoxContainer" unique_id=54263529]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_0tnpc")
+
+[node name="ProvinceName" type="Label" parent="Russia/Viatka/Control/VBoxContainer/PanelContainer" unique_id=65811465]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Russia/Viatka/Control/VBoxContainer" unique_id=1929544789]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="Russia/Viatka/Control/VBoxContainer/HBoxContainer" unique_id=1867430972]
+layout_mode = 2
+
+[node name="ResourceCount" type="Label" parent="Russia/Viatka/Control/VBoxContainer/HBoxContainer" unique_id=1543370028]
+layout_mode = 2
+
+[node name="Path2D7" type="Path2D" parent="Russia/Viatka" unique_id=1302010428]
+curve = SubResource("Curve2D_tif2q")
+script = ExtResource("8_gee14")
+
+[node name="Path2D6" type="Path2D" parent="Russia/Viatka" unique_id=1679744909]
+curve = SubResource("Curve2D_gmo45")
+script = ExtResource("8_gee14")
+
+[node name="Path2D5" type="Path2D" parent="Russia/Viatka" unique_id=1935609923]
+curve = SubResource("Curve2D_rdi5s")
+script = ExtResource("8_gee14")
+
+[node name="Path2D4" type="Path2D" parent="Russia/Viatka" unique_id=1678121253]
+curve = SubResource("Curve2D_7xxeg")
+script = ExtResource("8_gee14")
+
+[node name="Path2D3" type="Path2D" parent="Russia/Viatka" unique_id=1749283283]
+curve = SubResource("Curve2D_k0l5t")
+script = ExtResource("8_gee14")
+
+[node name="Path2D2" type="Path2D" parent="Russia/Viatka" unique_id=1392419739]
+curve = SubResource("Curve2D_0pnci")
+script = ExtResource("8_gee14")
+
+[node name="Path2D" type="Path2D" parent="Russia/Viatka" unique_id=918305801]
+curve = SubResource("Curve2D_03dbc")
+script = ExtResource("8_gee14")
+
+[node name="Simbirsk" type="Area2D" parent="Russia" unique_id=248569858]
+collision_layer = 3
+collision_mask = 3
+script = ExtResource("3_lnu2h")
+province_material = 5
+startup_buildings = Array[int]([2])
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Russia/Simbirsk" unique_id=1689013051]
+polygon = PackedVector2Array(313, -142, 306, -148, 303, -154, 283, -157, 277, -153, 267, -154, 262, -156, 255, -153, 249, -153, 245, -151, 240, -150, 233, -146, 225, -140, 215, -137, 209, -137, 210, -133, 209, -130, 211, -127, 218, -126, 216, -121, 217, -116, 218, -109, 214, -104, 217, -100, 218, -91, 217, -85, 220, -83, 226, -66, 231, -61, 234, -56, 233, -53, 239, -51, 244, -52, 244, -54, 250, -54, 254, -51, 258, -50, 259, -46, 262, -45, 262, -42, 263, -39, 266, -40, 272, -43, 276, -43, 280, -40, 282, -43, 286, -40, 294, -39, 297, -43, 294, -53, 297, -56, 301, -58, 304, -60, 314, -63, 321, -71, 318, -74, 311, -71, 307, -66, 299, -66, 291, -70, 285, -77, 276, -81, 275, -86, 275, -88, 278, -90, 278, -96, 283, -101, 282, -104, 285, -106, 289, -103, 295, -101, 299, -102, 300, -105, 304, -106, 307, -104, 311, -105, 311, -109, 317, -110, 318, -116, 315, -117, 320, -123, 316, -130, 316, -134, 314, -136, 311, -140)
+
+[node name="Polygon2D" type="Polygon2D" parent="Russia/Simbirsk" unique_id=116556004]
+color = Color(0.45359772, 0.43529403, 0.42440614, 1)
+metadata/id = 0
+
+[node name="ProvinceBorder" type="Line2D" parent="Russia/Simbirsk" unique_id=13104742]
+closed = true
+width = 0.3
+default_color = Color(1, 1, 1, 0.78431374)
+joint_mode = 2
+
+[node name="Node2D" parent="Russia/Simbirsk" unique_id=1161715696 instance=ExtResource("7_gee14")]
+position = Vector2(256, -81)
+
+[node name="Control" type="Control" parent="Russia/Simbirsk" unique_id=590861596]
+z_index = 2
+layout_mode = 3
+anchors_preset = 0
+offset_left = 36.0
+offset_top = -35.77
+offset_right = 76.0
+offset_bottom = 4.2299995
+pivot_offset = Vector2(19.865, 0)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Russia/Simbirsk/Control" unique_id=1667135601]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.25
+offset_bottom = -10.0
+alignment = 1
+
+[node name="PanelContainer" type="PanelContainer" parent="Russia/Simbirsk/Control/VBoxContainer" unique_id=1814111520]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_0tnpc")
+
+[node name="ProvinceName" type="Label" parent="Russia/Simbirsk/Control/VBoxContainer/PanelContainer" unique_id=1238567389]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Russia/Simbirsk/Control/VBoxContainer" unique_id=1989659211]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="Russia/Simbirsk/Control/VBoxContainer/HBoxContainer" unique_id=1250275264]
+layout_mode = 2
+
+[node name="ResourceCount" type="Label" parent="Russia/Simbirsk/Control/VBoxContainer/HBoxContainer" unique_id=231817640]
+layout_mode = 2
+
+[node name="Path2D6" type="Path2D" parent="Russia/Simbirsk" unique_id=2056307023]
+curve = SubResource("Curve2D_tyid6")
+script = ExtResource("8_gee14")
+
+[node name="Path2D5" type="Path2D" parent="Russia/Simbirsk" unique_id=491235676]
+curve = SubResource("Curve2D_8djkq")
+script = ExtResource("8_gee14")
+
+[node name="Path2D4" type="Path2D" parent="Russia/Simbirsk" unique_id=558414808]
+curve = SubResource("Curve2D_8wuql")
+script = ExtResource("8_gee14")
+
+[node name="Path2D3" type="Path2D" parent="Russia/Simbirsk" unique_id=1761655563]
+curve = SubResource("Curve2D_tmhwu")
+script = ExtResource("8_gee14")
+
+[node name="Path2D2" type="Path2D" parent="Russia/Simbirsk" unique_id=402099976]
+curve = SubResource("Curve2D_oa88d")
+script = ExtResource("8_gee14")
+
+[node name="Path2D" type="Path2D" parent="Russia/Simbirsk" unique_id=684059393]
+curve = SubResource("Curve2D_lygv6")
+script = ExtResource("8_gee14")
+
+[node name="Orenburg" type="Area2D" parent="Russia" unique_id=637181672]
+collision_layer = 3
+collision_mask = 3
+script = ExtResource("3_lnu2h")
+startup_buildings = Array[int]([2])
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Russia/Orenburg" unique_id=2042755426]
+polygon = PackedVector2Array(316, -130, 320, -123, 315, -117, 318, -116, 317, -110, 311, -109, 311, -105, 307, -104, 304, -106, 300, -105, 299, -102, 295, -101, 289, -103, 285, -106, 282, -104, 283, -101, 278, -96, 278, -90, 275, -88, 275, -86, 276, -81, 285, -77, 291, -70, 299, -66, 307, -66, 311, -71, 318, -74, 321, -71, 314, -63, 304, -60, 301, -58, 297, -56, 294, -53, 297, -43, 294, -39, 299, -37, 299, -35, 298, -32, 298, -25, 294, -17, 287, -10, 287, -7, 284, -2, 276, 7, 274, 14, 275, 19, 274, 26, 283, 32, 276, 36, 278, 41, 281, 41, 284, 48, 288, 48, 289, 50, 292, 48, 293, 46, 296, 47, 302, 50, 305, 51, 309, 48, 312, 44, 316, 42, 318, 31, 324, 32, 343, 40, 346, 25, 334, 16, 334, 10, 341, -2, 345, -18, 351, -29, 356, -37, 359, -49, 374, -54, 374, -117, 366, -117, 360, -121, 358, -129, 354, -134, 351, -141, 349, -144, 344, -144, 341, -146, 340, -149, 332, -144, 332, -141, 329, -140, 329, -133, 325, -134, 321, -132, 319, -129)
+
+[node name="Polygon2D" type="Polygon2D" parent="Russia/Orenburg" unique_id=382379098]
+color = Color(0.45359772, 0.43529403, 0.42440614, 1)
+metadata/id = 0
+
+[node name="ProvinceBorder" type="Line2D" parent="Russia/Orenburg" unique_id=125564460]
+closed = true
+width = 0.3
+default_color = Color(1, 1, 1, 0.78431374)
+joint_mode = 2
+
+[node name="Node2D" parent="Russia/Orenburg" unique_id=641611623 instance=ExtResource("7_gee14")]
+position = Vector2(331, -101)
+
+[node name="Control" type="Control" parent="Russia/Orenburg" unique_id=1948058888]
+z_index = 2
+layout_mode = 3
+anchors_preset = 0
+offset_left = 36.0
+offset_top = -35.77
+offset_right = 76.0
+offset_bottom = 4.2299995
+pivot_offset = Vector2(19.865, 0)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Russia/Orenburg/Control" unique_id=363652108]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.25
+offset_bottom = -10.0
+alignment = 1
+
+[node name="PanelContainer" type="PanelContainer" parent="Russia/Orenburg/Control/VBoxContainer" unique_id=865328407]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_0tnpc")
+
+[node name="ProvinceName" type="Label" parent="Russia/Orenburg/Control/VBoxContainer/PanelContainer" unique_id=1159974326]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Russia/Orenburg/Control/VBoxContainer" unique_id=578999376]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="Russia/Orenburg/Control/VBoxContainer/HBoxContainer" unique_id=1282401188]
+layout_mode = 2
+
+[node name="ResourceCount" type="Label" parent="Russia/Orenburg/Control/VBoxContainer/HBoxContainer" unique_id=1154639910]
+layout_mode = 2
+
+[node name="Path2D6" type="Path2D" parent="Russia/Orenburg" unique_id=1255208954]
+curve = SubResource("Curve2D_ufjh3")
+script = ExtResource("8_gee14")
+
+[node name="Path2D5" type="Path2D" parent="Russia/Orenburg" unique_id=1225235235]
+curve = SubResource("Curve2D_eio5l")
+script = ExtResource("8_gee14")
+
+[node name="Path2D4" type="Path2D" parent="Russia/Orenburg" unique_id=1817411846]
+curve = SubResource("Curve2D_7l6q4")
+script = ExtResource("8_gee14")
+
+[node name="Path2D3" type="Path2D" parent="Russia/Orenburg" unique_id=1572945058]
+curve = SubResource("Curve2D_jqiwq")
+script = ExtResource("8_gee14")
+
+[node name="Path2D2" type="Path2D" parent="Russia/Orenburg" unique_id=468722146]
+curve = SubResource("Curve2D_08jcq")
+script = ExtResource("8_gee14")
+
+[node name="Path2D" type="Path2D" parent="Russia/Orenburg" unique_id=2104133847]
+curve = SubResource("Curve2D_e07sx")
+script = ExtResource("8_gee14")
+
+[node name="Saratov" type="Area2D" parent="Russia" unique_id=1594232784]
+collision_layer = 3
+collision_mask = 3
+script = ExtResource("3_lnu2h")
+startup_buildings = Array[int]([2])
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Russia/Saratov" unique_id=1362419063]
+polygon = PackedVector2Array(284, 48, 281, 41, 278, 41, 276, 36, 283, 32, 274, 26, 275, 19, 274, 14, 276, 7, 284, -2, 287, -7, 287, -10, 294, -17, 298, -25, 298, -32, 299, -35, 299, -37, 294, -39, 286, -40, 282, -43, 280, -40, 276, -43, 272, -43, 266, -40, 263, -39, 262, -42, 254, -39, 252, -34, 245, -25, 239, -23, 234, -15, 229, -12, 228, -11, 227, -9, 220, -8, 217, -4, 211, -2, 208, 4, 209, 12, 207, 19, 213, 25, 209, 30, 211, 37, 216, 39, 217, 44, 229, 46, 234, 52, 242, 52, 257, 53, 264, 58, 265, 65, 263, 76, 264, 86, 275, 94, 271, 104, 270, 114, 276, 115, 280, 114, 282, 112, 282, 108, 283, 102, 284, 97, 282, 90, 284, 82, 284, 75, 282, 72, 283, 69, 281, 59, 283, 52)
+
+[node name="Polygon2D" type="Polygon2D" parent="Russia/Saratov" unique_id=882912953]
+color = Color(0.45359772, 0.43529403, 0.42440614, 1)
+metadata/id = 0
+
+[node name="ProvinceBorder" type="Line2D" parent="Russia/Saratov" unique_id=95303376]
+closed = true
+width = 0.3
+default_color = Color(1, 1, 1, 0.78431374)
+joint_mode = 2
+
+[node name="Node2D" parent="Russia/Saratov" unique_id=1254471766 instance=ExtResource("7_gee14")]
+position = Vector2(250, 11)
+
+[node name="Control" type="Control" parent="Russia/Saratov" unique_id=829694216]
+z_index = 2
+layout_mode = 3
+anchors_preset = 0
+offset_left = 36.0
+offset_top = -35.77
+offset_right = 76.0
+offset_bottom = 4.2299995
+pivot_offset = Vector2(19.865, 0)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Russia/Saratov/Control" unique_id=1616531113]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.25
+offset_bottom = -10.0
+alignment = 1
+
+[node name="PanelContainer" type="PanelContainer" parent="Russia/Saratov/Control/VBoxContainer" unique_id=1239909540]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_0tnpc")
+
+[node name="ProvinceName" type="Label" parent="Russia/Saratov/Control/VBoxContainer/PanelContainer" unique_id=2017506711]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Russia/Saratov/Control/VBoxContainer" unique_id=1290175867]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="Russia/Saratov/Control/VBoxContainer/HBoxContainer" unique_id=1167394908]
+layout_mode = 2
+
+[node name="ResourceCount" type="Label" parent="Russia/Saratov/Control/VBoxContainer/HBoxContainer" unique_id=880724700]
+layout_mode = 2
+
+[node name="Path2D7" type="Path2D" parent="Russia/Saratov" unique_id=962547080]
+curve = SubResource("Curve2D_yhaf3")
+script = ExtResource("8_gee14")
+
+[node name="Path2D6" type="Path2D" parent="Russia/Saratov" unique_id=1493226903]
+curve = SubResource("Curve2D_1swxn")
+script = ExtResource("8_gee14")
+
+[node name="Path2D5" type="Path2D" parent="Russia/Saratov" unique_id=1345633766]
+curve = SubResource("Curve2D_ub10f")
+script = ExtResource("8_gee14")
+
+[node name="Path2D4" type="Path2D" parent="Russia/Saratov" unique_id=997781240]
+curve = SubResource("Curve2D_mpqr6")
+script = ExtResource("8_gee14")
+
+[node name="Path2D3" type="Path2D" parent="Russia/Saratov" unique_id=106561202]
+curve = SubResource("Curve2D_q6tk8")
+script = ExtResource("8_gee14")
+
+[node name="Path2D2" type="Path2D" parent="Russia/Saratov" unique_id=689127727]
+curve = SubResource("Curve2D_e3n7k")
+script = ExtResource("8_gee14")
+
+[node name="Path2D" type="Path2D" parent="Russia/Saratov" unique_id=59675037]
+curve = SubResource("Curve2D_vpp0n")
+script = ExtResource("8_gee14")
+
+[node name="Line2D" type="Line2D" parent="." unique_id=706389308]
+visible = false
+points = PackedVector2Array(-50, -23, -40, -9, -39, 8, -24, 9, -11, 27, 48, 43, 66, 84, 86, 80, 80, 106, 96, 142, 150, 164, 361, 174, 361, 152, 367, 120, 387, 105, 371, 92, 364, 67, 352, 37, 338, 31, 342, 15, 314, -38, 286, -73, 289, -80, 315, -46, 320, -47, 321, -72, 318, -87, 309, -104, 298, -104, 276, -102, 274, -108, 252, -108, 240, -96, 173, -118, 148, -119, 142, -129, 113, -129, 99, -118, 102, -101, 90, -79, 66, -100, 42, -101, 30, -124, -21, -131, -20, -119, -41, -104, -37, -95, -51, -83, -45, -74, -43, -31)
+closed = true
+width = 1.0
+default_color = Color(1, 1, 1, 0.78431374)
+joint_mode = 2
+
+[connection signal="timeout" from="GlobalTimer" to="." method="_on_global_timer_timeout"]
+[connection signal="timeout" from="GlobalDayTimer" to="." method="_on_global_day_timer_timeout"]

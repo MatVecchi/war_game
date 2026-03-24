@@ -1,0 +1,34 @@
+mas vesna {
+    
+    agent ucraine:ucraine.asl {
+        beliefs:    address( localhost )
+                    port( 9081 )
+        goals:      start
+        ag-class:   vesna.VesnaAgent
+        join:       wp
+    }
+
+    agent russia:russia.asl {
+        beliefs:    address( localhost )
+                    port( 9080 )
+        goals:      start
+        ag-class:   vesna.VesnaAgent
+        join:       wp
+    }
+
+    agent lithuania:lithuania.asl {
+        beliefs:    address( localhost )
+                    port( 9082 )
+        goals:      start
+        ag-class:   vesna.VesnaAgent
+        join:       wp
+    }
+
+    workspace wp {
+        artifact coffee_machine: vesna.playgrounds.office.CoffeeMachine( "common", 1 )
+        artifact cup1: vesna.playgrounds.office.Cup( "common" )
+        artifact cup2: vesna.playgrounds.office.Cup( "common" )
+        artifact cup3: vesna.playgrounds.office.Cup( "common" )
+    }
+
+}

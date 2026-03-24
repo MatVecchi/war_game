@@ -1,0 +1,177 @@
+[gd_scene format=3 uid="uid://cx6mfagal8ll4"]
+
+[ext_resource type="Script" uid="uid://cmpx3noks68u0" path="res://scripts/HUD.gd" id="1_ahhtf"]
+
+[node name="Control" type="Control" unique_id=260816110]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ahhtf")
+
+[node name="PanelContainer" type="PanelContainer" parent="." unique_id=1813667870]
+layout_mode = 0
+offset_right = 115.0
+offset_bottom = 58.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer" unique_id=794068103]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="PanelContainer/VBoxContainer" unique_id=842090230]
+layout_mode = 2
+text = "Giocatori:"
+
+[node name="AgentSelector" type="OptionButton" parent="PanelContainer/VBoxContainer" unique_id=1700147692]
+layout_mode = 2
+selected = 1
+item_count = 2
+popup/item_0/text = "VISTE"
+popup/item_0/id = 0
+popup/item_0/disabled = true
+popup/item_0/separator = true
+popup/item_1/text = "Spettatore"
+popup/item_1/id = 1
+
+[node name="PanelContainer2" type="PanelContainer" parent="." unique_id=1218842223]
+visible = false
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.96500003
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -0.32000732
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer2" unique_id=816191978]
+layout_mode = 2
+
+[node name="PlayerName" type="Label" parent="PanelContainer2/HBoxContainer" unique_id=793184685]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="PanelContainer2/HBoxContainer" unique_id=13029504]
+layout_mode = 2
+text = ":"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer2/HBoxContainer" unique_id=1669854757]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer2/HBoxContainer/VBoxContainer" unique_id=2021199584]
+layout_mode = 2
+
+[node name="Position" type="Label" parent="PanelContainer2/HBoxContainer/VBoxContainer/HBoxContainer" unique_id=6392583]
+layout_mode = 2
+
+[node name="Label2" type="Label" parent="PanelContainer2/HBoxContainer/VBoxContainer/HBoxContainer" unique_id=472312417]
+layout_mode = 2
+text = "°"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="PanelContainer2/HBoxContainer/VBoxContainer" unique_id=1820619148]
+layout_mode = 2
+
+[node name="PointsCount" type="Label" parent="PanelContainer2/HBoxContainer/VBoxContainer/HBoxContainer2" unique_id=1564178566]
+layout_mode = 2
+
+[node name="Label2" type="Label" parent="PanelContainer2/HBoxContainer/VBoxContainer/HBoxContainer2" unique_id=414098815]
+layout_mode = 2
+text = "/ 1000"
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer2/HBoxContainer" unique_id=1189845502]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 50
+theme_override_constants/margin_right = 50
+
+[node name="ResourceContainer" type="HBoxContainer" parent="PanelContainer2/HBoxContainer/MarginContainer" unique_id=115582553]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=667403852]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -67.0
+offset_bottom = 40.0
+grow_horizontal = 0
+
+[node name="PanelContainer3" type="PanelContainer" parent="VBoxContainer" unique_id=1777035911]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/PanelContainer3" unique_id=1525877357]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/PanelContainer3/HBoxContainer" unique_id=1079533394]
+layout_mode = 2
+text = "Giorno: "
+
+[node name="DayCycle" type="Label" parent="VBoxContainer/PanelContainer3/HBoxContainer" unique_id=516091417]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer" unique_id=843246741]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/VBoxContainer" unique_id=47699391]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/VBoxContainer/HBoxContainer" unique_id=341060521]
+layout_mode = 2
+text = "Time scale:"
+
+[node name="TimeScale" type="Label" parent="VBoxContainer/VBoxContainer/HBoxContainer" unique_id=1217207770]
+layout_mode = 2
+
+[node name="HScrollBar" type="HScrollBar" parent="VBoxContainer/VBoxContainer" unique_id=726886901]
+layout_mode = 2
+min_value = 1.0
+step = 1.0
+value = 1.0
+
+[node name="Leaderboard" type="PanelContainer" parent="." unique_id=2071998876]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Leaderboard" unique_id=2129504546]
+layout_mode = 2
+
+[node name="MatchOverText" type="Label" parent="Leaderboard/VBoxContainer" unique_id=1381832866]
+visible = false
+layout_mode = 2
+text = "PARTITA TERMINATA"
+horizontal_alignment = 1
+
+[node name="Label2" type="Label" parent="Leaderboard/VBoxContainer" unique_id=937111475]
+layout_mode = 2
+text = "Classifica:"
+
+[node name="PlayerList" type="VBoxContainer" parent="Leaderboard/VBoxContainer" unique_id=757226672]
+layout_mode = 2
+
+[node name="Button" type="Button" parent="." unique_id=110331019]
+layout_mode = 0
+offset_left = 1.0
+offset_top = 64.0
+offset_right = 81.0
+offset_bottom = 95.0
+text = "Classifica"
+
+[connection signal="gui_input" from="PanelContainer" to="." method="_on_panel_container_gui_input"]
+[connection signal="mouse_entered" from="PanelContainer" to="." method="_on_panel_container_mouse_entered"]
+[connection signal="mouse_exited" from="PanelContainer" to="." method="_on_panel_container_mouse_exited"]
+[connection signal="item_selected" from="PanelContainer/VBoxContainer/AgentSelector" to="." method="_on_agent_selector_item_selected"]
+[connection signal="scrolling" from="VBoxContainer/VBoxContainer/HScrollBar" to="." method="_on_h_scroll_bar_scrolling"]
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
