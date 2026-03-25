@@ -1424,6 +1424,7 @@ texture = ExtResource("5_0tnpc")
 
 [node name="Ucraina" type="Node2D" parent="." unique_id=90512913]
 script = ExtResource("6_p57ef")
+PORT = 9081
 
 [node name="Kharkov" type="Area2D" parent="Ucraina" unique_id=1312982784]
 position = Vector2(260, -39)
@@ -2268,6 +2269,7 @@ uppercase = true
 
 [node name="Lituania" type="Node2D" parent="." unique_id=194198678]
 script = ExtResource("6_p57ef")
+PORT = 9082
 
 [node name="Control" type="Control" parent="Lituania" unique_id=1317036708]
 z_index = 1
@@ -3103,6 +3105,7 @@ script = ExtResource("8_gee14")
 
 [node name="Russia" type="Node2D" parent="." unique_id=958607592]
 script = ExtResource("6_p57ef")
+PORT = 9080
 
 [node name="Control" type="Control" parent="Russia" unique_id=809405281]
 z_index = 1

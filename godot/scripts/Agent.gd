@@ -26,6 +26,11 @@ var perfectly_known_armies: Dictionary[Army, int] = {}
 var known_armies: Dictionary[Army, int] = {}
 var player_in_war: Array[Agent] = []
 var armies: Array[Army] = []
+var tcp_server := TCPServer.new()
+var ws := WebSocketPeer.new()
+var end_communication = true
+
+@export var PORT : int
 
 @onready var player_name_control: Control = $Control
 @onready var player_name_label: Label = $Control/PlayerName
@@ -109,6 +114,33 @@ func _ready() -> void:
 	
 	player_name_label.text = name
 	update_name_position()
+	
+	if tcp_server.listen( PORT ) != OK:
+		push_error( "Unable to start the srver" )
+		set_process( false )
+		
+func _process(_delta: float) -> void:
+	while tcp_server.is_connection_available():
+		var conn : StreamPeerTCP = tcp_server.take_connection()
+		assert( conn != null )
+		ws.accept_stream( conn )
+	ws.poll()
+	if ws.get_ready_state() == WebSocketPeer.STATE_OPEN:
+		while ws.get_available_packet_count():
+			var msg : String = ws.get_packet().get_string_from_ascii()
+			var intention : Dictionary = JSON.parse_string( msg )
+			#print(intention)
+			manage( intention )
+			
+func manage(message: Dictionary) -> void:
+	var sender : String = message['sender']
+	var receiver : String = message['receiver']
+	var type : String = message[ 'type' ]
+	var data : Dictionary = message[ 'data' ]
+	
+func _exit_tree() -> void:
+	ws.close()
+	tcp_server.stop()
 	
 func _on_global_hour_timer_timeout() -> void:
 	var total_army_daily_cost: Dictionary[Enums.Resources, int] = {
