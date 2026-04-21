@@ -30,7 +30,7 @@ public class CountryAgent extends VesnaAgent {
             "sender": [sender],
             "receiver": vesna,
             "data": {
-                "type": "another_new_my_armie",
+                "type": "another_new_my_armies",
                 "id": [id],
                 "position": {
                     "x": [position.x],
@@ -42,8 +42,13 @@ public class CountryAgent extends VesnaAgent {
     private void handle_another_new_my_armie(JSONObject sight){
         long id = sight.getLong("id");
         JSONObject coords = sight.getJSONObject("position");
-        Literal bel = createLiteral("another_my_army", createNumber(id), createLiteral(createNumber(coords.getDouble("x"), coords.getDouble("y"))));
-        addBel(bel);
+        Literal bel = createLiteral("another_my_army", createNumber(id), createLiteral("pos", createNumber(coords.getDouble("x")), createNumber(coords.getDouble("y"))));
+        
+        try {
+            addBel(bel);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     /*
@@ -78,7 +83,7 @@ public class CountryAgent extends VesnaAgent {
     }
 
     @Override
-    public void handle_sight(JSONObject sight) {
+    protected void handle_sight(JSONObject sight) {
         String object = sight.getString("type");
         switch (object) {
             case "another_new_my_armie":
@@ -93,7 +98,7 @@ public class CountryAgent extends VesnaAgent {
 
     // handle_event takes all the data from an event and senses a perception
     @Override
-    private void handle_event( JSONObject event ) {
+    protected void handle_event( JSONObject event ) {
         String event_type = event.getString( "type" );
         String event_status = event.getString( "status" );
         String event_reason = event.getString( "reason" );

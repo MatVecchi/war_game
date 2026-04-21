@@ -79,7 +79,7 @@ public class VesnaAgent extends Agent{
     }
 
     // sense signals the mind about a perception
-    private void sense( Literal perception ) {
+    protected void sense( Literal perception ) {
         try {
             Message signal = new Message( "signal", my_name, my_name , perception );
             getTS().getAgArch().sendMsg( signal );
@@ -89,7 +89,7 @@ public class VesnaAgent extends Agent{
     }
 
     // handle_event takes all the data from an event and senses a perception
-    private void handle_event( JSONObject event ) {
+    protected void handle_event( JSONObject event ) {
         String event_type = event.getString( "type" );
         String event_status = event.getString( "status" );
         String event_reason = event.getString( "reason" );
@@ -98,7 +98,8 @@ public class VesnaAgent extends Agent{
     }
 
     // handle_sight takes all the data from a sight and adds a belief
-    private void handle_sight( JSONObject sight ) {
+    protected void handle_sight( JSONObject sight ) {
+        System.out.println("sight sbagliato");
         String object = sight.getString( "sight" );
         long id = sight.getLong( "id" );
         Literal sight_belief = createLiteral( "sight", createLiteral( object ), createNumber( id ) );
@@ -112,7 +113,6 @@ public class VesnaAgent extends Agent{
     // this function handles incoming messages from the body
     // available types are: signal, sight
     public void vesna_handle_msg( String msg ) {
-        System.out.println( "Received message: " + msg );
         JSONObject log = new JSONObject( msg );
         String sender = log.getString( "sender" );
         String receiver = log.getString( "receiver" );

@@ -28,7 +28,8 @@ var player_in_war: Array[Agent] = []
 var armies: Array[Army] = []
 var tcp_server := TCPServer.new()
 var ws := WebSocketPeer.new()
-var end_communication = true
+var connection_accepted: bool = false
+var end_communication: bool = true
 
 @export var PORT : int
 
@@ -116,7 +117,7 @@ func _ready() -> void:
 	update_name_position()
 	
 	if tcp_server.listen( PORT ) != OK:
-		push_error( "Unable to start the srver" )
+		push_error( "Unable to start the server" )
 		set_process( false )
 		
 func _process(_delta: float) -> void:
@@ -124,19 +125,44 @@ func _process(_delta: float) -> void:
 		var conn : StreamPeerTCP = tcp_server.take_connection()
 		assert( conn != null )
 		ws.accept_stream( conn )
+		
 	ws.poll()
 	if ws.get_ready_state() == WebSocketPeer.STATE_OPEN:
+		if not connection_accepted:
+			connection_accepted = true
+			initiating_communication()
+		
 		while ws.get_available_packet_count():
 			var msg : String = ws.get_packet().get_string_from_ascii()
 			var intention : Dictionary = JSON.parse_string( msg )
 			#print(intention)
 			manage( intention )
+
+func initiating_communication() -> void:
+	if ws.get_ready_state() != WebSocketPeer.STATE_OPEN: return
+	
+	var test: Dictionary = {
+			"type": "sight",
+			"sender": self.name,
+			"receiver": "vesna",
+			"data": {
+				"type": "another_new_my_armie",
+				"id": 1,
+				"position": {
+					"x": 200,
+					"y": 200
+				}
+			}
+		}
+		
+	ws.send_text(JSON.stringify(test))
 			
 func manage(message: Dictionary) -> void:
 	var sender : String = message['sender']
 	var receiver : String = message['receiver']
 	var type : String = message[ 'type' ]
 	var data : Dictionary = message[ 'data' ]
+	print(sender, " ", receiver, " ", type, " ", data)
 	
 func _exit_tree() -> void:
 	ws.close()

@@ -5,7 +5,7 @@
     : my_armies(Armies)
     & member(army(Id, Pos), Armies)
     & province(Target, _, _)
-<-  !find_army_by_id(Armies, Id, Army)
+<-  !find_army_by_id(Armies, Id, Army);
     vesna.order(Army, Target);
     .print("Army ordered").
 
@@ -13,8 +13,8 @@
 +!add_army_and_order(Id, Pos)
     : .my_name(Me) & my_armies(Q) & not member(army(Id, Pos), Q)
     <-
-        !append_my_armies(Id, Pos)
-        !order(Id, kiev)
+        !append_my_armies(Id, Pos);
+        !order(Id, kiev).
 
 @append[atomic]
 +!append_my_armies(Id, Pos)
@@ -69,3 +69,7 @@
     <- 
         !find_army_by_id(Tail, Id, Result).
 
++another_my_army(Id, Pos)
+    : true
+    <- 
+        !add_army_and_order(Id, Pos).

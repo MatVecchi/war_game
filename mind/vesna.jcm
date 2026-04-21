@@ -1,15 +1,14 @@
 mas vesna {
-    
-    agent ukraine:ukraine.asl {
+    agent russia:russia.asl {
         beliefs:    address( localhost )
-                    port( 9081 )
+                    port( 9080 )
         goals:      start
         ag-class:   vesna.CountryAgent
     }
 
-    agent russia:russia.asl {
+    agent ukraine:ukraine.asl {
         beliefs:    address( localhost )
-                    port( 9080 )
+                    port( 9081 )
         goals:      start
         ag-class:   vesna.CountryAgent
     }

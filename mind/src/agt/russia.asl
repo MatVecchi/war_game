@@ -5,4 +5,4 @@
     :   .my_name( Me )
     <-  +my_armies([]);
         +known_armies([]);
-        +perfectly_known_armies([]);
+        +perfectly_known_armies([]).

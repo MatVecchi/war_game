@@ -38,7 +38,7 @@ func _ready() -> void:
 		if el is not Agent: continue
 		var player = el as Agent
 		agent_list.append(el)
-		agent_selector.add_item(player.name)
+		agent_selector.add_item(player.name.capitalize())
 		agent_selector.set_item_metadata(agent_selector.item_count - 1, player)
 		
 	for k in MATERIAL_TEXTURES:
@@ -61,7 +61,7 @@ func _ready() -> void:
 		var container: HBoxContainer = HBoxContainer.new()
 		var label_name: Label = Label.new()
 		var label_points: Label = Label.new()
-		label_name.text = "%d° - %s:" % [i + 1, player_name]
+		label_name.text = "%d° - %s:" % [i + 1, player_name.capitalize()]
 		label_points.text = "%d pts" % [points]
 		label_points.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		label_points.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
@@ -99,7 +99,7 @@ func _on_agent_selector_item_selected(index: int) -> void:
 		agent_info_panel.hide()
 	else:
 		agent_info_panel.show()
-		player_name_label.text = player.name
+		player_name_label.text = player.name.capitalize()
 		
 		for k in MATERIAL_TEXTURES:
 			if player.resources[k] > 999 and player.resources[k] < 9_999:
@@ -149,7 +149,7 @@ func _on_timer_timeout():
 		var container: HBoxContainer = HBoxContainer.new()
 		var label_name: Label = Label.new()
 		var label_points: Label = Label.new()
-		label_name.text = "%d° - %s:" % [i + 1, player_name]
+		label_name.text = "%d° - %s:" % [i + 1, player_name.capitalize()]
 		label_points.text = "%d pts" % [points]
 		label_points.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		label_points.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
