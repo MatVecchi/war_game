@@ -2734,19 +2734,16 @@ scale = Vector2(0.39, 0.39)
 texture = ExtResource("5_kvpfn")
 
 [node name="Reference3" type="Sprite2D" parent="." unique_id=962097219]
-visible = false
 position = Vector2(-271, -224)
 scale = Vector2(0.61, 0.61)
 texture = ExtResource("8_dinhu")
 
 [node name="Reference2" type="Sprite2D" parent="." unique_id=380657170]
-visible = false
 position = Vector2(115, -44)
 scale = Vector2(0.6, 0.6)
 texture = ExtResource("5_vtaks")
 
 [node name="Reference" type="Sprite2D" parent="." unique_id=337092061]
-visible = false
 position = Vector2(-26, 98.00001)
 scale = Vector2(0.6, 0.6)
 texture = ExtResource("5_0tnpc")
