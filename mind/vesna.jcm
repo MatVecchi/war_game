@@ -19,4 +19,22 @@ mas vesna {
         goals:      start
         ag-class:   vesna.CountryAgent
     }
+    agent finland:finland.asl {
+        beliefs:    address( localhost )
+                    port( 9083 )
+        goals:      start
+        ag-class:   vesna.CountryAgent
+    }
+    agent sweden:sweden.asl {
+        beliefs:    address( localhost )
+                    port( 9084 )
+        goals:      start
+        ag-class:   vesna.CountryAgent
+    }
+    agent norway:norway.asl {
+        beliefs:    address( localhost )
+                    port( 9085 )
+        goals:      start
+        ag-class:   vesna.CountryAgent
+    }
 }

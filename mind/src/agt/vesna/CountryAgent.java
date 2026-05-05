@@ -82,10 +82,88 @@ public class CountryAgent extends VesnaAgent {
         }
     }
 
+    private void handle_state_update(JSONObject sight) {
+        try {
+            // Update resources
+            JSONObject resources = sight.getJSONObject("resources");
+            for (String key : resources.keySet()) {
+                sense(createLiteral("resource_update", createAtom(key), createNumber(resources.getInt(key))));
+            }
+
+            // Update my_armies
+            org.json.JSONArray myArmies = sight.getJSONArray("my_armies");
+            sense(createLiteral("clear_my_armies"));
+            for (int i = 0; i < myArmies.length(); i++) {
+                JSONObject army = myArmies.getJSONObject(i);
+                sense(createLiteral("my_army_update", createNumber(army.getLong("id")), createNumber(army.getDouble("x")), createNumber(army.getDouble("y")), createNumber(army.getDouble("life"))));
+            }
+
+            // Update allied provinces
+            org.json.JSONArray allied = sight.getJSONArray("allied_provinces");
+            sense(createLiteral("clear_allied_provinces"));
+            for (int i = 0; i < allied.length(); i++) {
+                JSONObject prov = allied.getJSONObject(i);
+                sense(createLiteral("allied_province_update", createAtom(prov.getString("id")), createNumber(prov.getInt("morale"))));
+            }
+
+            // Update enemy provinces
+            org.json.JSONArray enemies = sight.getJSONArray("enemy_provinces");
+            sense(createLiteral("clear_enemy_provinces"));
+            for (int i = 0; i < enemies.length(); i++) {
+                JSONObject prov = enemies.getJSONObject(i);
+                sense(createLiteral("enemy_province_update", createAtom(prov.getString("id")), createAtom(prov.getString("owner")), createAtom(prov.getBoolean("has_army") ? "true" : "false")));
+            }
+
+            // Update nation strengths
+            JSONObject strengths = sight.getJSONObject("nation_strengths");
+            for (String key : strengths.keySet()) {
+                sense(createLiteral("nation_strength_update", createAtom(key), createNumber(strengths.getInt(key))));
+            }
+            
+            // Update neighbor nations resources
+            if (sight.has("neighbor_nations")) {
+                sense(createLiteral("clear_neighbor_nations"));
+                JSONObject neighborsData = sight.getJSONObject("neighbor_nations");
+                for (String neighborName : neighborsData.keySet()) {
+                    JSONObject neighborRes = neighborsData.getJSONObject(neighborName);
+                    for (String resName : neighborRes.keySet()) {
+                        sense(createLiteral("neighbor_resource_update", createAtom(neighborName), createAtom(resName), createNumber(neighborRes.getInt(resName))));
+                    }
+                }
+            }
+            
+            // Update active wars
+            sense(createLiteral("active_wars_update", createNumber(sight.getInt("active_wars"))));
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void handle_foreign_army_moving(JSONObject sight) {
+        try {
+            long id = sight.getLong("id");
+            String owner = sight.getString("owner");
+            double x = sight.getDouble("x");
+            double y = sight.getDouble("y");
+            double nextX = sight.getDouble("next_x");
+            double nextY = sight.getDouble("next_y");
+            sense(createLiteral("foreign_army_moving", createNumber(id), createAtom(owner), createNumber(x), createNumber(y), createNumber(nextX), createNumber(nextY)));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     @Override
     protected void handle_sight(JSONObject sight) {
         String object = sight.getString("type");
         switch (object) {
+            case "state_update":
+                handle_state_update(sight);
+                break;
+            case "foreign_army_moving":
+                handle_foreign_army_moving(sight);
+                break;
             case "another_new_my_armie":
                 handle_another_new_my_armie(sight);
                 break;

@@ -1304,6 +1304,1332 @@ _data = {
 }
 point_count = 2
 
+[sub_resource type="Curve2D" id="Curve2D_qkuf6"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -86, -161, 0, 0, 0, 0, -85, -145)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_nri4r"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -86, -161, 0, 0, 0, 0, -105, -162)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_pvp8v"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -72, -213, 0, 0, 0, 0, -84, -221)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_rjakg"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -72, -213, 0, 0, 0, 0, -73, -241)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_addpb"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -72, -213, 0, 0, 0, 0, -72, -189)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_mtq6s"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -86, -161, 0, 0, 0, 0, -71, -149)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_kkdm3"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -86, -161, 0, 0, 0, 0, -72, -189)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_hvrij"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -120, -164, 0, 0, 0, 0, -119, -182)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_k6q4l"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -120, -164, 0, 0, 0, 0, -138, -147)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_p0oue"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -120, -164, 0, 0, 0, 0, -113, -154)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_7qjva"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -120, -164, 0, 0, 0, 0, -105, -162)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_xsid7"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -147, -138, 0, 0, 0, 0, -176, -165)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_cbnbf"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -147, -138, 0, 0, 0, 0, -199, -149)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_vjgfe"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -147, -138, 0, 0, 0, 0, -173, -123)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_efgwv"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -147, -138, 0, 0, 0, 0, -138, -147)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_hq3h4"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -203, -213, 0, 0, 0, 0, -201, -217)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_iy3bn"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -204, -220, 0, 0, 0, 0, -201, -217)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_p2lbs"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -194, -217, 0, 0, 0, 0, -188, -229)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_va6gw"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -156, -198, 0, 0, 0, 0, -141, -198)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_sfqmp"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -194, -217, 0, 0, 0, 0, -201, -217)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_gik8r"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -156, -198, 0, 0, 0, 0, -201, -217)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_r2em3"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -176, -165, 0, 0, 0, 0, -201, -217)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_rwqnn"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -181, -243, 0, 0, 0, 0, -162, -269)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_3e2xi"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -181, -243, 0, 0, 0, 0, -182, -246)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_13sc1"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -181, -243, 0, 0, 0, 0, -187, -241)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_5a2j0"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -136, -228, 0, 0, 0, 0, -142, -237)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_b1uho"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -181, -243, 0, 0, 0, 0, -142, -237)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_gpphh"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -181, -243, 0, 0, 0, 0, -188, -229)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_ilysl"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -107, -241, 0, 0, 0, 0, -128, -259)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_pgf4p"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -107, -241, 0, 0, 0, 0, -112, -280)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_wigk3"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -107, -241, 0, 0, 0, 0, -88, -266)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_bwgkb"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -107, -241, 0, 0, 0, 0, -96, -219)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_1xm1f"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -84, -221, 0, 0, 0, 0, -96, -219)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_gmgdt"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -95, -207, 0, 0, 0, 0, -96, -219)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_36io8"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -95, -207, 0, 0, 0, 0, -103, -206)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_pcasu"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -105, -203, 0, 0, 0, 0, -103, -206)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_khak0"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -105, -203, 0, 0, 0, 0, -119, -200)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_sy3rc"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -119, -182, 0, 0, 0, 0, -119, -200)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_1yrp2"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -121, -215, 0, 0, 0, 0, -119, -200)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_m0uyi"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -137, -218, 0, 0, 0, 0, -136, -228)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_b20fr"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -137, -218, 0, 0, 0, 0, -130, -208)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_du2mt"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -141, -198, 0, 0, 0, 0, -130, -208)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_mf601"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -121, -215, 0, 0, 0, 0, -130, -208)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_xo71w"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -176, -305, 0, 0, 0, 0, -175, -302)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_y70ak"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -155, -282, 0, 0, 0, 0, -162, -269)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_ygvfk"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -155, -282, 0, 0, 0, 0, -157, -294)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_uqibq"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -128, -259, 0, 0, 0, 0, -157, -294)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_no60i"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -176, -305, 0, 0, 0, 0, -157, -294)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_xa3wu"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -176, -305, 0, 0, 0, 0, -154, -309)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_kxin7"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -176, -305, 0, 0, 0, 0, -179, -321)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_2gupq"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -176, -305, 0, 0, 0, 0, -182, -309)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_y8e17"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -154, -309, 0, 0, 0, 0, -126, -322)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_4re6s"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -117, -340, 0, 0, 0, 0, -126, -322)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_njubb"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -117, -340, 0, 0, 0, 0, -112, -280)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_gm21d"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -117, -340, 0, 0, 0, 0, -102, -314)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_b44pw"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -117, -340, 0, 0, 0, 0, -109, -351)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_u6e2w"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -117, -340, 0, 0, 0, 0, -126, -344)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_yjy37"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -126, -344, 0, 0, 0, 0, -144, -348)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_jq3bb"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -120, -368, 0, 0, 0, 0, -144, -348)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_rx2l1"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -189, -369, 0, 0, 0, 0, -144, -348)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_88h0r"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -189, -369, 0, 0, 0, 0, -179, -321)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_nt10u"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -189, -369, 0, 0, 0, 0, -194, -352)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_kmq7a"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -189, -369, 0, 0, 0, 0, -228, -396)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_kvc1h"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -189, -369, 0, 0, 0, 0, -195, -387)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_2sxbw"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -189, -369, 0, 0, 0, 0, -171, -395)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_ub2lh"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -163, -412, 0, 0, 0, 0, -144, -396)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_puduu"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -163, -412, 0, 0, 0, 0, -156, -433)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_ajskd"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -163, -412, 0, 0, 0, 0, -177, -414)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_b27rm"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -163, -412, 0, 0, 0, 0, -171, -395)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_a2unp"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -194, -352, 0, 0, 0, 0, -198, -345)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_2dol1"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -200, -320, 0, 0, 0, 0, -198, -345)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_kufl7"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -200, -320, 0, 0, 0, 0, -182, -309)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_5prpo"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -274, -353, 0, 0, 0, 0, -264, -357)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_6ayyo"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -231, -345, 0, 0, 0, 0, -264, -357)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_e3pfn"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -231, -345, 0, 0, 0, 0, -242, -378)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_yfuyu"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -231, -345, 0, 0, 0, 0, -206, -295)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_qmnfn"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -228, -302, 0, 0, 0, 0, -206, -295)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_d0aju"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -217, -282, 0, 0, 0, 0, -206, -295)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_dy8ei"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -200, -320, 0, 0, 0, 0, -206, -295)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_vh2bu"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -201, -296, 0, 0, 0, 0, -206, -295)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_8mmbw"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -272, -297, 0, 0, 0, 0, -254, -309)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_pv8hx"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -287, -321, 0, 0, 0, 0, -254, -309)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_kqppc"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -228, -302, 0, 0, 0, 0, -254, -309)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_7mn41"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -243, -285, 0, 0, 0, 0, -254, -309)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_7ogn3"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -223, -237, 0, 0, 0, 0, -216, -239)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_4bjq3"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -223, -237, 0, 0, 0, 0, -220, -233)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_6pj24"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -223, -237, 0, 0, 0, 0, -269, -246)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_5fv6d"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -223, -237, 0, 0, 0, 0, -246, -227)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_7wlbl"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -221, -251, 0, 0, 0, 0, -217, -282)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_pcsve"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -221, -251, 0, 0, 0, 0, -209, -259)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_auk3x"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -221, -251, 0, 0, 0, 0, -223, -237)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_wef10"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -243, -285, 0, 0, 0, 0, -223, -237)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_miaxa"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -297, -272, 0, 0, 0, 0, -299, -306)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_6do15"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -297, -272, 0, 0, 0, 0, -304, -248)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_gfj4p"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -310, -253, 0, 0, 0, 0, -304, -248)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_hbygm"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -304, -238, 0, 0, 0, 0, -304, -248)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_imcp2"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -304, -238, 0, 0, 0, 0, -272, -297)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_v4rd6"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -304, -238, 0, 0, 0, 0, -269, -246)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_ujb6d"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -304, -238, 0, 0, 0, 0, -310, -240)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_p14ii"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -304, -238, 0, 0, 0, 0, -315, -224)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_im3ew"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -304, -238, 0, 0, 0, 0, -289, -221)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_u58h7"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -254, -199, 0, 0, 0, 0, -261, -199)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_qsriq"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -255, -216, 0, 0, 0, 0, -261, -199)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_grwcq"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -263, -190, 0, 0, 0, 0, -289, -170)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_7b2a0"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -263, -190, 0, 0, 0, 0, -268, -164)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_e4t2i"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -246, -227, 0, 0, 0, 0, -255, -216)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_1f6y8"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -263, -190, 0, 0, 0, 0, -261, -199)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_0pfl8"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -263, -190, 0, 0, 0, 0, -260, -189)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_q0i7y"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -263, -190, 0, 0, 0, 0, -289, -221)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_pieqp"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -314, -152, 0, 0, 0, 0, -289, -170)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_tx6kw"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -337, -180, 0, 0, 0, 0, -327, -175)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_u46n8"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -337, -196, 0, 0, 0, 0, -327, -175)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_42msm"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -314, -152, 0, 0, 0, 0, -327, -175)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_sw1yn"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -315, -224, 0, 0, 0, 0, -319, -193)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_jb1xo"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -314, -152, 0, 0, 0, 0, -319, -193)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_m6iyp"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -314, -152, 0, 0, 0, 0, -332, -152)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_yj7if"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -314, -152, 0, 0, 0, 0, -315, -139)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_jk05w"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -314, -152, 0, 0, 0, 0, -295, -145)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_jbv3x"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -291, -84, 0, 0, 0, 0, -296, -86)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_06p2q"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -291, -84, 0, 0, 0, 0, -278, -87)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_qcusv"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -279, -70, 0, 0, 0, 0, -278, -87)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_u8c0n"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -271, -94, 0, 0, 0, 0, -278, -87)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_kcsak"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -271, -94, 0, 0, 0, 0, -283, -99)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_asf15"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -277, -113, 0, 0, 0, 0, -283, -99)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_uxcym"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -277, -113, 0, 0, 0, 0, -290, -113)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_smnyp"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -277, -113, 0, 0, 0, 0, -257, -114)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_1i038"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -295, -145, 0, 0, 0, 0, -257, -114)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_tpxoq"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -269, -156, 0, 0, 0, 0, -268, -164)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_0gfuk"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -269, -156, 0, 0, 0, 0, -257, -114)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_jyvru"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -249, -99, 0, 0, 0, 0, -257, -114)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_20lod"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -249, -99, 0, 0, 0, 0, -237, -121)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_8uimq"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -249, -99, 0, 0, 0, 0, -245, -100)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_4oahq"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -320, -99, 0, 0, 0, 0, -322, -95)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_rurm5"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -367, -96, 0, 0, 0, 0, -351, -106)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_uwcs2"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -320, -99, 0, 0, 0, 0, -351, -106)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_2yjds"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -320, -99, 0, 0, 0, 0, -364, -123)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_px7d8"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -320, -99, 0, 0, 0, 0, -315, -139)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_dqsf0"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -320, -99, 0, 0, 0, 0, -290, -113)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_dyl6d"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -349, -49, 0, 0, 0, 0, -352, -41)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_ksb2s"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -356, -59, 0, 0, 0, 0, -349, -54)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_mpyfy"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -296, -86, 0, 0, 0, 0, -300, -87)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_5jpo1"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -330, -70, 0, 0, 0, 0, -300, -87)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_lpc0p"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -330, -70, 0, 0, 0, 0, -322, -95)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_pvep5"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -330, -70, 0, 0, 0, 0, -349, -54)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_my0au"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -349, -49, 0, 0, 0, 0, -349, -54)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_q7yg4"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -349, -49, 0, 0, 0, 0, -318, -34)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_605lc"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -278, -17, 0, 0, 0, 0, -272, -41)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_acdvy"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -278, -17, 0, 0, 0, 0, -279, -70)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_yldb2"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -278, -17, 0, 0, 0, 0, -318, -34)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_a10iv"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -278, -17, 0, 0, 0, 0, -277, -11)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_sgar4"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -155, -441, 0, 0, 0, 0, -156, -433)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_hs5s8"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -155, -441, 0, 0, 0, 0, -167, -436)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_hpuv6"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -155, -441, 0, 0, 0, 0, -136, -450)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_aaano"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -122, -449, 0, 0, 0, 0, -136, -450)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_tpy2o"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -138, -456, 0, 0, 0, 0, -136, -450)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_6bh8u"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -204, -419, 0, 0, 0, 0, -218, -427)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_ciug7"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -204, -419, 0, 0, 0, 0, -227, -405)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_ybn2i"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -204, -419, 0, 0, 0, 0, -195, -387)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_7jdpi"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -204, -419, 0, 0, 0, 0, -177, -414)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_wrn52"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -204, -419, 0, 0, 0, 0, -167, -436)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_64ern"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -276, -357, 0, 0, 0, 0, -261, -370)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_a4gw7"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -261, -380, 0, 0, 0, 0, -261, -370)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_hom8c"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -261, -380, 0, 0, 0, 0, -240, -400)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_5bxyc"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -242, -378, 0, 0, 0, 0, -240, -400)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_4ntpd"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -228, -396, 0, 0, 0, 0, -240, -400)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_eyfjv"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -227, -405, 0, 0, 0, 0, -240, -400)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_d010q"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -244, -412, 0, 0, 0, 0, -247, -414)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_1w40j"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -244, -412, 0, 0, 0, 0, -240, -400)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_3rhd8"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -306, -305, 0, 0, 0, 0, -302, -317)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_5lvcx"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -299, -306, 0, 0, 0, 0, -302, -317)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_pegr8"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -302, -324, 0, 0, 0, 0, -302, -317)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_yl840"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -279, -353, 0, 0, 0, 0, -276, -357)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_1daa3"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -279, -353, 0, 0, 0, 0, -274, -353)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_y3asc"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -279, -353, 0, 0, 0, 0, -296, -324)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_3wai8"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -287, -321, 0, 0, 0, 0, -296, -324)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_b7myh"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -302, -324, 0, 0, 0, 0, -296, -324)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_nw68j"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -302, -324, 0, 0, 0, 0, -306, -329)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_dnku8"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -310, -253, 0, 0, 0, 0, -319, -260)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_3i1kj"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -331, -257, 0, 0, 0, 0, -319, -260)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_0dsg3"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -331, -257, 0, 0, 0, 0, -335, -249)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_5v2dm"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -331, -257, 0, 0, 0, 0, -347, -258)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_dbsko"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -331, -257, 0, 0, 0, 0, -306, -305)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_y0n1n"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -310, -240, 0, 0, 0, 0, -324, -245)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_kb2fq"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -340, -238, 0, 0, 0, 0, -324, -245)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_heoyc"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -340, -238, 0, 0, 0, 0, -335, -249)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_3cl0f"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -340, -238, 0, 0, 0, 0, -352, -216)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_yubjc"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -337, -196, 0, 0, 0, 0, -352, -216)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_5wpub"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -360, -220, 0, 0, 0, 0, -352, -216)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_dhicf"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -372, -215, 0, 0, 0, 0, -367, -217)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_jpb7g"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -373, -225, 0, 0, 0, 0, -367, -217)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_mdhgk"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -360, -220, 0, 0, 0, 0, -367, -217)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_bp30l"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -372, -215, 0, 0, 0, 0, -392, -202)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_3uc5b"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -398, -214, 0, 0, 0, 0, -392, -202)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_v7ox8"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -410, -192, 0, 0, 0, 0, -392, -202)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_iyesh"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -337, -180, 0, 0, 0, 0, -345, -184)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_fj3ai"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -410, -192, 0, 0, 0, 0, -345, -184)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_d3wgx"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -374, -157, 0, 0, 0, 0, -400, -178)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_83siq"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -391, -158, 0, 0, 0, 0, -400, -178)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_tiw1a"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -410, -192, 0, 0, 0, 0, -400, -178)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_aa3uy"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -410, -192, 0, 0, 0, 0, -408, -172)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_tnp05"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -410, -192, 0, 0, 0, 0, -425, -197)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_cosht"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -408, -154, 0, 0, 0, 0, -408, -172)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_jdjp1"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -408, -154, 0, 0, 0, 0, -422, -145)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_61wi5"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -418, -137, 0, 0, 0, 0, -422, -145)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_5agg0"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -441, -134, 0, 0, 0, 0, -422, -145)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_605u8"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -441, -134, 0, 0, 0, 0, -447, -131)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_1eilm"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -441, -134, 0, 0, 0, 0, -447, -134)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_8k7ds"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -393, -145, 0, 0, 0, 0, -391, -158)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_tshkq"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -393, -145, 0, 0, 0, 0, -417, -122)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_y4616"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -418, -137, 0, 0, 0, 0, -417, -122)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_t8eta"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -440, -74, 0, 0, 0, 0, -417, -122)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_r4krd"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -440, -74, 0, 0, 0, 0, -385, -114)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_w47dr"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -440, -74, 0, 0, 0, 0, -408, -63)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_r8xxj"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -440, -74, 0, 0, 0, 0, -450, -85)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_k1kjl"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -440, -74, 0, 0, 0, 0, -443, -70)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_nk75x"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -332, -152, 0, 0, 0, 0, -351, -145)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_hwjc1"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -369, -125, 0, 0, 0, 0, -351, -145)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_2p0c4"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -369, -125, 0, 0, 0, 0, -374, -157)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_vufli"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -369, -125, 0, 0, 0, 0, -364, -123)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_d8ho2"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -369, -125, 0, 0, 0, 0, -371, -119)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_snk1t"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -369, -125, 0, 0, 0, 0, -385, -114)
+}
+point_count = 2
+
 [node name="Game" type="Node2D" unique_id=63633635]
 script = ExtResource("1_lbhrr")
 time_multiplier = 50.0
@@ -1408,16 +2734,19 @@ scale = Vector2(0.39, 0.39)
 texture = ExtResource("5_kvpfn")
 
 [node name="Reference3" type="Sprite2D" parent="." unique_id=962097219]
+visible = false
 position = Vector2(-271, -224)
 scale = Vector2(0.61, 0.61)
 texture = ExtResource("8_dinhu")
 
 [node name="Reference2" type="Sprite2D" parent="." unique_id=380657170]
+visible = false
 position = Vector2(115, -44)
 scale = Vector2(0.6, 0.6)
 texture = ExtResource("5_vtaks")
 
 [node name="Reference" type="Sprite2D" parent="." unique_id=337092061]
+visible = false
 position = Vector2(-26, 98.00001)
 scale = Vector2(0.6, 0.6)
 texture = ExtResource("5_0tnpc")
@@ -4034,6 +5363,2670 @@ script = ExtResource("8_gee14")
 
 [node name="Path2D" type="Path2D" parent="lithuania/Klaipeda" unique_id=985540777]
 curve = SubResource("Curve2D_deyyv")
+script = ExtResource("8_gee14")
+
+[node name="finland" type="Node2D" parent="." unique_id=279981355]
+script = ExtResource("6_p57ef")
+PORT = 9083
+
+[node name="Control" type="Control" parent="finland" unique_id=855421899]
+z_index = 1
+layout_mode = 3
+anchors_preset = 0
+offset_left = 76.0
+offset_top = -91.0
+offset_right = 213.885
+offset_bottom = -51.0
+rotation = 0.51138145
+
+[node name="PlayerName" type="Label" parent="finland/Control" unique_id=1275757031]
+layout_mode = 0
+offset_left = -63.59282
+offset_top = 48.412052
+offset_right = 67.40718
+offset_bottom = 71.41205
+theme_override_colors/font_color = Color(1, 1, 1, 0.7490196)
+uppercase = true
+
+[node name="Viborg" type="Area2D" parent="finland" unique_id=781174882]
+collision_layer = 3
+collision_mask = 3
+script = ExtResource("3_lnu2h")
+province_material = 6
+startup_buildings = Array[int]([2])
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="finland/Viborg" unique_id=336806467]
+polygon = PackedVector2Array(-89, -146, -85, -145, -70, -144, -71, -149, -66, -150, -64, -155, -58, -154, -60, -158, -60, -161, -61, -162, -61, -165, -62, -167, -67, -170, -69, -167, -69, -163, -65, -160, -66, -159, -70, -159, -73, -158, -74, -156, -78, -156, -77, -160, -80, -163, -74, -162, -74, -168, -71, -171, -74, -174, -74, -177, -70, -180, -70, -185, -67, -188, -66, -196, -60, -195, -58, -192, -57, -194, -46, -187, -44, -191, -46, -196, -50, -198, -52, -203, -44, -208, -40, -203, -37, -203, -40, -213, -45, -212, -46, -215, -43, -221, -48, -230, -55, -230, -59, -233, -62, -233, -64, -235, -67, -234, -71, -241, -73, -241, -76, -240, -78, -235, -83, -232, -80, -230, -80, -226, -85, -229, -86, -228, -86, -222, -84, -221, -86, -218, -82, -214, -82, -209, -85, -206, -80, -206, -79, -201, -75, -198, -75, -193, -75, -191, -78, -194, -80, -193, -81, -195, -81, -198, -85, -204, -87, -204, -88, -202, -96, -200, -96, -197, -92, -189, -89, -188, -89, -198, -84, -200, -83, -195, -85, -193, -83, -190, -88, -185, -97, -187, -101, -180, -99, -177, -94, -177, -91, -176, -90, -172, -96, -169, -101, -168, -105, -173, -105, -162, -104, -152, -97, -150, -95, -155, -91, -156, -90, -160, -88, -158, -89, -155, -87, -152, -90, -150)
+
+[node name="Polygon2D" type="Polygon2D" parent="finland/Viborg" unique_id=840528439]
+color = Color(0.45359772, 0.43529403, 0.42440614, 1)
+metadata/id = 0
+
+[node name="ProvinceBorder" type="Line2D" parent="finland/Viborg" unique_id=1932235005]
+closed = true
+width = 0.3
+default_color = Color(1, 1, 1, 0.78431374)
+joint_mode = 2
+
+[node name="Node2D" parent="finland/Viborg" unique_id=1796529148 instance=ExtResource("7_gee14")]
+position = Vector2(-86, -161)
+
+[node name="Control" type="Control" parent="finland/Viborg" unique_id=1573895457]
+z_index = 2
+layout_mode = 3
+anchors_preset = 0
+offset_left = 36.0
+offset_top = -35.77
+offset_right = 76.0
+offset_bottom = 4.2299995
+pivot_offset = Vector2(19.865, 0)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="finland/Viborg/Control" unique_id=1308748965]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.25
+offset_bottom = -10.0
+alignment = 1
+
+[node name="PanelContainer" type="PanelContainer" parent="finland/Viborg/Control/VBoxContainer" unique_id=603010296]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_0tnpc")
+
+[node name="ProvinceName" type="Label" parent="finland/Viborg/Control/VBoxContainer/PanelContainer" unique_id=416254447]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="finland/Viborg/Control/VBoxContainer" unique_id=286479104]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="finland/Viborg/Control/VBoxContainer/HBoxContainer" unique_id=1600415737]
+layout_mode = 2
+
+[node name="ResourceCount" type="Label" parent="finland/Viborg/Control/VBoxContainer/HBoxContainer" unique_id=1578160814]
+layout_mode = 2
+
+[node name="Path2D6" type="Path2D" parent="finland/Viborg" unique_id=1621048189]
+curve = SubResource("Curve2D_qkuf6")
+script = ExtResource("8_gee14")
+
+[node name="Path2D6" type="Path2D" parent="finland/Viborg/Path2D6" unique_id=1888655080]
+curve = SubResource("Curve2D_nri4r")
+script = ExtResource("8_gee14")
+
+[node name="Path2D5" type="Path2D" parent="finland/Viborg" unique_id=1655123909]
+curve = SubResource("Curve2D_pvp8v")
+script = ExtResource("8_gee14")
+
+[node name="Path2D4" type="Path2D" parent="finland/Viborg" unique_id=467419664]
+curve = SubResource("Curve2D_rjakg")
+script = ExtResource("8_gee14")
+
+[node name="Path2D3" type="Path2D" parent="finland/Viborg" unique_id=899417461]
+curve = SubResource("Curve2D_addpb")
+script = ExtResource("8_gee14")
+
+[node name="Path2D" type="Path2D" parent="finland/Viborg" unique_id=1238815200]
+curve = SubResource("Curve2D_mtq6s")
+script = ExtResource("8_gee14")
+
+[node name="Path2D2" type="Path2D" parent="finland/Viborg" unique_id=1529656302]
+curve = SubResource("Curve2D_kkdm3")
+script = ExtResource("8_gee14")
+
+[node name="Kotka" type="Area2D" parent="finland" unique_id=114502596]
+collision_layer = 3
+collision_mask = 3
+script = ExtResource("3_lnu2h")
+double_material = true
+startup_buildings = Array[int]([2])
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="finland/Kotka" unique_id=111882217]
+polygon = PackedVector2Array(-104, -152, -113, -154, -115, -155, -118, -152, -124, -152, -127, -154, -137, -146, -138, -147, -144, -151, -144, -161, -146, -165, -146, -172, -140, -172, -135, -181, -130, -181, -129, -184, -127, -179, -121, -182, -119, -182, -112, -182, -110, -182, -105, -179, -104, -182, -101, -180, -99, -177, -94, -177, -91, -176, -90, -172, -96, -169, -101, -168, -105, -173, -105, -162)
+
+[node name="Polygon2D" type="Polygon2D" parent="finland/Kotka" unique_id=1076219736]
+color = Color(0.45359772, 0.43529403, 0.42440614, 1)
+metadata/id = 0
+
+[node name="ProvinceBorder" type="Line2D" parent="finland/Kotka" unique_id=127811652]
+closed = true
+width = 0.3
+default_color = Color(1, 1, 1, 0.78431374)
+joint_mode = 2
+
+[node name="Node2D" parent="finland/Kotka" unique_id=1498378818 instance=ExtResource("7_gee14")]
+position = Vector2(-120, -164)
+
+[node name="Control" type="Control" parent="finland/Kotka" unique_id=1136576674]
+z_index = 2
+layout_mode = 3
+anchors_preset = 0
+offset_left = 36.0
+offset_top = -35.77
+offset_right = 76.0
+offset_bottom = 4.2299995
+pivot_offset = Vector2(19.865, 0)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="finland/Kotka/Control" unique_id=1038218165]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.25
+offset_bottom = -10.0
+alignment = 1
+
+[node name="PanelContainer" type="PanelContainer" parent="finland/Kotka/Control/VBoxContainer" unique_id=1734292576]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_0tnpc")
+
+[node name="ProvinceName" type="Label" parent="finland/Kotka/Control/VBoxContainer/PanelContainer" unique_id=2143822733]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="finland/Kotka/Control/VBoxContainer" unique_id=794619531]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="finland/Kotka/Control/VBoxContainer/HBoxContainer" unique_id=268823064]
+layout_mode = 2
+
+[node name="ResourceCount" type="Label" parent="finland/Kotka/Control/VBoxContainer/HBoxContainer" unique_id=237869764]
+layout_mode = 2
+
+[node name="Path2D4" type="Path2D" parent="finland/Kotka" unique_id=1182257971]
+curve = SubResource("Curve2D_hvrij")
+script = ExtResource("8_gee14")
+
+[node name="Path2D3" type="Path2D" parent="finland/Kotka" unique_id=1645820141]
+curve = SubResource("Curve2D_k6q4l")
+script = ExtResource("8_gee14")
+
+[node name="Path2D2" type="Path2D" parent="finland/Kotka" unique_id=527219297]
+curve = SubResource("Curve2D_p0oue")
+script = ExtResource("8_gee14")
+
+[node name="Path2D" type="Path2D" parent="finland/Kotka" unique_id=1332295069]
+curve = SubResource("Curve2D_7qjva")
+script = ExtResource("8_gee14")
+
+[node name="Helsinki" type="Area2D" parent="finland" unique_id=643263952]
+collision_layer = 3
+collision_mask = 3
+script = ExtResource("3_lnu2h")
+province_material = 5
+startup_buildings = Array[int]([2, 0])
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="finland/Helsinki" unique_id=596579460]
+polygon = PackedVector2Array(-137, -146, -142, -132, -147, -133, -151, -127, -153, -127, -153, -130, -160, -128, -161, -124, -165, -125, -168, -123, -169, -120, -172, -120, -170, -123, -173, -123, -172, -125, -173, -127, -173, -135, -179, -133, -179, -136, -185, -136, -189, -140, -192, -139, -193, -141, -197, -141, -198, -142, -198, -146, -199, -149, -198, -151, -201, -154, -198, -155, -196, -158, -198, -161, -197, -172, -188, -161, -186, -162, -182, -161, -178, -162, -178, -164, -176, -165, -172, -166, -166, -162, -167, -168, -167, -170, -165, -171, -161, -168, -162, -165, -163, -162, -164, -161, -158, -157, -155, -160, -159, -162, -155, -163, -155, -167, -146, -172, -146, -165, -144, -161, -144, -151, -138, -147)
+
+[node name="Polygon2D" type="Polygon2D" parent="finland/Helsinki" unique_id=467241873]
+color = Color(0.45359772, 0.43529403, 0.42440614, 1)
+metadata/id = 0
+
+[node name="ProvinceBorder" type="Line2D" parent="finland/Helsinki" unique_id=1448459371]
+closed = true
+width = 0.3
+default_color = Color(1, 1, 1, 0.78431374)
+joint_mode = 2
+
+[node name="Node2D" parent="finland/Helsinki" unique_id=389090313 instance=ExtResource("7_gee14")]
+position = Vector2(-147, -138)
+
+[node name="Control" type="Control" parent="finland/Helsinki" unique_id=534195044]
+z_index = 2
+layout_mode = 3
+anchors_preset = 0
+offset_left = 36.0
+offset_top = -35.77
+offset_right = 76.0
+offset_bottom = 4.2299995
+pivot_offset = Vector2(19.865, 0)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="finland/Helsinki/Control" unique_id=1348428049]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.25
+offset_bottom = -10.0
+alignment = 1
+
+[node name="PanelContainer" type="PanelContainer" parent="finland/Helsinki/Control/VBoxContainer" unique_id=448870003]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_0tnpc")
+
+[node name="ProvinceName" type="Label" parent="finland/Helsinki/Control/VBoxContainer/PanelContainer" unique_id=301992270]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="finland/Helsinki/Control/VBoxContainer" unique_id=1182151755]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="finland/Helsinki/Control/VBoxContainer/HBoxContainer" unique_id=757542098]
+layout_mode = 2
+
+[node name="ResourceCount" type="Label" parent="finland/Helsinki/Control/VBoxContainer/HBoxContainer" unique_id=601404025]
+layout_mode = 2
+
+[node name="Path2D4" type="Path2D" parent="finland/Helsinki" unique_id=2094763136]
+curve = SubResource("Curve2D_xsid7")
+script = ExtResource("8_gee14")
+
+[node name="Path2D3" type="Path2D" parent="finland/Helsinki" unique_id=1604623113]
+curve = SubResource("Curve2D_cbnbf")
+script = ExtResource("8_gee14")
+
+[node name="Path2D2" type="Path2D" parent="finland/Helsinki" unique_id=289173279]
+curve = SubResource("Curve2D_vjgfe")
+script = ExtResource("8_gee14")
+
+[node name="Path2D" type="Path2D" parent="finland/Helsinki" unique_id=1295854852]
+curve = SubResource("Curve2D_efgwv")
+script = ExtResource("8_gee14")
+
+[node name="Vaasa" type="Area2D" parent="finland" unique_id=89295128]
+collision_layer = 3
+collision_mask = 3
+script = ExtResource("3_lnu2h")
+province_material = 4
+startup_buildings = Array[int]([2])
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="finland/Vaasa" unique_id=1568863512]
+polygon = PackedVector2Array(-197, -172, -198, -178, -202, -181, -203, -184, -201, -187, -206, -194, -207, -198, -208, -201, -207, -205, -208, -208, -204, -209, -205, -213, -203, -213, -204, -220, -196, -219, -192, -234, -188, -229, -184, -225, -182, -219, -171, -218, -164, -205, -157, -201, -151, -210, -148, -207, -144, -212, -149, -216, -149, -218, -145, -220, -141, -214, -143, -207, -142, -202, -141, -198, -140, -195, -143, -192, -143, -188, -146, -182, -146, -179, -145, -175, -146, -172, -155, -167, -161, -168, -165, -171, -165, -176, -164, -182, -160, -183, -160, -187, -158, -188, -158, -190, -162, -190, -162, -193, -166, -192, -169, -193, -169, -189, -165, -187, -166, -185, -169, -184, -171, -175, -170, -174, -168, -176, -168, -171, -167, -170, -167, -168, -170, -168, -172, -166, -176, -165, -178, -164, -178, -162, -182, -161, -186, -162, -188, -161)
+
+[node name="Polygon2D" type="Polygon2D" parent="finland/Vaasa" unique_id=516795706]
+color = Color(0.45359772, 0.43529403, 0.42440614, 1)
+metadata/id = 0
+
+[node name="ProvinceBorder" type="Line2D" parent="finland/Vaasa" unique_id=215660487]
+closed = true
+width = 0.3
+default_color = Color(1, 1, 1, 0.78431374)
+joint_mode = 2
+
+[node name="Node2D" parent="finland/Vaasa" unique_id=1948267298 instance=ExtResource("7_gee14")]
+position = Vector2(-201, -217)
+
+[node name="Control" type="Control" parent="finland/Vaasa" unique_id=1727834383]
+z_index = 2
+layout_mode = 3
+anchors_preset = 0
+offset_left = 36.0
+offset_top = -35.77
+offset_right = 76.0
+offset_bottom = 4.2299995
+pivot_offset = Vector2(19.865, 0)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="finland/Vaasa/Control" unique_id=1171338375]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.25
+offset_bottom = -10.0
+alignment = 1
+
+[node name="PanelContainer" type="PanelContainer" parent="finland/Vaasa/Control/VBoxContainer" unique_id=140476830]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_0tnpc")
+
+[node name="ProvinceName" type="Label" parent="finland/Vaasa/Control/VBoxContainer/PanelContainer" unique_id=1642097897]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="finland/Vaasa/Control/VBoxContainer" unique_id=1217451670]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="finland/Vaasa/Control/VBoxContainer/HBoxContainer" unique_id=54354553]
+layout_mode = 2
+
+[node name="ResourceCount" type="Label" parent="finland/Vaasa/Control/VBoxContainer/HBoxContainer" unique_id=74586178]
+layout_mode = 2
+
+[node name="Path2D7" type="Path2D" parent="finland/Vaasa" unique_id=1545201876]
+curve = SubResource("Curve2D_hq3h4")
+script = ExtResource("8_gee14")
+
+[node name="Path2D6" type="Path2D" parent="finland/Vaasa" unique_id=2063201658]
+curve = SubResource("Curve2D_iy3bn")
+script = ExtResource("8_gee14")
+
+[node name="Path2D4" type="Path2D" parent="finland/Vaasa" unique_id=883630711]
+curve = SubResource("Curve2D_p2lbs")
+script = ExtResource("8_gee14")
+
+[node name="Path2D3" type="Path2D" parent="finland/Vaasa" unique_id=155537571]
+curve = SubResource("Curve2D_va6gw")
+script = ExtResource("8_gee14")
+
+[node name="Path2D5" type="Path2D" parent="finland/Vaasa" unique_id=595399465]
+curve = SubResource("Curve2D_sfqmp")
+script = ExtResource("8_gee14")
+
+[node name="Path2D2" type="Path2D" parent="finland/Vaasa" unique_id=219984219]
+curve = SubResource("Curve2D_gik8r")
+script = ExtResource("8_gee14")
+
+[node name="Path2D" type="Path2D" parent="finland/Vaasa" unique_id=890464332]
+curve = SubResource("Curve2D_r2em3")
+script = ExtResource("8_gee14")
+
+[node name="Kokkola" type="Area2D" parent="finland" unique_id=1138418224]
+collision_layer = 3
+collision_mask = 3
+script = ExtResource("3_lnu2h")
+province_material = 6
+startup_buildings = Array[int]([2])
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="finland/Kokkola" unique_id=2071911]
+polygon = PackedVector2Array(-192, -234, -191, -238, -187, -241, -189, -247, -185, -248, -184, -245, -182, -246, -180, -247, -180, -249, -182, -251, -178, -251, -178, -256, -173, -256, -172, -266, -165, -273, -162, -269, -158, -265, -152, -262, -146, -262, -140, -264, -139, -259, -131, -255, -132, -251, -132, -246, -130, -241, -132, -238, -135, -236, -134, -229, -136, -228, -138, -228, -143, -232, -146, -229, -144, -226, -145, -220, -149, -218, -149, -216, -144, -212, -148, -207, -151, -210, -157, -201, -164, -205, -171, -218, -182, -219, -184, -225, -188, -229)
+
+[node name="Polygon2D" type="Polygon2D" parent="finland/Kokkola" unique_id=1534957713]
+color = Color(0.45359772, 0.43529403, 0.42440614, 1)
+metadata/id = 0
+
+[node name="ProvinceBorder" type="Line2D" parent="finland/Kokkola" unique_id=1637120563]
+closed = true
+width = 0.3
+default_color = Color(1, 1, 1, 0.78431374)
+joint_mode = 2
+
+[node name="Node2D" parent="finland/Kokkola" unique_id=660168391 instance=ExtResource("7_gee14")]
+position = Vector2(-181, -243)
+
+[node name="Control" type="Control" parent="finland/Kokkola" unique_id=921272958]
+z_index = 2
+layout_mode = 3
+anchors_preset = 0
+offset_left = 36.0
+offset_top = -35.77
+offset_right = 76.0
+offset_bottom = 4.2299995
+pivot_offset = Vector2(19.865, 0)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="finland/Kokkola/Control" unique_id=1432486482]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.25
+offset_bottom = -10.0
+alignment = 1
+
+[node name="PanelContainer" type="PanelContainer" parent="finland/Kokkola/Control/VBoxContainer" unique_id=140602227]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_0tnpc")
+
+[node name="ProvinceName" type="Label" parent="finland/Kokkola/Control/VBoxContainer/PanelContainer" unique_id=1376905974]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="finland/Kokkola/Control/VBoxContainer" unique_id=615155444]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="finland/Kokkola/Control/VBoxContainer/HBoxContainer" unique_id=268475501]
+layout_mode = 2
+
+[node name="ResourceCount" type="Label" parent="finland/Kokkola/Control/VBoxContainer/HBoxContainer" unique_id=478210047]
+layout_mode = 2
+
+[node name="Path2D6" type="Path2D" parent="finland/Kokkola" unique_id=1993177029]
+curve = SubResource("Curve2D_rwqnn")
+script = ExtResource("8_gee14")
+
+[node name="Path2D5" type="Path2D" parent="finland/Kokkola" unique_id=57769133]
+curve = SubResource("Curve2D_3e2xi")
+script = ExtResource("8_gee14")
+
+[node name="Path2D4" type="Path2D" parent="finland/Kokkola" unique_id=1178437059]
+curve = SubResource("Curve2D_13sc1")
+script = ExtResource("8_gee14")
+
+[node name="Path2D3" type="Path2D" parent="finland/Kokkola" unique_id=1496021223]
+curve = SubResource("Curve2D_5a2j0")
+script = ExtResource("8_gee14")
+
+[node name="Path2D2" type="Path2D" parent="finland/Kokkola" unique_id=1400726112]
+curve = SubResource("Curve2D_b1uho")
+script = ExtResource("8_gee14")
+
+[node name="Path2D" type="Path2D" parent="finland/Kokkola" unique_id=299786154]
+curve = SubResource("Curve2D_gpphh")
+script = ExtResource("8_gee14")
+
+[node name="Kuopio" type="Area2D" parent="finland" unique_id=112277803]
+collision_layer = 3
+collision_mask = 3
+script = ExtResource("3_lnu2h")
+province_material = 1
+double_material = true
+startup_buildings = Array[int]([2])
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="finland/Kuopio" unique_id=1685510516]
+polygon = PackedVector2Array(-140, -195, -141, -198, -140, -201, -140, -212, -141, -214, -136, -213, -137, -215, -140, -217, -140, -220, -142, -223, -137, -226, -138, -228, -136, -228, -134, -229, -133, -225, -134, -223, -134, -219, -132, -215, -128, -216, -127, -219, -127, -227, -126, -227, -120, -218, -118, -218, -117, -210, -110, -203, -107, -204, -110, -206, -112, -215, -107, -211, -107, -207, -106, -206, -105, -211, -101, -208, -97, -209, -100, -212, -104, -213, -107, -218, -110, -218, -107, -220, -113, -220, -114, -222, -112, -224, -111, -223, -107, -227, -108, -229, -111, -227, -115, -227, -117, -229, -119, -223, -124, -232, -124, -237, -130, -241, -132, -246, -132, -251, -131, -255, -129, -257, -128, -259, -126, -264, -123, -263, -116, -270, -112, -280, -106, -286, -100, -280, -96, -280, -95, -274, -95, -270, -93, -267, -89, -269, -88, -266, -86, -260, -93, -254, -85, -247, -79, -246, -76, -240, -78, -235, -83, -232, -84, -238, -90, -241, -93, -239, -96, -242, -103, -242, -103, -241, -104, -239, -97, -237, -92, -231, -90, -234, -85, -229, -86, -228, -86, -222, -84, -221, -86, -218, -87, -218, -89, -216, -87, -211, -93, -215, -93, -204, -96, -203, -97, -205, -102, -204, -103, -202, -110, -199, -110, -195, -111, -192, -111, -188, -110, -182, -112, -182, -119, -182, -121, -182, -125, -189)
+
+[node name="Polygon2D" type="Polygon2D" parent="finland/Kuopio" unique_id=491339051]
+color = Color(0.45359772, 0.43529403, 0.42440614, 1)
+metadata/id = 0
+
+[node name="ProvinceBorder" type="Line2D" parent="finland/Kuopio" unique_id=1749078854]
+closed = true
+width = 0.3
+default_color = Color(1, 1, 1, 0.78431374)
+joint_mode = 2
+
+[node name="Node2D" parent="finland/Kuopio" unique_id=273657683 instance=ExtResource("7_gee14")]
+position = Vector2(-121, -215)
+
+[node name="Control" type="Control" parent="finland/Kuopio" unique_id=558557354]
+z_index = 2
+layout_mode = 3
+anchors_preset = 0
+offset_left = 36.0
+offset_top = -35.77
+offset_right = 76.0
+offset_bottom = 4.2299995
+pivot_offset = Vector2(19.865, 0)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="finland/Kuopio/Control" unique_id=2046482283]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.25
+offset_bottom = -10.0
+alignment = 1
+
+[node name="PanelContainer" type="PanelContainer" parent="finland/Kuopio/Control/VBoxContainer" unique_id=113493777]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_0tnpc")
+
+[node name="ProvinceName" type="Label" parent="finland/Kuopio/Control/VBoxContainer/PanelContainer" unique_id=1827520622]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="finland/Kuopio/Control/VBoxContainer" unique_id=1607894690]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="finland/Kuopio/Control/VBoxContainer/HBoxContainer" unique_id=557806606]
+layout_mode = 2
+
+[node name="ResourceCount" type="Label" parent="finland/Kuopio/Control/VBoxContainer/HBoxContainer" unique_id=1463140450]
+layout_mode = 2
+
+[node name="Path2D15" type="Path2D" parent="finland/Kuopio" unique_id=1156163003]
+curve = SubResource("Curve2D_ilysl")
+script = ExtResource("8_gee14")
+
+[node name="Path2D14" type="Path2D" parent="finland/Kuopio" unique_id=1672210855]
+curve = SubResource("Curve2D_pgf4p")
+script = ExtResource("8_gee14")
+
+[node name="Path2D13" type="Path2D" parent="finland/Kuopio" unique_id=88702896]
+curve = SubResource("Curve2D_wigk3")
+script = ExtResource("8_gee14")
+
+[node name="Path2D12" type="Path2D" parent="finland/Kuopio" unique_id=867603981]
+curve = SubResource("Curve2D_bwgkb")
+script = ExtResource("8_gee14")
+
+[node name="Path2D11" type="Path2D" parent="finland/Kuopio" unique_id=1050998492]
+curve = SubResource("Curve2D_1xm1f")
+script = ExtResource("8_gee14")
+
+[node name="Path2D10" type="Path2D" parent="finland/Kuopio" unique_id=2108922623]
+curve = SubResource("Curve2D_gmgdt")
+script = ExtResource("8_gee14")
+
+[node name="Path2D9" type="Path2D" parent="finland/Kuopio" unique_id=1994634719]
+curve = SubResource("Curve2D_36io8")
+script = ExtResource("8_gee14")
+
+[node name="Path2D8" type="Path2D" parent="finland/Kuopio" unique_id=169395691]
+curve = SubResource("Curve2D_pcasu")
+script = ExtResource("8_gee14")
+
+[node name="Path2D7" type="Path2D" parent="finland/Kuopio" unique_id=494138041]
+curve = SubResource("Curve2D_khak0")
+script = ExtResource("8_gee14")
+
+[node name="Path2D6" type="Path2D" parent="finland/Kuopio" unique_id=421477847]
+curve = SubResource("Curve2D_sy3rc")
+script = ExtResource("8_gee14")
+
+[node name="Path2D5" type="Path2D" parent="finland/Kuopio" unique_id=16250772]
+curve = SubResource("Curve2D_1yrp2")
+script = ExtResource("8_gee14")
+
+[node name="Path2D4" type="Path2D" parent="finland/Kuopio" unique_id=758330895]
+curve = SubResource("Curve2D_m0uyi")
+script = ExtResource("8_gee14")
+
+[node name="Path2D3" type="Path2D" parent="finland/Kuopio" unique_id=1222842681]
+curve = SubResource("Curve2D_b20fr")
+script = ExtResource("8_gee14")
+
+[node name="Path2D2" type="Path2D" parent="finland/Kuopio" unique_id=187637480]
+curve = SubResource("Curve2D_du2mt")
+script = ExtResource("8_gee14")
+
+[node name="Path2D" type="Path2D" parent="finland/Kuopio" unique_id=450683591]
+curve = SubResource("Curve2D_mf601")
+script = ExtResource("8_gee14")
+
+[node name="Tornio" type="Area2D" parent="finland" unique_id=1448683974]
+collision_layer = 3
+collision_mask = 3
+script = ExtResource("3_lnu2h")
+province_material = 4
+startup_buildings = Array[int]([2])
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="finland/Tornio" unique_id=717650580]
+polygon = PackedVector2Array(-165, -273, -158, -279, -160, -282, -160, -294, -165, -295, -175, -302, -180, -302, -182, -309, -184, -312, -185, -312, -187, -320, -179, -321, -171, -323, -159, -312, -154, -309, -142, -304, -140, -299, -143, -294, -135, -282, -135, -278, -132, -270, -126, -264, -128, -259, -129, -257, -131, -255, -139, -259, -140, -264, -146, -262, -152, -262, -158, -265, -162, -269)
+
+[node name="Polygon2D" type="Polygon2D" parent="finland/Tornio" unique_id=752039358]
+color = Color(0.45359772, 0.43529403, 0.42440614, 1)
+metadata/id = 0
+
+[node name="ProvinceBorder" type="Line2D" parent="finland/Tornio" unique_id=1541170608]
+closed = true
+width = 0.3
+default_color = Color(1, 1, 1, 0.78431374)
+joint_mode = 2
+
+[node name="Node2D" parent="finland/Tornio" unique_id=15730316 instance=ExtResource("7_gee14")]
+position = Vector2(-176, -305)
+
+[node name="Control" type="Control" parent="finland/Tornio" unique_id=246571747]
+z_index = 2
+layout_mode = 3
+anchors_preset = 0
+offset_left = 36.0
+offset_top = -35.77
+offset_right = 76.0
+offset_bottom = 4.2299995
+pivot_offset = Vector2(19.865, 0)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="finland/Tornio/Control" unique_id=376842201]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.25
+offset_bottom = -10.0
+alignment = 1
+
+[node name="PanelContainer" type="PanelContainer" parent="finland/Tornio/Control/VBoxContainer" unique_id=1862823874]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_0tnpc")
+
+[node name="ProvinceName" type="Label" parent="finland/Tornio/Control/VBoxContainer/PanelContainer" unique_id=735083836]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="finland/Tornio/Control/VBoxContainer" unique_id=1722425696]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="finland/Tornio/Control/VBoxContainer/HBoxContainer" unique_id=2135122523]
+layout_mode = 2
+
+[node name="ResourceCount" type="Label" parent="finland/Tornio/Control/VBoxContainer/HBoxContainer" unique_id=700842219]
+layout_mode = 2
+
+[node name="Path2D8" type="Path2D" parent="finland/Tornio" unique_id=1081508179]
+curve = SubResource("Curve2D_xo71w")
+script = ExtResource("8_gee14")
+
+[node name="Path2D7" type="Path2D" parent="finland/Tornio" unique_id=1349544703]
+curve = SubResource("Curve2D_y70ak")
+script = ExtResource("8_gee14")
+
+[node name="Path2D6" type="Path2D" parent="finland/Tornio" unique_id=1496339088]
+curve = SubResource("Curve2D_ygvfk")
+script = ExtResource("8_gee14")
+
+[node name="Path2D5" type="Path2D" parent="finland/Tornio" unique_id=946220761]
+curve = SubResource("Curve2D_uqibq")
+script = ExtResource("8_gee14")
+
+[node name="Path2D4" type="Path2D" parent="finland/Tornio" unique_id=470430493]
+curve = SubResource("Curve2D_no60i")
+script = ExtResource("8_gee14")
+
+[node name="Path2D3" type="Path2D" parent="finland/Tornio" unique_id=594713426]
+curve = SubResource("Curve2D_xa3wu")
+script = ExtResource("8_gee14")
+
+[node name="Path2D2" type="Path2D" parent="finland/Tornio" unique_id=1997044492]
+curve = SubResource("Curve2D_kxin7")
+script = ExtResource("8_gee14")
+
+[node name="Path2D" type="Path2D" parent="finland/Tornio" unique_id=1123415813]
+curve = SubResource("Curve2D_2gupq")
+script = ExtResource("8_gee14")
+
+[node name="Kuusamo" type="Area2D" parent="finland" unique_id=2007524567]
+collision_layer = 3
+collision_mask = 3
+script = ExtResource("3_lnu2h")
+startup_buildings = Array[int]([2])
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="finland/Kuusamo" unique_id=973850253]
+polygon = PackedVector2Array(-159, -312, -154, -309, -142, -304, -140, -299, -143, -294, -135, -282, -135, -278, -132, -270, -126, -264, -123, -263, -116, -270, -112, -280, -106, -286, -103, -291, -105, -294, -109, -294, -107, -298, -104, -300, -109, -310, -108, -313, -103, -312, -102, -314, -100, -317, -102, -322, -107, -325, -106, -330, -108, -339, -106, -341, -110, -346, -109, -351, -107, -358, -112, -363, -118, -366, -120, -360, -127, -353, -126, -344, -124, -333, -128, -325, -146, -324, -155, -314)
+
+[node name="Polygon2D" type="Polygon2D" parent="finland/Kuusamo" unique_id=332330424]
+color = Color(0.45359772, 0.43529403, 0.42440614, 1)
+metadata/id = 0
+
+[node name="ProvinceBorder" type="Line2D" parent="finland/Kuusamo" unique_id=127431067]
+closed = true
+width = 0.3
+default_color = Color(1, 1, 1, 0.78431374)
+joint_mode = 2
+
+[node name="Node2D" parent="finland/Kuusamo" unique_id=1602775873 instance=ExtResource("7_gee14")]
+position = Vector2(-117, -340)
+
+[node name="Control" type="Control" parent="finland/Kuusamo" unique_id=399892263]
+z_index = 2
+layout_mode = 3
+anchors_preset = 0
+offset_left = 36.0
+offset_top = -35.77
+offset_right = 76.0
+offset_bottom = 4.2299995
+pivot_offset = Vector2(19.865, 0)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="finland/Kuusamo/Control" unique_id=2010564502]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.25
+offset_bottom = -10.0
+alignment = 1
+
+[node name="PanelContainer" type="PanelContainer" parent="finland/Kuusamo/Control/VBoxContainer" unique_id=409048560]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_0tnpc")
+
+[node name="ProvinceName" type="Label" parent="finland/Kuusamo/Control/VBoxContainer/PanelContainer" unique_id=1958260111]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="finland/Kuusamo/Control/VBoxContainer" unique_id=685511354]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="finland/Kuusamo/Control/VBoxContainer/HBoxContainer" unique_id=95826739]
+layout_mode = 2
+
+[node name="ResourceCount" type="Label" parent="finland/Kuusamo/Control/VBoxContainer/HBoxContainer" unique_id=100148555]
+layout_mode = 2
+
+[node name="Path2D6" type="Path2D" parent="finland/Kuusamo" unique_id=439464948]
+curve = SubResource("Curve2D_y8e17")
+script = ExtResource("8_gee14")
+
+[node name="Path2D5" type="Path2D" parent="finland/Kuusamo" unique_id=2344490]
+curve = SubResource("Curve2D_4re6s")
+script = ExtResource("8_gee14")
+
+[node name="Path2D4" type="Path2D" parent="finland/Kuusamo" unique_id=340581498]
+curve = SubResource("Curve2D_njubb")
+script = ExtResource("8_gee14")
+
+[node name="Path2D3" type="Path2D" parent="finland/Kuusamo" unique_id=1967704038]
+curve = SubResource("Curve2D_gm21d")
+script = ExtResource("8_gee14")
+
+[node name="Path2D2" type="Path2D" parent="finland/Kuusamo" unique_id=526804946]
+curve = SubResource("Curve2D_b44pw")
+script = ExtResource("8_gee14")
+
+[node name="Path2D" type="Path2D" parent="finland/Kuusamo" unique_id=516712766]
+curve = SubResource("Curve2D_u6e2w")
+script = ExtResource("8_gee14")
+
+[node name="Enontekiö" type="Area2D" parent="finland" unique_id=1428231216]
+collision_layer = 3
+collision_mask = 3
+script = ExtResource("3_lnu2h")
+province_material = 5
+startup_buildings = Array[int]([2])
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="finland/Enontekiö" unique_id=1259150671]
+polygon = PackedVector2Array(-187, -320, -184, -325, -185, -332, -188, -335, -195, -346, -191, -348, -191, -351, -194, -352, -196, -353, -196, -363, -203, -367, -206, -373, -216, -376, -218, -379, -228, -386, -234, -394, -232, -395, -229, -393, -226, -393, -228, -396, -225, -403, -218, -395, -215, -390, -212, -390, -211, -386, -205, -386, -201, -384, -195, -387, -189, -388, -190, -384, -181, -384, -180, -395, -176, -399, -171, -395, -165, -374, -168, -367, -160, -358, -154, -357, -143, -371, -134, -380, -126, -371, -120, -368, -118, -366, -120, -360, -127, -353, -126, -344, -124, -333, -128, -325, -146, -324, -155, -314, -159, -312, -171, -323, -179, -321)
+
+[node name="Polygon2D" type="Polygon2D" parent="finland/Enontekiö" unique_id=19433823]
+color = Color(0.45359772, 0.43529403, 0.42440614, 1)
+metadata/id = 0
+
+[node name="ProvinceBorder" type="Line2D" parent="finland/Enontekiö" unique_id=1916152877]
+closed = true
+width = 0.3
+default_color = Color(1, 1, 1, 0.78431374)
+joint_mode = 2
+
+[node name="Node2D" parent="finland/Enontekiö" unique_id=951547358 instance=ExtResource("7_gee14")]
+position = Vector2(-189, -369)
+
+[node name="Control" type="Control" parent="finland/Enontekiö" unique_id=836955983]
+z_index = 2
+layout_mode = 3
+anchors_preset = 0
+offset_left = 36.0
+offset_top = -35.77
+offset_right = 76.0
+offset_bottom = 4.2299995
+pivot_offset = Vector2(19.865, 0)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="finland/Enontekiö/Control" unique_id=522916737]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.25
+offset_bottom = -10.0
+alignment = 1
+
+[node name="PanelContainer" type="PanelContainer" parent="finland/Enontekiö/Control/VBoxContainer" unique_id=1527731662]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_0tnpc")
+
+[node name="ProvinceName" type="Label" parent="finland/Enontekiö/Control/VBoxContainer/PanelContainer" unique_id=582340307]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="finland/Enontekiö/Control/VBoxContainer" unique_id=934007203]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="finland/Enontekiö/Control/VBoxContainer/HBoxContainer" unique_id=436007281]
+layout_mode = 2
+
+[node name="ResourceCount" type="Label" parent="finland/Enontekiö/Control/VBoxContainer/HBoxContainer" unique_id=1237246586]
+layout_mode = 2
+
+[node name="Path2D8" type="Path2D" parent="finland/Enontekiö" unique_id=39490546]
+curve = SubResource("Curve2D_yjy37")
+script = ExtResource("8_gee14")
+
+[node name="Path2D7" type="Path2D" parent="finland/Enontekiö" unique_id=860934870]
+curve = SubResource("Curve2D_jq3bb")
+script = ExtResource("8_gee14")
+
+[node name="Path2D6" type="Path2D" parent="finland/Enontekiö" unique_id=977139241]
+curve = SubResource("Curve2D_rx2l1")
+script = ExtResource("8_gee14")
+
+[node name="Path2D5" type="Path2D" parent="finland/Enontekiö" unique_id=597064299]
+curve = SubResource("Curve2D_88h0r")
+script = ExtResource("8_gee14")
+
+[node name="Path2D4" type="Path2D" parent="finland/Enontekiö" unique_id=490882653]
+curve = SubResource("Curve2D_nt10u")
+script = ExtResource("8_gee14")
+
+[node name="Path2D3" type="Path2D" parent="finland/Enontekiö" unique_id=1794697097]
+curve = SubResource("Curve2D_kmq7a")
+script = ExtResource("8_gee14")
+
+[node name="Path2D2" type="Path2D" parent="finland/Enontekiö" unique_id=1952479827]
+curve = SubResource("Curve2D_kvc1h")
+script = ExtResource("8_gee14")
+
+[node name="Path2D" type="Path2D" parent="finland/Enontekiö" unique_id=1082202924]
+curve = SubResource("Curve2D_2sxbw")
+script = ExtResource("8_gee14")
+
+[node name="Inari" type="Area2D" parent="finland" unique_id=203063197]
+collision_layer = 3
+collision_mask = 3
+script = ExtResource("3_lnu2h")
+startup_buildings = Array[int]([2])
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="finland/Inari" unique_id=1928905103]
+polygon = PackedVector2Array(-176, -399, -175, -404, -177, -409, -177, -414, -176, -421, -171, -426, -165, -428, -160, -434, -157, -434, -156, -433, -144, -422, -145, -411, -140, -405, -143, -400, -144, -396, -144, -390, -143, -384, -140, -380, -134, -380, -143, -371, -154, -357, -160, -358, -168, -367, -165, -374, -171, -395)
+
+[node name="Polygon2D" type="Polygon2D" parent="finland/Inari" unique_id=730828059]
+color = Color(0.45359772, 0.43529403, 0.42440614, 1)
+metadata/id = 0
+
+[node name="ProvinceBorder" type="Line2D" parent="finland/Inari" unique_id=1487587801]
+closed = true
+width = 0.3
+default_color = Color(1, 1, 1, 0.78431374)
+joint_mode = 2
+
+[node name="Node2D" parent="finland/Inari" unique_id=1773400215 instance=ExtResource("7_gee14")]
+position = Vector2(-163, -412)
+
+[node name="Control" type="Control" parent="finland/Inari" unique_id=1834533075]
+z_index = 2
+layout_mode = 3
+anchors_preset = 0
+offset_left = 36.0
+offset_top = -35.77
+offset_right = 76.0
+offset_bottom = 4.2299995
+pivot_offset = Vector2(19.865, 0)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="finland/Inari/Control" unique_id=1491047739]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.25
+offset_bottom = -10.0
+alignment = 1
+
+[node name="PanelContainer" type="PanelContainer" parent="finland/Inari/Control/VBoxContainer" unique_id=931376946]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_0tnpc")
+
+[node name="ProvinceName" type="Label" parent="finland/Inari/Control/VBoxContainer/PanelContainer" unique_id=911561407]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="finland/Inari/Control/VBoxContainer" unique_id=155793449]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="finland/Inari/Control/VBoxContainer/HBoxContainer" unique_id=846702057]
+layout_mode = 2
+
+[node name="ResourceCount" type="Label" parent="finland/Inari/Control/VBoxContainer/HBoxContainer" unique_id=37323437]
+layout_mode = 2
+
+[node name="Path2D4" type="Path2D" parent="finland/Inari" unique_id=589513508]
+curve = SubResource("Curve2D_ub2lh")
+script = ExtResource("8_gee14")
+
+[node name="Path2D3" type="Path2D" parent="finland/Inari" unique_id=2116518995]
+curve = SubResource("Curve2D_puduu")
+script = ExtResource("8_gee14")
+
+[node name="Path2D2" type="Path2D" parent="finland/Inari" unique_id=715455312]
+curve = SubResource("Curve2D_ajskd")
+script = ExtResource("8_gee14")
+
+[node name="Path2D" type="Path2D" parent="finland/Inari" unique_id=1123050429]
+curve = SubResource("Curve2D_b27rm")
+script = ExtResource("8_gee14")
+
+[node name="sweden" type="Node2D" parent="." unique_id=999427712]
+script = ExtResource("6_p57ef")
+PORT = 9084
+
+[node name="Control" type="Control" parent="sweden" unique_id=801764366]
+z_index = 1
+layout_mode = 3
+anchors_preset = 0
+offset_left = 76.0
+offset_top = -91.0
+offset_right = 213.885
+offset_bottom = -51.0
+rotation = 0.51138145
+
+[node name="PlayerName" type="Label" parent="sweden/Control" unique_id=1343818399]
+layout_mode = 0
+offset_left = -63.59282
+offset_top = 48.412052
+offset_right = 67.40718
+offset_bottom = 71.41205
+theme_override_colors/font_color = Color(1, 1, 1, 0.7490196)
+uppercase = true
+
+[node name="Lulea" type="Area2D" parent="sweden" unique_id=2011622241]
+collision_layer = 3
+collision_mask = 3
+script = ExtResource("3_lnu2h")
+province_material = 1
+double_material = true
+startup_buildings = Array[int]([2])
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="sweden/Lulea" unique_id=1433767871]
+polygon = PackedVector2Array(-234, -394, -237, -392, -236, -387, -238, -384, -236, -379, -236, -376, -242, -378, -246, -381, -249, -379, -253, -383, -259, -378, -259, -369, -265, -362, -268, -363, -272, -360, -274, -356, -274, -353, -276, -349, -282, -347, -278, -345, -270, -346, -265, -353, -261, -353, -252, -348, -248, -343, -239, -336, -237, -328, -233, -326, -225, -319, -224, -313, -226, -308, -228, -302, -224, -291, -219, -282, -217, -282, -214, -281, -209, -286, -204, -284, -204, -289, -201, -296, -202, -300, -200, -301, -195, -301, -198, -304, -198, -314, -196, -313, -194, -307, -189, -300, -180, -302, -182, -309, -184, -312, -185, -312, -187, -320, -184, -325, -185, -332, -188, -335, -195, -346, -191, -348, -191, -351, -194, -352, -196, -353, -196, -363, -203, -367, -206, -373, -216, -376, -218, -379, -228, -386)
+
+[node name="Polygon2D" type="Polygon2D" parent="sweden/Lulea" unique_id=1935407459]
+color = Color(0.45359772, 0.43529403, 0.42440614, 1)
+metadata/id = 0
+
+[node name="ProvinceBorder" type="Line2D" parent="sweden/Lulea" unique_id=877273977]
+closed = true
+width = 0.3
+default_color = Color(1, 1, 1, 0.78431374)
+joint_mode = 2
+
+[node name="Node2D" parent="sweden/Lulea" unique_id=248683296 instance=ExtResource("7_gee14")]
+position = Vector2(-206, -295)
+
+[node name="Control" type="Control" parent="sweden/Lulea" unique_id=1814378861]
+z_index = 2
+layout_mode = 3
+anchors_preset = 0
+offset_left = 36.0
+offset_top = -35.77
+offset_right = 76.0
+offset_bottom = 4.2299995
+pivot_offset = Vector2(19.865, 0)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="sweden/Lulea/Control" unique_id=170832402]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.25
+offset_bottom = -10.0
+alignment = 1
+
+[node name="PanelContainer" type="PanelContainer" parent="sweden/Lulea/Control/VBoxContainer" unique_id=548935014]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_0tnpc")
+
+[node name="ProvinceName" type="Label" parent="sweden/Lulea/Control/VBoxContainer/PanelContainer" unique_id=1613389356]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="sweden/Lulea/Control/VBoxContainer" unique_id=915961221]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="sweden/Lulea/Control/VBoxContainer/HBoxContainer" unique_id=1193291453]
+layout_mode = 2
+
+[node name="ResourceCount" type="Label" parent="sweden/Lulea/Control/VBoxContainer/HBoxContainer" unique_id=1034336319]
+layout_mode = 2
+
+[node name="Path2D5" type="Path2D" parent="sweden/Lulea" unique_id=92502534]
+curve = SubResource("Curve2D_a2unp")
+script = ExtResource("8_gee14")
+
+[node name="Path2D4" type="Path2D" parent="sweden/Lulea" unique_id=1754178119]
+curve = SubResource("Curve2D_2dol1")
+script = ExtResource("8_gee14")
+
+[node name="Path2D3" type="Path2D" parent="sweden/Lulea" unique_id=351345589]
+curve = SubResource("Curve2D_kufl7")
+script = ExtResource("8_gee14")
+
+[node name="Path2D11" type="Path2D" parent="sweden/Lulea" unique_id=327991974]
+curve = SubResource("Curve2D_5prpo")
+script = ExtResource("8_gee14")
+
+[node name="Path2D10" type="Path2D" parent="sweden/Lulea" unique_id=1330754214]
+curve = SubResource("Curve2D_6ayyo")
+script = ExtResource("8_gee14")
+
+[node name="Path2D9" type="Path2D" parent="sweden/Lulea" unique_id=1990950313]
+curve = SubResource("Curve2D_e3pfn")
+script = ExtResource("8_gee14")
+
+[node name="Path2D8" type="Path2D" parent="sweden/Lulea" unique_id=358735053]
+curve = SubResource("Curve2D_yfuyu")
+script = ExtResource("8_gee14")
+
+[node name="Path2D7" type="Path2D" parent="sweden/Lulea" unique_id=1738990594]
+curve = SubResource("Curve2D_qmnfn")
+script = ExtResource("8_gee14")
+
+[node name="Path2D6" type="Path2D" parent="sweden/Lulea" unique_id=220934970]
+curve = SubResource("Curve2D_d0aju")
+script = ExtResource("8_gee14")
+
+[node name="Path2D2" type="Path2D" parent="sweden/Lulea" unique_id=811495418]
+curve = SubResource("Curve2D_dy8ei")
+script = ExtResource("8_gee14")
+
+[node name="Path2D" type="Path2D" parent="sweden/Lulea" unique_id=1460025553]
+curve = SubResource("Curve2D_vh2bu")
+script = ExtResource("8_gee14")
+
+[node name="Sorsele" type="Area2D" parent="sweden" unique_id=1976449817]
+collision_layer = 3
+collision_mask = 3
+script = ExtResource("3_lnu2h")
+province_material = 4
+double_material = true
+startup_buildings = Array[int]([2])
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="sweden/Sorsele" unique_id=176108415]
+polygon = PackedVector2Array(-282, -347, -280, -330, -287, -321, -288, -318, -284, -318, -278, -312, -277, -300, -272, -297, -268, -294, -271, -290, -268, -283, -260, -281, -260, -278, -255, -269, -248, -271, -246, -284, -243, -285, -232, -294, -224, -291, -228, -302, -226, -308, -224, -313, -225, -319, -233, -326, -237, -328, -239, -336, -248, -343, -252, -348, -261, -353, -265, -353, -270, -346, -278, -345)
+
+[node name="Polygon2D" type="Polygon2D" parent="sweden/Sorsele" unique_id=1858135011]
+color = Color(0.45359772, 0.43529403, 0.42440614, 1)
+metadata/id = 0
+
+[node name="ProvinceBorder" type="Line2D" parent="sweden/Sorsele" unique_id=760493922]
+closed = true
+width = 0.3
+default_color = Color(1, 1, 1, 0.78431374)
+joint_mode = 2
+
+[node name="Node2D" parent="sweden/Sorsele" unique_id=762442813 instance=ExtResource("7_gee14")]
+position = Vector2(-254, -309)
+
+[node name="Control" type="Control" parent="sweden/Sorsele" unique_id=1520789278]
+z_index = 2
+layout_mode = 3
+anchors_preset = 0
+offset_left = 36.0
+offset_top = -35.77
+offset_right = 76.0
+offset_bottom = 4.2299995
+pivot_offset = Vector2(19.865, 0)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="sweden/Sorsele/Control" unique_id=1636988692]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.25
+offset_bottom = -10.0
+alignment = 1
+
+[node name="PanelContainer" type="PanelContainer" parent="sweden/Sorsele/Control/VBoxContainer" unique_id=2030634840]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_0tnpc")
+
+[node name="ProvinceName" type="Label" parent="sweden/Sorsele/Control/VBoxContainer/PanelContainer" unique_id=1241233367]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="sweden/Sorsele/Control/VBoxContainer" unique_id=1362373319]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="sweden/Sorsele/Control/VBoxContainer/HBoxContainer" unique_id=1844704887]
+layout_mode = 2
+
+[node name="ResourceCount" type="Label" parent="sweden/Sorsele/Control/VBoxContainer/HBoxContainer" unique_id=800555722]
+layout_mode = 2
+
+[node name="Path2D4" type="Path2D" parent="sweden/Sorsele" unique_id=199824479]
+curve = SubResource("Curve2D_8mmbw")
+script = ExtResource("8_gee14")
+
+[node name="Path2D3" type="Path2D" parent="sweden/Sorsele" unique_id=187486479]
+curve = SubResource("Curve2D_pv8hx")
+script = ExtResource("8_gee14")
+
+[node name="Path2D2" type="Path2D" parent="sweden/Sorsele" unique_id=114076091]
+curve = SubResource("Curve2D_kqppc")
+script = ExtResource("8_gee14")
+
+[node name="Path2D" type="Path2D" parent="sweden/Sorsele" unique_id=2045657975]
+curve = SubResource("Curve2D_7mn41")
+script = ExtResource("8_gee14")
+
+[node name="Umea" type="Area2D" parent="sweden" unique_id=1248606336]
+collision_layer = 3
+collision_mask = 3
+script = ExtResource("3_lnu2h")
+startup_buildings = Array[int]([2])
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="sweden/Umea" unique_id=830891182]
+polygon = PackedVector2Array(-268, -283, -270, -278, -278, -277, -279, -274, -273, -269, -276, -252, -269, -246, -265, -242, -254, -241, -250, -232, -246, -227, -242, -221, -235, -220, -234, -224, -232, -227, -229, -227, -225, -232, -220, -233, -219, -236, -216, -239, -216, -245, -211, -252, -209, -251, -208, -257, -209, -259, -212, -261, -212, -264, -216, -268, -211, -271, -211, -277, -214, -281, -217, -282, -219, -282, -224, -291, -232, -294, -243, -285, -246, -284, -248, -271, -255, -269, -260, -278, -260, -281)
+
+[node name="Polygon2D" type="Polygon2D" parent="sweden/Umea" unique_id=317019989]
+color = Color(0.45359772, 0.43529403, 0.42440614, 1)
+metadata/id = 0
+
+[node name="ProvinceBorder" type="Line2D" parent="sweden/Umea" unique_id=346811635]
+closed = true
+width = 0.3
+default_color = Color(1, 1, 1, 0.78431374)
+joint_mode = 2
+
+[node name="Node2D" parent="sweden/Umea" unique_id=366455174 instance=ExtResource("7_gee14")]
+position = Vector2(-223, -237)
+
+[node name="Control" type="Control" parent="sweden/Umea" unique_id=1926759117]
+z_index = 2
+layout_mode = 3
+anchors_preset = 0
+offset_left = 36.0
+offset_top = -35.77
+offset_right = 76.0
+offset_bottom = 4.2299995
+pivot_offset = Vector2(19.865, 0)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="sweden/Umea/Control" unique_id=385607775]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.25
+offset_bottom = -10.0
+alignment = 1
+
+[node name="PanelContainer" type="PanelContainer" parent="sweden/Umea/Control/VBoxContainer" unique_id=1859702237]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_0tnpc")
+
+[node name="ProvinceName" type="Label" parent="sweden/Umea/Control/VBoxContainer/PanelContainer" unique_id=502464162]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="sweden/Umea/Control/VBoxContainer" unique_id=1709468551]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="sweden/Umea/Control/VBoxContainer/HBoxContainer" unique_id=2053587623]
+layout_mode = 2
+
+[node name="ResourceCount" type="Label" parent="sweden/Umea/Control/VBoxContainer/HBoxContainer" unique_id=1935434932]
+layout_mode = 2
+
+[node name="Path2D8" type="Path2D" parent="sweden/Umea" unique_id=1677206588]
+curve = SubResource("Curve2D_7ogn3")
+script = ExtResource("8_gee14")
+
+[node name="Path2D7" type="Path2D" parent="sweden/Umea" unique_id=944082170]
+curve = SubResource("Curve2D_4bjq3")
+script = ExtResource("8_gee14")
+
+[node name="Path2D6" type="Path2D" parent="sweden/Umea" unique_id=1425289238]
+curve = SubResource("Curve2D_6pj24")
+script = ExtResource("8_gee14")
+
+[node name="Path2D5" type="Path2D" parent="sweden/Umea" unique_id=1777092396]
+curve = SubResource("Curve2D_5fv6d")
+script = ExtResource("8_gee14")
+
+[node name="Path2D4" type="Path2D" parent="sweden/Umea" unique_id=1771303300]
+curve = SubResource("Curve2D_7wlbl")
+script = ExtResource("8_gee14")
+
+[node name="Path2D3" type="Path2D" parent="sweden/Umea" unique_id=1705543654]
+curve = SubResource("Curve2D_pcsve")
+script = ExtResource("8_gee14")
+
+[node name="Path2D2" type="Path2D" parent="sweden/Umea" unique_id=193252308]
+curve = SubResource("Curve2D_auk3x")
+script = ExtResource("8_gee14")
+
+[node name="Path2D" type="Path2D" parent="sweden/Umea" unique_id=1461816252]
+curve = SubResource("Curve2D_wef10")
+script = ExtResource("8_gee14")
+
+[node name="Östersund" type="Area2D" parent="sweden" unique_id=1305167676]
+collision_layer = 3
+collision_mask = 3
+script = ExtResource("3_lnu2h")
+province_material = 3
+startup_buildings = Array[int]([2])
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="sweden/Östersund" unique_id=1857352046]
+polygon = PackedVector2Array(-265, -242, -266, -237, -275, -229, -279, -230, -278, -233, -283, -235, -288, -230, -286, -226, -289, -221, -291, -219, -297, -223, -302, -225, -308, -225, -313, -223, -315, -224, -320, -228, -320, -234, -324, -241, -318, -242, -313, -238, -310, -240, -310, -242, -310, -245, -309, -248, -314, -250, -310, -253, -303, -268, -303, -303, -301, -306, -299, -306, -293, -307, -289, -313, -288, -318, -284, -318, -278, -312, -277, -300, -272, -297, -268, -294, -271, -290, -268, -283, -270, -278, -278, -277, -279, -274, -273, -269, -276, -252, -269, -246)
+
+[node name="Polygon2D" type="Polygon2D" parent="sweden/Östersund" unique_id=1505685306]
+color = Color(0.45359772, 0.43529403, 0.42440614, 1)
+metadata/id = 0
+
+[node name="ProvinceBorder" type="Line2D" parent="sweden/Östersund" unique_id=2094473042]
+closed = true
+width = 0.3
+default_color = Color(1, 1, 1, 0.78431374)
+joint_mode = 2
+
+[node name="Node2D" parent="sweden/Östersund" unique_id=1141911104 instance=ExtResource("7_gee14")]
+position = Vector2(-304, -238)
+
+[node name="Control" type="Control" parent="sweden/Östersund" unique_id=58822684]
+z_index = 2
+layout_mode = 3
+anchors_preset = 0
+offset_left = 36.0
+offset_top = -35.77
+offset_right = 76.0
+offset_bottom = 4.2299995
+pivot_offset = Vector2(19.865, 0)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="sweden/Östersund/Control" unique_id=1419704703]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.25
+offset_bottom = -10.0
+alignment = 1
+
+[node name="PanelContainer" type="PanelContainer" parent="sweden/Östersund/Control/VBoxContainer" unique_id=160080930]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_0tnpc")
+
+[node name="ProvinceName" type="Label" parent="sweden/Östersund/Control/VBoxContainer/PanelContainer" unique_id=1854961815]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="sweden/Östersund/Control/VBoxContainer" unique_id=1401890620]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="sweden/Östersund/Control/VBoxContainer/HBoxContainer" unique_id=389659806]
+layout_mode = 2
+
+[node name="ResourceCount" type="Label" parent="sweden/Östersund/Control/VBoxContainer/HBoxContainer" unique_id=1410766687]
+layout_mode = 2
+
+[node name="Path2D9" type="Path2D" parent="sweden/Östersund" unique_id=1853925157]
+curve = SubResource("Curve2D_miaxa")
+script = ExtResource("8_gee14")
+
+[node name="Path2D8" type="Path2D" parent="sweden/Östersund" unique_id=1268244495]
+curve = SubResource("Curve2D_6do15")
+script = ExtResource("8_gee14")
+
+[node name="Path2D7" type="Path2D" parent="sweden/Östersund" unique_id=278356560]
+curve = SubResource("Curve2D_gfj4p")
+script = ExtResource("8_gee14")
+
+[node name="Path2D6" type="Path2D" parent="sweden/Östersund" unique_id=602429772]
+curve = SubResource("Curve2D_hbygm")
+script = ExtResource("8_gee14")
+
+[node name="Path2D5" type="Path2D" parent="sweden/Östersund" unique_id=978708861]
+curve = SubResource("Curve2D_imcp2")
+script = ExtResource("8_gee14")
+
+[node name="Path2D4" type="Path2D" parent="sweden/Östersund" unique_id=1885598957]
+curve = SubResource("Curve2D_v4rd6")
+script = ExtResource("8_gee14")
+
+[node name="Path2D3" type="Path2D" parent="sweden/Östersund" unique_id=1007486926]
+curve = SubResource("Curve2D_ujb6d")
+script = ExtResource("8_gee14")
+
+[node name="Path2D2" type="Path2D" parent="sweden/Östersund" unique_id=401212416]
+curve = SubResource("Curve2D_p14ii")
+script = ExtResource("8_gee14")
+
+[node name="Path2D" type="Path2D" parent="sweden/Östersund" unique_id=470468707]
+curve = SubResource("Curve2D_im3ew")
+script = ExtResource("8_gee14")
+
+[node name="Sundsvall" type="Area2D" parent="sweden" unique_id=484376415]
+collision_layer = 3
+collision_mask = 3
+script = ExtResource("3_lnu2h")
+province_material = 6
+startup_buildings = Array[int]([2])
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="sweden/Sundsvall" unique_id=550299881]
+polygon = PackedVector2Array(-313, -223, -313, -221, -311, -216, -312, -212, -312, -207, -314, -203, -313, -195, -313, -187, -312, -181, -306, -176, -300, -178, -294, -176, -289, -170, -282, -159, -277, -162, -268, -164, -263, -166, -258, -168, -260, -173, -260, -182, -257, -186, -260, -189, -260, -195, -258, -195, -255, -193, -253, -193, -254, -199, -252, -201, -254, -208, -254, -212, -251, -206, -247, -204, -245, -206, -242, -206, -244, -209, -246, -209, -245, -213, -242, -215, -242, -221, -246, -227, -250, -232, -254, -241, -265, -242, -266, -237, -275, -229, -279, -230, -278, -233, -283, -235, -288, -230, -286, -226, -289, -221, -291, -219, -297, -223, -302, -225, -308, -225)
+
+[node name="Polygon2D" type="Polygon2D" parent="sweden/Sundsvall" unique_id=1075278777]
+color = Color(0.45359772, 0.43529403, 0.42440614, 1)
+metadata/id = 0
+
+[node name="ProvinceBorder" type="Line2D" parent="sweden/Sundsvall" unique_id=323082483]
+closed = true
+width = 0.3
+default_color = Color(1, 1, 1, 0.78431374)
+joint_mode = 2
+
+[node name="Node2D" parent="sweden/Sundsvall" unique_id=656770076 instance=ExtResource("7_gee14")]
+position = Vector2(-263, -190)
+
+[node name="Control" type="Control" parent="sweden/Sundsvall" unique_id=1555124703]
+z_index = 2
+layout_mode = 3
+anchors_preset = 0
+offset_left = 36.0
+offset_top = -35.77
+offset_right = 76.0
+offset_bottom = 4.2299995
+pivot_offset = Vector2(19.865, 0)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="sweden/Sundsvall/Control" unique_id=730751541]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.25
+offset_bottom = -10.0
+alignment = 1
+
+[node name="PanelContainer" type="PanelContainer" parent="sweden/Sundsvall/Control/VBoxContainer" unique_id=116997210]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_0tnpc")
+
+[node name="ProvinceName" type="Label" parent="sweden/Sundsvall/Control/VBoxContainer/PanelContainer" unique_id=207689782]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="sweden/Sundsvall/Control/VBoxContainer" unique_id=973444695]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="sweden/Sundsvall/Control/VBoxContainer/HBoxContainer" unique_id=1289495309]
+layout_mode = 2
+
+[node name="ResourceCount" type="Label" parent="sweden/Sundsvall/Control/VBoxContainer/HBoxContainer" unique_id=244970204]
+layout_mode = 2
+
+[node name="Path2D8" type="Path2D" parent="sweden/Sundsvall" unique_id=1197921438]
+curve = SubResource("Curve2D_u58h7")
+script = ExtResource("8_gee14")
+
+[node name="Path2D7" type="Path2D" parent="sweden/Sundsvall" unique_id=407810713]
+curve = SubResource("Curve2D_qsriq")
+script = ExtResource("8_gee14")
+
+[node name="Path2D6" type="Path2D" parent="sweden/Sundsvall" unique_id=2062418017]
+curve = SubResource("Curve2D_grwcq")
+script = ExtResource("8_gee14")
+
+[node name="Path2D5" type="Path2D" parent="sweden/Sundsvall" unique_id=554939361]
+curve = SubResource("Curve2D_7b2a0")
+script = ExtResource("8_gee14")
+
+[node name="Path2D4" type="Path2D" parent="sweden/Sundsvall" unique_id=131188914]
+curve = SubResource("Curve2D_e4t2i")
+script = ExtResource("8_gee14")
+
+[node name="Path2D3" type="Path2D" parent="sweden/Sundsvall" unique_id=1614866343]
+curve = SubResource("Curve2D_1f6y8")
+script = ExtResource("8_gee14")
+
+[node name="Path2D2" type="Path2D" parent="sweden/Sundsvall" unique_id=344048808]
+curve = SubResource("Curve2D_0pfl8")
+script = ExtResource("8_gee14")
+
+[node name="Path2D" type="Path2D" parent="sweden/Sundsvall" unique_id=2103171860]
+curve = SubResource("Curve2D_q0i7y")
+script = ExtResource("8_gee14")
+
+[node name="Malung" type="Area2D" parent="sweden" unique_id=20900716]
+collision_layer = 3
+collision_mask = 3
+script = ExtResource("3_lnu2h")
+startup_buildings = Array[int]([2])
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="sweden/Malung" unique_id=1044997721]
+polygon = PackedVector2Array(-324, -241, -331, -236, -336, -230, -338, -223, -335, -220, -338, -213, -334, -206, -337, -202, -337, -196, -339, -195, -338, -191, -336, -186, -337, -180, -338, -176, -338, -168, -334, -163, -331, -158, -332, -152, -332, -146, -327, -147, -319, -140, -315, -139, -306, -139, -297, -141, -295, -145, -289, -158, -282, -159, -289, -170, -294, -176, -300, -178, -306, -176, -312, -181, -313, -187, -313, -195, -314, -203, -312, -207, -312, -212, -311, -216, -313, -221, -313, -223, -315, -224, -320, -228, -320, -234)
+
+[node name="Polygon2D" type="Polygon2D" parent="sweden/Malung" unique_id=907551626]
+color = Color(0.45359772, 0.43529403, 0.42440614, 1)
+metadata/id = 0
+
+[node name="ProvinceBorder" type="Line2D" parent="sweden/Malung" unique_id=875067068]
+closed = true
+width = 0.3
+default_color = Color(1, 1, 1, 0.78431374)
+joint_mode = 2
+
+[node name="Node2D" parent="sweden/Malung" unique_id=345523525 instance=ExtResource("7_gee14")]
+position = Vector2(-314, -152)
+
+[node name="Control" type="Control" parent="sweden/Malung" unique_id=2026342451]
+z_index = 2
+layout_mode = 3
+anchors_preset = 0
+offset_left = 36.0
+offset_top = -35.77
+offset_right = 76.0
+offset_bottom = 4.2299995
+pivot_offset = Vector2(19.865, 0)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="sweden/Malung/Control" unique_id=129581138]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.25
+offset_bottom = -10.0
+alignment = 1
+
+[node name="PanelContainer" type="PanelContainer" parent="sweden/Malung/Control/VBoxContainer" unique_id=1670899640]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_0tnpc")
+
+[node name="ProvinceName" type="Label" parent="sweden/Malung/Control/VBoxContainer/PanelContainer" unique_id=1463778050]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="sweden/Malung/Control/VBoxContainer" unique_id=923324350]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="sweden/Malung/Control/VBoxContainer/HBoxContainer" unique_id=1351911240]
+layout_mode = 2
+
+[node name="ResourceCount" type="Label" parent="sweden/Malung/Control/VBoxContainer/HBoxContainer" unique_id=947126392]
+layout_mode = 2
+
+[node name="Path2D9" type="Path2D" parent="sweden/Malung" unique_id=1157009734]
+curve = SubResource("Curve2D_pieqp")
+script = ExtResource("8_gee14")
+
+[node name="Path2D8" type="Path2D" parent="sweden/Malung" unique_id=614414411]
+curve = SubResource("Curve2D_tx6kw")
+script = ExtResource("8_gee14")
+
+[node name="Path2D7" type="Path2D" parent="sweden/Malung" unique_id=1626951674]
+curve = SubResource("Curve2D_u46n8")
+script = ExtResource("8_gee14")
+
+[node name="Path2D6" type="Path2D" parent="sweden/Malung" unique_id=1476827447]
+curve = SubResource("Curve2D_42msm")
+script = ExtResource("8_gee14")
+
+[node name="Path2D5" type="Path2D" parent="sweden/Malung" unique_id=1246202707]
+curve = SubResource("Curve2D_sw1yn")
+script = ExtResource("8_gee14")
+
+[node name="Path2D4" type="Path2D" parent="sweden/Malung" unique_id=1360492591]
+curve = SubResource("Curve2D_jb1xo")
+script = ExtResource("8_gee14")
+
+[node name="Path2D3" type="Path2D" parent="sweden/Malung" unique_id=1037492981]
+curve = SubResource("Curve2D_m6iyp")
+script = ExtResource("8_gee14")
+
+[node name="Path2D2" type="Path2D" parent="sweden/Malung" unique_id=273239234]
+curve = SubResource("Curve2D_yj7if")
+script = ExtResource("8_gee14")
+
+[node name="Path2D" type="Path2D" parent="sweden/Malung" unique_id=1880356742]
+curve = SubResource("Curve2D_jk05w")
+script = ExtResource("8_gee14")
+
+[node name="Stockholm" type="Area2D" parent="sweden" unique_id=471773680]
+collision_layer = 3
+collision_mask = 3
+script = ExtResource("3_lnu2h")
+province_material = 1
+startup_buildings = Array[int]([2, 0])
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="sweden/Stockholm" unique_id=1974930501]
+polygon = PackedVector2Array(-297, -141, -291, -129, -287, -126, -286, -124, -286, -119, -291, -116, -290, -113, -289, -111, -298, -95, -288, -97, -283, -94, -276, -94, -275, -93, -278, -92, -285, -90, -292, -88, -296, -86, -298, -83, -299, -81, -299, -74, -297, -70, -290, -70, -288, -72, -279, -70, -275, -70, -268, -70, -269, -73, -276, -75, -278, -78, -274, -78, -270, -77, -266, -77, -268, -80, -258, -82, -255, -88, -251, -88, -248, -85, -246, -91, -242, -92, -244, -94, -251, -92, -260, -94, -262, -93, -264, -96, -272, -97, -279, -102, -269, -100, -263, -101, -255, -99, -255, -103, -258, -107, -257, -111, -252, -103, -252, -97, -247, -96, -245, -100, -242, -100, -234, -112, -237, -113, -237, -121, -244, -123, -247, -127, -252, -133, -255, -130, -258, -135, -261, -136, -264, -142, -262, -147, -264, -152, -263, -155, -266, -155, -263, -166, -268, -164, -277, -162, -282, -159, -289, -158)
+
+[node name="Polygon2D" type="Polygon2D" parent="sweden/Stockholm" unique_id=1727251447]
+color = Color(0.45359772, 0.43529403, 0.42440614, 1)
+metadata/id = 0
+
+[node name="ProvinceBorder" type="Line2D" parent="sweden/Stockholm" unique_id=596462793]
+closed = true
+width = 0.3
+default_color = Color(1, 1, 1, 0.78431374)
+joint_mode = 2
+
+[node name="Node2D" parent="sweden/Stockholm" unique_id=1804462167 instance=ExtResource("7_gee14")]
+position = Vector2(-249, -99)
+
+[node name="Control" type="Control" parent="sweden/Stockholm" unique_id=1996902886]
+z_index = 2
+layout_mode = 3
+anchors_preset = 0
+offset_left = 36.0
+offset_top = -35.77
+offset_right = 76.0
+offset_bottom = 4.2299995
+pivot_offset = Vector2(19.865, 0)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="sweden/Stockholm/Control" unique_id=90158122]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.25
+offset_bottom = -10.0
+alignment = 1
+
+[node name="PanelContainer" type="PanelContainer" parent="sweden/Stockholm/Control/VBoxContainer" unique_id=1535308597]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_0tnpc")
+
+[node name="ProvinceName" type="Label" parent="sweden/Stockholm/Control/VBoxContainer/PanelContainer" unique_id=24790180]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="sweden/Stockholm/Control/VBoxContainer" unique_id=658083058]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="sweden/Stockholm/Control/VBoxContainer/HBoxContainer" unique_id=1068160835]
+layout_mode = 2
+
+[node name="ResourceCount" type="Label" parent="sweden/Stockholm/Control/VBoxContainer/HBoxContainer" unique_id=1526346555]
+layout_mode = 2
+
+[node name="Path2D14" type="Path2D" parent="sweden/Stockholm" unique_id=1252054891]
+curve = SubResource("Curve2D_jbv3x")
+script = ExtResource("8_gee14")
+
+[node name="Path2D13" type="Path2D" parent="sweden/Stockholm" unique_id=1597906289]
+curve = SubResource("Curve2D_06p2q")
+script = ExtResource("8_gee14")
+
+[node name="Path2D12" type="Path2D" parent="sweden/Stockholm" unique_id=254702589]
+curve = SubResource("Curve2D_qcusv")
+script = ExtResource("8_gee14")
+
+[node name="Path2D11" type="Path2D" parent="sweden/Stockholm" unique_id=627580135]
+curve = SubResource("Curve2D_u8c0n")
+script = ExtResource("8_gee14")
+
+[node name="Path2D10" type="Path2D" parent="sweden/Stockholm" unique_id=100387626]
+curve = SubResource("Curve2D_kcsak")
+script = ExtResource("8_gee14")
+
+[node name="Path2D9" type="Path2D" parent="sweden/Stockholm" unique_id=1334272570]
+curve = SubResource("Curve2D_asf15")
+script = ExtResource("8_gee14")
+
+[node name="Path2D8" type="Path2D" parent="sweden/Stockholm" unique_id=1913466322]
+curve = SubResource("Curve2D_uxcym")
+script = ExtResource("8_gee14")
+
+[node name="Path2D7" type="Path2D" parent="sweden/Stockholm" unique_id=459439389]
+curve = SubResource("Curve2D_smnyp")
+script = ExtResource("8_gee14")
+
+[node name="Path2D6" type="Path2D" parent="sweden/Stockholm" unique_id=1483382881]
+curve = SubResource("Curve2D_1i038")
+script = ExtResource("8_gee14")
+
+[node name="Path2D5" type="Path2D" parent="sweden/Stockholm" unique_id=705958857]
+curve = SubResource("Curve2D_tpxoq")
+script = ExtResource("8_gee14")
+
+[node name="Path2D4" type="Path2D" parent="sweden/Stockholm" unique_id=664780448]
+curve = SubResource("Curve2D_0gfuk")
+script = ExtResource("8_gee14")
+
+[node name="Path2D3" type="Path2D" parent="sweden/Stockholm" unique_id=1068594280]
+curve = SubResource("Curve2D_jyvru")
+script = ExtResource("8_gee14")
+
+[node name="Path2D2" type="Path2D" parent="sweden/Stockholm" unique_id=2068952498]
+curve = SubResource("Curve2D_20lod")
+script = ExtResource("8_gee14")
+
+[node name="Path2D" type="Path2D" parent="sweden/Stockholm" unique_id=658127533]
+curve = SubResource("Curve2D_8uimq")
+script = ExtResource("8_gee14")
+
+[node name="Carlstad" type="Area2D" parent="sweden" unique_id=879905844]
+collision_layer = 3
+collision_mask = 3
+script = ExtResource("3_lnu2h")
+startup_buildings = Array[int]([2])
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="sweden/Carlstad" unique_id=753987276]
+polygon = PackedVector2Array(-298, -95, -303, -99, -306, -98, -311, -93, -313, -96, -315, -92, -318, -96, -322, -95, -326, -98, -331, -97, -327, -93, -329, -93, -337, -93, -342, -97, -346, -101, -350, -102, -350, -91, -358, -88, -367, -94, -367, -96, -369, -102, -367, -112, -364, -115, -365, -119, -364, -123, -362, -129, -354, -134, -350, -143, -332, -146, -327, -147, -319, -140, -315, -139, -306, -139, -297, -141, -291, -129, -287, -126, -286, -124, -286, -119, -291, -116, -290, -113, -289, -111)
+
+[node name="Polygon2D" type="Polygon2D" parent="sweden/Carlstad" unique_id=758590629]
+color = Color(0.45359772, 0.43529403, 0.42440614, 1)
+metadata/id = 0
+
+[node name="ProvinceBorder" type="Line2D" parent="sweden/Carlstad" unique_id=1939702805]
+closed = true
+width = 0.3
+default_color = Color(1, 1, 1, 0.78431374)
+joint_mode = 2
+
+[node name="Node2D" parent="sweden/Carlstad" unique_id=125691594 instance=ExtResource("7_gee14")]
+position = Vector2(-320, -99)
+
+[node name="Control" type="Control" parent="sweden/Carlstad" unique_id=81870347]
+z_index = 2
+layout_mode = 3
+anchors_preset = 0
+offset_left = 36.0
+offset_top = -35.77
+offset_right = 76.0
+offset_bottom = 4.2299995
+pivot_offset = Vector2(19.865, 0)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="sweden/Carlstad/Control" unique_id=637103194]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.25
+offset_bottom = -10.0
+alignment = 1
+
+[node name="PanelContainer" type="PanelContainer" parent="sweden/Carlstad/Control/VBoxContainer" unique_id=969562849]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_0tnpc")
+
+[node name="ProvinceName" type="Label" parent="sweden/Carlstad/Control/VBoxContainer/PanelContainer" unique_id=785830515]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="sweden/Carlstad/Control/VBoxContainer" unique_id=1247969726]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="sweden/Carlstad/Control/VBoxContainer/HBoxContainer" unique_id=186000102]
+layout_mode = 2
+
+[node name="ResourceCount" type="Label" parent="sweden/Carlstad/Control/VBoxContainer/HBoxContainer" unique_id=347886697]
+layout_mode = 2
+
+[node name="Path2D7" type="Path2D" parent="sweden/Carlstad" unique_id=1182411791]
+curve = SubResource("Curve2D_4oahq")
+script = ExtResource("8_gee14")
+
+[node name="Path2D6" type="Path2D" parent="sweden/Carlstad" unique_id=1227846637]
+curve = SubResource("Curve2D_rurm5")
+script = ExtResource("8_gee14")
+
+[node name="Path2D5" type="Path2D" parent="sweden/Carlstad" unique_id=1340488104]
+curve = SubResource("Curve2D_uwcs2")
+script = ExtResource("8_gee14")
+
+[node name="Path2D4" type="Path2D" parent="sweden/Carlstad" unique_id=214117193]
+curve = SubResource("Curve2D_2yjds")
+script = ExtResource("8_gee14")
+
+[node name="Path2D3" type="Path2D" parent="sweden/Carlstad" unique_id=643611078]
+curve = SubResource("Curve2D_px7d8")
+script = ExtResource("8_gee14")
+
+[node name="Path2D2" type="Path2D" parent="sweden/Carlstad" unique_id=1625856996]
+curve = SubResource("Curve2D_dqsf0")
+script = ExtResource("8_gee14")
+
+[node name="Path2D" type="Path2D" parent="sweden/Carlstad" unique_id=1526080623]
+curve = SubResource("Curve2D_dyl6d")
+script = ExtResource("8_gee14")
+
+[node name="Göteborg" type="Area2D" parent="sweden" unique_id=1000768072]
+collision_layer = 3
+collision_mask = 3
+script = ExtResource("3_lnu2h")
+province_material = 6
+startup_buildings = Array[int]([2])
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="sweden/Göteborg" unique_id=626195148]
+polygon = PackedVector2Array(-367, -94, -362, -86, -365, -80, -361, -74, -356, -74, -355, -71, -354, -64, -356, -59, -358, -51, -354, -52, -353, -50, -355, -43, -352, -41, -349, -38, -350, -33, -344, -28, -343, -23, -339, -23, -333, -25, -323, -20, -318, -31, -318, -34, -317, -37, -311, -42, -310, -55, -311, -68, -308, -73, -305, -75, -303, -81, -296, -86, -292, -88, -296, -91, -298, -95, -303, -99, -306, -98, -311, -93, -313, -96, -315, -92, -318, -96, -322, -95, -326, -98, -331, -97, -327, -93, -329, -93, -337, -93, -342, -97, -346, -101, -350, -102, -350, -91, -358, -88)
+
+[node name="Polygon2D" type="Polygon2D" parent="sweden/Göteborg" unique_id=574833079]
+color = Color(0.45359772, 0.43529403, 0.42440614, 1)
+metadata/id = 0
+
+[node name="ProvinceBorder" type="Line2D" parent="sweden/Göteborg" unique_id=518512562]
+closed = true
+width = 0.3
+default_color = Color(1, 1, 1, 0.78431374)
+joint_mode = 2
+
+[node name="Node2D" parent="sweden/Göteborg" unique_id=309911481 instance=ExtResource("7_gee14")]
+position = Vector2(-349, -49)
+
+[node name="Control" type="Control" parent="sweden/Göteborg" unique_id=76858473]
+z_index = 2
+layout_mode = 3
+anchors_preset = 0
+offset_left = 36.0
+offset_top = -35.77
+offset_right = 76.0
+offset_bottom = 4.2299995
+pivot_offset = Vector2(19.865, 0)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="sweden/Göteborg/Control" unique_id=162084737]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.25
+offset_bottom = -10.0
+alignment = 1
+
+[node name="PanelContainer" type="PanelContainer" parent="sweden/Göteborg/Control/VBoxContainer" unique_id=1892790304]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_0tnpc")
+
+[node name="ProvinceName" type="Label" parent="sweden/Göteborg/Control/VBoxContainer/PanelContainer" unique_id=2002538099]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="sweden/Göteborg/Control/VBoxContainer" unique_id=1802397249]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="sweden/Göteborg/Control/VBoxContainer/HBoxContainer" unique_id=1485745330]
+layout_mode = 2
+
+[node name="ResourceCount" type="Label" parent="sweden/Göteborg/Control/VBoxContainer/HBoxContainer" unique_id=1861805527]
+layout_mode = 2
+
+[node name="Path2D9" type="Path2D" parent="sweden/Göteborg" unique_id=1370193402]
+curve = SubResource("Curve2D_ksb2s")
+script = ExtResource("8_gee14")
+
+[node name="Path2D8" type="Path2D" parent="sweden/Göteborg" unique_id=811221646]
+curve = SubResource("Curve2D_mpyfy")
+script = ExtResource("8_gee14")
+
+[node name="Path2D7" type="Path2D" parent="sweden/Göteborg" unique_id=1374898444]
+curve = SubResource("Curve2D_5jpo1")
+script = ExtResource("8_gee14")
+
+[node name="Path2D6" type="Path2D" parent="sweden/Göteborg" unique_id=563103990]
+curve = SubResource("Curve2D_lpc0p")
+script = ExtResource("8_gee14")
+
+[node name="Path2D5" type="Path2D" parent="sweden/Göteborg" unique_id=1922539624]
+curve = SubResource("Curve2D_pvep5")
+script = ExtResource("8_gee14")
+
+[node name="Path2D3" type="Path2D" parent="sweden/Göteborg" unique_id=506955050]
+curve = SubResource("Curve2D_my0au")
+script = ExtResource("8_gee14")
+
+[node name="Path2D2" type="Path2D" parent="sweden/Göteborg" unique_id=316049941]
+curve = SubResource("Curve2D_q7yg4")
+script = ExtResource("8_gee14")
+
+[node name="Path2D" type="Path2D" parent="sweden/Göteborg" unique_id=1611066716]
+curve = SubResource("Curve2D_dyl6d")
+script = ExtResource("8_gee14")
+
+[node name="Calmar" type="Area2D" parent="sweden" unique_id=1940070344]
+collision_layer = 3
+collision_mask = 3
+script = ExtResource("3_lnu2h")
+province_material = 5
+startup_buildings = Array[int]([2])
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="sweden/Calmar" unique_id=83995376]
+polygon = PackedVector2Array(-339, -23, -339, -22, -344, -16, -340, -17, -332, -10, -333, -8, -338, -7, -339, -6, -336, -3, -337, 4, -332, 15, -332, 17, -336, 22, -320, 26, -316, 26, -311, 21, -314, 15, -312, 10, -310, 9, -311, 5, -305, 3, -302, 5, -302, 1, -300, -2, -287, -2, -283, 0, -277, -11, -274, -15, -275, -20, -270, -25, -273, -27, -272, -36, -269, -39, -272, -41, -268, -50, -270, -52, -269, -57, -269, -66, -275, -70, -279, -70, -288, -72, -290, -70, -297, -70, -310, -55, -311, -42, -317, -37, -318, -34, -318, -31, -323, -20, -333, -25)
+
+[node name="Polygon2D" type="Polygon2D" parent="sweden/Calmar" unique_id=1416705770]
+color = Color(0.45359772, 0.43529403, 0.42440614, 1)
+metadata/id = 0
+
+[node name="ProvinceBorder" type="Line2D" parent="sweden/Calmar" unique_id=1023220631]
+closed = true
+width = 0.3
+default_color = Color(1, 1, 1, 0.78431374)
+joint_mode = 2
+
+[node name="Node2D" parent="sweden/Calmar" unique_id=32338161 instance=ExtResource("7_gee14")]
+position = Vector2(-278, -17)
+
+[node name="Control" type="Control" parent="sweden/Calmar" unique_id=883865720]
+z_index = 2
+layout_mode = 3
+anchors_preset = 0
+offset_left = 36.0
+offset_top = -35.77
+offset_right = 76.0
+offset_bottom = 4.2299995
+pivot_offset = Vector2(19.865, 0)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="sweden/Calmar/Control" unique_id=253244871]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.25
+offset_bottom = -10.0
+alignment = 1
+
+[node name="PanelContainer" type="PanelContainer" parent="sweden/Calmar/Control/VBoxContainer" unique_id=938718672]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_0tnpc")
+
+[node name="ProvinceName" type="Label" parent="sweden/Calmar/Control/VBoxContainer/PanelContainer" unique_id=1471255195]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="sweden/Calmar/Control/VBoxContainer" unique_id=1846749782]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="sweden/Calmar/Control/VBoxContainer/HBoxContainer" unique_id=1609049320]
+layout_mode = 2
+
+[node name="ResourceCount" type="Label" parent="sweden/Calmar/Control/VBoxContainer/HBoxContainer" unique_id=1660028765]
+layout_mode = 2
+
+[node name="Path2D4" type="Path2D" parent="sweden/Calmar" unique_id=48090835]
+curve = SubResource("Curve2D_605lc")
+script = ExtResource("8_gee14")
+
+[node name="Path2D3" type="Path2D" parent="sweden/Calmar" unique_id=1346264787]
+curve = SubResource("Curve2D_acdvy")
+script = ExtResource("8_gee14")
+
+[node name="Path2D2" type="Path2D" parent="sweden/Calmar" unique_id=750596427]
+curve = SubResource("Curve2D_yldb2")
+script = ExtResource("8_gee14")
+
+[node name="Path2D" type="Path2D" parent="sweden/Calmar" unique_id=515508707]
+curve = SubResource("Curve2D_a10iv")
+script = ExtResource("8_gee14")
+
+[node name="norway" type="Node2D" parent="." unique_id=979727933]
+script = ExtResource("6_p57ef")
+PORT = 9085
+
+[node name="Control" type="Control" parent="norway" unique_id=2891314]
+z_index = 1
+layout_mode = 3
+anchors_preset = 0
+offset_left = 76.0
+offset_top = -91.0
+offset_right = 213.885
+offset_bottom = -51.0
+rotation = 0.51138145
+
+[node name="PlayerName" type="Label" parent="norway/Control" unique_id=221989411]
+layout_mode = 0
+offset_left = -63.59282
+offset_top = 48.412052
+offset_right = 67.40718
+offset_bottom = 71.41205
+theme_override_colors/font_color = Color(1, 1, 1, 0.7490196)
+uppercase = true
+
+[node name="Bätsfjord" type="Area2D" parent="norway" unique_id=2110910552]
+collision_layer = 3
+collision_mask = 3
+script = ExtResource("3_lnu2h")
+province_material = 6
+startup_buildings = Array[int]([2])
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="norway/Bätsfjord" unique_id=1746127835]
+polygon = PackedVector2Array(-165, -428, -169, -433, -167, -436, -167, -438, -172, -441, -174, -441, -176, -443, -174, -447, -170, -443, -165, -445, -166, -449, -163, -450, -164, -454, -161, -458, -164, -459, -165, -462, -160, -465, -158, -462, -153, -462, -151, -460, -152, -458, -155, -457, -156, -453, -158, -451, -157, -448, -156, -446, -154, -449, -151, -449, -151, -452, -148, -453, -148, -457, -145, -460, -142, -457, -142, -454, -138, -456, -136, -455, -133, -457, -134, -452, -130, -451, -128, -453, -128, -451, -123, -450, -122, -452, -118, -449, -122, -449, -125, -445, -128, -442, -126, -439, -129, -438, -127, -436, -130, -434, -134, -439, -140, -439, -148, -442, -149, -439, -141, -435, -139, -432, -138, -432, -137, -431, -134, -430, -144, -422, -156, -433, -157, -434, -160, -434)
+
+[node name="Polygon2D" type="Polygon2D" parent="norway/Bätsfjord" unique_id=1169906174]
+color = Color(0.45359772, 0.43529403, 0.42440614, 1)
+metadata/id = 0
+
+[node name="ProvinceBorder" type="Line2D" parent="norway/Bätsfjord" unique_id=781108553]
+closed = true
+width = 0.3
+default_color = Color(1, 1, 1, 0.78431374)
+joint_mode = 2
+
+[node name="Node2D" parent="norway/Bätsfjord" unique_id=1988512253 instance=ExtResource("7_gee14")]
+position = Vector2(-136, -450)
+
+[node name="Control" type="Control" parent="norway/Bätsfjord" unique_id=108032704]
+z_index = 2
+layout_mode = 3
+anchors_preset = 0
+offset_left = 36.0
+offset_top = -35.77
+offset_right = 76.0
+offset_bottom = 4.2299995
+pivot_offset = Vector2(19.865, 0)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="norway/Bätsfjord/Control" unique_id=1608381628]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.25
+offset_bottom = -10.0
+alignment = 1
+
+[node name="PanelContainer" type="PanelContainer" parent="norway/Bätsfjord/Control/VBoxContainer" unique_id=1610778193]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_0tnpc")
+
+[node name="ProvinceName" type="Label" parent="norway/Bätsfjord/Control/VBoxContainer/PanelContainer" unique_id=414210622]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="norway/Bätsfjord/Control/VBoxContainer" unique_id=2073708177]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="norway/Bätsfjord/Control/VBoxContainer/HBoxContainer" unique_id=436018342]
+layout_mode = 2
+
+[node name="ResourceCount" type="Label" parent="norway/Bätsfjord/Control/VBoxContainer/HBoxContainer" unique_id=727199150]
+layout_mode = 2
+
+[node name="Path2D5" type="Path2D" parent="norway/Bätsfjord" unique_id=744971138]
+curve = SubResource("Curve2D_sgar4")
+script = ExtResource("8_gee14")
+
+[node name="Path2D4" type="Path2D" parent="norway/Bätsfjord" unique_id=6615312]
+curve = SubResource("Curve2D_hs5s8")
+script = ExtResource("8_gee14")
+
+[node name="Path2D3" type="Path2D" parent="norway/Bätsfjord" unique_id=2029500474]
+curve = SubResource("Curve2D_hpuv6")
+script = ExtResource("8_gee14")
+
+[node name="Path2D2" type="Path2D" parent="norway/Bätsfjord" unique_id=309220397]
+curve = SubResource("Curve2D_aaano")
+script = ExtResource("8_gee14")
+
+[node name="Path2D" type="Path2D" parent="norway/Bätsfjord" unique_id=2051142928]
+curve = SubResource("Curve2D_tpy2o")
+script = ExtResource("8_gee14")
+
+[node name="Alta" type="Area2D" parent="norway" unique_id=1481099103]
+collision_layer = 3
+collision_mask = 3
+script = ExtResource("3_lnu2h")
+province_material = 1
+double_material = true
+startup_buildings = Array[int]([2])
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="norway/Alta" unique_id=803609562]
+polygon = PackedVector2Array(-225, -403, -227, -405, -229, -407, -232, -407, -236, -403, -237, -411, -234, -416, -235, -418, -234, -419, -236, -424, -232, -424, -230, -428, -229, -425, -229, -418, -225, -415, -223, -417, -223, -422, -220, -419, -218, -422, -220, -425, -218, -427, -211, -424, -208, -425, -215, -429, -212, -429, -210, -431, -206, -428, -204, -430, -205, -432, -203, -433, -202, -436, -206, -440, -205, -442, -202, -439, -201, -437, -197, -437, -195, -441, -193, -440, -193, -436, -188, -439, -193, -446, -199, -446, -199, -447, -196, -448, -192, -448, -190, -446, -183, -448, -186, -450, -179, -450, -174, -451, -172, -455, -177, -460, -175, -462, -172, -459, -170, -464, -173, -470, -173, -472, -171, -473, -168, -471, -170, -469, -166, -468, -166, -463, -165, -462, -164, -459, -161, -458, -164, -454, -163, -450, -166, -449, -165, -445, -170, -443, -174, -447, -176, -443, -174, -441, -172, -441, -167, -438, -167, -436, -169, -433, -165, -428, -171, -426, -176, -421, -177, -414, -177, -409, -175, -404, -176, -399, -180, -395, -181, -384, -190, -384, -189, -388, -195, -387, -201, -384, -205, -386, -211, -386, -212, -390, -215, -390, -218, -395)
+
+[node name="Polygon2D" type="Polygon2D" parent="norway/Alta" unique_id=504572744]
+color = Color(0.45359772, 0.43529403, 0.42440614, 1)
+metadata/id = 0
+
+[node name="ProvinceBorder" type="Line2D" parent="norway/Alta" unique_id=1198089410]
+closed = true
+width = 0.3
+default_color = Color(1, 1, 1, 0.78431374)
+joint_mode = 2
+
+[node name="Node2D" parent="norway/Alta" unique_id=993172380 instance=ExtResource("7_gee14")]
+position = Vector2(-204, -419)
+
+[node name="Control" type="Control" parent="norway/Alta" unique_id=1285553933]
+z_index = 2
+layout_mode = 3
+anchors_preset = 0
+offset_left = 36.0
+offset_top = -35.77
+offset_right = 76.0
+offset_bottom = 4.2299995
+pivot_offset = Vector2(19.865, 0)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="norway/Alta/Control" unique_id=1528474512]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.25
+offset_bottom = -10.0
+alignment = 1
+
+[node name="PanelContainer" type="PanelContainer" parent="norway/Alta/Control/VBoxContainer" unique_id=1599540042]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_0tnpc")
+
+[node name="ProvinceName" type="Label" parent="norway/Alta/Control/VBoxContainer/PanelContainer" unique_id=2118245128]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="norway/Alta/Control/VBoxContainer" unique_id=1212868901]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="norway/Alta/Control/VBoxContainer/HBoxContainer" unique_id=1840904929]
+layout_mode = 2
+
+[node name="ResourceCount" type="Label" parent="norway/Alta/Control/VBoxContainer/HBoxContainer" unique_id=1373814299]
+layout_mode = 2
+
+[node name="Path2D5" type="Path2D" parent="norway/Alta" unique_id=1407532223]
+curve = SubResource("Curve2D_6bh8u")
+script = ExtResource("8_gee14")
+
+[node name="Path2D4" type="Path2D" parent="norway/Alta" unique_id=1193328837]
+curve = SubResource("Curve2D_ciug7")
+script = ExtResource("8_gee14")
+
+[node name="Path2D3" type="Path2D" parent="norway/Alta" unique_id=1493904454]
+curve = SubResource("Curve2D_ybn2i")
+script = ExtResource("8_gee14")
+
+[node name="Path2D2" type="Path2D" parent="norway/Alta" unique_id=367137600]
+curve = SubResource("Curve2D_7jdpi")
+script = ExtResource("8_gee14")
+
+[node name="Path2D" type="Path2D" parent="norway/Alta" unique_id=1168137480]
+curve = SubResource("Curve2D_wrn52")
+script = ExtResource("8_gee14")
+
+[node name="Tromsoe" type="Area2D" parent="norway" unique_id=47938860]
+collision_layer = 3
+collision_mask = 3
+script = ExtResource("3_lnu2h")
+province_material = 6
+startup_buildings = Array[int]([2])
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="norway/Tromsoe" unique_id=439815746]
+polygon = PackedVector2Array(-235, -418, -238, -416, -240, -409, -242, -413, -242, -415, -245, -417, -247, -414, -247, -408, -243, -405, -243, -401, -247, -403, -249, -404, -253, -408, -253, -403, -258, -406, -259, -395, -263, -390, -265, -380, -274, -377, -275, -373, -270, -376, -267, -375, -262, -376, -269, -369, -276, -370, -278, -368, -275, -362, -278, -358, -274, -356, -272, -360, -268, -363, -265, -362, -259, -369, -259, -378, -253, -383, -249, -379, -246, -381, -242, -378, -236, -376, -236, -379, -238, -384, -236, -387, -237, -392, -234, -394, -232, -395, -229, -393, -226, -393, -228, -396, -225, -403, -227, -405, -229, -407, -232, -407, -236, -403, -237, -411, -234, -416)
+
+[node name="Polygon2D" type="Polygon2D" parent="norway/Tromsoe" unique_id=332607542]
+color = Color(0.45359772, 0.43529403, 0.42440614, 1)
+metadata/id = 0
+
+[node name="ProvinceBorder" type="Line2D" parent="norway/Tromsoe" unique_id=385234123]
+closed = true
+width = 0.3
+default_color = Color(1, 1, 1, 0.78431374)
+joint_mode = 2
+
+[node name="Node2D" parent="norway/Tromsoe" unique_id=127756743 instance=ExtResource("7_gee14")]
+position = Vector2(-244, -412)
+
+[node name="Control" type="Control" parent="norway/Tromsoe" unique_id=384085624]
+z_index = 2
+layout_mode = 3
+anchors_preset = 0
+offset_left = 36.0
+offset_top = -35.77
+offset_right = 76.0
+offset_bottom = 4.2299995
+pivot_offset = Vector2(19.865, 0)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="norway/Tromsoe/Control" unique_id=1507827234]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.25
+offset_bottom = -10.0
+alignment = 1
+
+[node name="PanelContainer" type="PanelContainer" parent="norway/Tromsoe/Control/VBoxContainer" unique_id=1233913005]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_0tnpc")
+
+[node name="ProvinceName" type="Label" parent="norway/Tromsoe/Control/VBoxContainer/PanelContainer" unique_id=1646069719]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="norway/Tromsoe/Control/VBoxContainer" unique_id=184808341]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="norway/Tromsoe/Control/VBoxContainer/HBoxContainer" unique_id=676941747]
+layout_mode = 2
+
+[node name="ResourceCount" type="Label" parent="norway/Tromsoe/Control/VBoxContainer/HBoxContainer" unique_id=2087727747]
+layout_mode = 2
+
+[node name="Path2D8" type="Path2D" parent="norway/Tromsoe" unique_id=376324688]
+curve = SubResource("Curve2D_64ern")
+script = ExtResource("8_gee14")
+
+[node name="Path2D7" type="Path2D" parent="norway/Tromsoe" unique_id=967540022]
+curve = SubResource("Curve2D_a4gw7")
+script = ExtResource("8_gee14")
+
+[node name="Path2D6" type="Path2D" parent="norway/Tromsoe" unique_id=150210675]
+curve = SubResource("Curve2D_hom8c")
+script = ExtResource("8_gee14")
+
+[node name="Path2D5" type="Path2D" parent="norway/Tromsoe" unique_id=197537655]
+curve = SubResource("Curve2D_5bxyc")
+script = ExtResource("8_gee14")
+
+[node name="Path2D4" type="Path2D" parent="norway/Tromsoe" unique_id=989654227]
+curve = SubResource("Curve2D_4ntpd")
+script = ExtResource("8_gee14")
+
+[node name="Path2D3" type="Path2D" parent="norway/Tromsoe" unique_id=139919787]
+curve = SubResource("Curve2D_eyfjv")
+script = ExtResource("8_gee14")
+
+[node name="Path2D2" type="Path2D" parent="norway/Tromsoe" unique_id=1395008502]
+curve = SubResource("Curve2D_d010q")
+script = ExtResource("8_gee14")
+
+[node name="Path2D" type="Path2D" parent="norway/Tromsoe" unique_id=1949306990]
+curve = SubResource("Curve2D_1w40j")
+script = ExtResource("8_gee14")
+
+[node name="Rana" type="Area2D" parent="norway" unique_id=126250252]
+collision_layer = 3
+collision_mask = 3
+script = ExtResource("3_lnu2h")
+startup_buildings = Array[int]([2])
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="norway/Rana" unique_id=960427073]
+polygon = PackedVector2Array(-278, -358, -280, -355, -282, -355, -285, -358, -288, -353, -282, -353, -285, -348, -288, -348, -289, -347, -288, -345, -291, -343, -295, -346, -296, -345, -293, -342, -294, -339, -296, -340, -300, -340, -302, -338, -299, -336, -300, -333, -304, -334, -305, -332, -300, -330, -302, -327, -306, -329, -308, -326, -305, -325, -305, -320, -310, -321, -311, -316, -306, -305, -303, -303, -301, -306, -299, -306, -293, -307, -289, -313, -288, -318, -287, -321, -280, -330, -282, -347, -276, -349, -274, -353, -274, -356, -276, -357)
+
+[node name="Polygon2D" type="Polygon2D" parent="norway/Rana" unique_id=1567494186]
+color = Color(0.45359772, 0.43529403, 0.42440614, 1)
+metadata/id = 0
+
+[node name="ProvinceBorder" type="Line2D" parent="norway/Rana" unique_id=959533310]
+closed = true
+width = 0.3
+default_color = Color(1, 1, 1, 0.78431374)
+joint_mode = 2
+
+[node name="Node2D" parent="norway/Rana" unique_id=12494588 instance=ExtResource("7_gee14")]
+position = Vector2(-302, -324)
+
+[node name="Control" type="Control" parent="norway/Rana" unique_id=1034989165]
+z_index = 2
+layout_mode = 3
+anchors_preset = 0
+offset_left = 36.0
+offset_top = -35.77
+offset_right = 76.0
+offset_bottom = 4.2299995
+pivot_offset = Vector2(19.865, 0)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="norway/Rana/Control" unique_id=433197380]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.25
+offset_bottom = -10.0
+alignment = 1
+
+[node name="PanelContainer" type="PanelContainer" parent="norway/Rana/Control/VBoxContainer" unique_id=1903051907]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_0tnpc")
+
+[node name="ProvinceName" type="Label" parent="norway/Rana/Control/VBoxContainer/PanelContainer" unique_id=400933966]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="norway/Rana/Control/VBoxContainer" unique_id=438393221]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="norway/Rana/Control/VBoxContainer/HBoxContainer" unique_id=1083948469]
+layout_mode = 2
+
+[node name="ResourceCount" type="Label" parent="norway/Rana/Control/VBoxContainer/HBoxContainer" unique_id=1702739744]
+layout_mode = 2
+
+[node name="Path2D9" type="Path2D" parent="norway/Rana" unique_id=465389786]
+curve = SubResource("Curve2D_3rhd8")
+script = ExtResource("8_gee14")
+
+[node name="Path2D8" type="Path2D" parent="norway/Rana" unique_id=1715206165]
+curve = SubResource("Curve2D_5lvcx")
+script = ExtResource("8_gee14")
+
+[node name="Path2D7" type="Path2D" parent="norway/Rana" unique_id=342848842]
+curve = SubResource("Curve2D_pegr8")
+script = ExtResource("8_gee14")
+
+[node name="Path2D6" type="Path2D" parent="norway/Rana" unique_id=1556838274]
+curve = SubResource("Curve2D_yl840")
+script = ExtResource("8_gee14")
+
+[node name="Path2D5" type="Path2D" parent="norway/Rana" unique_id=431392846]
+curve = SubResource("Curve2D_1daa3")
+script = ExtResource("8_gee14")
+
+[node name="Path2D4" type="Path2D" parent="norway/Rana" unique_id=497986419]
+curve = SubResource("Curve2D_y3asc")
+script = ExtResource("8_gee14")
+
+[node name="Path2D3" type="Path2D" parent="norway/Rana" unique_id=449070583]
+curve = SubResource("Curve2D_3wai8")
+script = ExtResource("8_gee14")
+
+[node name="Path2D2" type="Path2D" parent="norway/Rana" unique_id=1941034532]
+curve = SubResource("Curve2D_b7myh")
+script = ExtResource("8_gee14")
+
+[node name="Path2D" type="Path2D" parent="norway/Rana" unique_id=1413248239]
+curve = SubResource("Curve2D_nw68j")
+script = ExtResource("8_gee14")
+
+[node name="Snasa" type="Area2D" parent="norway" unique_id=1408918050]
+collision_layer = 3
+collision_mask = 3
+script = ExtResource("3_lnu2h")
+startup_buildings = Array[int]([2])
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="norway/Snasa" unique_id=110865524]
+polygon = PackedVector2Array(-311, -316, -314, -315, -312, -311, -314, -310, -317, -312, -320, -311, -316, -309, -316, -306, -312, -304, -314, -299, -318, -299, -318, -297, -315, -296, -317, -291, -320, -292, -320, -287, -316, -288, -317, -284, -322, -283, -326, -285, -330, -282, -325, -280, -328, -277, -332, -277, -337, -279, -340, -274, -337, -276, -337, -274, -332, -275, -329, -271, -331, -269, -329, -266, -335, -262, -336, -266, -343, -265, -346, -264, -347, -258, -347, -254, -346, -250, -338, -249, -335, -249, -332, -248, -321, -257, -317, -254, -314, -250, -310, -253, -303, -268, -303, -303, -306, -305)
+
+[node name="Polygon2D" type="Polygon2D" parent="norway/Snasa" unique_id=1298791901]
+color = Color(0.45359772, 0.43529403, 0.42440614, 1)
+metadata/id = 0
+
+[node name="ProvinceBorder" type="Line2D" parent="norway/Snasa" unique_id=1475521488]
+closed = true
+width = 0.3
+default_color = Color(1, 1, 1, 0.78431374)
+joint_mode = 2
+
+[node name="Node2D" parent="norway/Snasa" unique_id=591096421 instance=ExtResource("7_gee14")]
+position = Vector2(-331, -257)
+
+[node name="Control" type="Control" parent="norway/Snasa" unique_id=236487070]
+z_index = 2
+layout_mode = 3
+anchors_preset = 0
+offset_left = 36.0
+offset_top = -35.77
+offset_right = 76.0
+offset_bottom = 4.2299995
+pivot_offset = Vector2(19.865, 0)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="norway/Snasa/Control" unique_id=24280650]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.25
+offset_bottom = -10.0
+alignment = 1
+
+[node name="PanelContainer" type="PanelContainer" parent="norway/Snasa/Control/VBoxContainer" unique_id=481166780]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_0tnpc")
+
+[node name="ProvinceName" type="Label" parent="norway/Snasa/Control/VBoxContainer/PanelContainer" unique_id=435348300]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="norway/Snasa/Control/VBoxContainer" unique_id=509553983]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="norway/Snasa/Control/VBoxContainer/HBoxContainer" unique_id=789929883]
+layout_mode = 2
+
+[node name="ResourceCount" type="Label" parent="norway/Snasa/Control/VBoxContainer/HBoxContainer" unique_id=284756100]
+layout_mode = 2
+
+[node name="Path2D5" type="Path2D" parent="norway/Snasa" unique_id=1408173326]
+curve = SubResource("Curve2D_dnku8")
+script = ExtResource("8_gee14")
+
+[node name="Path2D4" type="Path2D" parent="norway/Snasa" unique_id=1102586312]
+curve = SubResource("Curve2D_3i1kj")
+script = ExtResource("8_gee14")
+
+[node name="Path2D3" type="Path2D" parent="norway/Snasa" unique_id=1712540442]
+curve = SubResource("Curve2D_0dsg3")
+script = ExtResource("8_gee14")
+
+[node name="Path2D2" type="Path2D" parent="norway/Snasa" unique_id=1949841344]
+curve = SubResource("Curve2D_5v2dm")
+script = ExtResource("8_gee14")
+
+[node name="Path2D" type="Path2D" parent="norway/Snasa" unique_id=1686800196]
+curve = SubResource("Curve2D_dbsko")
+script = ExtResource("8_gee14")
+
+[node name="Trondheim" type="Area2D" parent="norway" unique_id=1464701459]
+collision_layer = 3
+collision_mask = 3
+script = ExtResource("3_lnu2h")
+province_material = 6
+double_material = true
+startup_buildings = Array[int]([2])
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="norway/Trondheim" unique_id=983710261]
+polygon = PackedVector2Array(-347, -254, -353, -254, -353, -249, -357, -245, -360, -243, -362, -240, -360, -239, -364, -235, -367, -234, -365, -232, -364, -230, -364, -227, -361, -226, -352, -234, -354, -237, -347, -241, -347, -237, -344, -237, -353, -222, -362, -223, -365, -221, -369, -229, -373, -225, -376, -225, -372, -215, -366, -207, -363, -200, -360, -202, -362, -206, -360, -208, -355, -201, -346, -201, -342, -200, -339, -195, -337, -196, -337, -202, -334, -206, -338, -213, -335, -220, -338, -223, -336, -230, -331, -236, -324, -241, -318, -242, -313, -238, -310, -240, -310, -242, -310, -245, -309, -248, -314, -250, -317, -254, -321, -257, -332, -248, -335, -249, -338, -249, -346, -250)
+
+[node name="Polygon2D" type="Polygon2D" parent="norway/Trondheim" unique_id=614555531]
+color = Color(0.45359772, 0.43529403, 0.42440614, 1)
+metadata/id = 0
+
+[node name="ProvinceBorder" type="Line2D" parent="norway/Trondheim" unique_id=1622485060]
+closed = true
+width = 0.3
+default_color = Color(1, 1, 1, 0.78431374)
+joint_mode = 2
+
+[node name="Node2D" parent="norway/Trondheim" unique_id=648230013 instance=ExtResource("7_gee14")]
+position = Vector2(-360, -220)
+
+[node name="Control" type="Control" parent="norway/Trondheim" unique_id=1323475574]
+z_index = 2
+layout_mode = 3
+anchors_preset = 0
+offset_left = 36.0
+offset_top = -35.77
+offset_right = 76.0
+offset_bottom = 4.2299995
+pivot_offset = Vector2(19.865, 0)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="norway/Trondheim/Control" unique_id=1323891646]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.25
+offset_bottom = -10.0
+alignment = 1
+
+[node name="PanelContainer" type="PanelContainer" parent="norway/Trondheim/Control/VBoxContainer" unique_id=1632609425]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_0tnpc")
+
+[node name="ProvinceName" type="Label" parent="norway/Trondheim/Control/VBoxContainer/PanelContainer" unique_id=1316071491]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="norway/Trondheim/Control/VBoxContainer" unique_id=1999117811]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="norway/Trondheim/Control/VBoxContainer/HBoxContainer" unique_id=425660284]
+layout_mode = 2
+
+[node name="ResourceCount" type="Label" parent="norway/Trondheim/Control/VBoxContainer/HBoxContainer" unique_id=961480452]
+layout_mode = 2
+
+[node name="Path2D9" type="Path2D" parent="norway/Trondheim" unique_id=1656392765]
+curve = SubResource("Curve2D_y0n1n")
+script = ExtResource("8_gee14")
+
+[node name="Path2D8" type="Path2D" parent="norway/Trondheim" unique_id=552337228]
+curve = SubResource("Curve2D_kb2fq")
+script = ExtResource("8_gee14")
+
+[node name="Path2D7" type="Path2D" parent="norway/Trondheim" unique_id=456799930]
+curve = SubResource("Curve2D_heoyc")
+script = ExtResource("8_gee14")
+
+[node name="Path2D6" type="Path2D" parent="norway/Trondheim" unique_id=1657548632]
+curve = SubResource("Curve2D_3cl0f")
+script = ExtResource("8_gee14")
+
+[node name="Path2D5" type="Path2D" parent="norway/Trondheim" unique_id=1336665350]
+curve = SubResource("Curve2D_yubjc")
+script = ExtResource("8_gee14")
+
+[node name="Path2D4" type="Path2D" parent="norway/Trondheim" unique_id=337626718]
+curve = SubResource("Curve2D_5wpub")
+script = ExtResource("8_gee14")
+
+[node name="Path2D3" type="Path2D" parent="norway/Trondheim" unique_id=385286586]
+curve = SubResource("Curve2D_dhicf")
+script = ExtResource("8_gee14")
+
+[node name="Path2D2" type="Path2D" parent="norway/Trondheim" unique_id=1811513222]
+curve = SubResource("Curve2D_jpb7g")
+script = ExtResource("8_gee14")
+
+[node name="Path2D" type="Path2D" parent="norway/Trondheim" unique_id=1311972692]
+curve = SubResource("Curve2D_mdhgk")
+script = ExtResource("8_gee14")
+
+[node name="Aalesund" type="Area2D" parent="norway" unique_id=463307104]
+collision_layer = 3
+collision_mask = 3
+script = ExtResource("3_lnu2h")
+province_material = 6
+startup_buildings = Array[int]([2])
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="norway/Aalesund" unique_id=700008124]
+polygon = PackedVector2Array(-376, -225, -381, -225, -384, -219, -384, -214, -388, -217, -391, -217, -389, -214, -390, -210, -393, -214, -398, -214, -406, -216, -409, -215, -406, -214, -406, -211, -402, -209, -398, -201, -401, -201, -409, -207, -416, -208, -420, -207, -413, -203, -409, -198, -415, -200, -420, -198, -425, -197, -421, -192, -417, -190, -415, -185, -416, -182, -412, -172, -408, -172, -403, -172, -397, -164, -402, -162, -400, -157, -395, -153, -391, -158, -389, -160, -387, -157, -377, -153, -374, -157, -371, -161, -370, -165, -365, -169, -355, -169, -348, -176, -346, -180, -346, -176, -345, -172, -343, -175, -342, -178, -338, -176, -337, -180, -336, -186, -338, -191, -339, -195, -342, -200, -346, -201, -355, -201, -360, -208, -362, -206, -360, -202, -363, -200, -366, -207, -372, -215)
+
+[node name="Polygon2D" type="Polygon2D" parent="norway/Aalesund" unique_id=1925556489]
+color = Color(0.45359772, 0.43529403, 0.42440614, 1)
+metadata/id = 0
+
+[node name="ProvinceBorder" type="Line2D" parent="norway/Aalesund" unique_id=1260598211]
+closed = true
+width = 0.3
+default_color = Color(1, 1, 1, 0.78431374)
+joint_mode = 2
+
+[node name="Node2D" parent="norway/Aalesund" unique_id=1776140910 instance=ExtResource("7_gee14")]
+position = Vector2(-410, -192)
+
+[node name="Control" type="Control" parent="norway/Aalesund" unique_id=124714036]
+z_index = 2
+layout_mode = 3
+anchors_preset = 0
+offset_left = 36.0
+offset_top = -35.77
+offset_right = 76.0
+offset_bottom = 4.2299995
+pivot_offset = Vector2(19.865, 0)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="norway/Aalesund/Control" unique_id=172945129]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.25
+offset_bottom = -10.0
+alignment = 1
+
+[node name="PanelContainer" type="PanelContainer" parent="norway/Aalesund/Control/VBoxContainer" unique_id=2026038237]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_0tnpc")
+
+[node name="ProvinceName" type="Label" parent="norway/Aalesund/Control/VBoxContainer/PanelContainer" unique_id=1109101378]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="norway/Aalesund/Control/VBoxContainer" unique_id=403649455]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="norway/Aalesund/Control/VBoxContainer/HBoxContainer" unique_id=911308241]
+layout_mode = 2
+
+[node name="ResourceCount" type="Label" parent="norway/Aalesund/Control/VBoxContainer/HBoxContainer" unique_id=785428294]
+layout_mode = 2
+
+[node name="Path2D10" type="Path2D" parent="norway/Aalesund" unique_id=1858066949]
+curve = SubResource("Curve2D_bp30l")
+script = ExtResource("8_gee14")
+
+[node name="Path2D9" type="Path2D" parent="norway/Aalesund" unique_id=1095155856]
+curve = SubResource("Curve2D_3uc5b")
+script = ExtResource("8_gee14")
+
+[node name="Path2D8" type="Path2D" parent="norway/Aalesund" unique_id=1640394211]
+curve = SubResource("Curve2D_v7ox8")
+script = ExtResource("8_gee14")
+
+[node name="Path2D7" type="Path2D" parent="norway/Aalesund" unique_id=429933300]
+curve = SubResource("Curve2D_iyesh")
+script = ExtResource("8_gee14")
+
+[node name="Path2D6" type="Path2D" parent="norway/Aalesund" unique_id=720407405]
+curve = SubResource("Curve2D_fj3ai")
+script = ExtResource("8_gee14")
+
+[node name="Path2D5" type="Path2D" parent="norway/Aalesund" unique_id=718222113]
+curve = SubResource("Curve2D_d3wgx")
+script = ExtResource("8_gee14")
+
+[node name="Path2D4" type="Path2D" parent="norway/Aalesund" unique_id=753975326]
+curve = SubResource("Curve2D_83siq")
+script = ExtResource("8_gee14")
+
+[node name="Path2D3" type="Path2D" parent="norway/Aalesund" unique_id=811191274]
+curve = SubResource("Curve2D_tiw1a")
+script = ExtResource("8_gee14")
+
+[node name="Path2D2" type="Path2D" parent="norway/Aalesund" unique_id=542233593]
+curve = SubResource("Curve2D_aa3uy")
+script = ExtResource("8_gee14")
+
+[node name="Path2D" type="Path2D" parent="norway/Aalesund" unique_id=1371747141]
+curve = SubResource("Curve2D_tnp05")
+script = ExtResource("8_gee14")
+
+[node name="Bergen" type="Area2D" parent="norway" unique_id=1548833859]
+collision_layer = 3
+collision_mask = 3
+script = ExtResource("3_lnu2h")
+province_material = 2
+startup_buildings = Array[int]([2])
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="norway/Bergen" unique_id=703779565]
+polygon = PackedVector2Array(-421, -192, -427, -192, -425, -187, -429, -187, -437, -190, -436, -187, -436, -184, -438, -183, -431, -183, -427, -181, -422, -178, -429, -177, -434, -180, -438, -180, -440, -176, -443, -178, -441, -173, -437, -173, -437, -172, -438, -170, -435, -167, -437, -166, -443, -166, -442, -161, -439, -159, -411, -158, -411, -156, -416, -155, -417, -152, -421, -155, -425, -156, -426, -154, -443, -155, -445, -153, -441, -148, -443, -144, -446, -146, -445, -144, -445, -142, -444, -140, -440, -144, -439, -143, -439, -139, -447, -134, -447, -131, -446, -129, -443, -131, -443, -127, -432, -133, -429, -136, -420, -136, -418, -137, -406, -141, -396, -146, -395, -153, -400, -157, -402, -162, -397, -164, -403, -172, -408, -172, -412, -172, -416, -182, -415, -185, -417, -190)
+
+[node name="Polygon2D" type="Polygon2D" parent="norway/Bergen" unique_id=1831371002]
+color = Color(0.45359772, 0.43529403, 0.42440614, 1)
+metadata/id = 0
+
+[node name="ProvinceBorder" type="Line2D" parent="norway/Bergen" unique_id=1104263783]
+closed = true
+width = 0.3
+default_color = Color(1, 1, 1, 0.78431374)
+joint_mode = 2
+
+[node name="Node2D" parent="norway/Bergen" unique_id=2001564301 instance=ExtResource("7_gee14")]
+position = Vector2(-441, -134)
+
+[node name="Control" type="Control" parent="norway/Bergen" unique_id=543382132]
+z_index = 2
+layout_mode = 3
+anchors_preset = 0
+offset_left = 36.0
+offset_top = -35.77
+offset_right = 76.0
+offset_bottom = 4.2299995
+pivot_offset = Vector2(19.865, 0)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="norway/Bergen/Control" unique_id=1537023836]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.25
+offset_bottom = -10.0
+alignment = 1
+
+[node name="PanelContainer" type="PanelContainer" parent="norway/Bergen/Control/VBoxContainer" unique_id=1068874528]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_0tnpc")
+
+[node name="ProvinceName" type="Label" parent="norway/Bergen/Control/VBoxContainer/PanelContainer" unique_id=458940715]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="norway/Bergen/Control/VBoxContainer" unique_id=185764506]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="norway/Bergen/Control/VBoxContainer/HBoxContainer" unique_id=1611178072]
+layout_mode = 2
+
+[node name="ResourceCount" type="Label" parent="norway/Bergen/Control/VBoxContainer/HBoxContainer" unique_id=935141713]
+layout_mode = 2
+
+[node name="Path2D6" type="Path2D" parent="norway/Bergen" unique_id=1537971757]
+curve = SubResource("Curve2D_cosht")
+script = ExtResource("8_gee14")
+
+[node name="Path2D5" type="Path2D" parent="norway/Bergen" unique_id=2012971861]
+curve = SubResource("Curve2D_jdjp1")
+script = ExtResource("8_gee14")
+
+[node name="Path2D4" type="Path2D" parent="norway/Bergen" unique_id=1500898847]
+curve = SubResource("Curve2D_61wi5")
+script = ExtResource("8_gee14")
+
+[node name="Path2D3" type="Path2D" parent="norway/Bergen" unique_id=750211681]
+curve = SubResource("Curve2D_5agg0")
+script = ExtResource("8_gee14")
+
+[node name="Path2D2" type="Path2D" parent="norway/Bergen" unique_id=1165423603]
+curve = SubResource("Curve2D_605u8")
+script = ExtResource("8_gee14")
+
+[node name="Path2D" type="Path2D" parent="norway/Bergen" unique_id=402716928]
+curve = SubResource("Curve2D_1eilm")
+script = ExtResource("8_gee14")
+
+[node name="Egersund" type="Area2D" parent="norway" unique_id=1670755357]
+collision_layer = 3
+collision_mask = 3
+script = ExtResource("3_lnu2h")
+province_material = 5
+startup_buildings = Array[int]([2])
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="norway/Egersund" unique_id=107933791]
+polygon = PackedVector2Array(-420, -136, -429, -132, -443, -122, -444, -117, -438, -118, -440, -113, -444, -111, -446, -113, -451, -109, -450, -108, -450, -105, -446, -103, -443, -107, -440, -104, -438, -102, -438, -99, -443, -97, -441, -89, -446, -91, -448, -90, -450, -93, -451, -93, -451, -90, -450, -85, -450, -79, -447, -77, -445, -74, -443, -70, -437, -68, -433, -69, -436, -63, -435, -62, -432, -64, -430, -61, -430, -59, -415, -60, -413, -63, -411, -60, -408, -63, -405, -67, -402, -69, -391, -88, -389, -86, -387, -89, -387, -92, -382, -91, -377, -93, -376, -100, -377, -103, -377, -107, -385, -114, -387, -116, -377, -123, -378, -127, -379, -130, -383, -134, -386, -132, -390, -139, -388, -143, -381, -145, -377, -145, -376, -147, -377, -153, -387, -157, -389, -160, -391, -158, -395, -153, -396, -146, -406, -141, -418, -137)
+
+[node name="Polygon2D" type="Polygon2D" parent="norway/Egersund" unique_id=1132777107]
+color = Color(0.45359772, 0.43529403, 0.42440614, 1)
+metadata/id = 0
+
+[node name="ProvinceBorder" type="Line2D" parent="norway/Egersund" unique_id=1379184851]
+closed = true
+width = 0.3
+default_color = Color(1, 1, 1, 0.78431374)
+joint_mode = 2
+
+[node name="Node2D" parent="norway/Egersund" unique_id=1275777465 instance=ExtResource("7_gee14")]
+position = Vector2(-440, -74)
+
+[node name="Control" type="Control" parent="norway/Egersund" unique_id=808569309]
+z_index = 2
+layout_mode = 3
+anchors_preset = 0
+offset_left = 36.0
+offset_top = -35.77
+offset_right = 76.0
+offset_bottom = 4.2299995
+pivot_offset = Vector2(19.865, 0)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="norway/Egersund/Control" unique_id=825865223]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.25
+offset_bottom = -10.0
+alignment = 1
+
+[node name="PanelContainer" type="PanelContainer" parent="norway/Egersund/Control/VBoxContainer" unique_id=681354143]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_0tnpc")
+
+[node name="ProvinceName" type="Label" parent="norway/Egersund/Control/VBoxContainer/PanelContainer" unique_id=679716150]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="norway/Egersund/Control/VBoxContainer" unique_id=225345131]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="norway/Egersund/Control/VBoxContainer/HBoxContainer" unique_id=583865749]
+layout_mode = 2
+
+[node name="ResourceCount" type="Label" parent="norway/Egersund/Control/VBoxContainer/HBoxContainer" unique_id=317414377]
+layout_mode = 2
+
+[node name="Path2D8" type="Path2D" parent="norway/Egersund" unique_id=633081413]
+curve = SubResource("Curve2D_8k7ds")
+script = ExtResource("8_gee14")
+
+[node name="Path2D7" type="Path2D" parent="norway/Egersund" unique_id=2005683418]
+curve = SubResource("Curve2D_tshkq")
+script = ExtResource("8_gee14")
+
+[node name="Path2D6" type="Path2D" parent="norway/Egersund" unique_id=1177123501]
+curve = SubResource("Curve2D_y4616")
+script = ExtResource("8_gee14")
+
+[node name="Path2D5" type="Path2D" parent="norway/Egersund" unique_id=1041776229]
+curve = SubResource("Curve2D_t8eta")
+script = ExtResource("8_gee14")
+
+[node name="Path2D4" type="Path2D" parent="norway/Egersund" unique_id=746421003]
+curve = SubResource("Curve2D_r4krd")
+script = ExtResource("8_gee14")
+
+[node name="Path2D3" type="Path2D" parent="norway/Egersund" unique_id=857189285]
+curve = SubResource("Curve2D_w47dr")
+script = ExtResource("8_gee14")
+
+[node name="Path2D2" type="Path2D" parent="norway/Egersund" unique_id=884740601]
+curve = SubResource("Curve2D_r8xxj")
+script = ExtResource("8_gee14")
+
+[node name="Path2D" type="Path2D" parent="norway/Egersund" unique_id=1682229137]
+curve = SubResource("Curve2D_k1kjl")
+script = ExtResource("8_gee14")
+
+[node name="Christiana" type="Area2D" parent="norway" unique_id=1389112447]
+collision_layer = 3
+collision_mask = 3
+script = ExtResource("3_lnu2h")
+startup_buildings = Array[int]([2, 0])
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="norway/Christiana" unique_id=849327587]
+polygon = PackedVector2Array(-377, -107, -376, -115, -373, -122, -371, -119, -369, -116, -371, -109, -371, -106, -369, -102, -367, -112, -364, -115, -365, -119, -364, -123, -362, -129, -354, -134, -350, -143, -332, -146, -332, -152, -331, -158, -334, -163, -338, -168, -338, -176, -342, -178, -343, -175, -345, -172, -346, -176, -346, -180, -348, -176, -355, -169, -365, -169, -370, -165, -371, -161, -374, -157, -377, -153, -376, -147, -377, -145, -381, -145, -388, -143, -390, -139, -386, -132, -383, -134, -379, -130, -377, -123, -387, -116, -385, -114)
+
+[node name="Polygon2D" type="Polygon2D" parent="norway/Christiana" unique_id=407732028]
+color = Color(0.45359772, 0.43529403, 0.42440614, 1)
+metadata/id = 0
+
+[node name="ProvinceBorder" type="Line2D" parent="norway/Christiana" unique_id=2138046544]
+closed = true
+width = 0.3
+default_color = Color(1, 1, 1, 0.78431374)
+joint_mode = 2
+
+[node name="Node2D" parent="norway/Christiana" unique_id=1212394888 instance=ExtResource("7_gee14")]
+position = Vector2(-369, -125)
+
+[node name="Control" type="Control" parent="norway/Christiana" unique_id=1714289060]
+z_index = 2
+layout_mode = 3
+anchors_preset = 0
+offset_left = 36.0
+offset_top = -35.77
+offset_right = 76.0
+offset_bottom = 4.2299995
+pivot_offset = Vector2(19.865, 0)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="norway/Christiana/Control" unique_id=1307033779]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.25
+offset_bottom = -10.0
+alignment = 1
+
+[node name="PanelContainer" type="PanelContainer" parent="norway/Christiana/Control/VBoxContainer" unique_id=1148759263]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_0tnpc")
+
+[node name="ProvinceName" type="Label" parent="norway/Christiana/Control/VBoxContainer/PanelContainer" unique_id=1586021702]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="norway/Christiana/Control/VBoxContainer" unique_id=1837110813]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="norway/Christiana/Control/VBoxContainer/HBoxContainer" unique_id=1665068307]
+layout_mode = 2
+
+[node name="ResourceCount" type="Label" parent="norway/Christiana/Control/VBoxContainer/HBoxContainer" unique_id=671235079]
+layout_mode = 2
+
+[node name="Path2D6" type="Path2D" parent="norway/Christiana" unique_id=1838574237]
+curve = SubResource("Curve2D_nk75x")
+script = ExtResource("8_gee14")
+
+[node name="Path2D5" type="Path2D" parent="norway/Christiana" unique_id=2135880939]
+curve = SubResource("Curve2D_hwjc1")
+script = ExtResource("8_gee14")
+
+[node name="Path2D4" type="Path2D" parent="norway/Christiana" unique_id=2138034057]
+curve = SubResource("Curve2D_2p0c4")
+script = ExtResource("8_gee14")
+
+[node name="Path2D3" type="Path2D" parent="norway/Christiana" unique_id=201905174]
+curve = SubResource("Curve2D_vufli")
+script = ExtResource("8_gee14")
+
+[node name="Path2D2" type="Path2D" parent="norway/Christiana" unique_id=1409193779]
+curve = SubResource("Curve2D_d8ho2")
+script = ExtResource("8_gee14")
+
+[node name="Path2D" type="Path2D" parent="norway/Christiana" unique_id=1197026145]
+curve = SubResource("Curve2D_snk1t")
 script = ExtResource("8_gee14")
 
 [node name="Line2D" type="Line2D" parent="." unique_id=706389308]

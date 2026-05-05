@@ -40,6 +40,8 @@ var end_communication: bool = true
 func _ready() -> void:
 	add_to_group("players")
 	await get_tree().process_frame
+	var global_timer = get_node("/root/Game/GlobalTimer")
+	global_timer.timeout.connect(_on_global_timer_timeout)
 	var paths: Array[Node] = get_tree().get_nodes_in_group("paths")
 	var c: int = 0
 	for el in paths:
@@ -163,6 +165,29 @@ func manage(message: Dictionary) -> void:
 	var type : String = message[ 'type' ]
 	var data : Dictionary = message[ 'data' ]
 	print(sender, " ", receiver, " ", type, " ", data)
+	if type == "action":
+		var action_type = data.get("action_type")
+		if action_type == "move_army":
+			var army_id = data.get("army_id")
+			var target_prov_name = data.get("target_province")
+			var army_to_move = null
+			for army in armies:
+				if army.army_id == army_id:
+					army_to_move = army
+					break
+			if army_to_move != null:
+				var all_provinces = get_tree().get_nodes_in_group("provinces")
+				for prov in all_provinces:
+					if prov.name == target_prov_name:
+						army_to_move.order(prov)
+						break
+		elif action_type == "declare_war":
+			var target_name = data.get("target")
+			var players = get_tree().get_nodes_in_group("players")
+			for p in players:
+				if p.name == target_name:
+					declare_war(p)
+					break
 	
 func _exit_tree() -> void:
 	ws.close()
@@ -187,6 +212,127 @@ func _on_global_hour_timer_timeout() -> void:
 	
 	for i in total_army_daily_cost:
 		add_resource(i, -ceil(float(total_army_daily_cost[i])/24))
+		
+	if ws.get_ready_state() == WebSocketPeer.STATE_OPEN:
+		var state: Dictionary = {
+			"type": "sight",
+			"sender": self.name,
+			"receiver": "vesna",
+			"data": {
+				"type": "state_update",
+				"resources": {},
+				"my_armies": [],
+				"allied_provinces": [],
+				"enemy_provinces": [],
+				"nation_strengths": {},
+				"active_wars": len(player_in_war),
+				"neighbor_nations": {}
+			}
+		}
+		
+		# fill resources
+		for res in resources:
+			var res_name = Enums.Resources.keys()[res].to_lower()
+			state["data"]["resources"][res_name] = resources[res]
+			
+		# fill my_armies
+		for army in armies:
+			if not is_instance_valid(army): continue
+			state["data"]["my_armies"].append({
+				"id": army.army_id,
+				"x": army.global_position.x,
+				"y": army.global_position.y,
+				"life": army.life_points
+			})
+			
+		# fill allied and enemy provinces
+		var all_provinces = get_tree().get_nodes_in_group("provinces")
+		for prov in all_provinces:
+			if prov.get_parent() == self:
+				state["data"]["allied_provinces"].append({
+					"id": prov.name,
+					"morale": prov.province_morale
+				})
+			elif prov.get_parent() in player_in_war:
+				var has_army = false
+				for army in prov.get_parent().armies:
+					if not is_instance_valid(army): continue
+					if army.province_location == prov:
+						has_army = true
+						break
+				state["data"]["enemy_provinces"].append({
+					"id": prov.name,
+					"owner": prov.get_parent().name,
+					"has_army": has_army
+				})
+		
+		# fill nation_strengths
+		var players = get_tree().get_nodes_in_group("players")
+		for p in players:
+			if p == self: continue
+			var strength = 0
+			for a in p.armies:
+				if not is_instance_valid(a): continue
+				strength += a.soldier_number
+			state["data"]["nation_strengths"][p.name] = strength
+			
+		# fill neighbor_nations
+		var neighbor_nations_dict = {}
+		for prov in get_children():
+			if prov is Province:
+				for neighbor_prov in prov.neighbors:
+					if neighbor_prov is Province and neighbor_prov.get_parent() != self:
+						var neighbor_agent = neighbor_prov.get_parent()
+						if neighbor_agent is Agent:
+							neighbor_nations_dict[neighbor_agent] = true
+
+		var neighbors_data = {}
+		for neighbor_agent in neighbor_nations_dict:
+			var res_production = {}
+			for n_prov in neighbor_agent.get_children():
+				if n_prov is Province:
+					var res_name = Enums.Resources.keys()[n_prov.province_material].to_lower()
+					var count = n_prov._get_daily_resource_count()
+					if res_production.has(res_name):
+						res_production[res_name] += count
+					else:
+						res_production[res_name] = count
+			neighbors_data[neighbor_agent.name] = res_production
+			
+		state["data"]["neighbor_nations"] = neighbors_data
+			
+		ws.send_text(JSON.stringify(state))
+		
+func _on_global_timer_timeout() -> void:
+	if ws.get_ready_state() != WebSocketPeer.STATE_OPEN: return
+	var armies_to_report = {}
+	for army in known_armies:
+		armies_to_report[army] = true
+	for army in perfectly_known_armies:
+		armies_to_report[army] = true
+		
+	for army in armies_to_report:
+		if not is_instance_valid(army): continue
+		if army.travelling and army.path != null and len(army.path) > army.nodes_travelled + 1:
+			var point_path_next: Path2D = army.player.graph_to_path[army.path[army.nodes_travelled + 1]][0]
+			var path_point_next: int = army.player.graph_to_path[army.path[army.nodes_travelled + 1]][1]
+			var next_pos = point_path_next.to_global(point_path_next.curve.get_point_position(path_point_next))
+			
+			var msg: Dictionary = {
+				"type": "sight",
+				"sender": self.name,
+				"receiver": "vesna",
+				"data": {
+					"type": "foreign_army_moving",
+					"id": army.army_id,
+					"owner": army.player.name,
+					"x": army.global_position.x,
+					"y": army.global_position.y,
+					"next_x": next_pos.x,
+					"next_y": next_pos.y
+				}
+			}
+			ws.send_text(JSON.stringify(msg))
 
 func _on_global_day_timer_timeout() -> void:
 	pass
