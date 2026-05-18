@@ -95,7 +95,8 @@ public class CountryAgent extends VesnaAgent {
             sense(createLiteral("clear_my_armies"));
             for (int i = 0; i < myArmies.length(); i++) {
                 JSONObject army = myArmies.getJSONObject(i);
-                sense(createLiteral("my_army_update", createNumber(army.getLong("id")), createNumber(army.getDouble("x")), createNumber(army.getDouble("y")), createNumber(army.getDouble("life"))));
+                String loc = army.has("location") ? army.getString("location") : "";
+                sense(createLiteral("my_army_update", createNumber(army.getLong("id")), createNumber(army.getDouble("x")), createNumber(army.getDouble("y")), createNumber(army.getDouble("life")), createNumber(army.getDouble("attack_value")), createAtom(loc.isEmpty() ? "unknown" : loc)));
             }
 
             // Update allied provinces
@@ -111,7 +112,15 @@ public class CountryAgent extends VesnaAgent {
             sense(createLiteral("clear_enemy_provinces"));
             for (int i = 0; i < enemies.length(); i++) {
                 JSONObject prov = enemies.getJSONObject(i);
-                sense(createLiteral("enemy_province_update", createAtom(prov.getString("id")), createAtom(prov.getString("owner")), createAtom(prov.getBoolean("has_army") ? "true" : "false")));
+                
+                org.json.JSONArray borders = prov.getJSONArray("bordering_allies");
+                jason.asSyntax.ListTerm bordersList = new jason.asSyntax.ListTermImpl();
+                jason.asSyntax.ListTerm tail = bordersList;
+                for (int j = 0; j < borders.length(); j++) {
+                    tail = tail.append(createAtom(borders.getString(j)));
+                }
+
+                sense(createLiteral("enemy_province_update", createAtom(prov.getString("id")), createAtom(prov.getString("owner")), createAtom(prov.getBoolean("has_army") ? "true" : "false"), createNumber(prov.getDouble("defense_value")), createNumber(prov.getDouble("x")), createNumber(prov.getDouble("y")), bordersList));
             }
 
             // Update nation strengths

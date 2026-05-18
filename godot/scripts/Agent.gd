@@ -238,11 +238,16 @@ func _on_global_hour_timer_timeout() -> void:
 		# fill my_armies
 		for army in armies:
 			if not is_instance_valid(army): continue
+			var loc_name = ""
+			if army.province_location != null and army.province_location is Province:
+				loc_name = army.province_location.name
 			state["data"]["my_armies"].append({
 				"id": army.army_id,
 				"x": army.global_position.x,
 				"y": army.global_position.y,
-				"life": army.life_points
+				"life": army.life_points,
+				"attack_value": (army.soldier_number * army.ATTACK_PER_UNIT) * army.life_points / (army.soldier_number * army.LIFE_PER_UNIT),
+				"location": loc_name
 			})
 			
 		# fill allied and enemy provinces
@@ -255,15 +260,24 @@ func _on_global_hour_timer_timeout() -> void:
 				})
 			elif prov.get_parent() in player_in_war:
 				var has_army = false
+				var defense_value = 0.0
 				for army in prov.get_parent().armies:
 					if not is_instance_valid(army): continue
 					if army.province_location == prov:
 						has_army = true
-						break
+						defense_value += (army.soldier_number * army.DEFENSE_PER_UNIT) * army.life_points / (army.soldier_number * army.LIFE_PER_UNIT)
+				var bordering_allies = []
+				for neighbor in prov.neighbors:
+					if neighbor.get_parent() == self:
+						bordering_allies.append(neighbor.name)
 				state["data"]["enemy_provinces"].append({
 					"id": prov.name,
 					"owner": prov.get_parent().name,
-					"has_army": has_army
+					"has_army": has_army,
+					"defense_value": defense_value,
+					"x": prov.global_position.x,
+					"y": prov.global_position.y,
+					"bordering_allies": bordering_allies
 				})
 		
 		# fill nation_strengths
