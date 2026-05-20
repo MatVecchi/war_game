@@ -2632,7 +2632,6 @@ point_count = 2
 
 [node name="Game" type="Node2D" unique_id=63633635]
 script = ExtResource("1_lbhrr")
-time_multiplier = 50.0
 
 [node name="GlobalTimer" type="Timer" parent="." unique_id=1661397854 groups=["timer"]]
 autostart = true
