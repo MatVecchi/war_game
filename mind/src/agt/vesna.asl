@@ -1,14 +1,12 @@
 { include("$jacamoJar/templates/common-cartago.asl") }
 { include("$jacamoJar/templates/common-moise.asl") }
 
-// ----------------------------------------------------
-// STATE UPDATE HANDLERS (Called from Java sense events)
-// ----------------------------------------------------
-
-+clear_my_armies <- -my_army(_, _, _, _, _, _).
-+clear_allied_provinces <- -allied_province(_, _).
-+clear_enemy_provinces <- -enemy_province_status(_, _, _, _, _, _, _).
-+clear_neighbor_nations <- -neighbor_resource(_, _, _).
++clear_my_armies <- 
+    .retractall(my_army(_, _, _, _, _, _));
+    .retractall(my_army_path_distance(_, _, _)).
++clear_allied_provinces <- .retractall(allied_province(_, _, _, _)).
++clear_enemy_provinces <- .retractall(enemy_province_status(_, _, _, _, _, _, _)).
++clear_neighbor_nations <- .retractall(neighbor_resource(_, _, _)).
 
 +neighbor_resource_update(Neighbor, Res, Amount)
   <- +neighbor_resource(Neighbor, Res, Amount).
@@ -32,8 +30,11 @@
 +my_army_update(Id, X, Y, Life, AttackValue, Loc)
   <- +my_army(Id, X, Y, Life, AttackValue, Loc).
 
-+allied_province_update(Id, Morale)
-  <- +allied_province(Id, Morale).
++allied_province_update(Id, Morale, X, Y)
+  <- +allied_province(Id, Morale, X, Y).
+
++my_army_distance_update(Id, ProvId, Dist)
+  <- +my_army_path_distance(Id, ProvId, Dist).
 
 +enemy_province_update(Id, Owner, HasArmyStr, DefenseValue, X, Y, BorderingAllies)
   <- +enemy_province_status(Id, Owner, HasArmyStr, DefenseValue, X, Y, BorderingAllies).
@@ -46,11 +47,6 @@
   <- -active_wars(_);
      +active_wars(Count).
 
-// ----------------------------------------------------
-// DIPLOMACY & TARGET ACQUISITION
-// ----------------------------------------------------
-
-// Called periodically (e.g., triggered by a timer or another goal)
 +!evaluate_targets : true
   <- for (resource_trend(NeededResource, negative)) {
          .findall(Amount, neighbor_resource(Neighbor, NeededResource, Amount), ListOfAmounts);
@@ -79,19 +75,12 @@
      -war_cooldown;
      .print("War cooldown ended.").
 
-// Fallback if conditions not met
 +!decide_attack(TargetNation, NeededResource)
   <- true.
 
-// ----------------------------------------------------
-// OFFENSIVE STRATEGY (Target Enemy Provinces)
-// ----------------------------------------------------
-
-// Trigger this every time state updates or periodically
 +!evaluate_attack_opportunities : true
   <- for(enemy_province_status(ProvId, EnemyNation, _, EnemyDefenseValue, ProvX, ProvY, BorderingAllies)) {
          if (at_war_with(EnemyNation) & BorderingAllies \== []) {
-             // Find an army that is located in one of the bordering allied provinces
              .findall([AttackValue, MyId], (my_army(MyId, _, _, _, AttackValue, Loc) & .member(Loc, BorderingAllies)), AvailableArmies);
              if (AvailableArmies \== []) {
                  if (EnemyDefenseValue == 0) {
@@ -123,34 +112,32 @@
   : AccumulatedStrength <= TargetStrength
   <- !accumulate_attackers(ProvId, TargetStrength, Rest, AccumulatedStrength + Atk, [ArmyId | ChosenArmies]).
 
-// ----------------------------------------------------
-// DEFENSIVE STRATEGY (Reinforce Core based on Partial Paths)
-// ----------------------------------------------------
-
 +foreign_army_moving(ArmyId, Nation, PosX, PosY, NextX, NextY)
   : at_war_with(Nation) | is_threat(Nation)
   <- .print("Enemy army ", ArmyId, " of ", Nation, " moving towards ", NextX, ",", NextY);
      // Find the closest core province to (NextX, NextY)
      !find_closest_province(NextX, NextY, ClosestProv);
-     // Send our closest army to that province
-     if (my_army(MyId, MyX, MyY, MyLife, AttackValue, Loc)) {
-         vesna.via.move_army(MyId, ClosestProv);
-         .print("Defending province ", ClosestProv, " with army ", MyId);
+     // Find our army with the absolute minimum A* path distance to ClosestProv
+     .findall([PathDist, MyId], (my_army(MyId, _, _, _, _, Loc) & my_army_path_distance(MyId, ClosestProv, PathDist) & Loc \== ClosestProv & not ordered_to_defend(MyId, ClosestProv)), ArmiesWithDist);
+     if (ArmiesWithDist \== []) {
+         .min(ArmiesWithDist, [MinDist, BestArmyId]);
+         .retractall(ordered_to_defend(BestArmyId, _));
+         +ordered_to_defend(BestArmyId, ClosestProv);
+         vesna.via.move_army(BestArmyId, ClosestProv);
+         .print("Sending A* closest army ", BestArmyId, " to defend province ", ClosestProv, " (Path Dist: ", MinDist, ")");
      }.
 
-+!find_closest_province(X, Y, ClosestProv)
-  <- // Simple approximation: just pick any allied province for now
-     // To improve: calculate euclidean distance between (X,Y) and province centers
-     ?allied_province(ClosestProv, _).
++!find_closest_province(TargetX, TargetY, ClosestProv)
+  <- .findall([Dist, ProvId], (allied_province(ProvId, _, ProvX, ProvY) & Dist = (TargetX - ProvX)**2 + (TargetY - ProvY)**2), Distances);
+     if (Distances \== []) {
+         .min(Distances, [MinDist, ClosestProv]);
+     } else {
+         ?allied_province(ClosestProv, _, _, _);
+     }.
 
-// Default if not at war/threat
 +foreign_army_moving(ArmyId, Nation, PosX, PosY, NextX, NextY)
   <- true.
 
-// ----------------------------------------------------
-// MAIN LOOP TRIGGER (Trigger evaluation goals periodically)
-// ----------------------------------------------------
-// Since we get active_wars_update every hour, we can use it to trigger our strategy evaluations
 +active_wars(Count)
   <- !evaluate_targets;
      !evaluate_attack_opportunities.

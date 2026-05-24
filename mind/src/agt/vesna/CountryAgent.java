@@ -97,6 +97,13 @@ public class CountryAgent extends VesnaAgent {
                 JSONObject army = myArmies.getJSONObject(i);
                 String loc = army.has("location") ? army.getString("location") : "";
                 sense(createLiteral("my_army_update", createNumber(army.getLong("id")), createNumber(army.getDouble("x")), createNumber(army.getDouble("y")), createNumber(army.getDouble("life")), createNumber(army.getDouble("attack_value")), createAtom(loc.isEmpty() ? "unknown" : loc)));
+                
+                if (army.has("distances")) {
+                    JSONObject distances = army.getJSONObject("distances");
+                    for (String provId : distances.keySet()) {
+                        sense(createLiteral("my_army_distance_update", createNumber(army.getLong("id")), createAtom(provId), createNumber(distances.getDouble(provId))));
+                    }
+                }
             }
 
             // Update allied provinces
@@ -104,7 +111,7 @@ public class CountryAgent extends VesnaAgent {
             sense(createLiteral("clear_allied_provinces"));
             for (int i = 0; i < allied.length(); i++) {
                 JSONObject prov = allied.getJSONObject(i);
-                sense(createLiteral("allied_province_update", createAtom(prov.getString("id")), createNumber(prov.getInt("morale"))));
+                sense(createLiteral("allied_province_update", createAtom(prov.getString("id")), createNumber(prov.getInt("morale")), createNumber(prov.getDouble("x")), createNumber(prov.getDouble("y"))));
             }
 
             // Update enemy provinces

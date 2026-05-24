@@ -24,7 +24,7 @@ func _handleZoom(s: float):
 	var mouse_world_after = get_global_mouse_position()
 	global_position += mouse_world_before - mouse_world_after
 
-	if zoom.x > SHOW_BORDERS_ZOOM and not border_shown:
+	if zoom.x >= SHOW_BORDERS_ZOOM and not border_shown:
 		var provinces: Array[Node] = get_tree().get_nodes_in_group("provinces")
 		for province in provinces:
 			if province is not Province: continue
@@ -41,7 +41,7 @@ func _handleZoom(s: float):
 			province.control.hide()
 		border_shown = false
 		
-	if zoom.x > SHOW_ARMY_COUNT_ZOOM and not army_shown:
+	if zoom.x >= SHOW_ARMY_COUNT_ZOOM and not army_shown:
 		var armies: Array[Node] = get_tree().get_nodes_in_group("armies")
 		for army in armies:
 			if army is not Army: continue

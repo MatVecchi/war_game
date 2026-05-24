@@ -26,6 +26,7 @@ var perfectly_known_armies: Dictionary[Army, int] = {}
 var known_armies: Dictionary[Army, int] = {}
 var player_in_war: Array[Agent] = []
 var armies: Array[Army] = []
+var next_army_id: int = 0
 var tcp_server := TCPServer.new()
 var ws := WebSocketPeer.new()
 var connection_accepted: bool = false
@@ -90,14 +91,14 @@ func _ready() -> void:
 	
 	var provinces = get_tree().get_nodes_in_group("provinces")
 	for el in provinces:
-		if provinces is not Province: continue
+		if el is not Province: continue
 		
 		if el not in get_children():
 			for path in el.get_province_paths():
 				var graph_node_key = 0
-				if path[1] > 0:
+				if path[1] != Vector2.ZERO:
 					graph_node_key = 1
-				routes.set_point_weight_scale(graph_to_path[path[0]][graph_node_key], 1.5)
+				routes.set_point_weight_scale(path_to_graph[path[0]][graph_node_key], 1.5)
 	
 	var game: GameController = get_tree().current_scene
 	var children = get_children()
@@ -236,27 +237,47 @@ func _on_global_hour_timer_timeout() -> void:
 			state["data"]["resources"][res_name] = resources[res]
 			
 		# fill my_armies
+		var all_provinces = get_tree().get_nodes_in_group("provinces")
 		for army in armies:
 			if not is_instance_valid(army): continue
 			var loc_name = ""
 			if army.province_location != null and army.province_location is Province:
 				loc_name = army.province_location.name
+				
+			var distances = {}
+			for allied_prov in all_provinces:
+				if allied_prov.get_parent() == self:
+					var start: int = routes.get_closest_point(army.global_position)
+					var target: int = routes.get_closest_point(allied_prov.to_global(allied_prov.get_city_position()))
+					var path_points = routes.get_id_path(start, target, false)
+					var dist = 0.0
+					if len(path_points) > 0:
+						for j in range(len(path_points) - 1):
+							var p1 = routes.get_point_position(path_points[j])
+							var p2 = routes.get_point_position(path_points[j+1])
+							dist += p1.distance_to(p2)
+					else:
+						dist = 999999.0 # Unreachable
+					distances[allied_prov.name] = dist
+
 			state["data"]["my_armies"].append({
 				"id": army.army_id,
 				"x": army.global_position.x,
 				"y": army.global_position.y,
 				"life": army.life_points,
-				"attack_value": (army.soldier_number * army.ATTACK_PER_UNIT) * army.life_points / (army.soldier_number * army.LIFE_PER_UNIT),
-				"location": loc_name
+				"attack_value": (army.soldier_number * army.ATTACK_PER_UNIT) * army.life_points / (army.soldier_number * army.LIFE_PER_UNIT) if army.soldier_number > 0 else 0.0,
+				"location": loc_name,
+				"distances": distances
 			})
 			
 		# fill allied and enemy provinces
-		var all_provinces = get_tree().get_nodes_in_group("provinces")
 		for prov in all_provinces:
 			if prov.get_parent() == self:
 				state["data"]["allied_provinces"].append({
 					"id": prov.name,
-					"morale": prov.province_morale
+					"morale": prov.province_morale,
+					"x": prov.global_position.x,
+					"y": prov.global_position.y
 				})
 			elif prov.get_parent() in player_in_war:
 				var has_army = false

@@ -115,7 +115,7 @@ func _ready() -> void:
 	var players: Array[Node] = get_tree().get_nodes_in_group("players")
 	
 	for el in polys:
-		if el is not Province: return
+		if el is not Province: continue
 		provinces.append(el)
 	
 	for el in get_children():
@@ -234,7 +234,8 @@ func add_army_to_province(province: Province, army: Army = null, sn: int = 10) -
 		var paths: Array[Node] = get_tree().get_nodes_in_group("paths")
 		var army_scene = preload("res://scenes/army.tscn")
 		army = army_scene.instantiate()
-		army.army_id = len(agent.armies)
+		army.army_id = agent.next_army_id
+		agent.next_army_id += 1
 		army.soldier_number = sn
 		army.life_points = army.LIFE_PER_UNIT * 10 * (float(province.province_morale)/100)
 		army.player = agent

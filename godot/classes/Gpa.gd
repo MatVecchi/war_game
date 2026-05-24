@@ -20,6 +20,8 @@ func get_closest_point(to_position: Vector2, include_disabled: bool = false) -> 
 			continue
 		if el.position.distance_to(to_position) < closest_point.position.distance_to(to_position) and (not el.disabled or include_disabled):
 			closest_point = el
+	if closest_point == null:
+		return -1
 	return closest_point.id
 	
 func get_id_path(from_id: int, to_id: int, allow_partial_path: bool = false) -> PackedInt64Array:

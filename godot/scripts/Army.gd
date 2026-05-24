@@ -71,8 +71,6 @@ func _ready() -> void:
 	$Area2D.area_entered.connect(_on_area_entered)
 	timer = get_node("/root/Game/GlobalTimer")
 	timer.timeout.connect(_on_global_timer_timeout)
-	hour_timer = get_node("/root/Game/GlobalHourTimer")
-	hour_timer.timeout.connect(_on_global_hour_timer_timeout)
 	day_timer = get_node("/root/Game/GlobalDayTimer")
 	day_timer.timeout.connect(_on_global_day_timer_timeout)
 	
@@ -159,8 +157,10 @@ func _on_global_timer_timeout() -> void:
 				return
 			
 			if province_location != null and not player.get_province_owner(province_location) and province_location.get_city_position() == position:
-				var game: GameController = get_tree().current_scene
-				game.conquer_province(province_location, player)
+				var owner = province_location.get_parent()
+				if owner is Agent and owner in player.player_in_war:
+					var game: GameController = get_tree().current_scene
+					game.conquer_province(province_location, player)
 			
 			var new_path = player.graph_to_path[path[nodes_travelled]][0]
 			var point = player.graph_to_path[path[nodes_travelled]][1]
@@ -175,17 +175,21 @@ func _on_global_timer_timeout() -> void:
 			
 			direction = dir
 			
-func _on_global_hour_timer_timeout() -> void:
-	if player == null: return	
-	for i in ARMY_DAILY_COST_PER_UNIT:
-		player.add_resource(i, -ARMY_DAILY_COST_PER_UNIT[i] / 24)
-			
 func _on_destination_reached() -> void:
 	direction_line.points.clear()
 	if province_location == null: return
+	
+	# Merge with any existing friendly stationary army in the same province
+	for el in player.armies:
+		if el != self and is_instance_valid(el) and el.province_location == province_location and not el.travelling:
+			el.merge_armies(self)
+			return
+			
 	if not player.get_province_owner(province_location):
-		var game: GameController = get_tree().current_scene
-		game.conquer_province(province_location, player)
+		var owner = province_location.get_parent()
+		if owner is Agent and owner in player.player_in_war:
+			var game: GameController = get_tree().current_scene
+			game.conquer_province(province_location, player)
 
 func _on_global_day_timer_timeout() -> void:
 	if day_battle or not player.get_province_owner(province_location): 
@@ -250,26 +254,28 @@ func _notification(what: int) -> void:
 func _on_battle_timer_timeout(other: Army, battle_timer: Timer) -> void:
 	var random_attacker_multiplier: float = rng.randf_range(0.5, 1.5)
 	var random_defender_multiplier: float = rng.randf_range(0.5, 1.5)
-	var attacker_strength: float = (soldier_number*ATTACK_PER_UNIT)*life_points/(soldier_number*LIFE_PER_UNIT)
-	var defener_strength: float = (other.soldier_number*other.DEFENSE_PER_UNIT)*other.life_points/(other.soldier_number*other.LIFE_PER_UNIT)
+	var attacker_strength: float = 0.0
+	if soldier_number > 0:
+		attacker_strength = (soldier_number * ATTACK_PER_UNIT) * life_points / (soldier_number * LIFE_PER_UNIT)
+	var defener_strength: float = 0.0
+	if is_instance_valid(other) and other.soldier_number > 0:
+		defener_strength = (other.soldier_number * other.DEFENSE_PER_UNIT) * other.life_points / (other.soldier_number * other.LIFE_PER_UNIT)
 	var final_attack: float = attacker_strength * random_attacker_multiplier
 	var final_defense: float = defener_strength * random_defender_multiplier
 	
-	#print("DEFENSE: ", final_defense, " ATTACK: ", final_attack)
-	
-	
 	life_points -= final_defense
-	other.life_points -= final_attack
-	
 	soldier_number -= int(final_defense / LIFE_PER_UNIT)
-	other.soldier_number -= int(final_attack / other.LIFE_PER_UNIT)
-	
 	death_count += int(final_defense / LIFE_PER_UNIT)
-	other.death_count += int(final_attack / other.LIFE_PER_UNIT)
+	
+	if is_instance_valid(other):
+		other.life_points -= final_attack
+		other.soldier_number -= int(final_attack / other.LIFE_PER_UNIT)
+		other.death_count += int(final_attack / other.LIFE_PER_UNIT)
 
 	var battle_finished: bool = false
-	if other.soldier_number <= 0 or other.life_points <= 0:
-		other.destroy_self()
+	if not is_instance_valid(other) or other.soldier_number <= 0 or other.life_points <= 0:
+		if is_instance_valid(other):
+			other.destroy_self()
 		battle_finished = true
 	else:
 		other.queue_redraw()
@@ -319,7 +325,7 @@ func begin_attack(other: Army) -> void:
 func merge_armies(other: Army) -> void:
 	soldier_number += other.soldier_number
 	life_points += other.life_points
-	other.queue_free()
+	other.destroy_self()
 	queue_redraw()
 	
 func has_reached_destination() -> bool:
@@ -329,6 +335,7 @@ func order(city: Province) -> void:
 	var start: int = player.routes.get_closest_point(global_position)
 	var target: int = player.routes.get_closest_point(city.to_global(city.get_city_position()))
 	var points: PackedInt64Array = player.routes.get_id_path(start, target, false)
+	if len(points) == 0: return
 	var new_path: Path2D = player.graph_to_path[points[0]][0]
 	var point: int = player.graph_to_path[points[0]][1]
 	var dir = new_path.get_point_direction(point)

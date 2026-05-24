@@ -15,7 +15,6 @@ public class declare_war extends DefaultInternalAction {
             return false;
 
         String target = args[0].toString();
-        // remove quotes if string
         if (target.startsWith("\"") && target.endsWith("\"")) {
             target = target.substring(1, target.length() - 1);
         }

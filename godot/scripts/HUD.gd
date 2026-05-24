@@ -119,26 +119,7 @@ func _on_agent_selector_item_selected(index: int) -> void:
 	queue_redraw()
 	
 func _on_timer_timeout():
-	var player: Agent = (get_tree().current_scene as GameController).view
-	if player == null: return
-
 	var game: GameController = get_tree().current_scene
-	for k in MATERIAL_TEXTURES:
-		if player.resources[k] > 999 and player.resources[k] < 9_999:
-			resources_count[k].text = "%.1fk" % (player.resources[k] / 1000.0)
-		elif player.resources[k] > 9_999:
-			@warning_ignore("integer_division")
-			resources_count[k].text = str(player.resources[k] / 1000) + "k"
-		else:
-			resources_count[k].text = str(player.resources[k])
-
-	var leaderboard_position: int
-	for i in range(len(game.leaderboard)):
-		if game.leaderboard[i]["player"] == player:
-			leaderboard_position = i
-			break
-	position_label.text = str(leaderboard_position + 1)
-	points_count_label.text = str(player.points)
 	
 	for entry in player_list_container.get_children():
 		entry.queue_free()
@@ -157,6 +138,25 @@ func _on_timer_timeout():
 		container.add_child(label_name)
 		container.add_child(label_points)
 		player_list_container.add_child(container)
+
+	var player: Agent = game.view
+	if player != null:
+		for k in MATERIAL_TEXTURES:
+			if player.resources[k] > 999 and player.resources[k] < 9_999:
+				resources_count[k].text = "%.1fk" % (player.resources[k] / 1000.0)
+			elif player.resources[k] > 9_999:
+				@warning_ignore("integer_division")
+				resources_count[k].text = str(player.resources[k] / 1000) + "k"
+			else:
+				resources_count[k].text = str(player.resources[k])
+
+		var leaderboard_position: int
+		for i in range(len(game.leaderboard)):
+			if game.leaderboard[i]["player"] == player:
+				leaderboard_position = i
+				break
+		position_label.text = str(leaderboard_position + 1)
+		points_count_label.text = str(player.points)
 
 	queue_redraw()
 	

@@ -316,7 +316,7 @@ func get_province_paths():
 		if el is not Path: continue
 		
 		var start = el.curve.get_point_position(0)
-		var end = el.curve.get_point_position(el.curve.pont_count - 1)
+		var end = el.curve.get_point_position(el.curve.point_count - 1)
 		
 		if start == get_city_position():
 			paths.append([el, start])
@@ -329,14 +329,17 @@ func _notification(what: int) -> void:
 	if what == NOTIFICATION_PARENTED:
 		for path in get_province_paths():
 				var graph_node_key = 0
-				if path[1] > 0:
+				if path[1] != Vector2.ZERO:
 					graph_node_key = 1
-				get_parent().routes.set_point_weight_scale(get_parent().graph_to_path[path[0]][graph_node_key], 1.0)
+				
+				var node_id = get_parent().path_to_graph[path[0]][graph_node_key]
+				get_parent().routes.set_point_weight_scale(node_id, 1.0)
 				
 				var players = get_tree().get_nodes_in_group("players")
 				for player in players:
 					if player == get_parent(): continue
-					player.routes.set_point_weight_scale(player.graph_to_path[path[0]][graph_node_key], 1.5)
+					var enemy_node_id = player.path_to_graph[path[0]][graph_node_key]
+					player.routes.set_point_weight_scale(enemy_node_id, 1.5)
 					
 func toggle_selection() -> bool:
 	selected = not selected
