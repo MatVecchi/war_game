@@ -6,6 +6,7 @@ signal army_destroyed
 signal became_known
 signal became_perfectly_known
 signal became_unknown
+signal movement_updated(next_pos: Vector2)
 
 var path
 var province_location
@@ -150,6 +151,11 @@ func _on_global_timer_timeout() -> void:
 			direction_line_partial.set_point_position(1, to_local(next_point_path_partial.to_global(next_point_path_partial.curve.get_point_position(next_path_point_partial))))
 		else:
 			nodes_travelled += 1
+			
+			var next_pos = _get_next_path_position()
+			if next_pos != Vector2.ZERO:
+				emit_signal("movement_updated", next_pos)
+				
 			if nodes_travelled == len(path):
 				travelling = false
 				path = null
@@ -331,6 +337,13 @@ func merge_armies(other: Army) -> void:
 func has_reached_destination() -> bool:
 	return path == null
 	
+func _get_next_path_position() -> Vector2:
+	if path != null and len(path) > nodes_travelled + 1:
+		var point_path_next: Path2D = player.graph_to_path[path[nodes_travelled + 1]][0]
+		var path_point_next: int = player.graph_to_path[path[nodes_travelled + 1]][1]
+		return point_path_next.to_global(point_path_next.curve.get_point_position(path_point_next))
+	return Vector2.ZERO
+
 func order(city: Province) -> void:
 	var start: int = player.routes.get_closest_point(global_position)
 	var target: int = player.routes.get_closest_point(city.to_global(city.get_city_position()))
@@ -355,7 +368,7 @@ func order(city: Province) -> void:
 	direction_line.default_color = MOVE_LINE_COLOR
 	direction_line.clear_points()
 	
-	direction_line_partial.default_color = MOVE_LINE_COLOR
+	direction_line_partial.default_color = ATTACK_LINE_COLOR
 	direction_line_partial.clear_points()
 	for graph_point in points:
 		var point_path: Path2D = player.graph_to_path[graph_point][0]
@@ -363,7 +376,7 @@ func order(city: Province) -> void:
 		
 		
 		direction_line.add_point(to_local(point_path.to_global(point_path.curve.get_point_position(path_point))))
-'''
+
 	var point_path_partial: Path2D = player.graph_to_path[path[0]][0]
 	var path_point_partial: int = player.graph_to_path[path[0]][1]
 	var next_point_path_partial: Path2D = player.graph_to_path[path[1]][0]
@@ -371,4 +384,7 @@ func order(city: Province) -> void:
 	
 	direction_line_partial.add_point(to_local(point_path_partial.to_global(point_path_partial.curve.get_point_position(path_point_partial))))
 	direction_line_partial.add_point(to_local(next_point_path_partial.to_global(next_point_path_partial.curve.get_point_position(next_path_point_partial))))
-'''
+	
+	var next_pos = _get_next_path_position()
+	if next_pos != Vector2.ZERO:
+		emit_signal("movement_updated", next_pos)

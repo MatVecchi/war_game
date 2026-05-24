@@ -29,7 +29,6 @@ var armies: Array[Army] = []
 var next_army_id: int = 0
 var tcp_server := TCPServer.new()
 var ws := WebSocketPeer.new()
-var connection_accepted: bool = false
 var end_communication: bool = true
 
 @export var PORT : int
@@ -41,8 +40,6 @@ var end_communication: bool = true
 func _ready() -> void:
 	add_to_group("players")
 	await get_tree().process_frame
-	var global_timer = get_node("/root/Game/GlobalTimer")
-	global_timer.timeout.connect(_on_global_timer_timeout)
 	var paths: Array[Node] = get_tree().get_nodes_in_group("paths")
 	var c: int = 0
 	for el in paths:
@@ -106,9 +103,9 @@ func _ready() -> void:
 		if children[i] is not Province: continue	
 		game.add_army_to_province(children[i])
 	
-	if len(armies) > 0 and name == "Ucraina":
+	if len(armies) > 0 and name == "ukraine":
 		armies[0].order(game.provinces[2])
-		declare_war(get_tree().current_scene.get_node("Russia"))
+		declare_war(get_tree().current_scene.get_node("russia"))
 		pass
 	
 	hour_timer = get_node("/root/Game/GlobalHourTimer")
@@ -131,34 +128,11 @@ func _process(_delta: float) -> void:
 		
 	ws.poll()
 	if ws.get_ready_state() == WebSocketPeer.STATE_OPEN:
-		if not connection_accepted:
-			connection_accepted = true
-			initiating_communication()
-		
 		while ws.get_available_packet_count():
 			var msg : String = ws.get_packet().get_string_from_ascii()
 			var intention : Dictionary = JSON.parse_string( msg )
 			#print(intention)
 			manage( intention )
-
-func initiating_communication() -> void:
-	if ws.get_ready_state() != WebSocketPeer.STATE_OPEN: return
-	
-	var test: Dictionary = {
-			"type": "sight",
-			"sender": self.name,
-			"receiver": "vesna",
-			"data": {
-				"type": "another_new_my_armie",
-				"id": 1,
-				"position": {
-					"x": 200,
-					"y": 200
-				}
-			}
-		}
-		
-	ws.send_text(JSON.stringify(test))
 			
 func manage(message: Dictionary) -> void:
 	var sender : String = message['sender']
@@ -374,7 +348,9 @@ func _on_global_day_timer_timeout() -> void:
 	
 func _on_army_destroyed(army: Army) -> void:
 	perfectly_known_armies.erase(army)
-	known_armies.erase(army)	
+	known_armies.erase(army)
+	if army.movement_updated.is_connected(_on_watched_army_movement.bind(army)):
+		army.movement_updated.disconnect(_on_watched_army_movement.bind(army))
 	
 func _get_nation_center() -> Vector2:
 	var total_area: float = 0.0
@@ -460,9 +436,19 @@ func update_name_position() -> void:
 	
 func add_known_army(army: Army) -> void:
 	if army in perfectly_known_armies: return
+	
+	if not army.movement_updated.is_connected(_on_watched_army_movement.bind(army)):
+		army.movement_updated.connect(_on_watched_army_movement.bind(army))
+		if army.travelling:
+			var next_pos = army._get_next_path_position()
+			if next_pos != Vector2.ZERO:
+				_on_watched_army_movement(army, next_pos)
+	
+	if not army.army_destroyed.is_connected(_on_army_destroyed):
+		army.army_destroyed.connect(_on_army_destroyed)
+		
 	known_armies.get_or_add(army, 0)
 	known_armies[army] += 1
-	army.army_destroyed.connect(_on_army_destroyed)
 	army.emit_signal("became_known", army, self)
 	
 func declare_war(player: Agent) -> void:
@@ -483,14 +469,29 @@ func remove_know_army_reference(army: Army):
 	known_armies[army] -= 1
 	if known_armies[army] == 0:
 		known_armies.erase(army)
+		if army not in perfectly_known_armies:
+			if army.movement_updated.is_connected(_on_watched_army_movement.bind(army)):
+				army.movement_updated.disconnect(_on_watched_army_movement.bind(army))
+			if army.army_destroyed.is_connected(_on_army_destroyed):
+				army.army_destroyed.disconnect(_on_army_destroyed)
 		army.emit_signal("became_unknown", army, self)
 	
 func add_perfectly_known_army(army: Army):
 	if army in known_armies:
 		known_armies.erase(army)
+		
+	if not army.movement_updated.is_connected(_on_watched_army_movement.bind(army)):
+		army.movement_updated.connect(_on_watched_army_movement.bind(army))
+		if army.travelling:
+			var next_pos = army._get_next_path_position()
+			if next_pos != Vector2.ZERO:
+				_on_watched_army_movement(army, next_pos)
+				
+	if not army.army_destroyed.is_connected(_on_army_destroyed):
+		army.army_destroyed.connect(_on_army_destroyed)
+		
 	perfectly_known_armies.get_or_add(army, 0)
 	perfectly_known_armies[army] += 1
-	army.army_destroyed.connect(_on_army_destroyed)
 	army.emit_signal("became_perfectly_known", army, self)
 	
 func remove_perfectly_know_army_reference(army: Army):
@@ -498,6 +499,11 @@ func remove_perfectly_know_army_reference(army: Army):
 	perfectly_known_armies[army] -= 1
 	if perfectly_known_armies[army] == 0:
 		perfectly_known_armies.erase(army)
+		if army not in known_armies:
+			if army.movement_updated.is_connected(_on_watched_army_movement.bind(army)):
+				army.movement_updated.disconnect(_on_watched_army_movement.bind(army))
+			if army.army_destroyed.is_connected(_on_army_destroyed):
+				army.army_destroyed.disconnect(_on_army_destroyed)
 		army.emit_signal("became_unknown", army, self)
 		
 func get_province_owner(province: Province) -> bool:
