@@ -2,10 +2,10 @@ extends Node2D
 
 class_name Army
 
-signal army_destroyed
-signal became_known
-signal became_perfectly_known
-signal became_unknown
+signal army_destroyed(army: Army)
+signal became_known(army: Army, player: Agent)
+signal became_perfectly_known(army: Army, player: Agent)
+signal became_unknown(army: Army, player: Agent)
 signal movement_updated(next_pos: Vector2)
 
 var path
@@ -21,6 +21,7 @@ var life_points: float
 var army_id: int
 var player: Agent
 var travelling: bool = false
+var target_province: Province = null
 var day_battle: bool = false
 var destroyed: bool = false
 var soldier_number_visible: bool = true
@@ -45,6 +46,9 @@ const ATTACK_LINE_COLOR: Color = Color(0.699, 0.0, 0.0, 1.0)
 const NEUTRAL_LABEL_BACKGROUND = Color(0.871, 0.871, 0.871, 1.0)
 const NEUTRAL_LABEL_FONT_COLOR = Color(0.22, 0.22, 0.22, 1.0)
 const NEUTRAL_PROGRESS_BAR_COLOR = Color(0.506, 0.718, 0.365, 1.0)
+const ALLY_LABEL_BACKGROUND = Color(0.149, 0.403, 0.922, 1.0)
+const ALLY_LABEL_FONT_COLOR = Color(1.0, 1.0, 1.0, 1.0)
+const ALLY_PROGRESS_BAR_COLOR = Color(0.506, 0.718, 0.365, 1.0)
 const ENEMY_LABEL_BACKGROUND = Color(0.894, 0.028, 0.089, 1.0)
 const ENEMY_LABEL_FONT_COLOR = Color(1.0, 1.0, 1.0, 1.0)
 const ENEMY_PROGRESS_BAR_COLOR = Color(1.0, 0.298, 0.263, 1.0)
@@ -58,11 +62,20 @@ const ENEMY_PROGRESS_BAR_COLOR = Color(1.0, 0.298, 0.263, 1.0)
 @onready var progress_bar_style_box: StyleBoxFlat = StyleBoxFlat.new()
 @onready var label_panel: PanelContainer = $Control/VBoxContainer/PanelContainer
 @onready var label_panel_style_box: StyleBoxFlat = StyleBoxFlat.new()
+@onready var label_army_id: Label = %ArmyId
 
-# Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	add_to_group("armies")
-	control.scale = Vector2(1, 1)/get_viewport().get_camera_2d().zoom	
+	var camera = get_viewport().get_camera_2d()
+	if is_instance_valid(camera):
+		control.scale = Vector2(1, 1)/camera.zoom
+		if camera is Camera:
+			control.visible = camera.zoom.x >= camera.SHOW_ARMY_COUNT_ZOOM
+		else:
+			control.visible = camera.zoom.x >= 2.0
+	else:
+		control.scale = Vector2.ONE
+		control.visible = false
 	$PerfectVision/CollisionShape2D.shape.radius = VISION_RANGE
 	$ObfuscatedVision/CollisionShape2D.shape.radius = VISION_RANGE * OBFUSCATED_VISION_MULTIPLIER
 	$ObfuscatedVision.area_entered.connect(_on_obfuscated_vision_entered)
@@ -74,6 +87,9 @@ func _ready() -> void:
 	timer.timeout.connect(_on_global_timer_timeout)
 	day_timer = get_node("/root/Game/GlobalDayTimer")
 	day_timer.timeout.connect(_on_global_day_timer_timeout)
+	
+	direction_line.top_level = true
+	direction_line_partial.top_level = true
 	
 	var game: GameController = get_tree().current_scene
 	game.hud.view_changed.connect(_on_view_changed)
@@ -97,20 +113,37 @@ func _draw() -> void:
 	else:
 		label.text = "?"
 		progress_bar.value = 100
+	
+	label_army_id.text = str(army_id)
 		
 	var game: GameController = get_tree().current_scene
 	if game.view != null and player in game.view.player_in_war:
 		label_panel_style_box.bg_color = ENEMY_LABEL_BACKGROUND
+		label_panel.remove_theme_stylebox_override("panel")
 		label_panel.add_theme_stylebox_override("panel", label_panel_style_box)
+		label.remove_theme_color_override("font_color")
 		label.add_theme_color_override("font_color", ENEMY_LABEL_FONT_COLOR)
+		label.remove_theme_color_override("font_outline_color")
 		label.add_theme_color_override("font_outline_color", Color.TRANSPARENT)
 		progress_bar_style_box.bg_color = ENEMY_PROGRESS_BAR_COLOR
+		progress_bar.remove_theme_stylebox_override("fill")
+		progress_bar.add_theme_stylebox_override("fill", progress_bar_style_box)
+	elif game.view != null and player in game.view.player_in_alliance:
+		label_panel_style_box.bg_color = ALLY_LABEL_BACKGROUND
+		label_panel.remove_theme_stylebox_override("panel")
+		label_panel.add_theme_stylebox_override("panel", label_panel_style_box)
+		label.remove_theme_color_override("font_color")
+		label.add_theme_color_override("font_color", ALLY_LABEL_FONT_COLOR)
+		progress_bar_style_box.bg_color = ALLY_PROGRESS_BAR_COLOR
+		progress_bar.remove_theme_stylebox_override("fill")
 		progress_bar.add_theme_stylebox_override("fill", progress_bar_style_box)
 	else:
 		label_panel_style_box.bg_color = NEUTRAL_LABEL_BACKGROUND
+		label_panel.remove_theme_stylebox_override("panel")
 		label_panel.add_theme_stylebox_override("panel", label_panel_style_box)
 		label.remove_theme_color_override("font_color")
 		progress_bar_style_box.bg_color = NEUTRAL_PROGRESS_BAR_COLOR
+		progress_bar.remove_theme_stylebox_override("fill")
 		progress_bar.add_theme_stylebox_override("fill", progress_bar_style_box)
 
 func _input(_event):
@@ -118,6 +151,7 @@ func _input(_event):
 		control.scale = Vector2(1,1)/get_viewport().get_camera_2d().zoom
 
 func _on_friendly_collision(other: Army) -> void:
+	if other.player in player.player_in_alliance: return
 	if not travelling or other.travelling: return
 	if nodes_travelled < len(path) - 1: return
 	
@@ -138,17 +172,7 @@ func _on_global_timer_timeout() -> void:
 	if travelling:
 		if (self.progress_ratio != 1.0 and direction == 1) or (self.progress_ratio != 0.0 and direction == -1):
 			self.progress += current_speed * direction
-			
-			for i in range(nodes_travelled, len(path)):
-				var point_path: Path2D = player.graph_to_path[path[i]][0]
-				var path_point: int = player.graph_to_path[path[i]][1]
-				
-				
-				direction_line.set_point_position(i, to_local(point_path.to_global(point_path.curve.get_point_position(path_point))))
-			
-			var next_point_path_partial: Path2D = player.graph_to_path[path[nodes_travelled]][0]
-			var next_path_point_partial: int = player.graph_to_path[path[nodes_travelled]][1]			
-			direction_line_partial.set_point_position(1, to_local(next_point_path_partial.to_global(next_point_path_partial.curve.get_point_position(next_path_point_partial))))
+			_update_direction_lines()
 		else:
 			nodes_travelled += 1
 			
@@ -159,14 +183,18 @@ func _on_global_timer_timeout() -> void:
 			if nodes_travelled == len(path):
 				travelling = false
 				path = null
+				emit_signal("movement_updated", Vector2.ZERO)
 				_on_destination_reached()
 				return
 			
 			if province_location != null and not player.get_province_owner(province_location) and province_location.get_city_position() == position:
 				var owner = province_location.get_parent()
-				if owner is Agent and owner in player.player_in_war:
-					var game: GameController = get_tree().current_scene
-					game.conquer_province(province_location, player)
+				if owner is Agent:
+					if owner not in player.player_in_alliance and owner not in player.player_in_war:
+						player.declare_war(owner)
+					if owner in player.player_in_war:
+						var game: GameController = get_tree().current_scene
+						game.conquer_province(province_location, player)
 			
 			var new_path = player.graph_to_path[path[nodes_travelled]][0]
 			var point = player.graph_to_path[path[nodes_travelled]][1]
@@ -180,12 +208,15 @@ func _on_global_timer_timeout() -> void:
 				self.progress = new_path.curve.get_point_position(point).distance_to(new_path.curve.get_point_position(0)) - distance
 			
 			direction = dir
+			_update_direction_lines()
+			if is_instance_valid(player):
+				player.dispatch_my_army_update(self)
 			
 func _on_destination_reached() -> void:
-	direction_line.points.clear()
+	target_province = null
+	_update_direction_lines()
 	if province_location == null: return
 	
-	# Merge with any existing friendly stationary army in the same province
 	for el in player.armies:
 		if el != self and is_instance_valid(el) and el.province_location == province_location and not el.travelling:
 			el.merge_armies(self)
@@ -193,9 +224,15 @@ func _on_destination_reached() -> void:
 			
 	if not player.get_province_owner(province_location):
 		var owner = province_location.get_parent()
-		if owner is Agent and owner in player.player_in_war:
-			var game: GameController = get_tree().current_scene
-			game.conquer_province(province_location, player)
+		if owner is Agent:
+			if owner not in player.player_in_alliance and owner not in player.player_in_war:
+				player.declare_war(owner)
+			if owner in player.player_in_war:
+				var game: GameController = get_tree().current_scene
+				game.conquer_province(province_location, player)
+			
+	if is_instance_valid(player):
+		player.dispatch_my_army_update(self)
 
 func _on_global_day_timer_timeout() -> void:
 	if day_battle or not player.get_province_owner(province_location): 
@@ -232,12 +269,18 @@ func _on_perfect_vision_exited(area: Area2D) -> void:
 	var other: Node = area.get_parent()
 	if other is Army and player != other.player:
 		player.remove_perfectly_know_army_reference(other)
-		if not destroyed:
-			player.add_known_army(other)
 	
 func _on_area_entered(area: Area2D) -> void:
 	var other: Node = area.get_parent()
 	if other is Army:
+		if travelling and not other.travelling:
+			if player != other.player and other.player not in player.player_in_alliance and other.player not in player.player_in_war:
+				var prov = other.province_location
+				if prov != null and prov is Province:
+					var prov_owner = prov.get_parent()
+					if prov_owner != player and prov_owner not in player.player_in_alliance:
+						player.declare_war(other.player)
+		
 		if player == other.player or other.player not in player.player_in_war:
 			_on_friendly_collision(other)
 		else:
@@ -248,7 +291,7 @@ func _notification(what: int) -> void:
 
 	if what == NOTIFICATION_PARENTED:
 		province_location = get_parent().get_parent()
-		if player.get_province_owner(province_location):
+		if player.get_province_owner(province_location) or (province_location.get_parent() is Agent and province_location.get_parent() in player.player_in_alliance):
 			current_speed = SPEED * ALLY_TERRITORY_SPEED_MULTIPLIER
 		elif province_location is Background:
 			current_speed = SPEED * SEA_SPEED_MULTIPLIER
@@ -257,6 +300,18 @@ func _notification(what: int) -> void:
 	elif what == NOTIFICATION_PREDELETE:
 		destroyed = true
 		emit_signal("army_destroyed", self)
+		if is_instance_valid(player):
+			var msg: Dictionary = {
+				"type": "sight",
+				"sender": player.name,
+				"receiver": "vesna",
+				"data": {
+					"type": "my_army_destroyed",
+					"id": army_id
+				}
+			}
+			player.send_vesna_message(msg)
+		
 func _on_battle_timer_timeout(other: Army, battle_timer: Timer) -> void:
 	var random_attacker_multiplier: float = rng.randf_range(0.5, 1.5)
 	var random_defender_multiplier: float = rng.randf_range(0.5, 1.5)
@@ -285,16 +340,25 @@ func _on_battle_timer_timeout(other: Army, battle_timer: Timer) -> void:
 		battle_finished = true
 	else:
 		other.queue_redraw()
+		if is_instance_valid(other.player):
+			other.player.dispatch_my_army_update(other)
 	
 	if (soldier_number <= 0 or life_points <= 0) and not battle_finished:
 		destroy_self()
 		battle_finished = true
 	else:
 		queue_redraw()
+		if is_instance_valid(player):
+			player.dispatch_my_army_update(self)
 	
-	if battle_finished:
+	if battle_finished or not is_instance_valid(other):
 		battle_timer.stop()
-		travelling = true
+		battle_timer.queue_free()
+		if path != null and len(path) > 0 and not destroyed:
+			travelling = true
+			_update_direction_lines()
+			if is_instance_valid(player):
+				player.dispatch_my_army_update(self)
 	else:
 		battle_timer.start()
 		
@@ -307,6 +371,7 @@ func _on_view_changed(view: Agent) -> void:
 		direction_line_partial.show()
 		
 func destroy_self() -> void:
+	destroyed = true
 	for i in range(len(player.armies)):
 		if player.armies[i] != self: continue
 		player.armies.remove_at(i)
@@ -317,15 +382,31 @@ func _get_morale_percentage() -> float:
 	return life_points/((soldier_number+death_count)*LIFE_PER_UNIT)*100
 
 func begin_attack(other: Army) -> void:
+	if not is_instance_valid(other): return
 	var battle_timer := Timer.new()
 	battle_timer.wait_time = ATTACK_TIME
 	battle_timer.one_shot = true
 	battle_timer.timeout.connect(_on_battle_timer_timeout.bind(other, battle_timer))
 	add_child(battle_timer)
+	other.army_destroyed.connect(_on_enemy_destroyed.bind(battle_timer))
 	_on_battle_timer_timeout(other, battle_timer)
 	battle_timer.start()
 	day_battle = true
 	other.day_battle = true
+
+func _on_enemy_destroyed(destroyed_army: Army, battle_timer: Timer) -> void:
+	if is_instance_valid(battle_timer):
+		battle_timer.stop()
+		battle_timer.queue_free()
+	
+	if not destroyed:
+		day_battle = false
+		if path != null and len(path) > 0 and not travelling:
+			travelling = true
+			_update_direction_lines()
+			if is_instance_valid(player):
+				player.dispatch_my_army_update(self)
+			print("Enemy destroyed, resuming travel")
 
 	
 func merge_armies(other: Army) -> void:
@@ -333,6 +414,61 @@ func merge_armies(other: Army) -> void:
 	life_points += other.life_points
 	other.destroy_self()
 	queue_redraw()
+	if is_instance_valid(player):
+		player.dispatch_my_army_update(self)
+
+func split(soldiers_to_split: int) -> Army:
+	if soldiers_to_split <= 0 or soldiers_to_split >= soldier_number:
+		return null
+		
+	var ratio = float(soldiers_to_split) / float(soldier_number)
+	var split_life_points = life_points * ratio
+	
+	soldier_number -= soldiers_to_split
+	life_points -= split_life_points
+	queue_redraw()
+	if is_instance_valid(player):
+		player.dispatch_my_army_update(self)
+	
+	var army_scene = load("res://scenes/army.tscn")
+	var new_army = army_scene.instantiate()
+	new_army.army_id = player.next_army_id
+	player.next_army_id += 1
+	new_army.soldier_number = soldiers_to_split
+	new_army.life_points = split_life_points
+	new_army.player = player
+	player.armies.append(new_army)
+	
+	get_parent().add_child(new_army)
+	new_army.position = position
+	new_army.progress = self.progress
+	new_army.progress_ratio = self.progress_ratio
+	
+	if travelling:
+		new_army.path = path
+		new_army.nodes_travelled = nodes_travelled
+		new_army.direction = direction
+		new_army.travelling = true
+		new_army.direction_line.default_color = MOVE_LINE_COLOR
+		new_army.direction_line_partial.default_color = ATTACK_LINE_COLOR
+		new_army._update_direction_lines()
+	
+	var game: GameController = get_tree().current_scene
+	new_army.army_destroyed.connect(game._on_army_destroyed)
+	new_army.became_known.connect(game._on_army_became_known)
+	new_army.became_perfectly_known.connect(game._on_army_became_perfectly_known)
+	new_army.became_unknown.connect(game._on_army_became_unknown)
+	
+	if new_army.player == game.view or game.view == null:
+		game._fog_add_circle(new_army, new_army.position, new_army.VISION_RANGE)
+		
+	if new_army.player != game.view and game.view != null:
+		new_army.hide()
+		
+	new_army.queue_redraw()
+	if is_instance_valid(new_army.player):
+		new_army.player.dispatch_my_army_update(new_army)
+	return new_army
 	
 func has_reached_destination() -> bool:
 	return path == null
@@ -345,6 +481,15 @@ func _get_next_path_position() -> Vector2:
 	return Vector2.ZERO
 
 func order(city: Province) -> void:
+	if travelling and path != null and len(path) > 0:
+		var last_node = path[len(path) - 1]
+		var point_path: Path2D = player.graph_to_path[last_node][0]
+		var path_point: int = player.graph_to_path[last_node][1]
+		var current_dest = point_path.to_global(point_path.curve.get_point_position(path_point))
+		var new_dest = city.to_global(city.get_city_position())
+		if current_dest.distance_to(new_dest) < 1.0:
+			return
+
 	var start: int = player.routes.get_closest_point(global_position)
 	var target: int = player.routes.get_closest_point(city.to_global(city.get_city_position()))
 	var points: PackedInt64Array = player.routes.get_id_path(start, target, false)
@@ -364,27 +509,38 @@ func order(city: Province) -> void:
 	path = points
 	nodes_travelled = 0
 	travelling = true
+	target_province = city
 	
 	direction_line.default_color = MOVE_LINE_COLOR
-	direction_line.clear_points()
-	
 	direction_line_partial.default_color = ATTACK_LINE_COLOR
-	direction_line_partial.clear_points()
-	for graph_point in points:
-		var point_path: Path2D = player.graph_to_path[graph_point][0]
-		var path_point: int = player.graph_to_path[graph_point][1]
-		
-		
-		direction_line.add_point(to_local(point_path.to_global(point_path.curve.get_point_position(path_point))))
-
-	var point_path_partial: Path2D = player.graph_to_path[path[0]][0]
-	var path_point_partial: int = player.graph_to_path[path[0]][1]
-	var next_point_path_partial: Path2D = player.graph_to_path[path[1]][0]
-	var next_path_point_partial: int = player.graph_to_path[path[1]][1]
-	
-	direction_line_partial.add_point(to_local(point_path_partial.to_global(point_path_partial.curve.get_point_position(path_point_partial))))
-	direction_line_partial.add_point(to_local(next_point_path_partial.to_global(next_point_path_partial.curve.get_point_position(next_path_point_partial))))
+	_update_direction_lines()
 	
 	var next_pos = _get_next_path_position()
 	if next_pos != Vector2.ZERO:
 		emit_signal("movement_updated", next_pos)
+	if is_instance_valid(player):
+		player.dispatch_my_army_update(self)
+
+func _update_direction_lines() -> void:
+	if not travelling or path == null or len(path) == 0:
+		direction_line.clear_points()
+		direction_line_partial.clear_points()
+		return
+	
+	direction_line.clear_points()
+	direction_line.add_point(global_position)
+	for i in range(nodes_travelled, len(path)):
+		var graph_point = path[i]
+		var point_path: Path2D = player.graph_to_path[graph_point][0]
+		var path_point: int = player.graph_to_path[graph_point][1]
+		var global_pt = point_path.to_global(point_path.curve.get_point_position(path_point))
+		direction_line.add_point(global_pt)
+		
+	direction_line_partial.clear_points()
+	if nodes_travelled < len(path):
+		direction_line_partial.add_point(global_position)
+		var next_point = path[nodes_travelled]
+		var next_point_path: Path2D = player.graph_to_path[next_point][0]
+		var next_path_point: int = player.graph_to_path[next_point][1]
+		var next_global_pt = next_point_path.to_global(next_point_path.curve.get_point_position(next_path_point))
+		direction_line_partial.add_point(next_global_pt)

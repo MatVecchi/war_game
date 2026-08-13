@@ -31,21 +31,15 @@ enum ResourcesSprites {
 	GOLD,
 }
 
-enum ProvinceMoralePenalties {
-	NEIGHBOURS,
-	IN_WAR,
-	CAPITAL_DISTANCE,
-	POOR_WOOD,
-	POOR_IRON,
-	POOR_OIL,
-	POOR_GAS,
-	POOR_COAL,
-	POOR_GRAIN,
-	POOR_FISH
-}
-
 enum ProvinceMoraleBonuses {
 	CAPITAL,
+}
+
+enum ProvinceMoraleMaluses {
+	CAPITAL_DISTANCE,
+	EXPANSION,
+	ENEMY_NEIGHBORS,
+	ENEMY_ARMIES,
 }
 
 enum Buildings {

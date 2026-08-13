@@ -13,6 +13,7 @@ var fog_circles: Dictionary[Army, Variant] = {}
 var fog_image: Image
 var vision_images: Array[Variant]
 var hud: Hud
+var selected_province: Province = null
 const FOG_OF_WAR_BACKGROUND_COLOR: Color = Color(0.0, 0.0, 0.0, 0.3)
 const FOG_OF_WAR_OUTER_CIRCLE_COLOR: Color = Color(0.0, 0.0, 0.0, 0.1)
 const FOG_OF_WAR_INNER_CIRCLE_COLOR: Color = Color(0.0, 0.0, 0.0, 0.0)
@@ -21,6 +22,8 @@ const VIEW_AGENT_COLOR: Color = Color("b4ceaf")
 const VIEW_ALLY_COLOR: Color = Color("81919b")
 const VIEW_ENEMY_COLOR: Color = Color("c18d8c")
 const VIEW_NEUTRAL_COLOR: Color = Color("bdbaa6")
+const PROVINCE_SELECTED_MODULATION: Color = Color(0.771, 0.771, 0.771, 1.0)
+const CONQUERED_PROVINCE_MORALE: int = 25
 @export var time_multiplier: float = 1.0
 @export var game_length: int = 90
 @onready var global_timer: Timer = $GlobalTimer
@@ -124,7 +127,9 @@ func _ready() -> void:
 			
 	for player: Agent in players:
 		leaderboard.append({"player": player, "points": player.points})
-		player.war_declared.connect(_on_war_declared)
+		player.war_declared.connect(_on_relations_changed)
+		player.peace_established.connect(_on_relations_changed)
+		player.alliance_established.connect(_on_relations_changed)
 		
 		var capital: Province = null
 		for province in player.get_children():
@@ -137,6 +142,9 @@ func _ready() -> void:
 	leaderboard.sort_custom(_sort_leaderboard)
 	
 	_create_hud()
+	var bg = get_tree().get_first_node_in_group("background")
+	if bg:
+		bg.clear_province.connect(on_clear_province)
 	_create_fog()
 	_fog_map_circles()
 	_set_provinces_color()
@@ -150,6 +158,8 @@ func _set_provinces_color() -> void:
 		for province: Province in provinces:
 			if province.get_parent() == view:
 				province.fill.color = VIEW_AGENT_COLOR
+			elif (province.get_parent() as Agent)in view.player_in_alliance:
+				province.fill.color = VIEW_ALLY_COLOR
 			elif (province.get_parent() as Agent) in view.player_in_war:
 				province.fill.color = VIEW_ENEMY_COLOR
 			else:
@@ -195,6 +205,7 @@ func _on_global_timer_timeout() -> void:
 			if el["player"] == player:
 				el["points"] = player.points
 	leaderboard.sort_custom(_sort_leaderboard)
+	check_victory_conditions()
 	
 func _on_view_changed(player: Agent) -> void:
 	view = player
@@ -210,11 +221,11 @@ func _on_view_changed(player: Agent) -> void:
 				if player == null:
 					army.soldier_number_visible = true
 					army.show()
-				elif army in player.known_armies:
-					army.soldier_number_visible = false
-					army.show()
 				elif army in player.perfectly_known_armies:
 					army.soldier_number_visible = true
+					army.show()
+				elif army in player.known_armies:
+					army.soldier_number_visible = false
 					army.show()
 				else:
 					army.hide()
@@ -222,11 +233,14 @@ func _on_view_changed(player: Agent) -> void:
 	_fog_map_circles()
 	_set_provinces_color()
 	
-func _on_war_declared(_from_player: Agent, _to_player: Agent) -> void:
+func _on_relations_changed(_from_player: Agent, _to_player: Agent) -> void:
 	_set_provinces_color()
+	for army in get_tree().get_nodes_in_group("armies"):
+		if army is Army:
+			army.queue_redraw()
 	
 func _sort_leaderboard(a, b):
-	return a["points"] < b["points"]
+	return a["points"] > b["points"]
 
 func add_army_to_province(province: Province, army: Army = null, sn: int = 10) -> void:
 	var agent: Agent = province.get_parent()
@@ -237,9 +251,11 @@ func add_army_to_province(province: Province, army: Army = null, sn: int = 10) -
 		army.army_id = agent.next_army_id
 		agent.next_army_id += 1
 		army.soldier_number = sn
-		army.life_points = army.LIFE_PER_UNIT * 10 * (float(province.province_morale)/100)
+		army.life_points = army.LIFE_PER_UNIT * sn * (float(province.province_morale)/100)
 		army.player = agent
 		agent.armies.append(army)
+		if is_instance_valid(agent):
+			agent.dispatch_my_army_update(army)
 
 		for el in paths:
 			if el is Path2D:
@@ -264,6 +280,7 @@ func add_army_to_province(province: Province, army: Army = null, sn: int = 10) -
 	
 	if agent != view and view != null:
 		army.hide()
+	army.queue_redraw()
 
 func _create_hud():
 	var canvas_layer = CanvasLayer.new()
@@ -272,18 +289,18 @@ func _create_hud():
 	hud.view_changed.connect(_on_view_changed)
 	get_tree().current_scene.add_child(canvas_layer)
 	
-func conquer_province(province: Province, agent: Agent) -> void:
+func conquer_province(province: Province, agent: Agent, is_riot: bool=false) -> void:
 	var previous_player: Agent = province.get_parent()
 	province.reparent(agent)
-	province.province_morale = 12
-	province.conquered = true
 
-	if view == null or (view != province.get_parent() and province.get_parent() not in view.player_in_war):
-		province.fill.color = VIEW_NEUTRAL_COLOR
-	elif view == province.get_parent():
+	if province.get_parent() == view:
 		province.fill.color = VIEW_AGENT_COLOR
-	elif view != province.get_parent() and province.get_parent() in view.player_in_war:
+	elif (province.get_parent() as Agent)in view.player_in_alliance:
+		province.fill.color = VIEW_ALLY_COLOR
+	elif (province.get_parent() as Agent) in view.player_in_war:
 		province.fill.color = VIEW_ENEMY_COLOR
+	else:
+		province.fill.color = VIEW_NEUTRAL_COLOR
 	
 	province.set_borders()
 	for el in province.neighbors:
@@ -291,6 +308,61 @@ func conquer_province(province: Province, agent: Agent) -> void:
 		el.set_borders()
 	previous_player.update_name_position()
 	agent.update_name_position()
+
+	var players = get_tree().get_nodes_in_group("players")
+	for player in players:
+		if player is Agent:
+			var bordering_allies = []
+			for neighbor in province.neighbors:
+				if neighbor.get_parent() == player:
+					bordering_allies.append(neighbor.name)
+					
+			var has_army = false
+			var defense_value = 0.0
+			var prov_owner = province.get_parent()
+			var army_in_province: Army
+			if prov_owner is Agent:
+				for army in prov_owner.armies:
+					if not is_instance_valid(army): continue
+					if army.province_location == province:
+						has_army = true
+						defense_value += (army.soldier_number * army.DEFENSE_PER_UNIT) * army.life_points / (army.soldier_number * army.LIFE_PER_UNIT)
+			
+			if Enums.Buildings.CAPITAL in province.buildings:
+				province.buildings.erase(Enums.Buildings.CAPITAL)
+
+			if not is_riot:
+				province.province_morale = CONQUERED_PROVINCE_MORALE
+				province.conquered = true
+			else:
+				for army in previous_player.armies:
+					if army.global_position == province.get_city_global_position():
+						army.player = prov_owner
+						previous_player.armies.erase(army)
+				print("province riot")
+
+
+			var msg: Dictionary = {
+				"type": "sight",
+				"sender": "game",
+				"receiver": "vesna",
+				"data": {
+					"type": "province_owner_update",
+					"id": province.name,
+					"owner": prov_owner.name,
+					"morale": province.province_morale,
+					"x": province.to_global(province.get_city_position()).x,
+					"y": province.to_global(province.get_city_position()).y,
+					"has_army": has_army,
+					"defense_value": defense_value,
+					"bordering_allies": bordering_allies,
+					"is_capital": Enums.Buildings.CAPITAL in province.buildings,
+					"is_double": province.double_material,
+					"resource": Enums.Resources.keys()[province.province_material].to_lower()
+				}
+			}
+			player.send_vesna_message(msg)
+	check_victory_conditions()
 	
 func get_collision_rect_size(poly: Polygon2D) -> Vector2:
 	var pts = poly.polygon
@@ -310,12 +382,51 @@ func get_collision_rect_size(poly: Polygon2D) -> Vector2:
 	return Vector2(max_x - min_x, max_y - min_y)
 
 
-func _on_global_day_timer_timeout() -> void:
-	day_cycle += 1
-	if day_cycle > game_length:
+func end_match() -> void:
+	if not global_timer.is_stopped():
 		global_timer.stop()
 		global_hour_timer.stop()
 		global_day_timer.stop()
-		day_cycle = game_length
 		emit_signal("match_over")
+
+func check_victory_conditions() -> void:
+	var players = get_tree().get_nodes_in_group("players")
+	for player: Agent in players:
+		if player.points >= 200:
+			end_match()
+			break
+
+func _on_global_day_timer_timeout() -> void:
+	day_cycle += 1
+	if day_cycle > game_length:
+		day_cycle = game_length
+		end_match()
+		
+func select_province(province: Province) -> void:
+	if selected_province == province:
+		if selected_province != null:
+			selected_province.fill.modulate = Color.WHITE
+			if Enums.Buildings.CAPITAL not in selected_province.buildings:
+				selected_province.province_name_label.hide()
+		selected_province = null
+		if hud:
+			hud.show_province_details(null)
+	else:
+		if selected_province != null:
+			selected_province.fill.modulate = Color.WHITE
+			if Enums.Buildings.CAPITAL not in selected_province.buildings:
+				selected_province.province_name_label.hide()
+		selected_province = province
+		province.fill.modulate = PROVINCE_SELECTED_MODULATION
+		if Enums.Buildings.CAPITAL not in province.buildings:
+			province.province_name_label.show()
+		if hud:
+			hud.show_province_details(province)
+
+func on_clear_province() -> void:
+	if selected_province != null and is_instance_valid(selected_province):
+		selected_province.fill.modulate = Color.WHITE
+		selected_province = null
+		if hud:
+			hud.show_province_details(null)
 		

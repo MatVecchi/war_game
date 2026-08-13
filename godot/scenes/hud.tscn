@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://cx6mfagal8ll4"]
 
 [ext_resource type="Script" uid="uid://cmpx3noks68u0" path="res://scripts/HUD.gd" id="1_ahhtf"]
+[ext_resource type="Texture2D" uid="uid://dx8ypk6y3u883" path="res://assets/textures/info.png" id="2_oo0fn"]
 
 [node name="Control" type="Control" unique_id=260816110]
 layout_mode = 3
@@ -138,30 +139,178 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -20.0
-offset_top = -20.0
-offset_right = 20.0
-offset_bottom = 20.0
+offset_left = -53.0
+offset_top = -28.5
+offset_right = 53.0
+offset_bottom = 28.5
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Leaderboard" unique_id=2129504546]
+[node name="MarginContainer" type="MarginContainer" parent="Leaderboard" unique_id=524044987]
+layout_mode = 2
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 15
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 15
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Leaderboard/MarginContainer" unique_id=2129504546]
 layout_mode = 2
 
-[node name="MatchOverText" type="Label" parent="Leaderboard/VBoxContainer" unique_id=1381832866]
+[node name="MatchOverText" type="Label" parent="Leaderboard/MarginContainer/VBoxContainer" unique_id=1381832866]
 visible = false
 layout_mode = 2
 text = "PARTITA TERMINATA"
 horizontal_alignment = 1
 
-[node name="Label2" type="Label" parent="Leaderboard/VBoxContainer" unique_id=937111475]
+[node name="Label2" type="Label" parent="Leaderboard/MarginContainer/VBoxContainer" unique_id=937111475]
 layout_mode = 2
 text = "Classifica:"
 
-[node name="PlayerList" type="VBoxContainer" parent="Leaderboard/VBoxContainer" unique_id=757226672]
+[node name="PlayerList" type="VBoxContainer" parent="Leaderboard/MarginContainer/VBoxContainer" unique_id=757226672]
 layout_mode = 2
 
-[node name="Button" type="Button" parent="." unique_id=110331019]
+[node name="Journal" type="PanelContainer" parent="." unique_id=154084126]
+visible = false
+layout_mode = 0
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -53.0
+offset_top = -28.5
+offset_right = 53.0
+offset_bottom = 28.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Journal" unique_id=646991767]
+layout_mode = 2
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 15
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 15
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Journal/MarginContainer" unique_id=1620675926]
+layout_mode = 2
+theme_override_constants/separation = 30
+
+[node name="MostPowerfulArmiesContainer" type="VBoxContainer" parent="Journal/MarginContainer/HBoxContainer" unique_id=743704806]
+layout_mode = 2
+
+[node name="Label2" type="Label" parent="Journal/MarginContainer/HBoxContainer/MostPowerfulArmiesContainer" unique_id=200587371]
+layout_mode = 2
+text = "Gli eserciti più potenti:"
+
+[node name="MostPowerfulArmies" type="VBoxContainer" parent="Journal/MarginContainer/HBoxContainer/MostPowerfulArmiesContainer" unique_id=1369527287]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="BestEconomiesContainer" type="VBoxContainer" parent="Journal/MarginContainer/HBoxContainer" unique_id=2141940538]
+layout_mode = 2
+
+[node name="Label2" type="Label" parent="Journal/MarginContainer/HBoxContainer/BestEconomiesContainer" unique_id=350205106]
+layout_mode = 2
+text = "Le economie migliori:"
+
+[node name="BestEconomies" type="VBoxContainer" parent="Journal/MarginContainer/HBoxContainer/BestEconomiesContainer" unique_id=540067078]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="MostPopularNationsContainer" type="VBoxContainer" parent="Journal/MarginContainer/HBoxContainer" unique_id=2019879394]
+layout_mode = 2
+
+[node name="Label2" type="Label" parent="Journal/MarginContainer/HBoxContainer/MostPopularNationsContainer" unique_id=1659925318]
+layout_mode = 2
+text = "Le nazioni più popolari:"
+
+[node name="MostPopularNations" type="VBoxContainer" parent="Journal/MarginContainer/HBoxContainer/MostPopularNationsContainer" unique_id=1250558468]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=913999692]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -177.5
+offset_right = 181.0
+offset_bottom = -29.5
+grow_vertical = 2
+
+[node name="ProvinceDetails" type="PanelContainer" parent="HBoxContainer" unique_id=582216067]
+visible = false
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/ProvinceDetails" unique_id=1038831438]
+layout_mode = 2
+
+[node name="ProvinceName" type="Label" parent="HBoxContainer/ProvinceDetails/VBoxContainer" unique_id=1222472184]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/ProvinceDetails/VBoxContainer" unique_id=2033345268]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/ProvinceDetails/VBoxContainer/VBoxContainer" unique_id=1559476988]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="HBoxContainer/ProvinceDetails/VBoxContainer/VBoxContainer/HBoxContainer" unique_id=1027696772]
+layout_mode = 2
+text = "Morale: "
+
+[node name="MoraleCount" type="Label" parent="HBoxContainer/ProvinceDetails/VBoxContainer/VBoxContainer/HBoxContainer" unique_id=750494038]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="ShowModifierList" type="Button" parent="HBoxContainer/ProvinceDetails/VBoxContainer/VBoxContainer/HBoxContainer" unique_id=1919089948]
+unique_name_in_owner = true
+layout_mode = 2
+icon = ExtResource("2_oo0fn")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/ProvinceDetails/VBoxContainer/VBoxContainer" unique_id=882320555]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="HBoxContainer/ProvinceDetails/VBoxContainer/VBoxContainer/VBoxContainer" unique_id=1764872037]
+layout_mode = 2
+text = "Produzione giornaliera:"
+
+[node name="ProvinceResourceProduction" type="HBoxContainer" parent="HBoxContainer/ProvinceDetails/VBoxContainer/VBoxContainer/VBoxContainer" unique_id=811010366]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="HBoxContainer/ProvinceDetails/VBoxContainer/VBoxContainer" unique_id=1878471657]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="HBoxContainer/ProvinceDetails/VBoxContainer/VBoxContainer/VBoxContainer2" unique_id=1189523195]
+layout_mode = 2
+text = "Edifici:"
+
+[node name="ProvinceBuildingList" type="HBoxContainer" parent="HBoxContainer/ProvinceDetails/VBoxContainer/VBoxContainer/VBoxContainer2" unique_id=509036297]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="HBoxContainer/ProvinceDetails/VBoxContainer/VBoxContainer" unique_id=1232599652]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="HBoxContainer/ProvinceDetails/VBoxContainer/VBoxContainer/HBoxContainer2" unique_id=1601579844]
+layout_mode = 2
+text = "Produzione truppe:"
+
+[node name="TroopRecruitmentTimer" type="Label" parent="HBoxContainer/ProvinceDetails/VBoxContainer/VBoxContainer/HBoxContainer2" unique_id=765723496]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="MoraleModifierContainer" type="PanelContainer" parent="HBoxContainer" unique_id=2079014882]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+size_flags_vertical = 0
+
+[node name="MoraleModifierList" type="VBoxContainer" parent="HBoxContainer/MoraleModifierContainer" unique_id=1281805257]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="LeaderboardButton" type="Button" parent="." unique_id=110331019]
 layout_mode = 0
 offset_left = 1.0
 offset_top = 64.0
@@ -169,9 +318,19 @@ offset_right = 81.0
 offset_bottom = 95.0
 text = "Classifica"
 
+[node name="StatisticsButton" type="Button" parent="." unique_id=1965814652]
+layout_mode = 0
+offset_left = 1.0
+offset_top = 97.0
+offset_right = 81.0
+offset_bottom = 128.0
+text = "Statistiche
+"
+
 [connection signal="gui_input" from="PanelContainer" to="." method="_on_panel_container_gui_input"]
 [connection signal="mouse_entered" from="PanelContainer" to="." method="_on_panel_container_mouse_entered"]
 [connection signal="mouse_exited" from="PanelContainer" to="." method="_on_panel_container_mouse_exited"]
 [connection signal="item_selected" from="PanelContainer/VBoxContainer/AgentSelector" to="." method="_on_agent_selector_item_selected"]
 [connection signal="scrolling" from="VBoxContainer/VBoxContainer/HScrollBar" to="." method="_on_h_scroll_bar_scrolling"]
-[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="LeaderboardButton" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="StatisticsButton" to="." method="_on_statistics_button_pressed"]

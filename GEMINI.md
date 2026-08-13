@@ -8,3 +8,5 @@ This project represents a reconstruction of the game Supremacy 1914 in godot in 
 
 Every player is a nation who has provinces which produce resources and troops and some of the provinces has double production of resources, while some of them are capitals of the nation.
 At this moment a nation can decide to declare war and move armies to attack or defend the provinces
+
+**Keep in mind that the godot part must include the structural features while the mind part must get this feature to implement a reasoning on that, in fact the mind have to simulate the human behaviour so every piece of information about the game itself must be in godot, every piece of information about the reasoning and behaviour of a player must be in mind. If the mind need a game information godot must sends that information to the mind**

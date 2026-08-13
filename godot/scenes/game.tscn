@@ -1304,15 +1304,15 @@ _data = {
 }
 point_count = 2
 
-[sub_resource type="Curve2D" id="Curve2D_qkuf6"]
-_data = {
-"points": PackedVector2Array(0, 0, 0, 0, -86, -161, 0, 0, 0, 0, -85, -145)
-}
-point_count = 2
-
 [sub_resource type="Curve2D" id="Curve2D_nri4r"]
 _data = {
 "points": PackedVector2Array(0, 0, 0, 0, -86, -161, 0, 0, 0, 0, -105, -162)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_qkuf6"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -86, -161, 0, 0, 0, 0, -85, -145)
 }
 point_count = 2
 
@@ -2668,81 +2668,97 @@ color = Color(0, 0.52156866, 0.52156866, 1)
 polygon = PackedVector2Array(-2769, -1870, -2768, 1734, 2702, 1734, 2702, -1870)
 
 [node name="WaterPoint2" type="Sprite2D" parent="Background" unique_id=1366143924]
+visible = false
 position = Vector2(-176.00002, -115)
 scale = Vector2(0.39, 0.39)
 texture = ExtResource("5_kvpfn")
 
 [node name="WaterPoint" type="Sprite2D" parent="Background" unique_id=1266309619]
+visible = false
 position = Vector2(-162, -84)
 scale = Vector2(0.39, 0.39)
 texture = ExtResource("5_kvpfn")
 
 [node name="WaterPoint3" type="Sprite2D" parent="Background" unique_id=588860795]
+visible = false
 position = Vector2(-102, -138)
 scale = Vector2(0.39, 0.39)
 texture = ExtResource("5_kvpfn")
 
 [node name="WaterPoint4" type="Sprite2D" parent="Background" unique_id=316010509]
+visible = false
 position = Vector2(-160, -58.999992)
 scale = Vector2(0.39, 0.39)
 texture = ExtResource("5_kvpfn")
 
 [node name="WaterPoint5" type="Sprite2D" parent="Background" unique_id=45932269]
+visible = false
 position = Vector2(-211, -41.999992)
 scale = Vector2(0.39, 0.39)
 texture = ExtResource("5_kvpfn")
 
 [node name="WaterPoint6" type="Sprite2D" parent="Background" unique_id=900025763]
+visible = false
 position = Vector2(-226, -104.99999)
 scale = Vector2(0.39, 0.39)
 texture = ExtResource("5_kvpfn")
 
 [node name="WaterPoint7" type="Sprite2D" parent="Background" unique_id=1705386821]
+visible = false
 position = Vector2(-247, -64.99999)
 scale = Vector2(0.39, 0.39)
 texture = ExtResource("5_kvpfn")
 
 [node name="WaterPoint8" type="Sprite2D" parent="Background" unique_id=1120368598]
+visible = false
 position = Vector2(-250, -16.999992)
 scale = Vector2(0.39, 0.39)
 texture = ExtResource("5_kvpfn")
 
 [node name="WaterPoint9" type="Sprite2D" parent="Background" unique_id=396329134]
+visible = false
 position = Vector2(-230.99998, 14)
 scale = Vector2(0.39, 0.39)
 texture = ExtResource("5_kvpfn")
 
 [node name="WaterPoint10" type="Sprite2D" parent="Background" unique_id=1614283871]
+visible = false
 position = Vector2(-274, 3)
 scale = Vector2(0.39, 0.39)
 texture = ExtResource("5_kvpfn")
 
 [node name="WaterPoint11" type="Sprite2D" parent="Background" unique_id=1793573808]
+visible = false
 position = Vector2(-290, 41)
 scale = Vector2(0.39, 0.39)
 texture = ExtResource("5_kvpfn")
 
 [node name="WaterPoint12" type="Sprite2D" parent="Background" unique_id=1088069115]
+visible = false
 position = Vector2(-334, 37)
 scale = Vector2(0.39, 0.39)
 texture = ExtResource("5_kvpfn")
 
 [node name="WaterPoint13" type="Sprite2D" parent="Background" unique_id=1388100592]
+visible = false
 position = Vector2(-340, 3)
 scale = Vector2(0.39, 0.39)
 texture = ExtResource("5_kvpfn")
 
 [node name="Reference3" type="Sprite2D" parent="." unique_id=962097219]
+visible = false
 position = Vector2(-271, -224)
 scale = Vector2(0.61, 0.61)
 texture = ExtResource("8_dinhu")
 
 [node name="Reference2" type="Sprite2D" parent="." unique_id=380657170]
+visible = false
 position = Vector2(115, -44)
 scale = Vector2(0.6, 0.6)
 texture = ExtResource("5_vtaks")
 
 [node name="Reference" type="Sprite2D" parent="." unique_id=337092061]
+visible = false
 position = Vector2(-26, 98.00001)
 scale = Vector2(0.6, 0.6)
 texture = ExtResource("5_0tnpc")
@@ -2770,7 +2786,7 @@ offset_bottom = 71.41205
 theme_override_colors/font_color = Color(1, 1, 1, 0.7490196)
 uppercase = true
 
-[node name="San Pietroburgo" type="Area2D" parent="russia" unique_id=2068493460]
+[node name="St Petersburg" type="Area2D" parent="russia" unique_id=2068493460]
 collision_layer = 3
 collision_mask = 3
 script = ExtResource("3_lnu2h")
@@ -2778,23 +2794,23 @@ province_material = 6
 double_material = true
 startup_buildings = Array[int]([0, 2])
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="russia/San Pietroburgo" unique_id=1787314894]
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="russia/St Petersburg" unique_id=1787314894]
 polygon = PackedVector2Array(-93, -80, -88, -79, -82, -72, -83, -64, -77, -57, -74, -56, -71, -51, -66, -54, -58, -53, -50, -51, -48, -53, -46, -55, -40, -55, -36, -50, -25, -45, -10, -43, -9, -46, -9, -49, -11, -52, -11, -58, -14, -64, -21, -68, -29, -67, -40, -69, -54, -91, -52, -95, -45, -98, -36, -98, -31, -97, -25, -92, -19, -94, -13, -91, -12, -97, -8, -100, -11, -105, -10, -107, -3, -112, 2, -109, 9, -113, 16, -120, 19, -127, 26, -135, 23, -138, 23, -143, 37, -145, 42, -141, 56, -145, 56, -156, 53, -164, 51, -171, 45, -168, 41, -170, 42, -176, 33, -184, 25, -182, 21, -190, 17, -187, 11, -188, 8, -189, 9, -193, 6, -199, 3, -200, -2, -198, -5, -199, -12, -205, -16, -205, -18, -210, -14, -208, -19, -217, -14, -217, -15, -219, -20, -221, -25, -228, -22, -229, -18, -223, -12, -221, -11, -218, -6, -217, -9, -221, -5, -221, -3, -222, -5, -223, -4, -225, -5, -229, -14, -231, -15, -229, -19, -231, -23, -235, -26, -237, -24, -239, -32, -243, -39, -242, -44, -246, -45, -249, -47, -245, -52, -240, -55, -230, -48, -230, -43, -221, -46, -215, -45, -212, -40, -213, -37, -203, -40, -203, -44, -208, -52, -203, -50, -198, -46, -196, -44, -191, -46, -187, -37, -185, -31, -181, -30, -175, -25, -167, -27, -163, -25, -156, -29, -150, -32, -153, -39, -153, -42, -151, -40, -147, -45, -144, -48, -144, -58, -154, -64, -155, -66, -150, -71, -149, -70, -144, -63, -141, -65, -136, -75, -138, -78, -134, -78, -131, -89, -129, -89, -124, -93, -125, -94, -123, -91, -119, -94, -113, -101, -115, -101, -107, -93, -100, -93, -94, -98, -90, -96, -87)
 
-[node name="Polygon2D" type="Polygon2D" parent="russia/San Pietroburgo" unique_id=1554544681]
+[node name="Polygon2D" type="Polygon2D" parent="russia/St Petersburg" unique_id=1554544681]
 color = Color(0.45359772, 0.43529403, 0.42440614, 1)
 metadata/id = 0
 
-[node name="ProvinceBorder" type="Line2D" parent="russia/San Pietroburgo" unique_id=305071753]
+[node name="ProvinceBorder" type="Line2D" parent="russia/St Petersburg" unique_id=305071753]
 closed = true
 width = 0.3
 default_color = Color(1, 1, 1, 0.78431374)
 joint_mode = 2
 
-[node name="Node2D" parent="russia/San Pietroburgo" unique_id=140722812 instance=ExtResource("7_gee14")]
+[node name="Node2D" parent="russia/St Petersburg" unique_id=140722812 instance=ExtResource("7_gee14")]
 position = Vector2(-59, -139)
 
-[node name="Control" type="Control" parent="russia/San Pietroburgo" unique_id=2061818737]
+[node name="Control" type="Control" parent="russia/St Petersburg" unique_id=2061818737]
 z_index = 2
 layout_mode = 3
 anchors_preset = 0
@@ -2804,7 +2820,7 @@ offset_right = 76.0
 offset_bottom = 4.2299995
 pivot_offset = Vector2(19.865, 0)
 
-[node name="VBoxContainer" type="VBoxContainer" parent="russia/San Pietroburgo/Control" unique_id=273637515]
+[node name="VBoxContainer" type="VBoxContainer" parent="russia/St Petersburg/Control" unique_id=273637515]
 layout_mode = 1
 anchors_preset = -1
 anchor_right = 1.0
@@ -2812,75 +2828,75 @@ anchor_bottom = 1.25
 offset_bottom = -10.0
 alignment = 1
 
-[node name="PanelContainer" type="PanelContainer" parent="russia/San Pietroburgo/Control/VBoxContainer" unique_id=1534517857]
+[node name="PanelContainer" type="PanelContainer" parent="russia/St Petersburg/Control/VBoxContainer" unique_id=1534517857]
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_0tnpc")
 
-[node name="ProvinceName" type="Label" parent="russia/San Pietroburgo/Control/VBoxContainer/PanelContainer" unique_id=1128760830]
+[node name="ProvinceName" type="Label" parent="russia/St Petersburg/Control/VBoxContainer/PanelContainer" unique_id=1128760830]
 layout_mode = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="russia/San Pietroburgo/Control/VBoxContainer" unique_id=1599243383]
+[node name="HBoxContainer" type="HBoxContainer" parent="russia/St Petersburg/Control/VBoxContainer" unique_id=1599243383]
 layout_mode = 2
 
-[node name="TextureRect" type="TextureRect" parent="russia/San Pietroburgo/Control/VBoxContainer/HBoxContainer" unique_id=346564585]
+[node name="TextureRect" type="TextureRect" parent="russia/St Petersburg/Control/VBoxContainer/HBoxContainer" unique_id=346564585]
 layout_mode = 2
 
-[node name="ResourceCount" type="Label" parent="russia/San Pietroburgo/Control/VBoxContainer/HBoxContainer" unique_id=2089047574]
+[node name="ResourceCount" type="Label" parent="russia/St Petersburg/Control/VBoxContainer/HBoxContainer" unique_id=2089047574]
 layout_mode = 2
 
-[node name="Path2D15" type="Path2D" parent="russia/San Pietroburgo" unique_id=1323915495]
+[node name="Path2D15" type="Path2D" parent="russia/St Petersburg" unique_id=1323915495]
 curve = SubResource("Curve2D_h1bth")
 script = ExtResource("8_gee14")
 
-[node name="Path2D14" type="Path2D" parent="russia/San Pietroburgo" unique_id=859800288]
+[node name="Path2D14" type="Path2D" parent="russia/St Petersburg" unique_id=859800288]
 curve = SubResource("Curve2D_6cwij")
 script = ExtResource("8_gee14")
 
-[node name="Path2D13" type="Path2D" parent="russia/San Pietroburgo" unique_id=756231347]
+[node name="Path2D13" type="Path2D" parent="russia/St Petersburg" unique_id=756231347]
 curve = SubResource("Curve2D_bqsge")
 script = ExtResource("8_gee14")
 
-[node name="Path2D12" type="Path2D" parent="russia/San Pietroburgo" unique_id=657681591]
+[node name="Path2D12" type="Path2D" parent="russia/St Petersburg" unique_id=657681591]
 curve = SubResource("Curve2D_k2jov")
 script = ExtResource("8_gee14")
 
-[node name="Path2D11" type="Path2D" parent="russia/San Pietroburgo" unique_id=1364620410]
+[node name="Path2D11" type="Path2D" parent="russia/St Petersburg" unique_id=1364620410]
 curve = SubResource("Curve2D_osiit")
 script = ExtResource("8_gee14")
 
-[node name="Path2D10" type="Path2D" parent="russia/San Pietroburgo" unique_id=1349532115]
+[node name="Path2D10" type="Path2D" parent="russia/St Petersburg" unique_id=1349532115]
 curve = SubResource("Curve2D_kpl5h")
 script = ExtResource("8_gee14")
 
-[node name="Path2D9" type="Path2D" parent="russia/San Pietroburgo" unique_id=469024088]
+[node name="Path2D9" type="Path2D" parent="russia/St Petersburg" unique_id=469024088]
 curve = SubResource("Curve2D_nej56")
 script = ExtResource("8_gee14")
 
-[node name="Path2D8" type="Path2D" parent="russia/San Pietroburgo" unique_id=1792140876]
+[node name="Path2D8" type="Path2D" parent="russia/St Petersburg" unique_id=1792140876]
 curve = SubResource("Curve2D_vgiqa")
 script = ExtResource("8_gee14")
 
-[node name="Path2D7" type="Path2D" parent="russia/San Pietroburgo" unique_id=784774520]
+[node name="Path2D7" type="Path2D" parent="russia/St Petersburg" unique_id=784774520]
 curve = SubResource("Curve2D_1uieh")
 script = ExtResource("8_gee14")
 
-[node name="Path2D6" type="Path2D" parent="russia/San Pietroburgo" unique_id=859351687]
+[node name="Path2D6" type="Path2D" parent="russia/St Petersburg" unique_id=859351687]
 curve = SubResource("Curve2D_x2ts8")
 script = ExtResource("8_gee14")
 
-[node name="Path2D5" type="Path2D" parent="russia/San Pietroburgo" unique_id=1778320680]
+[node name="Path2D5" type="Path2D" parent="russia/St Petersburg" unique_id=1778320680]
 curve = SubResource("Curve2D_1fiuy")
 script = ExtResource("8_gee14")
 
-[node name="Path2D4" type="Path2D" parent="russia/San Pietroburgo" unique_id=1328219012]
+[node name="Path2D4" type="Path2D" parent="russia/St Petersburg" unique_id=1328219012]
 curve = SubResource("Curve2D_fikvi")
 script = ExtResource("8_gee14")
 
-[node name="Path2D3" type="Path2D" parent="russia/San Pietroburgo" unique_id=600591378]
+[node name="Path2D3" type="Path2D" parent="russia/St Petersburg" unique_id=600591378]
 curve = SubResource("Curve2D_iwdqm")
 script = ExtResource("8_gee14")
 
-[node name="Path2D" type="Path2D" parent="russia/San Pietroburgo" unique_id=1474855664]
+[node name="Path2D" type="Path2D" parent="russia/St Petersburg" unique_id=1474855664]
 curve = SubResource("Curve2D_l0ny2")
 script = ExtResource("8_gee14")
 
@@ -5034,29 +5050,29 @@ script = ExtResource("8_gee14")
 curve = SubResource("Curve2D_1va0p")
 script = ExtResource("8_gee14")
 
-[node name="Vilnius" type="Area2D" parent="lithuania" unique_id=1457882798]
+[node name="Vilna" type="Area2D" parent="lithuania" unique_id=1457882798]
 collision_layer = 3
 collision_mask = 3
 script = ExtResource("3_lnu2h")
 startup_buildings = Array[int]([0, 2])
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="lithuania/Vilnius" unique_id=1183820014]
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="lithuania/Vilna" unique_id=1183820014]
 polygon = PackedVector2Array(-95, 35, -91, 37, -86, 38, -82, 36, -80, 33, -78, 29, -78, 22, -79, 18, -79, 15, -78, 12, -74, 10, -75, 9, -73, 7, -69, 7, -66, 5, -66, 4, -68, 3, -68, -1, -71, -7, -76, -14, -78, -15, -81, -14, -84, -16, -85, -15, -88, -12, -94, -9, -103, -9, -110, -9, -115, -14, -118, -9, -119, -3, -118, 3, -120, 5, -125, 9, -110, 9, -103, 12, -94, 29)
 
-[node name="Polygon2D" type="Polygon2D" parent="lithuania/Vilnius" unique_id=1721256595]
+[node name="Polygon2D" type="Polygon2D" parent="lithuania/Vilna" unique_id=1721256595]
 color = Color(0.45359772, 0.43529403, 0.42440614, 1)
 metadata/id = 0
 
-[node name="ProvinceBorder" type="Line2D" parent="lithuania/Vilnius" unique_id=879188315]
+[node name="ProvinceBorder" type="Line2D" parent="lithuania/Vilna" unique_id=879188315]
 closed = true
 width = 0.3
 default_color = Color(1, 1, 1, 0.78431374)
 joint_mode = 2
 
-[node name="Node2D" parent="lithuania/Vilnius" unique_id=1984131834 instance=ExtResource("7_gee14")]
+[node name="Node2D" parent="lithuania/Vilna" unique_id=1984131834 instance=ExtResource("7_gee14")]
 position = Vector2(-88, 30)
 
-[node name="Control" type="Control" parent="lithuania/Vilnius" unique_id=1675305917]
+[node name="Control" type="Control" parent="lithuania/Vilna" unique_id=1675305917]
 z_index = 2
 layout_mode = 3
 anchors_preset = 0
@@ -5066,7 +5082,7 @@ offset_right = 76.0
 offset_bottom = 4.2299995
 pivot_offset = Vector2(19.865, 0)
 
-[node name="VBoxContainer" type="VBoxContainer" parent="lithuania/Vilnius/Control" unique_id=968099803]
+[node name="VBoxContainer" type="VBoxContainer" parent="lithuania/Vilna/Control" unique_id=968099803]
 layout_mode = 1
 anchors_preset = -1
 anchor_right = 1.0
@@ -5074,51 +5090,51 @@ anchor_bottom = 1.25
 offset_bottom = -10.0
 alignment = 1
 
-[node name="PanelContainer" type="PanelContainer" parent="lithuania/Vilnius/Control/VBoxContainer" unique_id=754793406]
+[node name="PanelContainer" type="PanelContainer" parent="lithuania/Vilna/Control/VBoxContainer" unique_id=754793406]
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_0tnpc")
 
-[node name="ProvinceName" type="Label" parent="lithuania/Vilnius/Control/VBoxContainer/PanelContainer" unique_id=850296353]
+[node name="ProvinceName" type="Label" parent="lithuania/Vilna/Control/VBoxContainer/PanelContainer" unique_id=850296353]
 layout_mode = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="lithuania/Vilnius/Control/VBoxContainer" unique_id=1097970882]
+[node name="HBoxContainer" type="HBoxContainer" parent="lithuania/Vilna/Control/VBoxContainer" unique_id=1097970882]
 layout_mode = 2
 
-[node name="TextureRect" type="TextureRect" parent="lithuania/Vilnius/Control/VBoxContainer/HBoxContainer" unique_id=1259733778]
+[node name="TextureRect" type="TextureRect" parent="lithuania/Vilna/Control/VBoxContainer/HBoxContainer" unique_id=1259733778]
 layout_mode = 2
 
-[node name="ResourceCount" type="Label" parent="lithuania/Vilnius/Control/VBoxContainer/HBoxContainer" unique_id=731299959]
+[node name="ResourceCount" type="Label" parent="lithuania/Vilna/Control/VBoxContainer/HBoxContainer" unique_id=731299959]
 layout_mode = 2
 
-[node name="Path2D6" type="Path2D" parent="lithuania/Vilnius" unique_id=1807597888]
+[node name="Path2D6" type="Path2D" parent="lithuania/Vilna" unique_id=1807597888]
 curve = SubResource("Curve2D_2tvof")
 script = ExtResource("8_gee14")
 
-[node name="Path2D5" type="Path2D" parent="lithuania/Vilnius" unique_id=36992535]
+[node name="Path2D5" type="Path2D" parent="lithuania/Vilna" unique_id=36992535]
 curve = SubResource("Curve2D_fsry6")
 script = ExtResource("8_gee14")
 
-[node name="Path2D4" type="Path2D" parent="lithuania/Vilnius" unique_id=424974764]
+[node name="Path2D4" type="Path2D" parent="lithuania/Vilna" unique_id=424974764]
 curve = SubResource("Curve2D_eky20")
 script = ExtResource("8_gee14")
 
-[node name="Path2D8" type="Path2D" parent="lithuania/Vilnius" unique_id=1269209792]
+[node name="Path2D8" type="Path2D" parent="lithuania/Vilna" unique_id=1269209792]
 curve = SubResource("Curve2D_o3ulk")
 script = ExtResource("8_gee14")
 
-[node name="Path2D7" type="Path2D" parent="lithuania/Vilnius" unique_id=251779685]
+[node name="Path2D7" type="Path2D" parent="lithuania/Vilna" unique_id=251779685]
 curve = SubResource("Curve2D_ghitk")
 script = ExtResource("8_gee14")
 
-[node name="Path2D3" type="Path2D" parent="lithuania/Vilnius" unique_id=1418123134]
+[node name="Path2D3" type="Path2D" parent="lithuania/Vilna" unique_id=1418123134]
 curve = SubResource("Curve2D_rundi")
 script = ExtResource("8_gee14")
 
-[node name="Path2D2" type="Path2D" parent="lithuania/Vilnius" unique_id=280688911]
+[node name="Path2D2" type="Path2D" parent="lithuania/Vilna" unique_id=280688911]
 curve = SubResource("Curve2D_7kwaa")
 script = ExtResource("8_gee14")
 
-[node name="Path2D" type="Path2D" parent="lithuania/Vilnius" unique_id=1296026062]
+[node name="Path2D" type="Path2D" parent="lithuania/Vilna" unique_id=1296026062]
 curve = SubResource("Curve2D_jye5l")
 script = ExtResource("8_gee14")
 
@@ -5441,12 +5457,12 @@ layout_mode = 2
 [node name="ResourceCount" type="Label" parent="finland/Viborg/Control/VBoxContainer/HBoxContainer" unique_id=1578160814]
 layout_mode = 2
 
-[node name="Path2D6" type="Path2D" parent="finland/Viborg" unique_id=1621048189]
-curve = SubResource("Curve2D_qkuf6")
+[node name="Path2D7" type="Path2D" parent="finland/Viborg" unique_id=1888655080]
+curve = SubResource("Curve2D_nri4r")
 script = ExtResource("8_gee14")
 
-[node name="Path2D6" type="Path2D" parent="finland/Viborg/Path2D6" unique_id=1888655080]
-curve = SubResource("Curve2D_nri4r")
+[node name="Path2D6" type="Path2D" parent="finland/Viborg" unique_id=1621048189]
+curve = SubResource("Curve2D_qkuf6")
 script = ExtResource("8_gee14")
 
 [node name="Path2D5" type="Path2D" parent="finland/Viborg" unique_id=1655123909]
@@ -5542,76 +5558,42 @@ script = ExtResource("8_gee14")
 curve = SubResource("Curve2D_7qjva")
 script = ExtResource("8_gee14")
 
-[node name="Helsinki" type="Area2D" parent="finland" unique_id=643263952]
+[node name="Helsingfors" type="Area2D" parent="finland" unique_id=643263952]
 collision_layer = 3
 collision_mask = 3
 script = ExtResource("3_lnu2h")
 province_material = 5
 startup_buildings = Array[int]([2, 0])
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="finland/Helsinki" unique_id=596579460]
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="finland/Helsingfors" unique_id=596579460]
 polygon = PackedVector2Array(-137, -146, -142, -132, -147, -133, -151, -127, -153, -127, -153, -130, -160, -128, -161, -124, -165, -125, -168, -123, -169, -120, -172, -120, -170, -123, -173, -123, -172, -125, -173, -127, -173, -135, -179, -133, -179, -136, -185, -136, -189, -140, -192, -139, -193, -141, -197, -141, -198, -142, -198, -146, -199, -149, -198, -151, -201, -154, -198, -155, -196, -158, -198, -161, -197, -172, -188, -161, -186, -162, -182, -161, -178, -162, -178, -164, -176, -165, -172, -166, -166, -162, -167, -168, -167, -170, -165, -171, -161, -168, -162, -165, -163, -162, -164, -161, -158, -157, -155, -160, -159, -162, -155, -163, -155, -167, -146, -172, -146, -165, -144, -161, -144, -151, -138, -147)
 
-[node name="Polygon2D" type="Polygon2D" parent="finland/Helsinki" unique_id=467241873]
+[node name="Polygon2D" type="Polygon2D" parent="finland/Helsingfors" unique_id=467241873]
 color = Color(0.45359772, 0.43529403, 0.42440614, 1)
 metadata/id = 0
 
-[node name="ProvinceBorder" type="Line2D" parent="finland/Helsinki" unique_id=1448459371]
+[node name="ProvinceBorder" type="Line2D" parent="finland/Helsingfors" unique_id=1448459371]
 closed = true
 width = 0.3
 default_color = Color(1, 1, 1, 0.78431374)
 joint_mode = 2
 
-[node name="Node2D" parent="finland/Helsinki" unique_id=389090313 instance=ExtResource("7_gee14")]
+[node name="Node2D" parent="finland/Helsingfors" unique_id=389090313 instance=ExtResource("7_gee14")]
 position = Vector2(-147, -138)
 
-[node name="Control" type="Control" parent="finland/Helsinki" unique_id=534195044]
-z_index = 2
-layout_mode = 3
-anchors_preset = 0
-offset_left = 36.0
-offset_top = -35.77
-offset_right = 76.0
-offset_bottom = 4.2299995
-pivot_offset = Vector2(19.865, 0)
-
-[node name="VBoxContainer" type="VBoxContainer" parent="finland/Helsinki/Control" unique_id=1348428049]
-layout_mode = 1
-anchors_preset = -1
-anchor_right = 1.0
-anchor_bottom = 1.25
-offset_bottom = -10.0
-alignment = 1
-
-[node name="PanelContainer" type="PanelContainer" parent="finland/Helsinki/Control/VBoxContainer" unique_id=448870003]
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_0tnpc")
-
-[node name="ProvinceName" type="Label" parent="finland/Helsinki/Control/VBoxContainer/PanelContainer" unique_id=301992270]
-layout_mode = 2
-
-[node name="HBoxContainer" type="HBoxContainer" parent="finland/Helsinki/Control/VBoxContainer" unique_id=1182151755]
-layout_mode = 2
-
-[node name="TextureRect" type="TextureRect" parent="finland/Helsinki/Control/VBoxContainer/HBoxContainer" unique_id=757542098]
-layout_mode = 2
-
-[node name="ResourceCount" type="Label" parent="finland/Helsinki/Control/VBoxContainer/HBoxContainer" unique_id=601404025]
-layout_mode = 2
-
-[node name="Path2D4" type="Path2D" parent="finland/Helsinki" unique_id=2094763136]
+[node name="Path2D4" type="Path2D" parent="finland/Helsingfors" unique_id=2094763136]
 curve = SubResource("Curve2D_xsid7")
 script = ExtResource("8_gee14")
 
-[node name="Path2D3" type="Path2D" parent="finland/Helsinki" unique_id=1604623113]
+[node name="Path2D3" type="Path2D" parent="finland/Helsingfors" unique_id=1604623113]
 curve = SubResource("Curve2D_cbnbf")
 script = ExtResource("8_gee14")
 
-[node name="Path2D2" type="Path2D" parent="finland/Helsinki" unique_id=289173279]
+[node name="Path2D2" type="Path2D" parent="finland/Helsingfors" unique_id=289173279]
 curve = SubResource("Curve2D_vjgfe")
 script = ExtResource("8_gee14")
 
-[node name="Path2D" type="Path2D" parent="finland/Helsinki" unique_id=1295854852]
+[node name="Path2D" type="Path2D" parent="finland/Helsingfors" unique_id=1295854852]
 curve = SubResource("Curve2D_efgwv")
 script = ExtResource("8_gee14")
 
@@ -7945,29 +7927,29 @@ script = ExtResource("8_gee14")
 curve = SubResource("Curve2D_k1kjl")
 script = ExtResource("8_gee14")
 
-[node name="Christiana" type="Area2D" parent="norway" unique_id=1389112447]
+[node name="Christiania" type="Area2D" parent="norway" unique_id=1389112447]
 collision_layer = 3
 collision_mask = 3
 script = ExtResource("3_lnu2h")
 startup_buildings = Array[int]([2, 0])
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="norway/Christiana" unique_id=849327587]
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="norway/Christiania" unique_id=849327587]
 polygon = PackedVector2Array(-377, -107, -376, -115, -373, -122, -371, -119, -369, -116, -371, -109, -371, -106, -369, -102, -367, -112, -364, -115, -365, -119, -364, -123, -362, -129, -354, -134, -350, -143, -332, -146, -332, -152, -331, -158, -334, -163, -338, -168, -338, -176, -342, -178, -343, -175, -345, -172, -346, -176, -346, -180, -348, -176, -355, -169, -365, -169, -370, -165, -371, -161, -374, -157, -377, -153, -376, -147, -377, -145, -381, -145, -388, -143, -390, -139, -386, -132, -383, -134, -379, -130, -377, -123, -387, -116, -385, -114)
 
-[node name="Polygon2D" type="Polygon2D" parent="norway/Christiana" unique_id=407732028]
+[node name="Polygon2D" type="Polygon2D" parent="norway/Christiania" unique_id=407732028]
 color = Color(0.45359772, 0.43529403, 0.42440614, 1)
 metadata/id = 0
 
-[node name="ProvinceBorder" type="Line2D" parent="norway/Christiana" unique_id=2138046544]
+[node name="ProvinceBorder" type="Line2D" parent="norway/Christiania" unique_id=2138046544]
 closed = true
 width = 0.3
 default_color = Color(1, 1, 1, 0.78431374)
 joint_mode = 2
 
-[node name="Node2D" parent="norway/Christiana" unique_id=1212394888 instance=ExtResource("7_gee14")]
+[node name="Node2D" parent="norway/Christiania" unique_id=1212394888 instance=ExtResource("7_gee14")]
 position = Vector2(-369, -125)
 
-[node name="Control" type="Control" parent="norway/Christiana" unique_id=1714289060]
+[node name="Control" type="Control" parent="norway/Christiania" unique_id=1714289060]
 z_index = 2
 layout_mode = 3
 anchors_preset = 0
@@ -7977,7 +7959,7 @@ offset_right = 76.0
 offset_bottom = 4.2299995
 pivot_offset = Vector2(19.865, 0)
 
-[node name="VBoxContainer" type="VBoxContainer" parent="norway/Christiana/Control" unique_id=1307033779]
+[node name="VBoxContainer" type="VBoxContainer" parent="norway/Christiania/Control" unique_id=1307033779]
 layout_mode = 1
 anchors_preset = -1
 anchor_right = 1.0
@@ -7985,43 +7967,43 @@ anchor_bottom = 1.25
 offset_bottom = -10.0
 alignment = 1
 
-[node name="PanelContainer" type="PanelContainer" parent="norway/Christiana/Control/VBoxContainer" unique_id=1148759263]
+[node name="PanelContainer" type="PanelContainer" parent="norway/Christiania/Control/VBoxContainer" unique_id=1148759263]
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_0tnpc")
 
-[node name="ProvinceName" type="Label" parent="norway/Christiana/Control/VBoxContainer/PanelContainer" unique_id=1586021702]
+[node name="ProvinceName" type="Label" parent="norway/Christiania/Control/VBoxContainer/PanelContainer" unique_id=1586021702]
 layout_mode = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="norway/Christiana/Control/VBoxContainer" unique_id=1837110813]
+[node name="HBoxContainer" type="HBoxContainer" parent="norway/Christiania/Control/VBoxContainer" unique_id=1837110813]
 layout_mode = 2
 
-[node name="TextureRect" type="TextureRect" parent="norway/Christiana/Control/VBoxContainer/HBoxContainer" unique_id=1665068307]
+[node name="TextureRect" type="TextureRect" parent="norway/Christiania/Control/VBoxContainer/HBoxContainer" unique_id=1665068307]
 layout_mode = 2
 
-[node name="ResourceCount" type="Label" parent="norway/Christiana/Control/VBoxContainer/HBoxContainer" unique_id=671235079]
+[node name="ResourceCount" type="Label" parent="norway/Christiania/Control/VBoxContainer/HBoxContainer" unique_id=671235079]
 layout_mode = 2
 
-[node name="Path2D6" type="Path2D" parent="norway/Christiana" unique_id=1838574237]
+[node name="Path2D6" type="Path2D" parent="norway/Christiania" unique_id=1838574237]
 curve = SubResource("Curve2D_nk75x")
 script = ExtResource("8_gee14")
 
-[node name="Path2D5" type="Path2D" parent="norway/Christiana" unique_id=2135880939]
+[node name="Path2D5" type="Path2D" parent="norway/Christiania" unique_id=2135880939]
 curve = SubResource("Curve2D_hwjc1")
 script = ExtResource("8_gee14")
 
-[node name="Path2D4" type="Path2D" parent="norway/Christiana" unique_id=2138034057]
+[node name="Path2D4" type="Path2D" parent="norway/Christiania" unique_id=2138034057]
 curve = SubResource("Curve2D_2p0c4")
 script = ExtResource("8_gee14")
 
-[node name="Path2D3" type="Path2D" parent="norway/Christiana" unique_id=201905174]
+[node name="Path2D3" type="Path2D" parent="norway/Christiania" unique_id=201905174]
 curve = SubResource("Curve2D_vufli")
 script = ExtResource("8_gee14")
 
-[node name="Path2D2" type="Path2D" parent="norway/Christiana" unique_id=1409193779]
+[node name="Path2D2" type="Path2D" parent="norway/Christiania" unique_id=1409193779]
 curve = SubResource("Curve2D_d8ho2")
 script = ExtResource("8_gee14")
 
-[node name="Path2D" type="Path2D" parent="norway/Christiana" unique_id=1197026145]
+[node name="Path2D" type="Path2D" parent="norway/Christiania" unique_id=1197026145]
 curve = SubResource("Curve2D_snk1t")
 script = ExtResource("8_gee14")
 

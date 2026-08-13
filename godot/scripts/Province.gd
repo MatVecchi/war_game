@@ -16,10 +16,29 @@ var neighbors: Array[Area2D] = []
 var borders: Array[Line2D] = []
 var buildings: Dictionary[Enums.Buildings, Building] = {}
 var daily_cost: Dictionary[Enums.Resources, int] = {}
+var all_bonuses: Dictionary = {
+	Enums.ProvinceMoraleBonuses.CAPITAL: CapitalModifier.new(),
+}
+var all_maluses: Dictionary = {
+	Enums.ProvinceMoraleMaluses.CAPITAL_DISTANCE: CapitalDistanceModifier.new(),
+	Enums.ProvinceMoraleMaluses.EXPANSION: ExpansionModifier.new(),
+	Enums.ProvinceMoraleMaluses.ENEMY_NEIGHBORS: EnemyNeighborsModifier.new(),
+	Enums.ProvinceMoraleMaluses.ENEMY_ARMIES: EnemyArmiesModifier.new(),
+}
+var morale_bonuses: Dictionary = {}
+var morale_maluses: Dictionary = {}
+var trend_texture_rect_capital: TextureRect
+
+const ARROW_UP_TEXTURE = preload("res://assets/textures/arrow-up.png")
+const ARROW_DOWN_TEXTURE = preload("res://assets/textures/arrow-down.png")
 const DEFAULT_ARMY_GENERATION_WAIT: float = 720.0
 const DEFAULT_START_PROVINCE_MORALE: int = 70
 const DEFAULT_START_TARGET_MORALE: int = 100
 const CAPITAL_COLOR_BACKGROUND: Color = Color(0.0, 0.0, 0.0, 0.5)
+const RIOT_THRESHOLD: int = 33
+const RIOT_BREAKPOINT: int = 30
+const RIOT_BASE_DEFENSE: float = 5.0
+const RIOT_PENALTY_MULTIPLIER: float = 6.0
 const MATERIAL_TEXTURES: Dictionary[Enums.ResourcesSprites, Resource] = {
 	Enums.ResourcesSprites.WOOD: preload("res://assets/sprites/resources/wood.png"),
 	Enums.ResourcesSprites.WOOD_DOUBLE: preload("res://assets/sprites/resources/wood_double.png"),
@@ -51,9 +70,15 @@ const DEFAULT_DAILY_COST: Dictionary[Enums.Resources, int] = {
 @export var startup_buildings: Array[Enums.Buildings]
 
 @onready var fill: Polygon2D = $Polygon2D
-@onready var control: Control = $Control
 @onready var collision_polygon: CollisionPolygon2D = $CollisionPolygon2D
 @onready var province_border: Line2D = $ProvinceBorder
+
+@onready var city_node: Node2D = $City if has_node("City") else $Node2D
+@onready var control: Control = city_node.get_node("Control")
+@onready var resource_texture: TextureRect = city_node.get_node("Control/ResourceTexture")
+@onready var province_name_capital_container: PanelContainer = city_node.get_node("Control/SubViewportContainer/SubViewport/CapitalLabelContainer")
+@onready var province_name_capital_label: Label = city_node.get_node("Control/SubViewportContainer/SubViewport/CapitalLabelContainer/MarginContainer/ProvinceName")
+@onready var province_name_label: Label = city_node.get_node("Control/SubViewportContainer/SubViewport/ProvinceNameLabel")
 
 func _ready():
 	add_to_group("provinces")
@@ -63,21 +88,18 @@ func _ready():
 	hour_timer.timeout.connect(_on_global_hour_timer_timeout)
 	day_timer = get_node("/root/Game/GlobalDayTimer")
 	day_timer.timeout.connect(_on_global_day_timer_timeout)
-	current_army_timer = DEFAULT_ARMY_GENERATION_WAIT + DEFAULT_ARMY_GENERATION_WAIT*(float(province_morale)/100)
+	current_army_timer = _calculate_army_generation_wait()
 	_update_army_timer(current_army_timer)
 	army_timer.timeout.connect(_on_army_timer_timeout)
 	add_child(army_timer)
-	army_timer.start()
 	
 	fill.polygon = collision_polygon.polygon
 	daily_cost = DEFAULT_DAILY_COST
 	
 	province_border.hide()
 	control.hide()
-	control.position = get_city_position()
-	control.z_index = 5
-	control.scale = Vector2(0.2, 0.2)
-	$Control/VBoxContainer/HBoxContainer/TextureRect.texture = MATERIAL_TEXTURES[_get_sprite_key()]
+	_set_mouse_filter_ignore_recursive(city_node)
+	resource_texture.texture = MATERIAL_TEXTURES[_get_sprite_key()]
 	
 	for el in collision_polygon.polygon:
 		province_border.add_point(el)
@@ -88,16 +110,26 @@ func _ready():
 	neighbors = await _get_neighbors(1.1)
 	set_borders()
 	
+	target_morale = min(100, 100 - _get_total_morale_penalties() + _get_total_morale_bonuses())	
+
 	if Enums.Buildings.CAPITAL in startup_buildings:
-		buildings.get_or_add(Enums.Buildings.CAPITAL, Capital.new())
+		var capital = Capital.new()
+		capital.state = Enums.BuildingStates.FUNCTIONING
+		buildings.get_or_add(Enums.Buildings.CAPITAL, capital)
 	if Enums.Buildings.RECRUIT_CENTER in startup_buildings:
-		buildings.get_or_add(Enums.Buildings.RECRUIT_CENTER, RecruitCenter.new())
+		var recruit_center = RecruitCenter.new()
+		recruit_center.state = Enums.BuildingStates.FUNCTIONING
+		buildings.get_or_add(Enums.Buildings.RECRUIT_CENTER, recruit_center)
 		
+	if has_functioning_building(Enums.Buildings.RECRUIT_CENTER):
+		army_timer.start()
+
 	for child in get_children():
 		if child is not Path2D: continue
 		child = child as Path2D
 		var curve: Curve2D = child.curve
 		var path_line: Line2D = Line2D.new()
+		path_line.name = "PathLine_" + child.name
 		path_line.width = 0.7
 		path_line.default_color = Color(0.0, 0.0, 0.0, 0.1)
 		for i in range(curve.point_count):
@@ -110,7 +142,7 @@ func _ready():
 func set_borders() -> void:
 	borders.clear()
 	for i in get_children():
-		if i is not Line2D or i.name == "ProvinceBorder": continue
+		if i is not Line2D or i.name == "ProvinceBorder" or i.name.begins_with("PathLine"): continue
 		remove_child(i)
 
 	for j in neighbors:
@@ -124,10 +156,6 @@ func set_borders() -> void:
 			poly2.append(p)
 
 		var inter = get_shared_edges(poly1, poly2)
-		
-		var poly_global := PackedVector2Array()
-		for p in collision_polygon.polygon:
-			poly_global.append(collision_polygon.to_global(p))
 
 		var l = Line2D.new()
 		l.width = 1.3
@@ -141,6 +169,9 @@ func set_borders() -> void:
 		
 func has_building(building: Enums.Buildings):
 	return building in buildings
+
+func has_functioning_building(building: Enums.Buildings) -> bool:
+	return building in buildings and buildings[building].state == Enums.BuildingStates.FUNCTIONING
 
 func _get_neighbors(scale_factor: float) -> Array[Area2D]:
 	var polygon: PackedVector2Array = collision_polygon.polygon
@@ -180,7 +211,6 @@ func get_shared_edges(poly1: PackedVector2Array, poly2: PackedVector2Array, epsi
 			var b1 = poly2[j]
 			var b2 = poly2[(j + 1) % poly2.size()]
 
-			# Controllo se i segmenti coincidono (inversi o diretti)
 			if a1.distance_to(b1) < epsilon and a2.distance_to(b2) < epsilon:
 				shared.append([a1, a2])
 			elif a1.distance_to(b2) < epsilon and a2.distance_to(b1) < epsilon:
@@ -189,34 +219,28 @@ func get_shared_edges(poly1: PackedVector2Array, poly2: PackedVector2Array, epsi
 	return shared
 
 func _draw():
-	$Control/VBoxContainer/HBoxContainer/ResourceCount.text = str(_get_daily_resource_count())
-	$Control/VBoxContainer/PanelContainer/ProvinceName.text = name + ": " + str(province_morale) + "%"
-	var style := StyleBoxFlat.new()
+	if province_name_capital_label:
+		province_name_capital_label.text = name
+	if province_name_label:
+		province_name_label.text = name
+		
 	if Enums.Buildings.CAPITAL in buildings:
-		style.bg_color = CAPITAL_COLOR_BACKGROUND
-	else:
-		style.bg_color = Color(Color.TRANSPARENT)
-	$Control/VBoxContainer/PanelContainer.add_theme_stylebox_override("panel", style)
-	
-	
-	
-func _input(_event: InputEvent) -> void:
-	if Input.is_action_just_pressed("camera_zoom_in") or Input.is_action_just_pressed("camera_zoom_out"):
-		#$Control.scale = Vector2(1,1)/get_viewport().get_camera_2d().zoom
-		pass
+		if province_name_capital_container:
+			province_name_capital_container.show()
 		
 func _on_global_timer_timeout() -> void:
-	target_morale = 100 - _get_total_morale_penalties() + _get_total_morale_bonuses()
+	target_morale = min(100, 100 - _get_total_morale_penalties() + _get_total_morale_bonuses())
 
-	if not has_building(Enums.Buildings.RECRUIT_CENTER) and not army_timer.paused:
+	var has_recruit = has_functioning_building(Enums.Buildings.RECRUIT_CENTER)
+	if not has_recruit and not army_timer.is_stopped():
 		army_timer.stop()
-	elif has_building(Enums.Buildings.RECRUIT_CENTER) and army_timer.paused:
+	elif has_recruit and army_timer.is_stopped():
 		army_timer.start()
 	
 func _on_global_hour_timer_timeout() -> void:
 	var agent: Agent = get_parent()
-	agent.add_resource(province_material, int(_get_daily_resource_count() / 24.0))
-	agent.add_resource(Enums.Resources.GOLD, int(_get_daily_gold_count() / 24.0))
+	agent.add_resource(province_material, int(get_daily_resource_count() / 24.0))
+	agent.add_resource(Enums.Resources.GOLD, int(get_daily_gold_count() / 24.0))
 	for res in daily_cost:
 		agent.add_resource(res, -int(daily_cost[res] / 24.0))
 	agent.queue_redraw()
@@ -233,54 +257,148 @@ func _on_global_day_timer_timeout() -> void:
 	else:
 		var adding2: int = rng.randi_range(-3, 3)
 		province_morale += adding + adding2
-	current_army_timer = DEFAULT_ARMY_GENERATION_WAIT + DEFAULT_ARMY_GENERATION_WAIT*(float(province_morale)/100)
+	province_morale = min(100, province_morale)
+	current_army_timer = _calculate_army_generation_wait()
 	_update_army_timer(current_army_timer)
 	queue_redraw()
+
+	var agent = get_parent()
+	if agent is Agent:
+		var msg: Dictionary = {
+			"type": "sight",
+			"sender": agent.name,
+			"receiver": "vesna",
+			"data": {
+				"type": "province_morale_update",
+				"id": name,
+				"morale": province_morale
+			}
+		}
+		agent.send_vesna_message(msg)
+
+	if province_morale < RIOT_THRESHOLD:
+		var stationary_defense = 0.0
+		var player = get_parent()
+		if player is Agent:
+			for army in player.armies:
+				if is_instance_valid(army) and not army.travelling and army.province_location == self:
+					if army.soldier_number > 0:
+						stationary_defense += (army.soldier_number * army.DEFENSE_PER_UNIT) * army.life_points / (army.soldier_number * army.LIFE_PER_UNIT)
+
+		var required_defense = 0.0
+		if province_morale >= RIOT_BREAKPOINT:
+			required_defense = RIOT_BASE_DEFENSE
+		else:
+			required_defense = RIOT_BASE_DEFENSE + (float(RIOT_BREAKPOINT) - province_morale) * RIOT_PENALTY_MULTIPLIER
+
+		if stationary_defense < required_defense:
+			var riot_chance = 1.0 - (float(province_morale) / float(RIOT_THRESHOLD))
+			if rng.randf() < riot_chance:
+				_trigger_riot()
+
+func _trigger_riot() -> void:
+	var player = get_parent()
+	if player is not Agent: return
+
+	var possible_nations: Array[Agent] = []
+	for neighbor in neighbors:
+		if neighbor is Province:
+			var neighbor_owner = neighbor.get_parent()
+			if neighbor_owner is Agent and neighbor_owner != player and neighbor_owner not in possible_nations:
+				possible_nations.append(neighbor_owner)
+
+	if possible_nations.is_empty():
+		var players = get_tree().get_nodes_in_group("players")
+		for p in players:
+			if p is Agent and p != player:
+				possible_nations.append(p)
+
+	if possible_nations.is_empty():
+		return
+
+	var new_owner = possible_nations[rng.randi_range(0, possible_nations.size() - 1)]
+	var game: GameController = get_tree().current_scene
+	game.conquer_province(self, new_owner)
 	
 func _on_match_over() -> void:
 	army_timer.stop()
 	
-func _update_army_timer(val: float):
-	if army_timer == null: return
+func _calculate_army_generation_wait() -> float:
+	return DEFAULT_ARMY_GENERATION_WAIT + DEFAULT_ARMY_GENERATION_WAIT * (1.0 - (float(province_morale) / 100.0))
 	
-	var time_left = army_timer.time_left
-	var percentage = snapped((army_timer.wait_time - time_left)/army_timer.wait_time*100, 0.001)
-	if percentage == 100:
+func _update_army_timer(val: float) -> void:
+	if army_timer == null: return
+	current_army_timer = val
+	
+	if army_timer.is_stopped():
 		army_timer.wait_time = val
 	else:
-		army_timer.wait_time = val * ((100 - percentage)/100)
-		current_army_timer = val
+		var progress_ratio: float = 0.0
+		if army_timer.wait_time > 0:
+			progress_ratio = 1.0 - (army_timer.time_left / army_timer.wait_time)
+		army_timer.wait_time = val
+		var remaining_time: float = max(0.1, val * (1.0 - progress_ratio))
+		army_timer.start(remaining_time)
 	
 func _on_army_timer_timeout() -> void:
-	_update_army_timer(current_army_timer)
+	current_army_timer = _calculate_army_generation_wait()
+	army_timer.wait_time = current_army_timer
 	for el: Army in get_parent().armies:
 		if el.global_position != to_global(get_city_position()): continue
 		el.soldier_number += 1
 		el.life_points += el.LIFE_PER_UNIT * (float(province_morale)/100)
 		el.queue_redraw()
+		var agent = get_parent()
+		if agent is Agent:
+			agent.dispatch_my_army_update(el)
 		return
 	
 	var game: GameController = get_tree().current_scene
 	game.add_army_to_province(self, null, 1)
 	
-func _get_daily_resource_count() -> int:
+func get_daily_resource_count() -> int:
 	var resource_to_add: int = (province_morale * 24) + 750
 	
 	if double_material:
 		resource_to_add *= 2
 	return resource_to_add
 	
-func _get_daily_gold_count() -> int:
+func get_daily_gold_count() -> int:
 	if double_material:
 		return province_morale * 29
 	else:
 		return province_morale * 57
+
+func _update_active_morale_modifiers() -> void:
+	morale_bonuses.clear()
+	morale_maluses.clear()
+	for key in all_bonuses:
+		var modifier = all_bonuses[key]
+		if modifier.is_modifier_applied(self):
+			morale_bonuses[key] = modifier
+	for key in all_maluses:
+		var modifier = all_maluses[key]
+		if modifier.is_modifier_applied(self):
+			morale_maluses[key] = modifier
 	
 func _get_total_morale_penalties() -> int:
-	return 0
+	_update_active_morale_modifiers()
+	var total_penalties = 0
+	for key in morale_maluses:
+		var modifier = morale_maluses[key]
+		total_penalties += abs(modifier.apply_modifier(self))
+	return total_penalties
 	
 func _get_total_morale_bonuses() -> int:
-	return 0
+	_update_active_morale_modifiers()
+	var total_bonuses = 0
+	for key in morale_bonuses:
+		var modifier = morale_bonuses[key]
+		total_bonuses += abs(modifier.apply_modifier(self))
+	for building in buildings:
+		total_bonuses += buildings[building].morale_increase_percentage
+	return total_bonuses
+
 	
 func _get_sprite_key():
 	match province_material:
@@ -307,7 +425,10 @@ func _get_sprite_key():
 
 		
 func get_city_position() -> Vector2:
-	return $Node2D.position
+	return city_node.position
+	
+func get_city_global_position() -> Vector2:
+	return to_global(city_node.position)
 	
 func get_province_paths():
 	var global_paths = get_tree().get_nodes_in_group("paths")
@@ -347,6 +468,7 @@ func toggle_selection() -> bool:
 		fill.color = blend(get_parent().color, Color(0.0, 0.0, 0.0, 0.114))
 	else:
 		fill.color = get_parent().color
+	queue_redraw()
 	return selected
 	
 func blend_under(bottom: Color, top: Color) -> Color:
@@ -357,3 +479,9 @@ func blend(bottom: Color, top: Color) -> Color:
 	var out = blend_under(bottom, top)
 	out.a = bottom.a + top.a * (1.0 - bottom.a)
 	return out
+
+func _set_mouse_filter_ignore_recursive(node: Node) -> void:
+	if node is Control:
+		node.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	for child in node.get_children():
+		_set_mouse_filter_ignore_recursive(child)

@@ -36,6 +36,14 @@ corner_radius_top_right = 4
 corner_radius_bottom_right = 4
 corner_radius_bottom_left = 4
 
+[sub_resource type="LabelSettings" id="LabelSettings_rtv1n"]
+font_size = 11
+font_color = Color(0.21950099, 0.21950105, 0.21950087, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_xp2os"]
+font_size = 11
+font_color = Color(0.21950099, 0.21950105, 0.21950087, 1)
+
 [sub_resource type="LabelSettings" id="LabelSettings_pimn7"]
 font_color = Color(0.21950099, 0.21950105, 0.21950087, 1)
 
@@ -72,7 +80,6 @@ scale = Vector2(0.4, 0.4)
 texture = ExtResource("3_xp2os")
 
 [node name="Control" type="Control" parent="." unique_id=43867376]
-visible = false
 z_index = 4096
 z_as_relative = false
 layout_mode = 3
@@ -116,15 +123,31 @@ theme_override_constants/margin_top = 2
 theme_override_constants/margin_right = 5
 theme_override_constants/margin_bottom = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Control/VBoxContainer/PanelContainer/MarginContainer" unique_id=2136622126]
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/VBoxContainer/PanelContainer/MarginContainer" unique_id=299480296]
 layout_mode = 2
 
-[node name="TextureRect" type="TextureRect" parent="Control/VBoxContainer/PanelContainer/MarginContainer/HBoxContainer" unique_id=2100661484]
+[node name="HBoxContainer2" type="HBoxContainer" parent="Control/VBoxContainer/PanelContainer/MarginContainer/VBoxContainer" unique_id=142489853]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Control/VBoxContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer2" unique_id=372151710]
+layout_mode = 2
+text = "Army:"
+label_settings = SubResource("LabelSettings_rtv1n")
+
+[node name="ArmyId" type="Label" parent="Control/VBoxContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer2" unique_id=1122841561]
+unique_name_in_owner = true
+layout_mode = 2
+label_settings = SubResource("LabelSettings_xp2os")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Control/VBoxContainer/PanelContainer/MarginContainer/VBoxContainer" unique_id=2136622126]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="Control/VBoxContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer" unique_id=2100661484]
 layout_mode = 2
 texture = ExtResource("5_rtv1n")
 expand_mode = 2
 
-[node name="Label" type="Label" parent="Control/VBoxContainer/PanelContainer/MarginContainer/HBoxContainer" unique_id=408867352]
+[node name="Label" type="Label" parent="Control/VBoxContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer" unique_id=408867352]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3

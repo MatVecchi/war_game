@@ -46,13 +46,13 @@ func _handleZoom(s: float):
 		for army in armies:
 			if army is not Army: continue
 			(army as Army).control.show()
-			army_shown = true
+		army_shown = true
 	elif zoom.x < SHOW_ARMY_COUNT_ZOOM and army_shown:
 		var armies: Array[Node] = get_tree().get_nodes_in_group("armies")
 		for army in armies:
 			if army is not Army: continue
 			(army as Army).control.hide()
-			army_shown = false
+		army_shown = false
 	
 func _handlePan(s: bool):
 	if not dragging and s:
@@ -78,6 +78,30 @@ func _input(_event: InputEvent) -> void:
 		_handleZoom(Input.get_axis("camera_zoom_out","camera_zoom_in"))
 	if Input.is_action_just_released("camera_pan"):
 		_handlePan(false)
+		dragged = false
+
+func _unhandled_input(event: InputEvent) -> void:
+	if input_enabled:
+		if event.is_action_pressed("select_province") and not dragging:
+			_select_province_at_mouse()
+
+func _select_province_at_mouse() -> void:
+	var global_mouse_pos = get_global_mouse_position()
+	var provinces = get_tree().get_nodes_in_group("provinces")
+	var clicked_province: Province = null
+	
+	for province in provinces:
+		if province is not Province: continue
+		var local_pos = province.to_local(global_mouse_pos)
+		if Geometry2D.is_point_in_polygon(local_pos, province.collision_polygon.polygon):
+			clicked_province = province
+			break
+			
+	var game: GameController = get_tree().current_scene
+	if clicked_province != null:
+		game.select_province(clicked_province)
+	else:
+		game.on_clear_province()
 
 func _ready() -> void:
 	pass
