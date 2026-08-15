@@ -11,13 +11,12 @@ var conquered: bool = false
 var selected: bool = false
 var province_morale: int = DEFAULT_START_PROVINCE_MORALE
 var target_morale: int = DEFAULT_START_TARGET_MORALE
-var current_army_timer: float = DEFAULT_ARMY_GENERATION_WAIT
+var current_army_timer: float = 0
 var neighbors: Array[Area2D] = []
 var borders: Array[Line2D] = []
 var buildings: Dictionary[Enums.Buildings, Building] = {}
 var daily_cost: Dictionary[Enums.Resources, int] = {}
 var all_bonuses: Dictionary = {
-	Enums.ProvinceMoraleBonuses.CAPITAL: CapitalModifier.new(),
 }
 var all_maluses: Dictionary = {
 	Enums.ProvinceMoraleMaluses.CAPITAL_DISTANCE: CapitalDistanceModifier.new(),
@@ -88,8 +87,6 @@ func _ready():
 	hour_timer.timeout.connect(_on_global_hour_timer_timeout)
 	day_timer = get_node("/root/Game/GlobalDayTimer")
 	day_timer.timeout.connect(_on_global_day_timer_timeout)
-	current_army_timer = _calculate_army_generation_wait()
-	_update_army_timer(current_army_timer)
 	army_timer.timeout.connect(_on_army_timer_timeout)
 	add_child(army_timer)
 	
@@ -121,7 +118,10 @@ func _ready():
 		recruit_center.state = Enums.BuildingStates.FUNCTIONING
 		buildings.get_or_add(Enums.Buildings.RECRUIT_CENTER, recruit_center)
 		
-	if has_functioning_building(Enums.Buildings.RECRUIT_CENTER):
+	current_army_timer = _calculate_army_generation_wait()
+	_update_army_timer(current_army_timer)
+
+	if current_army_timer > 0:
 		army_timer.start()
 
 	for child in get_children():
@@ -169,6 +169,13 @@ func set_borders() -> void:
 		
 func has_building(building: Enums.Buildings):
 	return building in buildings
+
+func get_total_troop_recruit_percentage() -> int:
+	var total_recruit_percentage = 0
+	for building in buildings:
+		if buildings[building].state == Enums.BuildingStates.FUNCTIONING:
+			total_recruit_percentage += buildings[building].recruit_increase_percentage
+	return total_recruit_percentage
 
 func has_functioning_building(building: Enums.Buildings) -> bool:
 	return building in buildings and buildings[building].state == Enums.BuildingStates.FUNCTIONING
@@ -231,10 +238,10 @@ func _draw():
 func _on_global_timer_timeout() -> void:
 	target_morale = min(100, 100 - _get_total_morale_penalties() + _get_total_morale_bonuses())
 
-	var has_recruit = has_functioning_building(Enums.Buildings.RECRUIT_CENTER)
-	if not has_recruit and not army_timer.is_stopped():
+	var recruit_percentage = get_total_troop_recruit_percentage()
+	if recruit_percentage == 0 and not army_timer.is_stopped():
 		army_timer.stop()
-	elif has_recruit and army_timer.is_stopped():
+	elif recruit_percentage > 0 and army_timer.is_stopped():
 		army_timer.start()
 	
 func _on_global_hour_timer_timeout() -> void:
@@ -324,7 +331,8 @@ func _on_match_over() -> void:
 	army_timer.stop()
 	
 func _calculate_army_generation_wait() -> float:
-	return DEFAULT_ARMY_GENERATION_WAIT + DEFAULT_ARMY_GENERATION_WAIT * (1.0 - (float(province_morale) / 100.0))
+	var total_recruit_percentage = get_total_troop_recruit_percentage()
+	return (DEFAULT_ARMY_GENERATION_WAIT * float(total_recruit_percentage / 100.0)) + DEFAULT_ARMY_GENERATION_WAIT * (1.0 - (float(province_morale) / 100.0))
 	
 func _update_army_timer(val: float) -> void:
 	if army_timer == null: return
@@ -376,6 +384,9 @@ func _update_active_morale_modifiers() -> void:
 		var modifier = all_bonuses[key]
 		if modifier.is_modifier_applied(self):
 			morale_bonuses[key] = modifier
+	for building in buildings:
+		if buildings[building].morale_increase_percentage != 0 and buildings[building].state == Enums.BuildingStates.FUNCTIONING:
+			morale_bonuses["building_%s" % building] = buildings[building]
 	for key in all_maluses:
 		var modifier = all_maluses[key]
 		if modifier.is_modifier_applied(self):
@@ -394,9 +405,10 @@ func _get_total_morale_bonuses() -> int:
 	var total_bonuses = 0
 	for key in morale_bonuses:
 		var modifier = morale_bonuses[key]
-		total_bonuses += abs(modifier.apply_modifier(self))
-	for building in buildings:
-		total_bonuses += buildings[building].morale_increase_percentage
+		if key.begins_with("building_"):
+			total_bonuses += modifier.morale_increase_percentage
+		else:
+			total_bonuses += abs(modifier.apply_modifier(self))
 	return total_bonuses
 
 	

@@ -472,8 +472,14 @@ func _update_province_details_ui() -> void:
 		
 		for bonus_key in selected_province.morale_bonuses:
 			var modifier = selected_province.morale_bonuses[bonus_key]
-			var val = modifier.apply_modifier(selected_province)
-			var name_str = Enums.ProvinceMoraleBonuses.keys()[bonus_key].replace("_", " ").capitalize()
+			var name_str = ""
+			var val
+			if bonus_key.begins_with("building_"):
+				name_str = Enums.Buildings.keys()[int(bonus_key.replace("building_", ""))].replace("_", " ").capitalize()
+				val = modifier.morale_increase_percentage
+			else:
+				name_str = Enums.ProvinceMoraleBonuses.keys()[bonus_key].replace("_", " ").capitalize()
+				val = modifier.apply_modifier(selected_province)
 			_add_modifier_item(name_str, val)
 			
 		for malus_key in selected_province.morale_maluses:
