@@ -303,8 +303,8 @@ func _notification(what: int) -> void:
 		if is_instance_valid(player):
 			var msg: Dictionary = {
 				"type": "sight",
-				"sender": player.name,
-				"receiver": "vesna",
+				"sender": "body",
+				"receiver": player.name,
 				"data": {
 					"type": "my_army_destroyed",
 					"id": army_id
@@ -460,7 +460,7 @@ func split(soldiers_to_split: int) -> Army:
 	new_army.became_unknown.connect(game._on_army_became_unknown)
 	
 	if new_army.player == game.view or game.view == null:
-		game._fog_add_circle(new_army, new_army.position, new_army.VISION_RANGE)
+		game._fog_add_circle(new_army, new_army.global_position, new_army.VISION_RANGE)
 		
 	if new_army.player != game.view and game.view != null:
 		new_army.hide()
@@ -479,7 +479,7 @@ func _get_next_path_position() -> Vector2:
 		var path_point_next: int = player.graph_to_path[path[nodes_travelled + 1]][1]
 		return point_path_next.to_global(point_path_next.curve.get_point_position(path_point_next))
 	return Vector2.ZERO
-
+	
 func order(city: Province) -> void:
 	if travelling and path != null and len(path) > 0:
 		var last_node = path[len(path) - 1]

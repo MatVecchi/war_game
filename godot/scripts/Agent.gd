@@ -332,8 +332,8 @@ func dispatch_my_army_update(army: Army) -> void:
 
 	var msg: Dictionary = {
 		"type": "sight",
-		"sender": self.name,
-		"receiver": "vesna",
+		"sender": "body",
+		"receiver": self.name,
 		"data": {
 			"type": "my_army_update",
 			"id": army.army_id,
@@ -351,6 +351,7 @@ func dispatch_my_army_update(army: Army) -> void:
 
 func _on_watched_army_movement(army: Army, next_pos: Vector2) -> void:
 	if not is_instance_valid(army): return
+	if army.player in player_in_alliance: return
 	
 	if not _last_watched_army_destinations.has(army) or _last_watched_army_destinations[army] != next_pos:
 		_last_watched_army_destinations[army] = next_pos
@@ -368,8 +369,8 @@ func _on_watched_army_movement(army: Army, next_pos: Vector2) -> void:
 		
 		var msg: Dictionary = {
 			"type": "sight",
-			"sender": self.name,
-			"receiver": "vesna",
+			"sender": "body",
+			"receiver": self.name,
 			"data": {
 				"type": "foreign_army_moving",
 				"id": army.army_id,
@@ -388,8 +389,8 @@ func _on_global_day_timer_timeout() -> void:
 	var game: GameController = get_tree().current_scene
 	var msg: Dictionary = {
 		"type": "sight",
-		"sender": self.name,
-		"receiver": "vesna",
+		"sender": "body",
+		"receiver": self.name,
 		"data": {
 			"type": "day_update",
 			"day": game.day_cycle
@@ -401,8 +402,8 @@ func _on_global_day_timer_timeout() -> void:
 func _on_match_over() -> void:
 	var msg: Dictionary = {
 		"type": "sight",
-		"sender": self.name,
-		"receiver": "vesna",
+		"sender": "body",
+		"receiver": self.name,
 		"data": {
 			"type": "match_over"
 		}
@@ -410,7 +411,7 @@ func _on_match_over() -> void:
 	send_vesna_message(msg)
 
 func _on_army_destroyed(army: Army) -> void:
-	var was_foreign = (army.player != self)
+	var was_foreign = (army.player != self and army.player not in player_in_alliance)
 	perfectly_known_armies.erase(army)
 	known_armies.erase(army)
 	_last_watched_army_destinations.erase(army)
@@ -420,11 +421,12 @@ func _on_army_destroyed(army: Army) -> void:
 	if was_foreign:
 		var msg: Dictionary = {
 			"type": "sight",
-			"sender": self.name,
-			"receiver": "vesna",
+			"sender": "body",
+			"receiver": self.name,
 			"data": {
 				"type": "foreign_army_destroyed",
-				"id": army.army_id
+				"id": army.army_id,
+				"owner": army.player.name
 			}
 		}
 		send_vesna_message(msg)
@@ -629,26 +631,6 @@ func update_name_position() -> void:
 	
 	player_name_control.queue_redraw()
 	
-func add_known_army(army: Army) -> void:
-	if not army.movement_updated.is_connected(_on_watched_army_movement.bind(army)):
-		army.movement_updated.connect(_on_watched_army_movement.bind(army))
-		if army.travelling:
-			var next_pos = army._get_next_path_position()
-			if next_pos != Vector2.ZERO:
-				_on_watched_army_movement(army, next_pos)
-	
-	if not army.army_destroyed.is_connected(_on_army_destroyed):
-		army.army_destroyed.connect(_on_army_destroyed)
-		
-	var was_known = known_armies.has(army) and known_armies[army] > 0
-	var is_perfectly_known = perfectly_known_armies.has(army) and perfectly_known_armies[army] > 0
-
-	known_armies.get_or_add(army, 0)
-	known_armies[army] += 1
-
-	if not was_known and not is_perfectly_known:
-		army.emit_signal("became_known", army, self)
-	
 func declare_war(player: Agent) -> void:
 	if player in player_in_war: return
 	if player in player_in_alliance: return
@@ -659,8 +641,8 @@ func declare_war(player: Agent) -> void:
 		player_in_alliance.erase(player)
 		var break_msg: Dictionary = {
 			"type": "sight",
-			"sender": self.name,
-			"receiver": "vesna",
+			"sender": "body",
+			"receiver": self.name,
 			"data": {
 				"type": "alliance_broken",
 				"nation": player.name
@@ -679,8 +661,8 @@ func declare_war(player: Agent) -> void:
 	
 	var msg: Dictionary = {
 		"type": "sight",
-		"sender": self.name,
-		"receiver": "vesna",
+		"sender": "body",
+		"receiver": self.name,
 		"data": {
 			"type": "war_declared",
 			"nation": player.name
@@ -695,8 +677,8 @@ func request_peace(player: Agent) -> void:
 	emit_signal("peace_requested", self, player)
 	var msg: Dictionary = {
 		"type": "sight",
-		"sender": "game",
-		"receiver": "vesna",
+		"sender": "body",
+		"receiver": player.name,
 		"data": {
 			"type": "peace_request_received",
 			"sender": self.name
@@ -707,8 +689,8 @@ func request_peace(player: Agent) -> void:
 func decline_peace(player: Agent) -> void:
 	var msg: Dictionary = {
 		"type": "sight",
-		"sender": "game",
-		"receiver": "vesna",
+		"sender": "body",
+		"receiver": player.name,
 		"data": {
 			"type": "peace_request_declined",
 			"sender": self.name
@@ -726,8 +708,8 @@ func make_peace(player: Agent) -> void:
 
 	var msg: Dictionary = {
 		"type": "sight",
-		"sender": self.name,
-		"receiver": "vesna",
+		"sender": "body",
+		"receiver": self.name,
 		"data": {
 			"type": "peace_established",
 			"nation": player.name
@@ -762,8 +744,8 @@ func request_alliance(player: Agent) -> void:
 	if len(player_in_alliance) >= MAX_ALLIANCES or len(player.player_in_alliance) >= MAX_ALLIANCES:
 		var msg: Dictionary = {
 			"type": "sight",
-			"sender": "game",
-			"receiver": "vesna",
+			"sender": "body",
+			"receiver": self.name,
 			"data": {
 				"type": "alliance_request_declined",
 				"sender": player.name
@@ -774,8 +756,8 @@ func request_alliance(player: Agent) -> void:
 	emit_signal("alliance_requested", self, player)
 	var msg: Dictionary = {
 		"type": "sight",
-		"sender": "game",
-		"receiver": "vesna",
+		"sender": "body",
+		"receiver": player.name,
 		"data": {
 			"type": "alliance_request_received",
 			"sender": self.name
@@ -786,8 +768,8 @@ func request_alliance(player: Agent) -> void:
 func decline_alliance(player: Agent) -> void:
 	var msg: Dictionary = {
 		"type": "sight",
-		"sender": "game",
-		"receiver": "vesna",
+		"sender": "body",
+		"receiver": player.name,
 		"data": {
 			"type": "alliance_request_declined",
 			"sender": self.name
@@ -809,14 +791,34 @@ func make_alliance(player: Agent, is_symmetric_call: bool = false) -> void:
 
 	var msg: Dictionary = {
 		"type": "sight",
-		"sender": self.name,
-		"receiver": "vesna",
+		"sender": "body",
+		"receiver": self.name,
 		"data": {
 			"type": "alliance_established",
 			"nation": player.name
 		}
 	}
 	send_vesna_message(msg)
+
+func add_known_army(army: Army) -> void:
+	if not army.movement_updated.is_connected(_on_watched_army_movement.bind(army)):
+		army.movement_updated.connect(_on_watched_army_movement.bind(army))
+		if army.travelling:
+			var next_pos = army._get_next_path_position()
+			if next_pos != Vector2.ZERO:
+				_on_watched_army_movement(army, next_pos)
+	
+	if not army.army_destroyed.is_connected(_on_army_destroyed):
+		army.army_destroyed.connect(_on_army_destroyed)
+		
+	var was_known = known_armies.has(army) and known_armies[army] > 0
+	var is_perfectly_known = perfectly_known_armies.has(army) and perfectly_known_armies[army] > 0
+
+	known_armies.get_or_add(army, 0)
+	known_armies[army] += 1
+
+	if not was_known and not is_perfectly_known:
+		army.emit_signal("became_known", army, self)
 	
 func remove_know_army_reference(army: Army):
 	if army not in known_armies: return
@@ -882,8 +884,8 @@ func add_resource(resource: Enums.Resources, qnt: int):
 		var res_name = Enums.Resources.keys()[resource].to_lower()
 		var msg: Dictionary = {
 			"type": "sight",
-			"sender": self.name,
-			"receiver": "vesna",
+			"sender": "body",
+			"receiver": self.name,
 			"data": {
 				"type": "resource_change",
 				"resource": res_name,
@@ -1045,8 +1047,8 @@ func send_initial_state() -> void:
 	}
 	var state: Dictionary = {
 		"type": "sight",
-		"sender": self.name,
-		"receiver": "vesna",
+		"sender": "body",
+		"receiver": self.name,
 		"data": {
 			"type": "state_update",
 			"my_armies": my_armies_data,
@@ -1066,8 +1068,8 @@ func send_initial_state() -> void:
 		var res_name = Enums.Resources.keys()[res].to_lower()
 		var msg: Dictionary = {
 			"type": "sight",
-			"sender": self.name,
-			"receiver": "vesna",
+			"sender": "body",
+			"receiver": self.name,
 			"data": {
 				"type": "resource_change",
 				"resource": res_name,
@@ -1079,8 +1081,8 @@ func send_initial_state() -> void:
 	for enemy in player_in_war:
 		var msg: Dictionary = {
 			"type": "sight",
-			"sender": self.name,
-			"receiver": "vesna",
+			"sender": "body",
+			"receiver": self.name,
 			"data": {
 				"type": "war_declared",
 				"nation": enemy.name

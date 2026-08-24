@@ -24,8 +24,9 @@ const VIEW_ENEMY_COLOR: Color = Color("c18d8c")
 const VIEW_NEUTRAL_COLOR: Color = Color("bdbaa6")
 const PROVINCE_SELECTED_MODULATION: Color = Color(0.771, 0.771, 0.771, 1.0)
 const CONQUERED_PROVINCE_MORALE: int = 25
+const MAX_POINTS: int = 200
 @export var time_multiplier: float = 1.0
-@export var game_length: int = 90
+@export var game_length: int = 30
 @onready var global_timer: Timer = $GlobalTimer
 @onready var global_hour_timer: Timer = $GlobalHourTimer
 @onready var global_day_timer: Timer = $GlobalDayTimer
@@ -49,16 +50,15 @@ func _create_fog() -> void:
 func _fog_add_circle(army: Army, pos: Vector2, radius: float) -> void:
 	fog_circles[army] = {
 		"position": pos + Vector2(fog_image.get_size()) / 2 + (fog_sprite.global_position * Vector2(-1.0, -1.0)),
-		"radius": radius,
-		"id": len(fog_circles)
+		"radius": radius
 	}
 	
 	var circles_position: Array[Vector2] = []
 	var circles_radius: Array[float] = []
 	
 	for el in fog_circles:
-		circles_position.insert(fog_circles[el]["id"], fog_circles[el]["position"])
-		circles_radius.insert(fog_circles[el]["id"], fog_circles[el]["radius"])
+		circles_position.append(fog_circles[el]["position"])
+		circles_radius.append(fog_circles[el]["radius"])
 	
 	fog_material.set_shader_parameter("circle_count", len(fog_circles))
 	fog_material.set_shader_parameter("pos", circles_position)
@@ -75,14 +75,10 @@ func _fog_del_circle(army: Army) -> void:
 	
 	var circles_position: Array[Vector2] = []
 	var circles_radius: Array[float] = []
-	var c: int = 0
 	
 	for el in fog_circles:
 		circles_position.append(fog_circles[el]["position"])
 		circles_radius.append(fog_circles[el]["radius"])
-		
-		fog_circles[el]["id"] = c
-		c += 1
 	
 	fog_material.set_shader_parameter("circle_count", len(fog_circles))
 	fog_material.set_shader_parameter("pos", circles_position)
@@ -99,14 +95,15 @@ func _fog_map_circles() -> void:
 		_fog_add_circle(army, army.global_position, army.VISION_RANGE)
 	
 func _fog_update_circle_position(army: Army, new_pos: Vector2) -> void:
+	if not fog_circles.has(army): return
 	fog_circles[army]["position"] = new_pos + Vector2(fog_image.get_size()) / 2 + (fog_sprite.global_position * Vector2(-1.0, -1.0))
 	
 	var circles_position: Array[Vector2] = []
 	var circles_radius: Array[float] = []
 	
 	for el in fog_circles:
-		circles_position.insert(fog_circles[el]["id"], fog_circles[el]["position"])
-		circles_radius.insert(fog_circles[el]["id"], fog_circles[el]["radius"])
+		circles_position.append(fog_circles[el]["position"])
+		circles_radius.append(fog_circles[el]["radius"])
 	
 	fog_material.set_shader_parameter("pos", circles_position)
 	fog_material.set_shader_parameter("small_radius", circles_radius)
@@ -276,7 +273,7 @@ func add_army_to_province(province: Province, army: Army = null, sn: int = 10) -
 	army.became_unknown.connect(_on_army_became_unknown)
 	
 	if army.player == view or view == null:
-		_fog_add_circle(army, army.position, army.VISION_RANGE)
+		_fog_add_circle(army, army.global_position, army.VISION_RANGE)
 	
 	if agent != view and view != null:
 		army.hide()
@@ -295,9 +292,9 @@ func conquer_province(province: Province, agent: Agent, is_riot: bool=false) -> 
 
 	if province.get_parent() == view:
 		province.fill.color = VIEW_AGENT_COLOR
-	elif (province.get_parent() as Agent)in view.player_in_alliance:
+	elif view and (province.get_parent() as Agent) in view.player_in_alliance:
 		province.fill.color = VIEW_ALLY_COLOR
-	elif (province.get_parent() as Agent) in view.player_in_war:
+	elif view and (province.get_parent() as Agent) in view.player_in_war:
 		province.fill.color = VIEW_ENEMY_COLOR
 	else:
 		province.fill.color = VIEW_NEUTRAL_COLOR
@@ -344,8 +341,8 @@ func conquer_province(province: Province, agent: Agent, is_riot: bool=false) -> 
 
 			var msg: Dictionary = {
 				"type": "sight",
-				"sender": "game",
-				"receiver": "vesna",
+				"sender": "body",
+				"receiver": player.name,
 				"data": {
 					"type": "province_owner_update",
 					"id": province.name,
@@ -392,7 +389,7 @@ func end_match() -> void:
 func check_victory_conditions() -> void:
 	var players = get_tree().get_nodes_in_group("players")
 	for player: Agent in players:
-		if player.points >= 200:
+		if player.points >= MAX_POINTS:
 			end_match()
 			break
 

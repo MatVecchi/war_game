@@ -590,7 +590,7 @@ is_defending_riot_province(MyId) :-
   <- !accumulate_attackers(ProvId, TargetStrength, Rest, AccumulatedStrength + Atk, [ArmyId | ChosenArmies]).
 
 +foreign_army_moving(ArmyId, Nation, PosX, PosY, NextX, NextY, TargetProv, AttackValue)
-  <- .abolish(enemy_army_moving(ArmyId, _, _, _, _, _, _, _));
+  <- .abolish(enemy_army_moving(ArmyId, Nation, _, _, _, _, _, _));
      if (TargetProv \== none) {
          +enemy_army_moving(ArmyId, Nation, PosX, PosY, NextX, NextY, TargetProv, AttackValue);
      };
@@ -640,6 +640,15 @@ is_defending_riot_province(MyId) :-
              }
          }
      };
+     !evaluate_defenses.
+
++foreign_army_destroyed_update(Id, Nation)
+  : Nation \== unknown
+  <- .abolish(enemy_army_moving(Id, Nation, _, _, _, _, _, _));
+     !evaluate_defenses.
+
++foreign_army_destroyed_update(Id, unknown)
+  <- .abolish(enemy_army_moving(Id, _, _, _, _, _, _, _));
      !evaluate_defenses.
 
 +foreign_army_destroyed_update(Id)

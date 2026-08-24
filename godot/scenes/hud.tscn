@@ -77,7 +77,7 @@ layout_mode = 2
 
 [node name="Label2" type="Label" parent="PanelContainer2/HBoxContainer/VBoxContainer/HBoxContainer2" unique_id=414098815]
 layout_mode = 2
-text = "/ 1000"
+text = "/ 200"
 
 [node name="MarginContainer" type="MarginContainer" parent="PanelContainer2/HBoxContainer" unique_id=1189845502]
 layout_mode = 2

@@ -314,7 +314,8 @@ public class CountryAgent extends VesnaAgent {
     private void handle_foreign_army_destroyed(JSONObject sight) {
         try {
             long id = sight.getLong("id");
-            sense(createLiteral("foreign_army_destroyed_update", createNumber(id)));
+            String owner = sight.has("owner") ? sight.getString("owner") : "";
+            sense(createLiteral("foreign_army_destroyed_update", createNumber(id), createAtom(owner.isEmpty() ? "unknown" : owner)));
         } catch (Exception e) {
             e.printStackTrace();
         }

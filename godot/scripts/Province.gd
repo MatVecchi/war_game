@@ -273,8 +273,8 @@ func _on_global_day_timer_timeout() -> void:
 	if agent is Agent:
 		var msg: Dictionary = {
 			"type": "sight",
-			"sender": agent.name,
-			"receiver": "vesna",
+			"sender": "body",
+			"receiver": agent.name,
 			"data": {
 				"type": "province_morale_update",
 				"id": name,
