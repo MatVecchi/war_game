@@ -18,11 +18,11 @@ const MATERIAL_TEXTURES: Dictionary[Enums.Resources, Resource] = {
 	Enums.Resources.GOLD: preload("res://assets/sprites/resources/gold.png")
 }
 @onready var agent_selector: OptionButton = $PanelContainer/VBoxContainer/AgentSelector
-@onready var agent_info_panel: PanelContainer = $PanelContainer2
+@onready var agent_info_panel: PanelContainer = %AgentInfoPanel
 @onready var agent_info: HBoxContainer = %ResourceContainer
-@onready var player_name_label: Label = $PanelContainer2/HBoxContainer/PlayerName
-@onready var position_label: Label = $PanelContainer2/HBoxContainer/VBoxContainer/HBoxContainer/Position
-@onready var points_count_label: Label = $PanelContainer2/HBoxContainer/VBoxContainer/HBoxContainer2/PointsCount
+@onready var player_name_label: Label = $AgentInfoPanel/HBoxContainer/PlayerName
+@onready var position_label: Label = $AgentInfoPanel/HBoxContainer/VBoxContainer/HBoxContainer/Position
+@onready var points_count_label: Label = $AgentInfoPanel/HBoxContainer/VBoxContainer/HBoxContainer2/PointsCount
 @onready var day_cycle_label: Label = $VBoxContainer/PanelContainer3/HBoxContainer/DayCycle
 @onready var time_scale_modifier: HScrollBar = $VBoxContainer/VBoxContainer/HScrollBar
 @onready var time_scale_label: Label = $VBoxContainer/VBoxContainer/HBoxContainer/TimeScale

@@ -1,0 +1,963 @@
+% ==============================================================================
+% REQUIRED PACKAGES (Include these in your main.tex preamble when importing Implementation.tex)
+% ==============================================================================
+% \usepackage[utf8]{inputenc}
+% \usepackage[T1]{fontenc}
+% \usepackage{amsmath,amssymb,amsfonts}
+% \usepackage{graphicx}
+% \usepackage{booktabs}
+% \usepackage{hyperref}
+% \usepackage{listings}
+% \usepackage{color}
+% \usepackage{enumitem}
+% \usepackage{algorithm}
+% \usepackage{algorithmic}
+% ==============================================================================
+
+\chapter{Implementation}
+\label{chap:implementation}
+
+This chapter presents the practical implementation of the cognitive reasoning engine governing an autonomous sovereign nation agent within the grand strategy simulation. The deliberative architecture is instantiated using the declarative, logic-based AgentSpeak(L) language within the Jason / JaCaMo framework, defined in the core source file \texttt{mind/src/agt/vesna.asl}.
+
+Through the bidirectional VEsNA Light bridge, the symbolic mind continuously receives perceptual beliefs representing the geopolitical world state, performs inference over complex strategic rules, and executes hierarchical plans to control military divisions, secure economic commodities, suppress civil unrest, defend national borders, and negotiate bilateral diplomatic treaties.
+
+Rather than presenting code in isolation, this chapter is structured as a detailed examination of each operational subsystem, dissecting the underlying theoretical principles, mathematical formulations, agent belief representations, and discrete plan execution sequences.
+
+% ==============================================================================
+\section{Architecture of the Reasoning Engine and Global Knowledge Base}
+\label{sec:impl_knowledge_base}
+
+The cognitive knowledge base of the sovereign agent is founded upon a declarative belief base representing the geopolitical landscape, static simulation constants, dynamic accessors, and recursive list manipulation predicates. The agent reasons by continuously evaluating these logical predicates against incoming environmental perceptions.
+
+\subsection{Parametric Game Rules and Dynamic Accessors}
+\label{sec:impl_game_rules}
+
+To ensure robustness against environmental packet loss and to establish baseline operational invariants, the agent initializes a tuple of global simulation constants in its initial belief base. These constants govern civil riot probabilities, combat resolution ratios, diplomatic alliance limits, and post-conquest territorial stabilization metrics.
+
+\begin{lstlisting}[language=prolog, caption={Default game rules and extraction inference rules in \texttt{vesna.asl}.}, label={lst:game_rules_asl}]
+target_limit(1).
+active_wars(0).
+
+// Default fallback game rules: RiotThreshold, RiotBreakpoint, RiotBaseDefense,
+// RiotPenaltyMultiplier, LifePerUnit, AttackPerUnit, DefensePerUnit, MaxAlliances, ConqueredMorale
+game_rules(33, 30, 5.0, 6.0, 20.0, 4.0, 5.0, 1, 25).
+
+get_riot_threshold(Val)          :- game_rules(Val, _, _, _, _, _, _, _, _).
+get_riot_breakpoint(Val)         :- game_rules(_, Val, _, _, _, _, _, _, _).
+get_riot_base_defense(Val)        :- game_rules(_, _, Val, _, _, _, _, _, _).
+get_riot_penalty_multiplier(Val) :- game_rules(_, _, _, Val, _, _, _, _, _).
+get_life_per_unit(Val)           :- game_rules(_, _, _, _, Val, _, _, _, _).
+get_attack_per_unit(Val)         :- game_rules(_, _, _, _, _, Val, _, _, _).
+get_defense_per_unit(Val)        :- game_rules(_, _, _, _, _, _, Val, _, _).
+get_max_alliances(Val)           :- game_rules(_, _, _, _, _, _, _, Val, _).
+get_conquered_morale(Val)        :- game_rules(_, _, _, _, _, _, _, _, Val).
+\end{lstlisting}
+
+The foundational belief \texttt{target\_limit(1)} restricts the agent to focusing its offensive operations on at most one active campaign target province per enemy nation simultaneously. This constraint prevents force dispersion and ensures concentration of military power. The belief \texttt{active\_wars(0)} initializes the active war counter to zero.
+
+The \texttt{game\_rules/9} predicate encapsulates the simulation parameters:
+\begin{enumerate}[label=(\roman*)]
+    \item $\theta_{\text{thresh}} = 33\%$: The critical provincial morale threshold below which civil riots become possible;
+    \item $\theta_{\text{break}} = 30\%$: The severe morale breakpoint below which riot penalties escalate;
+    \item $D_{\text{base}} = 5.0$: The baseline stationary defensive resistance required to suppress civil unrest;
+    \item $\mu = 6.0$: The penalty multiplier applied to morale deficits below the breakpoint;
+    \item $\text{HP}_{\text{unit}} = 20.0$: The hit point capacity comprising a single infantry soldier;
+    \item $\alpha = 4.0$: The offensive combat attack strength delivered per soldier;
+    \item $\delta = 5.0$: The defensive combat resistance provided per soldier;
+    \item $\mathit{MAX\_ALLIANCES} = 1$: The maximum number of bilateral alliances the agent may maintain;
+    \item $M_{\text{conq}} = 25\%$: The baseline morale percentage assigned to newly conquered enemy territory.
+\end{enumerate}
+
+To access these parameters cleanly without hardcoding positional indices throughout strategic plans, a series of accessor inference rules are defined. Each rule uses Jason's unification mechanism with anonymous placeholder variables (\texttt{\_}) to project the designated parameter into the output variable \texttt{Val}. When updated parameters arrive from Godot via environment configuration messages, the agent replaces the \texttt{game\_rules/9} belief, and all accessor rules automatically reflect the updated values.
+
+\subsection{Logical List Processing Predicates}
+\label{sec:impl_list_utils}
+
+Because AgentSpeak operates over first-order terms and lists, candidate selection and set filtering rely on declarative list operations. The membership predicate \texttt{list\_member/2} is defined using recursive pattern matching:
+
+\begin{lstlisting}[language=prolog, caption={List membership inference rule in \texttt{vesna.asl}.}, label={lst:list_utils_asl}]
+list_member(X, [X | _]).
+list_member(X, [_ | T]) :-
+    list_member(X, T).
+\end{lstlisting}
+
+The base clause unifies successfully if the queried element \texttt{X} is identical to the head of the list. If the head does not match, the recursive clause discards the head and evaluates membership across the tail \texttt{T}. This predicate provides the foundation for validating whether candidate provinces border allied territories or whether an enemy is part of an active coalition.
+
+% ==============================================================================
+\section{Economic Deficit Analysis and Strategic Campaign Planning}
+\label{sec:impl_economic_campaign}
+
+The economic engine of the sovereign agent is designed to maintain self-sufficiency across all eight primary commodities: Wood, Iron, Oil, Gas, Coal, Grain, Fish, and Gold. When domestic consumption or army upkeep exceeds daily output, structural deficits arise, requiring the agent to identify vulnerable foreign territories capable of restoring economic equilibrium.
+
+\subsection{Resource Trend Tracking}
+\label{subsec:resource_tracking}
+
+Resource telemetry is received periodically from Godot through event perceptions. The agent compares incoming commodity quantities against stored historical balances to determine the current trend direction.
+
+\begin{lstlisting}[language=prolog, caption={Resource update handling and trend classification in \texttt{vesna.asl}.}, label={lst:resource_update_asl}]
++resource_update(Type, Amount) : resource(Type, OldAmount) & OldAmount > Amount
+  <- -resource(Type, OldAmount);
+     +resource(Type, Amount);
+     -resource_trend(Type, _);
+     +resource_trend(Type, negative).
+
++resource_update(Type, Amount) : resource(Type, OldAmount) & OldAmount <= Amount
+  <- -resource(Type, OldAmount);
+     +resource(Type, Amount);
+     -resource_trend(Type, _);
+     +resource_trend(Type, positive).
+
++resource_update(Type, Amount) : not resource(Type, _)
+  <- +resource(Type, Amount);
+     +resource_trend(Type, positive).
+\end{lstlisting}
+
+As detailed in Listing~\ref{lst:resource_update_asl}, when a \texttt{+resource\_update(Type, Amount)} perception arrives, the plan's context evaluates the previous balance \texttt{OldAmount}. If $\mathit{OldAmount} > \mathit{Amount}$, the agent retracts the previous conviction and asserts \texttt{+resource\_trend(Type, negative)}. Conversely, if the stock is stable or increasing, \texttt{+resource\_trend(Type, positive)} is asserted. If no prior record exists, the commodity is initialized with a positive trend.
+
+\subsection{Target Nation Identification and Strategic Need}
+\label{subsec:target_nation}
+
+Once a negative trend is registered for a resource, the agent evaluates all adjacent sovereign nations to determine which neighbor represents the most lucrative target for military conquest.
+
+\begin{lstlisting}[language=prolog, caption={Inference rules for target nation evaluation in \texttt{vesna.asl}.}, label={lst:target_nation_asl}]
+plans_to_attack(Nation) :-
+    resource_trend(NeededResource, negative) &
+    .findall(Amount, neighbor_resource(_, NeededResource, Amount), ListOfAmounts) &
+    ListOfAmounts \== [] &
+    .max(ListOfAmounts, MaxAmount) &
+    neighbor_resource(Nation, NeededResource, MaxAmount).
+
+needs_war_with(Enemy) :-
+    resource_trend(NeededResource, negative) &
+    neighbor_resource(Enemy, NeededResource, Amount) &
+    Amount > 0.
+\end{lstlisting}
+
+The inference rule \texttt{plans\_to\_attack(Nation)} formalizes the target nation selection:
+\begin{equation}
+    \label{eq:target_nation}
+    \mathit{TargetNation} = \arg\max_{N \in \text{Neighbors}} \Big( \mathit{Output}(N, \mathit{Res}^*) \Big)
+\end{equation}
+The rule queries all neighboring nations producing \texttt{NeededResource} using the internal action \texttt{.findall}, identifies the maximal daily output \texttt{MaxAmount} via \texttt{.max}, and unifies \texttt{Nation} with the sovereign power producing that maximum yield.
+
+The auxiliary rule \texttt{needs\_war\_with(Enemy)} returns true if nation \texttt{Enemy} produces a non-zero quantity of any commodity for which the agent currently experiences a deficit. This rule is utilized extensively during diplomatic negotiations to decide whether a war should be continued or concluded.
+
+\subsection{Multi-Factor Province Priority Scoring}
+\label{subsec:target_scoring}
+
+Within the borders of the identified target nation, the agent must select a specific province to conquer. Rather than attacking randomly, candidate border provinces are evaluated using a multi-factor priority score.
+
+\begin{lstlisting}[language=prolog, caption={Inference rules for target province scoring in \texttt{vesna.asl}.}, label={lst:target_scoring_asl}]
+capital_offset(true, 30).
+capital_offset(false, 0).
+
+double_offset(true, 20).
+double_offset(false, 0).
+
+resource_offset(Res, 15) :- resource_trend(Res, negative).
+resource_offset(Res, 0)  :- not resource_trend(Res, negative).
+
+target_score(ProvId, EnemyNation, Score) :-
+    enemy_province_status(ProvId, EnemyNation, _, DefenseValue, _, _, BorderingAllies, IsCapital, IsDouble, Resource) &
+    capital_offset(IsCapital, CapOffset) &
+    double_offset(IsDouble, DoubleOffset) &
+    resource_offset(Resource, ResOffset) &
+    Score = DefenseValue - CapOffset - DoubleOffset - ResOffset.
+\end{lstlisting}
+
+The heuristic priority score $\mathit{Score}(P)$ is formulated mathematically as:
+\begin{equation}
+    \label{eq:target_score}
+    \mathit{Score}(P) = \mathit{DefenseValue}(P) - \Omega_{\text{cap}}(P) - \Omega_{\text{double}}(P) - \Omega_{\text{res}}(P)
+\end{equation}
+where strategic reward offsets are defined as:
+\begin{align}
+    \Omega_{\text{cap}}(P) &= \begin{cases} 30, & \text{if } P \text{ is the Enemy National Capital} \\ 0, & \text{otherwise} \end{cases} \\
+    \Omega_{\text{double}}(P) &= \begin{cases} 20, & \text{if } P \text{ has Double Resource Yield} \\ 0, & \text{otherwise} \end{cases} \\
+    \Omega_{\text{res}}(P) &= \begin{cases} 15, & \text{if } \mathit{Resource}(P) \text{ is a Needed Deficit Resource} \\ 0, & \text{otherwise} \end{cases}
+\end{align}
+
+The scoring function balances defensive difficulty against strategic utility. A weakly defended capital that produces double quantities of a required commodity yields a substantial negative score, making it an optimal target for immediate conquest.
+
+\subsection{Campaign Evaluation and Target Deliberation Plans}
+\label{subsec:campaign_plans}
+
+During each cognitive audit cycle, the agent iterates over active resource deficits and deliberates on potential war declarations and province target selections.
+
+\begin{lstlisting}[language=prolog, caption={Target evaluation and province selection plans in \texttt{vesna.asl}.}, label={lst:campaign_plans_asl}]
++!evaluate_targets : true
+  <- for (resource_trend(NeededResource, negative)) {
+         .findall(Amount, neighbor_resource(Neighbor, NeededResource, Amount), ListOfAmounts);
+         if (ListOfAmounts \== []) {
+             .max(ListOfAmounts, MaxAmount);
+             ?neighbor_resource(BestNeighbor, NeededResource, MaxAmount);
+             if (not at_war_with(BestNeighbor) & not allied_with(BestNeighbor)) {
+                 !decide_attack(BestNeighbor, NeededResource);
+             }
+         }
+     }.
+
++!select_war_target(EnemyNation, BestProv)
+  <- .findall([Score, ProvId], (enemy_province_status(ProvId, EnemyNation, _, _, _, _, BorderingAllies, _, _, _) & BorderingAllies \== [] & not war_target(EnemyNation, ProvId) & target_score(ProvId, EnemyNation, Score)), Options);
+     if (Options \== []) {
+         .min(Options, [MinScore, BestProv]);
+         +war_target(EnemyNation, BestProv);
+         .print("Selected target province ", BestProv, " of ", EnemyNation, " with priority score ", MinScore);
+     }.
+\end{lstlisting}
+
+In \texttt{+!evaluate\_targets}, the agent executes a \texttt{for} loop across all active negative resource trends. For each deficit, it identifies \texttt{BestNeighbor} and invokes the goal \texttt{!decide\_attack(BestNeighbor, NeededResource)}.
+
+When a war is active, the goal \texttt{+!select\_war\_target(EnemyNation, BestProv)} evaluates all candidate enemy provinces that directly border allied territory (\texttt{BorderingAllies \textbackslash== []}) and are not currently assigned as active targets. The agent gathers all \texttt{[Score, ProvId]} pairs via \texttt{.findall}, selects the pair with the minimal score using \texttt{.min}, and asserts \texttt{+war\_target(EnemyNation, BestProv)}.
+
+% ==============================================================================
+\section{Multi-Front Risk Assessment and War Deliberation}
+\label{sec:impl_war_deliberation}
+
+Declaring war against a sovereign nation carries existential risks, particularly if the adversary belongs to a powerful coalition or if the agent is already engaged on multiple military fronts. The agent implements a multi-front risk audit to ensure that it only initiates conflict when strategically and numerically advantageous.
+
+\subsection{Coalition Power Aggregation and Representative Election}
+\label{subsec:coalition_rules}
+
+To accurately evaluate the balance of power, the agent calculates the combined military strength of nations and their formal alliance networks.
+
+\begin{lstlisting}[language=prolog, caption={Alliance symmetry and coalition power aggregation rules in \texttt{vesna.asl}.}, label={lst:coalition_rules_asl}]
+are_allied(X, Y) :- allies(X, Y).
+are_allied(X, Y) :- allies(Y, X).
+
+allied_with(Nation) :-
+    .my_name(Me) &
+    are_allied(Me, Nation).
+
+is_war_block_representative(N) :-
+    at_war_with(N) &
+    not (at_war_with(O) & are_allied(N, O) & O < N).
+
+alliance_strength(Nation, TotalStrength) :-
+    .findall(Member, (Nation = Member | are_allied(Nation, Member)), RawMembers) &
+    .union(RawMembers, [], Members) &
+    .findall(Strength, (.member(M, Members) & nation_strength(M, Strength)), Strengths) &
+    TotalStrength = math.sum(Strengths).
+
+total_enemy_strength(TotalStrength) :-
+    .findall(EnemyStrength, (is_war_block_representative(Enemy) & alliance_strength(Enemy, EnemyStrength)), Strengths) &
+    TotalStrength = math.sum(Strengths).
+\end{lstlisting}
+
+The predicate \texttt{are\_allied(X, Y)} establishes bidirectional symmetry over alliance relations, while \texttt{allied\_with(Nation)} identifies whether a foreign nation is formally allied with the agent.
+
+When aggregating total enemy coalition power across multiple active conflicts, a critical challenge arises: if two enemy nations at war with the agent are allied with each other, summing their alliance networks independently would double-count their mutual strength. To prevent this distortion, the rule \texttt{is\_war\_block\_representative(N)} elects a unique representative for each allied enemy coalition block by enforcing a strict lexicographical ordering constraint (\texttt{O < N}).
+
+The total alliance strength $S_{\text{alliance}}(N)$ is computed in \texttt{alliance\_strength/2} as:
+\begin{equation}
+    \label{eq:alliance_strength}
+    S_{\text{alliance}}(N) = S(N) + \sum_{A \in \text{Allies}(N)} S(A)
+\end{equation}
+The rule \texttt{total\_enemy\_strength(TotalStrength)} aggregates the alliance strengths exclusively from the elected block representatives, yielding the exact confronting enemy threat.
+
+\subsection{War Supportability and Decision Execution}
+\label{subsec:war_decision}
+
+The agent formalizes the multi-front supportability constraint within the \texttt{can\_support\_new\_war} rule and executes war declarations through \texttt{+!decide\_attack}.
+
+\begin{lstlisting}[language=prolog, caption={War supportability check and war declaration plan in \texttt{vesna.asl}.}, label={lst:war_plans_asl}]
+can_support_new_war(Me, TargetNation) :-
+    alliance_strength(Me, MyStrength) &
+    total_enemy_strength(CurrentTotalEnemyStrength) &
+    alliance_strength(TargetNation, TargetStrength) &
+    CurrentTotalEnemyStrength + TargetStrength <= MyStrength * 1.5.
+
++!decide_attack(TargetNation, NeededResource)
+  : not at_war_with(TargetNation)
+    & not allied_with(TargetNation)
+    & not war_cooldown
+    & active_wars(W) & W < 1 
+    & .my_name(Me)
+    & can_support_new_war(Me, TargetNation)
+    & needs_war_with(TargetNation)
+  <- .my_name(Me);
+     if (alliance_strength(Me, MyStrengthPercentage) & alliance_strength(TargetNation, TargetStrengthPercentage)) {
+         if (MyStrengthPercentage >= TargetStrengthPercentage) {
+             vesna.via.declare_war(TargetNation);
+             +at_war_with(TargetNation);
+             +war_cooldown;
+             if (day_cycle(CurrentDay)) {
+                 CooldownEndDay = CurrentDay + 1;
+             } else {
+                 CooldownEndDay = 2;
+             };
+             +war_cooldown_end_day(CooldownEndDay);
+             .print("Declared war on ", TargetNation, " (MyStrength: ", MyStrengthPercentage, "%, TargetStrength: ", TargetStrengthPercentage, "%). Cooldown ends day ", CooldownEndDay);
+         } else {
+             .print("Decided NOT to declare war on ", TargetNation, ": enemy is stronger.");
+         }
+     }.
+
++!decide_attack(TargetNation, NeededResource) <- true.
+\end{lstlisting}
+
+A proactive war declaration on $\mathit{TargetNation}$ is executed only if all of the following conditions are simultaneously met in the plan context:
+\begin{enumerate}[label=\alph*)]
+    \item \textbf{Diplomatic Neutrality:} The target is neither an active enemy (\texttt{not at\_war\_with}) nor a formal ally (\texttt{not allied\_with});
+    \item \textbf{Cooldown Inactive:} The agent is not on war cooldown (\texttt{not war\_cooldown});
+    \item \textbf{Front Limitation:} Active war front count satisfies $W < 1$;
+    \item \textbf{Coalition Capacity Rule:} The projected combined enemy power does not exceed $150\%$ of the agent's alliance strength:
+    \begin{equation}
+        \label{eq:coalition_capacity}
+        \mathit{TotalEnemyStrength} + S_{\text{alliance}}(\mathit{TargetNation}) \le 1.5 \times S_{\text{alliance}}(Me)
+    \end{equation}
+    \item \textbf{Self-Confidence Requirement:} $S_{\text{alliance}}(Me) \ge S_{\text{alliance}}(\mathit{TargetNation})$.
+\end{enumerate}
+
+Upon satisfying these conditions, the agent executes the Java internal action \texttt{vesna.via.declare\_war(TargetNation)}, asserts \texttt{+at\_war\_with(TargetNation)}, activates \texttt{+war\_cooldown}, and schedules the cooldown expiration for $\mathit{CurrentDay} + 1$. The fallback clause \texttt{+!decide\_attack(\_, \_) <- true.} guarantees safe termination if any condition fails.
+
+% ==============================================================================
+\section{Offensive Tactical Operations and Force Splitting}
+\label{sec:impl_offensive_tactics}
+
+The offensive tactical engine translates high-level campaign objectives into granular division movements, precision force splitting, and multi-army coordinated assaults.
+
+\subsection{Undefended Target Capture and Precision Garrison Splitting}
+\label{subsec:undefended_tactics}
+
+When attacking an undefended enemy province ($\mathit{DefenseValue} = 0$), deploying an entire army division is wasteful and leaves domestic bases vulnerable. Furthermore, newly conquered provinces drop to $M_{\text{conq}} = 25\%$ morale, creating immediate civil riot risk. The agent calculates the exact garrison required to stabilize the province upon capture and splits only that necessary force.
+
+\begin{lstlisting}[language=prolog, caption={Undefended target force splitting in \texttt{vesna.asl}.}, label={lst:undefended_split_asl}]
+// Segment of +!evaluate_attack_opportunities for undefended targets
+if (EnemyDefenseValue == 0) {
+    .max(AvailableArmies, [MaxAttackValue, BestArmyId]);
+    ?my_army(BestArmyId, _, _, BestLife, _, _);
+    ?get_riot_breakpoint(RiotBreakpoint);
+    ?get_riot_base_defense(RiotBaseDefense);
+    ?get_riot_penalty_multiplier(RiotPenaltyMultiplier);
+    ?get_life_per_unit(LifePerUnit);
+    ?get_defense_per_unit(DefensePerUnit);
+    ?get_conquered_morale(ConqueredMorale);
+    BestSoldiers = BestLife / LifePerUnit;
+    RequiredGarrison = (RiotBaseDefense + (RiotBreakpoint - ConqueredMorale) * RiotPenaltyMultiplier) / DefensePerUnit;
+    SplitCount = RequiredGarrison div 1;
+    if (BestSoldiers > SplitCount + 1) {
+        vesna.via.split_army(BestArmyId, SplitCount, ProvId);
+        +targeted_province(ProvId);
+        .print("Split army ", BestArmyId, " to send ", SplitCount, " soldiers to target province ", ProvId);
+    } else {
+        vesna.via.move_army(BestArmyId, ProvId);
+        +my_army_travelling(BestArmyId);
+        +my_army_target(BestArmyId, ProvId);
+        +targeted_province(ProvId);
+        .print("Sent army ", BestArmyId, " from border to target province ", ProvId);
+    }
+}
+\end{lstlisting}
+
+As formalized in Listing~\ref{lst:undefended_split_asl}, the required garrison $G_{\text{conq}}$ for a newly captured province ($M_{\text{conq}} = 25\%$) is derived as:
+\begin{equation}
+    \label{eq:conquered_garrison}
+    G_{\text{conq}} = \frac{D_{\text{base}} + (\theta_{\text{break}} - M_{\text{conq}}) \times \mu}{\delta} = \frac{5.0 + (30 - 25) \times 6.0}{5.0} = 7.0 \text{ soldiers}
+\end{equation}
+
+If the available border army possesses $\mathit{BestSoldiers} > 8$ ($G_{\text{conq}} + 1$), the agent executes \texttt{vesna.via.split\_army(BestArmyId, 7, ProvId)}. Exactly 7 soldiers march to capture and stabilize the target, while the remaining force stays at the origin base for territorial defense. If the army contains 8 or fewer soldiers, the full unit is ordered to advance via \texttt{vesna.via.move\_army}.
+
+\subsection{Defended Target Operations and Single-Army Splitting}
+\label{subsec:defended_tactics}
+
+Against fortified enemy positions ($\mathit{DefenseValue} > 0$), the agent enforces a $120\%$ decisive superiority threshold to guarantee victory while minimizing casualties.
+
+\begin{lstlisting}[language=prolog, caption={Defended target force splitting in \texttt{vesna.asl}.}, label={lst:defended_split_asl}]
+// Segment of +!evaluate_attack_opportunities for defended targets
+?get_life_per_unit(LifePerUnit);
+?get_attack_per_unit(AttackPerUnit);
+TargetStrength = EnemyDefenseValue * 1.2;
+TargetSoldiers = (TargetStrength / AttackPerUnit) div 1 + 1;
+
+.findall([Soldiers, MyId], (.member([AttackVal, MyId], AvailableArmies) & my_army(MyId, _, _, Life, _, _) & Soldiers = Life / LifePerUnit & Soldiers > TargetSoldiers + 2), SplittableArmies);
+if (SplittableArmies \== []) {
+    .max(SplittableArmies, [MaxSoldiers, BestArmyId]);
+    SplitCount = TargetSoldiers;
+    vesna.via.split_army(BestArmyId, SplitCount, ProvId);
+    +targeted_province(ProvId);
+    .print("Split army ", BestArmyId, " to send ", SplitCount, " soldiers (Atk: ", SplitCount * AttackPerUnit, ") to target province ", ProvId, " (Def: ", EnemyDefenseValue, ")");
+} else {
+    !try_coordinated_attack(ProvId, EnemyDefenseValue, AvailableArmies);
+}
+\end{lstlisting}
+
+The required offensive power $\mathit{TargetStrength}$ and corresponding soldier count $\mathit{TargetSoldiers}$ are computed as:
+\begin{align}
+    \mathit{TargetStrength} &= 1.2 \times \mathit{EnemyDefenseValue} \\
+    \mathit{TargetSoldiers} &= \left\lfloor \frac{\mathit{TargetStrength}}{\alpha} \right\rfloor + 1
+\end{align}
+
+The agent inspects all adjacent divisions that are not traveling and not guarding active riots. If an adjacent army contains $\mathit{Soldiers} > \mathit{TargetSoldiers} + 2$, the agent splits off exactly $\mathit{TargetSoldiers}$ to execute the strike.
+
+\subsection{Coordinated Multi-Army Convergence and Inland Mobilization}
+\label{subsec:coordinated_attack}
+
+If no single adjacent division is large enough to achieve decisive superiority on its own, the agent initiates a coordinated multi-army assault by accumulating multiple surrounding forces.
+
+\begin{lstlisting}[language=prolog, caption={Coordinated multi-army accumulation and inland mobilization in \texttt{vesna.asl}.}, label={lst:coordinated_attack_asl}]
++!try_coordinated_attack(ProvId, EnemyDefenseValue, AvailableArmies)
+  <- TargetStrength = EnemyDefenseValue * 1.2;
+     !accumulate_attackers(ProvId, TargetStrength, AvailableArmies, 0, []).
+
++!accumulate_attackers(ProvId, TargetStrength, [[Atk, ArmyId] | Rest], AccumulatedStrength, ChosenArmies)
+  : AccumulatedStrength <= TargetStrength
+  <- !accumulate_attackers(ProvId, TargetStrength, Rest, AccumulatedStrength + Atk, [ArmyId | ChosenArmies]).
+
++!accumulate_attackers(ProvId, TargetStrength, _, AccumulatedStrength, ChosenArmies)
+  : AccumulatedStrength > TargetStrength
+  <- .print("Sending coordinated attack to ", ProvId, " with armies ", ChosenArmies, " (Total Atk: ", AccumulatedStrength, ")");
+     +targeted_province(ProvId);
+     for (.member(ArmyId, ChosenArmies)) {
+         vesna.via.move_army(ArmyId, ProvId);
+         +my_army_travelling(ArmyId);
+         +my_army_target(ArmyId, ProvId);
+     }.
+
++!accumulate_attackers(ProvId, TargetStrength, [], AccumulatedStrength, ChosenArmies)
+  : AccumulatedStrength <= TargetStrength
+  <- .print("Adjacent armies insufficient (", AccumulatedStrength, " vs ", TargetStrength, "). Mobilizing inland armies...");
+     if (enemy_province_status(ProvId, _, _, _, _, _, BorderingAllies, _, _, _)) {
+         .findall([Dist, MyId], (my_army(MyId, _, _, _, _, Loc) & not .member(Loc, BorderingAllies) & .member(AllyProv, BorderingAllies) & my_army_path_distance(MyId, AllyProv, Dist) & not is_defending_riot_province(MyId) & not my_army_travelling(MyId)), InlandArmies);
+         if (InlandArmies \== []) {
+             .min(InlandArmies, [MinDist, BestArmyId]);
+             vesna.via.move_army(BestArmyId, ProvId);
+             +my_army_travelling(BestArmyId);
+             +my_army_target(BestArmyId, ProvId);
+             +targeted_province(ProvId);
+             .print("Sent closest inland army ", BestArmyId, " (distance: ", MinDist, ") to attack ", ProvId);
+         }
+     }.
+\end{lstlisting}
+
+The recursive plan \texttt{+!accumulate\_attackers} operates as follows:
+\begin{enumerate}[label=\alph*)]
+    \item \textbf{Recursive Accumulation:} While $\mathit{AccumulatedStrength} \le \mathit{TargetStrength}$, the plan pops \texttt{[Atk, ArmyId]} from the available list, adds \texttt{Atk} to the total, appends \texttt{ArmyId} to \texttt{ChosenArmies}, and recurses on the remainder of the list.
+    \item \textbf{Coordinated Launch:} As soon as $\mathit{AccumulatedStrength} > \mathit{TargetStrength}$, the base plan iterates over \texttt{ChosenArmies} with a \texttt{for} loop, issuing simultaneous \texttt{vesna.via.move\_army(ArmyId, ProvId)} commands so that all selected divisions converge on the target at once.
+    \item \textbf{Inland Fallback:} If all adjacent armies are exhausted and cumulative strength remains below $\mathit{TargetStrength}$, the agent queries non-border inland armies using \texttt{my\_army\_path\_distance}, selects the closest unit ($\min \mathit{Dist}$), and orders it to advance toward the front line to reinforce the staging base.
+\end{enumerate}
+
+% ==============================================================================
+\section{Defensive Threat Interception Hierarchy}
+\label{sec:impl_defense_hierarchy}
+
+When hostile armies march toward domestic territory, the agent intercepts the invading forces before they reach provincial capital seats.
+
+\subsection{Threat Detection and Defensive Garrison Sizing}
+\label{subsec:threat_sizing}
+
+The presence of an incoming hostile force is perceived through the \texttt{+foreign\_army\_moving} event.
+
+\begin{lstlisting}[language=prolog, caption={Defensive threat detection and required force calculation in \texttt{vesna.asl}.}, label={lst:threat_detection_asl}]
+province_under_threat(ProvId) :-
+    enemy_army_moving(_, Nation, _, _, _, _, ProvId, _) &
+    at_war_with(Nation).
+
++foreign_army_moving(ArmyId, Nation, PosX, PosY, NextX, NextY, TargetProv, AttackValue)
+  <- .abolish(enemy_army_moving(ArmyId, Nation, _, _, _, _, _, _));
+     if (TargetProv \== none) {
+         +enemy_army_moving(ArmyId, Nation, PosX, PosY, NextX, NextY, TargetProv, AttackValue);
+     };
+     if (at_war_with(Nation) & TargetProv \== none & allied_province(TargetProv, _, _, _, _, _, _)) {
+         .print("Enemy army ", ArmyId, " of ", Nation, " moving towards ", TargetProv, " (Atk: ", AttackValue, ")");
+         if (not ordered_to_defend(_, TargetProv)) {
+             ?get_life_per_unit(LifePerUnit);
+             ?get_defense_per_unit(DefensePerUnit);
+             RequiredSoldiers = (AttackValue * 1.2) / DefensePerUnit;
+             SplitCount = RequiredSoldiers div 1 + 1;
+             // Dispatch intercepting forces (Safe or Riot armies)...
+         }
+     };
+     !evaluate_defenses.
+\end{lstlisting}
+
+The inference rule \texttt{province\_under\_threat(ProvId)} confirms whether the destination province is domestic and the marching force belongs to a nation at war. The required defensive garrison $\mathit{RequiredSoldiers}$ is calculated to provide $120\%$ resistance against the incoming attack power:
+\begin{equation}
+    \label{eq:required_defense}
+    \mathit{RequiredSoldiers} = \left\lfloor \frac{1.2 \times \mathit{AttackValue}}{\delta} \right\rfloor + 1
+\end{equation}
+
+\subsection{Tiered Interception Selection and Defensive Release}
+\label{subsec:tiered_interception}
+
+To fulfill the defense requirement while preserving domestic civil order, the agent employs a two-tiered priority hierarchy.
+
+\begin{lstlisting}[language=prolog, caption={Tiered unit selection and defense release in \texttt{vesna.asl}.}, label={lst:tiered_defense_asl}]
+.findall([PathDist, MyId], (my_army(MyId, _, _, _, _, Loc) & my_army_path_distance(MyId, TargetProv, PathDist) & Loc \== TargetProv & not ordered_to_defend(MyId, _) & not is_defending_riot_province(MyId) & not my_army_travelling(MyId)), SafeArmies);
+.findall([PathDist, MyId], (my_army(MyId, _, _, _, _, Loc) & my_army_path_distance(MyId, TargetProv, PathDist) & Loc \== TargetProv & not ordered_to_defend(MyId, _) & is_defending_riot_province(MyId) & not my_army_travelling(MyId)), RiotArmies);
+
+if (SafeArmies \== []) {
+    .min(SafeArmies, [MinDist, BestArmyId]);
+    ?my_army(BestArmyId, _, _, Life, _, _);
+    Soldiers = Life / LifePerUnit;
+    if (Soldiers > SplitCount + 2) {
+        vesna.via.split_army(BestArmyId, SplitCount, TargetProv);
+        +ordered_to_defend(BestArmyId, TargetProv);
+        +targeted_province(TargetProv);
+    } else {
+        +ordered_to_defend(BestArmyId, TargetProv);
+        vesna.via.move_army(BestArmyId, TargetProv);
+        +my_army_travelling(BestArmyId);
+        +my_army_target(BestArmyId, TargetProv);
+        +targeted_province(TargetProv);
+    }
+} else if (RiotArmies \== []) {
+    // Fallback to riot-guarding armies if no safe armies exist...
+    .min(RiotArmies, [MinDist, BestArmyId]);
+    // Split or move BestArmyId as last resort...
+}.
+
++!evaluate_defenses : true
+  <- for (ordered_to_defend(MyId, ProvId)) {
+         if (not province_under_threat(ProvId)) {
+             .abolish(ordered_to_defend(MyId, ProvId));
+             -my_army_target(MyId, ProvId);
+             -my_army_travelling(MyId);
+             .print("Threat to ", ProvId, " is gone. Released defending army ", MyId);
+         }
+     }.
+\end{lstlisting}
+
+The selection process evaluates:
+\begin{itemize}
+    \item \textbf{Tier 1 (Safe Armies):} Armies stationed in stable provinces ($M \ge 33\%$) that are not currently traveling or defending other threats. The agent identifies the unit minimizing graph path distance $\min \mathit{Dist}(A, \mathit{TargetProv})$. If the unit has surplus soldiers ($\mathit{Soldiers} > \mathit{SplitCount} + 2$), it splits off $\mathit{SplitCount}$ troops; otherwise, the full unit is deployed.
+    \item \textbf{Tier 2 (Riot-Guarding Fallback):} If no safe armies exist across the nation, the agent queries units stationed at low-morale bases as an emergency measure, selecting the closest unit to intercept the existential threat.
+    \item \textbf{Defense Release Cycle (\texttt{+!evaluate\_defenses}):} During every audit, the agent iterates across active \texttt{ordered\_to\_defend(MyId, ProvId)} convictions. If \texttt{not province\_under\_threat(ProvId)} (e.g., the enemy army changed course or was destroyed), the defensive order is retracted, immediately liberating the division for offensive or border-garrison duties.
+\end{itemize}
+
+% ==============================================================================
+\section{Socio-Political Stability and Dynamic Riot Garrisoning}
+\label{sec:impl_riot_control}
+
+Provinces with low morale ($M < 33\%$) suffer from civil unrest and risk spontaneous rebellion. The agent stabilizes domestic territory by maintaining exact defensive garrisons and dynamically releasing surplus troops as morale recovers.
+
+\begin{lstlisting}[language=prolog, caption={Riot defense predicate and garrison optimization plan in \texttt{vesna.asl}.}, label={lst:riot_plans_asl}]
+is_defending_riot_province(MyId) :-
+    my_army(MyId, _, _, _, _, Loc) &
+    allied_province(Loc, Morale, _, _, _, _, _) &
+    get_riot_threshold(RiotThreshold) &
+    Morale < RiotThreshold.
+
+is_defending_riot_province(MyId) :-
+    ordered_to_defend(MyId, DefProv) &
+    allied_province(DefProv, Morale, _, _, _, _, _) &
+    get_riot_threshold(RiotThreshold) &
+    Morale < RiotThreshold.
+
++!optimize_riot_garrisons : true
+  <- ?get_riot_threshold(RiotThreshold);
+     ?get_riot_breakpoint(RiotBreakpoint);
+     ?get_riot_base_defense(RiotBaseDefense);
+     ?get_riot_penalty_multiplier(RiotPenaltyMultiplier);
+     ?get_life_per_unit(LifePerUnit);
+     ?get_defense_per_unit(DefensePerUnit);
+     for (my_army(MyId, _, _, Life, _, Loc)) {
+         if (allied_province(Loc, Morale, _, _, _, _, _) & Morale < RiotThreshold) {
+             if (Morale >= RiotBreakpoint) {
+                 Required = RiotBaseDefense / DefensePerUnit;
+             } else {
+                 Required = (RiotBaseDefense + (RiotBreakpoint - Morale) * RiotPenaltyMultiplier) / DefensePerUnit;
+             };
+             Soldiers = Life / LifePerUnit;
+             if (Soldiers > Required + 2) {
+                 SplitCount = (Soldiers - Required) div 1;
+                 !find_neighboring_allied_province(Loc, TargetProv);
+                 if (TargetProv \== none) {
+                     vesna.via.split_army(MyId, SplitCount, TargetProv);
+                     .print("Split army ", MyId, " at low-morale province ", Loc, ": keeping ", Required, " soldiers, sending ", SplitCount, " to allied ", TargetProv);
+                 }
+             }
+         }
+     }.
+
++!find_neighboring_allied_province(Loc, TargetProv)
+  <- ?allied_province(Loc, _, LocX, LocY, _, _, _);
+     .findall([Dist, ProvId], (allied_province(ProvId, _, PX, PY, _, _, _) & ProvId \== Loc & Dist = (LocX - PX)**2 + (LocY - PY)**2), AlliedDists);
+     if (AlliedDists \== []) {
+         .min(AlliedDists, [MinDist, TargetProv]);
+     } else {
+         TargetProv = none;
+     }.
+\end{lstlisting}
+
+The inference rule \texttt{is\_defending\_riot\_province(MyId)} flags any division stationed at or moving to a low-morale base, protecting it from being siphoned off for offensive or border-garrison tasks.
+
+In \texttt{+!optimize\_riot\_garrisons}, the required stabilization garrison $G(M)$ is computed as:
+\begin{equation}
+    \label{eq:riot_formula}
+    G(M) = \begin{cases}
+    0, & \text{if } M \ge 33\% \\
+    \frac{D_{\text{base}}}{\delta} = 1.0 \text{ soldier}, & \text{if } 30\% \le M < 33\% \\
+    \frac{D_{\text{base}} + (\theta_{\text{break}} - M) \times \mu}{\delta}, & \text{if } M < 30\%
+    \end{cases}
+\end{equation}
+
+If an army stationed at a low-morale territory contains $\mathit{Soldiers} > G(M) + 2$, the surplus $\mathit{SplitCount} = \lfloor \mathit{Soldiers} - G(M) \rfloor$ is split off via \texttt{vesna.via.split\_army} and deployed to reinforce the nearest domestic neighbor identified by \texttt{!find\_neighboring\_allied\_province}. As provincial morale recovers over time, $G(M)$ shrinks, automatically releasing garrison forces into active operational service.
+
+% ==============================================================================
+\section{Border Security and Deficit-Based Force Distribution}
+\label{sec:impl_border_distribution}
+
+To deter opportunistic foreign invasions, the agent continuously audits garrison strength along all non-allied frontiers and redistributes idle military forces to eliminate defensive deficits.
+
+\subsection{Border Identification and Deficit Formulation}
+\label{subsec:border_deficit}
+
+An allied province is classified as a frontier post if it directly adjoins at least one enemy territory owned by a non-allied sovereign power.
+
+\begin{lstlisting}[language=prolog, caption={Border classification, garrison requirements, and deficit rules in \texttt{vesna.asl}.}, label={lst:border_rules_asl}]
+is_border_province(AlliedProv) :-
+    allied_province(AlliedProv, _, _, _, _, _, _) &
+    enemy_province_status(_, Owner, _, _, _, _, BorderingAllies, _, _, _) &
+    .member(AlliedProv, BorderingAllies) &
+    not allied_with(Owner).
+
+nation_border_defense(BorderProv, Owner, SumDef) :-
+    enemy_province_status(_, Owner, _, _, _, _, BorderingAllies, _, _, _) & 
+    .member(BorderProv, BorderingAllies) & 
+    not allied_with(Owner) &
+    .findall(EnemyDef, (enemy_province_status(FProv, Owner, _, EnemyDef, _, _, BAllies, _, _, _) & .member(BorderProv, BAllies)), EnemyDefs) &
+    SumDef = math.sum(EnemyDefs).
+
+border_province_max_enemy_defense(BorderProv, MaxEnemyDef) :-
+    enemy_province_status(_, Owner, _, _, _, _, BorderingAllies, _, _, _) & .member(BorderProv, BorderingAllies) & not allied_with(Owner) &
+    .findall(SumDef, (enemy_province_status(_, Own, _, _, _, _, BAllies, _, _, _) & .member(BorderProv, BAllies) & not allied_with(Own) & nation_border_defense(BorderProv, Own, SumDef)), SumDefs) &
+    .max(SumDefs, MaxEnemyDef).
+
+target_garrison(Prov, Target) :-
+    is_border_province(Prov) &
+    border_province_max_enemy_defense(Prov, EnemyDef) &
+    get_defense_per_unit(DefensePerUnit) &
+    EnemyDef > 0 &
+    Target = (EnemyDef * 1.2 / DefensePerUnit) div 1 + 1.
+
+target_garrison(Prov, 1) :-
+    is_border_province(Prov) &
+    border_province_max_enemy_defense(Prov, EnemyDef) &
+    EnemyDef <= 0.
+
+target_garrison(Prov, 0) :-
+    not is_border_province(Prov).
+
+province_garrison_deficit(Prov, Deficit) :-
+    province_soldiers(Prov, OurSoldiers) &
+    target_garrison(Prov, Target) &
+    OurSoldiers < Target &
+    Deficit = Target - OurSoldiers.
+
+province_excess_soldiers(Prov, Excess) :-
+    province_soldiers(Prov, OurSoldiers) &
+    target_garrison(Prov, Target) &
+    OurSoldiers > Target &
+    Excess = OurSoldiers - Target.
+\end{lstlisting}
+
+The target border garrison $\mathit{TargetGarrison}(P_{\text{border}})$ is formulated as:
+\begin{equation}
+    \label{eq:border_target}
+    \mathit{TargetGarrison}(P_{\text{border}}) = \begin{cases}
+    \left\lfloor \frac{1.2 \times \mathit{MaxEnemyDef}(P_{\text{border}})}{\delta} \right\rfloor + 1, & \text{if } \mathit{MaxEnemyDef} > 0 \\
+    1 \text{ soldier}, & \text{if } \mathit{MaxEnemyDef} \le 0 \\
+    0, & \text{if non-border}
+    \end{cases}
+\end{equation}
+
+For each territory, the garrison deficit $\mathit{Deficit}(P)$ and surplus $\mathit{Excess}(P)$ are formulated as:
+\begin{align}
+    \mathit{Deficit}(P) &= \max\Big(0, \mathit{TargetGarrison}(P) - \mathit{OurSoldiers}(P)\Big) \\
+    \mathit{Excess}(P) &= \max\Big(0, \mathit{OurSoldiers}(P) - \mathit{TargetGarrison}(P)\Big)
+\end{align}
+
+\subsection{Idle Force Redistribution Algorithm}
+\label{subsec:border_redistribution}
+
+During each audit, the agent identifies all idle military divisions (stationary, non-traveling, not ordered to defend active incursions, not guarding low-morale bases, and without active targets) and redistributes forces.
+
+\begin{lstlisting}[language=prolog, caption={Border garrison redistribution plan in \texttt{vesna.asl}.}, label={lst:border_redistribution_asl}]
++!garrison_non_allied_borders : true
+  <- ?get_life_per_unit(LifePerUnit);
+     for (my_army(MyId, _, _, Life, _, Loc)) {
+         if (not my_army_travelling(MyId) & 
+             not ordered_to_defend(MyId, _) & 
+             not is_defending_riot_province(MyId) & 
+             not my_army_target(MyId, _)) {
+             
+             ?province_excess_soldiers(Loc, Excess);
+             if (Excess > 0) {
+                 .findall([Score, BorderProv], (is_border_province(BorderProv) & 
+                                                province_garrison_deficit(BorderProv, Deficit) & 
+                                                Deficit > 0 & 
+                                                my_army_path_distance(MyId, BorderProv, Dist) & 
+                                                Dist < 999999.0 & 
+                                                Score = -Deficit + (Dist * 0.05)), OptionList);
+                 if (OptionList \== []) {
+                     .min(OptionList, [MinScore, SelectedProv]);
+                     ?province_garrison_deficit(SelectedProv, DeficitVal);
+                     ReqAmount = math.min(Excess, DeficitVal);
+                     ArmySoldiers = Life / LifePerUnit;
+                     Amount = math.min(ReqAmount, ArmySoldiers);
+                     SplitCount = Amount div 1;
+                     if (SplitCount > 0) {
+                         if (SplitCount < ArmySoldiers) {
+                             vesna.via.split_army(MyId, SplitCount, SelectedProv);
+                             .print("Split idle army ", MyId, " sending ", SplitCount, " to deficit border ", SelectedProv);
+                         } else {
+                             vesna.via.move_army(MyId, SelectedProv);
+                             +my_army_travelling(MyId);
+                             +my_army_target(MyId, SelectedProv);
+                             .print("Moving full idle army ", MyId, " to deficit border ", SelectedProv);
+                         }
+                     }
+                 }
+             } else if (not is_border_province(Loc)) {
+                 .findall([Score, BorderProv], (is_border_province(BorderProv) & 
+                                                my_army_path_distance(MyId, BorderProv, Dist) & 
+                                                Dist < 999999.0 & 
+                                                province_soldiers(BorderProv, OurSoldiers) & 
+                                                Score = OurSoldiers + (Dist * 0.05)), AlliedOptionList);
+                 if (AlliedOptionList \== []) {
+                     .min(AlliedOptionList, [MinScore, SelectedProv]);
+                     vesna.via.move_army(MyId, SelectedProv);
+                     +my_army_travelling(MyId);
+                     +my_army_target(MyId, SelectedProv);
+                     .print("Moving idle inland army ", MyId, " to safe border ", SelectedProv);
+                 }
+             }
+         }
+     }.
+\end{lstlisting}
+
+The redistribution algorithm handles two spatial configurations:
+\begin{enumerate}[label=\alph*)]
+    \item \textbf{Redistribution from Excess Stations:} If an idle army is stationed in a base with $\mathit{Excess} > 0$, the agent evaluates all reachable border posts having $\mathit{Deficit} > 0$ using the cost metric:
+    \begin{equation}
+        \label{eq:deficit_score}
+        \mathit{Score}(P_{\text{border}}) = -\mathit{Deficit}(P_{\text{border}}) + 0.05 \times \mathit{Dist}(\mathit{Army}, P_{\text{border}})
+    \end{equation}
+    The agent selects the post minimizing $\mathit{Score}$ (which prioritizes large deficits while penalizing excessive transit distance) and deploys $\min(\mathit{Excess}, \mathit{Deficit})$ soldiers via \texttt{split\_army} or \texttt{move\_army}.
+    \item \textbf{Redistribution from Inland Positions:} If an idle army is located in a non-border inland province, the agent identifies the closest border post minimizing $\mathit{OurSoldiers} + 0.05 \times \mathit{Dist}$ and orders the entire inland division to relocate to the frontier.
+\end{enumerate}
+
+% ==============================================================================
+\section{Diplomatic Bargaining and Coalition Protocols}
+\label{sec:impl_diplomacy}
+
+The diplomatic module enables the agent to negotiate bilateral peace treaties and establish strategic alliance coalitions to manage multi-front exposure.
+
+\subsection{Bilateral Peace Negotiation Logic}
+\label{subsec:peace_negotiation}
+
+Peace negotiations operate under both reactive and proactive triggers.
+
+\begin{lstlisting}[language=prolog, caption={Peace request processing and proactive peace proposals in \texttt{vesna.asl}.}, label={lst:peace_plans_asl}]
++peace_request_received(Sender)
+  <- .my_name(Me);
+     ?total_enemy_strength(Me, TotalEnemyStrength);
+     ?alliance_strength(Me, MyStrength);
+     
+     if (TotalEnemyStrength > MyStrength * 1.5) {
+         .print("Accepting peace from ", Sender, ": Total enemy strength too high (", TotalEnemyStrength, " vs ", MyStrength * 1.5, ")");
+         vesna.via.accept_peace(Sender);
+     } else {
+         .findall(Rep, is_war_block_representative(Rep), RepList);
+         .length(RepList, WarCount);
+         ?alliance_strength(Sender, SenderStrength);
+         if (WarCount > 1 & MyStrength - 10 < SenderStrength) {
+             .print("Accepting peace from ", Sender, ": Multi-front exposure (WarCount=", WarCount, ")");
+             vesna.via.accept_peace(Sender);
+         } else {
+             if (not needs_war_with(Sender)) {
+                 .print("Accepting peace from ", Sender, ": Resource objectives fulfilled");
+                 vesna.via.accept_peace(Sender);
+             } else {
+                 .print("Declining peace from ", Sender, ": Deficit resources still required");
+                 vesna.via.decline_peace(Sender);
+             }
+         }
+     }.
+
++!check_peace_requests : true
+  <- .my_name(Me);
+     ?total_enemy_strength(Me, TotalEnemyStrength);
+     ?alliance_strength(Me, MyStrength);
+     if (TotalEnemyStrength > MyStrength * 1.5) {
+         .findall(Enemy, at_war_with(Enemy), EnemyList);
+         !choose_enemy_for_peace(EnemyList, EnemyToRequest);
+         if (EnemyToRequest \== none) {
+             !send_peace_request_to_all(EnemyToRequest, "total enemy strength too high");
+         }
+     } else {
+         for (at_war_with(Enemy)) {
+             if (not needs_war_with(Enemy) & not sent_peace_request(Enemy)) {
+                 !send_peace_request_to_all(Enemy, "resources not needed");
+             } else if (alliance_strength(Enemy, EnemyStrengthPercentage)) {
+                 if (EnemyStrengthPercentage > MyStrength * 1.5 & not sent_peace_request(Enemy)) {
+                     !send_peace_request_to_all(Enemy, "enemy is a lot stronger");
+                 }
+             }
+         }
+     }.
+
++!choose_enemy_for_peace([], none).
++!choose_enemy_for_peace(EnemyList, EnemyToRequest)
+  : EnemyList \== []
+  <- .findall([Priority, MinusStrength, Enemy], 
+              (.member(Enemy, EnemyList) & 
+               get_enemy_peace_priority(Enemy, Priority) & 
+               alliance_strength(Enemy, Strength) & 
+               MinusStrength = -Strength), Options);
+     if (Options \== []) {
+         .min(Options, [_, _, EnemyToRequest]);
+     } else {
+         EnemyToRequest = none;
+     }.
+\end{lstlisting}
+
+\subsubsection{Decision Breakdown}
+\begin{enumerate}[label=\alph*)]
+    \item \textbf{Incoming Peace Requests (\texttt{+peace\_request\_received}):} When a peace proposal is received from \texttt{Sender}, the agent evaluates acceptance through a prioritized decision tree:
+    \begin{itemize}
+        \item \textit{Emergency Acceptance:} If $\mathit{TotalEnemyStrength} > 1.5 \times \mathit{MyStrength}$, peace is accepted immediately via \texttt{vesna.via.accept\_peace(Sender)} to avoid defeat.
+        \item \textit{Multi-Front Relief:} If active war count $\mathit{WarCount} > 1$ and $\mathit{MyStrength} - 10 < \mathit{SenderStrength}$, peace is accepted to consolidate against the primary front.
+        \item \textit{Resource Saturation:} If the agent no longer requires resources from the sender ($\neg \text{needs\_war\_with}(\mathit{Sender})$), peace is accepted.
+        \item \textit{Decline:} If none of these hold and resources are still needed, the proposal is declined via \texttt{vesna.via.decline\_peace(Sender)}.
+    \end{itemize}
+    \item \textbf{Proactive Peace Proposals (\texttt{+!check\_peace\_requests}):} If confronting excessive enemy coalitions ($> 1.5 \times \mathit{MyStrength}$), the agent executes \texttt{!choose\_enemy\_for\_peace}, which ranks active enemies by $\min(\mathit{Priority}, -\mathit{Strength}, \mathit{Enemy})$ where $\mathit{Priority} = 0$ for non-essential adversaries and $-\mathit{Strength}$ targets the strongest opposing bloc first.
+\end{enumerate}
+
+\subsection{Bilateral Alliance Formation Protocol}
+\label{subsec:alliance_formation}
+
+The agent maintains a strict alliance ceiling ($\mathit{MAX\_ALLIANCES} = 1$) to avoid conflicting coalition obligations.
+
+\begin{lstlisting}[language=prolog, caption={Alliance request handling and proactive alliance proposals in \texttt{vesna.asl}.}, label={lst:alliance_plans_asl}]
++alliance_request_received(Sender)
+  <- ?get_max_alliances(MaxAlliances);
+     .count(allied_with(_), AllyCount);
+     .count(sent_alliance_request(_), SentCount);
+     .count(accepting_alliance(_), AcceptingCount);
+     if (AllyCount < MaxAlliances & SentCount < MaxAlliances & AcceptingCount < MaxAlliances & not plans_to_attack(Sender) & not at_war_with(Sender) & not allied_with(Sender)) {
+         +accepting_alliance(Sender);
+         .print("Accepting alliance request from ", Sender);
+         vesna.via.accept_alliance(Sender);
+     } else {
+         .print("Declining alliance request from ", Sender);
+         vesna.via.decline_alliance(Sender);
+     }.
+
++!check_alliance_opportunities : true
+  <- ?get_max_alliances(MaxAlliances);
+     .count(allied_with(_), AllyCount);
+     .count(sent_alliance_request(_), SentCount);
+     .count(accepting_alliance(_), AcceptingCount);
+     if (AllyCount < MaxAlliances & SentCount < MaxAlliances & AcceptingCount < MaxAlliances) {
+         .findall(Neighbor, (neighbor_resource(Neighbor, _, _) & not at_war_with(Neighbor) & not allied_with(Neighbor) & not plans_to_attack(Neighbor) & not sent_alliance_request(Neighbor) & not alliance_declined(Neighbor)), Neighbors);
+         if (Neighbors \== []) {
+             Neighbors = [BestNeighbor | _];
+             +sent_alliance_request(BestNeighbor);
+             vesna.via.request_alliance(BestNeighbor);
+             .print("Sent alliance request to neighbor ", BestNeighbor);
+         }
+     }.
+\end{lstlisting}
+
+When an alliance request is received (\texttt{+alliance\_request\_received}), the agent accepts via \texttt{vesna.via.accept\_alliance(Sender)} only if its active alliances, sent requests, and accepting states are all strictly below $\mathit{MaxAlliances}$, and it does not plan to attack the sender.
+
+Proactively (\texttt{+!check\_alliance\_opportunities}), if holding zero alliances, the agent queries peaceful neighboring sovereign states and transmits an alliance proposal via \texttt{vesna.via.request\_alliance}.
+
+% ==============================================================================
+\section{Belief Base Maintenance and Deliberation Loop Scheduling}
+\label{sec:impl_lifecycle}
+
+To preserve synchronization with the real-time Godot simulation, the agent maintains dedicated reactive update plans and a prioritized deliberative audit loop.
+
+\subsection{Reactive Perception Synchronization}
+\label{subsec:belief_sync}
+
+When physical events occur in Godot (e.g., division destruction, territorial conquest, or diplomatic treaty establishment), sight packets update the agent's belief base.
+
+\begin{lstlisting}[language=prolog, caption={Reactive state synchronization triggers in \texttt{vesna.asl}.}, label={lst:sync_plans_asl}]
++my_army_update(Id, X, Y, Life, AttackValue, Loc)
+  <- .abolish(my_army(Id, _, _, _, _, _));
+     +my_army(Id, X, Y, Life, AttackValue, Loc);
+     if (ordered_to_defend(Id, Loc)) {
+         .abolish(ordered_to_defend(Id, Loc));
+         .print("Army ", Id, " has arrived at and successfully defended ", Loc);
+     }.
+
++my_army_destroyed_update(Id)
+  <- .abolish(my_army(Id, _, _, _, _, _));
+     .abolish(my_army_path_distance(Id, _, _));
+     .abolish(ordered_to_defend(Id, _));
+     -my_army_travelling(Id);
+     if (my_army_target(Id, TargetProv)) {
+         -my_army_target(Id, TargetProv);
+         if (not my_army_target(_, TargetProv)) {
+             -targeted_province(TargetProv);
+         }
+     };
+     .print("Army ", Id, " has been destroyed.").
+
++allied_province_owner_update(Id, Morale, X, Y, IsCapital, IsDouble, Resource)
+  <- if (enemy_province_status(Id, PrevOwner, _, _, _, _, _, _, _, _)) {
+         -war_target(PrevOwner, Id);
+         if (at_war_with(PrevOwner)) {
+             !select_war_target(PrevOwner, _);
+         }
+     };
+     .abolish(allied_province(Id, _, _, _, _, _, _));
+     .abolish(enemy_province_status(Id, _, _, _, _, _, _, _, _, _));
+     -targeted_province(Id);
+     +allied_province(Id, Morale, X, Y, IsCapital, IsDouble, Resource).
+
++match_over <-
+     .drop_all_intentions;
+     .drop_all_desires;
+     .drop_all_events;
+     .print("Match over! Interrupted all goals and intentions.").
+\end{lstlisting}
+
+As illustrated in Listing~\ref{lst:sync_plans_asl}:
+\begin{itemize}
+    \item \texttt{+my\_army\_update}: Updates division coordinates and combat stats. If an army has reached its defense destination, its defensive assignment is automatically retired.
+    \item \texttt{+my\_army\_destroyed\_update}: Purges all memory references, routing tables, and target assignments linked to the destroyed division.
+    \item \texttt{+allied\_province\_owner\_update}: Triggered upon capturing an enemy territory. It clears the completed \texttt{war\_target}, re-invokes \texttt{!select\_war\_target} to choose the next campaign objective, and incorporates the new territory into domestic beliefs.
+    \item \texttt{+match\_over}: Immediately drops all active intentions, desires, and events to halt the cognitive cycle upon simulation end.
+\end{itemize}
+
+\subsection{Prioritized Deliberation Cycle Scheduling}
+\label{subsec:deliberation_scheduling}
+
+To prevent conflicting behavioral commands, the agent executes its cognitive evaluation loop following a strict priority hierarchy every $5000\text{ ms}$.
+
+\begin{lstlisting}[language=prolog, caption={Prioritized periodic evaluation loop in \texttt{vesna.asl}.}, label={lst:evaluation_loop_asl}]
++active_wars(Count) : not evaluation_loop_started
+  <- +evaluation_loop_started;
+     !evaluate_defenses;
+     !optimize_riot_garrisons;
+     !evaluate_targets;
+     !evaluate_attack_opportunities;
+     !garrison_non_allied_borders;
+     !check_peace_requests;
+     !check_alliance_opportunities;
+     !!periodic_evaluation.
+
++!periodic_evaluation : true
+  <- !evaluate_defenses;
+     !optimize_riot_garrisons;
+     !evaluate_targets;
+     !evaluate_attack_opportunities;
+     !garrison_non_allied_borders;
+     !check_peace_requests;
+     !check_alliance_opportunities;
+     .wait(5000);
+     !!periodic_evaluation.
+\end{lstlisting}
+
+The deliberation loop executes a sequential pipeline:
+\begin{equation}
+    \label{eq:deliberation_pipeline}
+    \text{Defenses} \longrightarrow \text{Riot Garrisons} \longrightarrow \text{Targets} \longrightarrow \text{Attacks} \longrightarrow \text{Border Garrisons} \longrightarrow \text{Peace} \longrightarrow \text{Alliances}
+\end{equation}
+
+By placing defensive threat evaluation and riot garrison stabilization ahead of offensive campaign operations, the agent guarantees that national security and internal order are fully preserved before military divisions are committed to foreign expansion.

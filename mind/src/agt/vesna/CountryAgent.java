@@ -84,119 +84,90 @@ public class CountryAgent extends VesnaAgent {
 
     private void handle_state_update(JSONObject sight) {
         try {
-            org.json.JSONArray myArmies = sight.getJSONArray("my_armies");
-            sense(createLiteral("clear_my_armies"));
-            for (int i = 0; i < myArmies.length(); i++) {
-                JSONObject army = myArmies.getJSONObject(i);
-                String loc = army.has("location") ? army.getString("location") : "";
-                boolean travelling = army.has("travelling") ? army.getBoolean("travelling") : false;
-                String targetProv = army.has("target_province") ? army.getString("target_province") : "";
-                sense(createLiteral("my_army_update", createNumber(army.getLong("id")), createNumber(army.getDouble("x")), createNumber(army.getDouble("y")), createNumber(army.getDouble("life")), createNumber(army.getDouble("attack_value")), createAtom(loc.isEmpty() ? "unknown" : loc)));
-                sense(createLiteral("my_army_travelling_update", createNumber(army.getLong("id")), createAtom(travelling ? "true" : "false")));
-                sense(createLiteral("my_army_target_update", createNumber(army.getLong("id")), createAtom(targetProv.isEmpty() ? "none" : targetProv)));
-                
-                if (army.has("distances")) {
-                    JSONObject distances = army.getJSONObject("distances");
-                    for (String provId : distances.keySet()) {
-                        sense(createLiteral("my_army_distance_update", createNumber(army.getLong("id")), createAtom(provId), createNumber(distances.getDouble(provId))));
-                    }
-                }
-            }
-
-            if (sight.has("allied_provinces")) {
-                org.json.JSONArray allied = sight.getJSONArray("allied_provinces");
-                if (allied.length() > 0) {
-                    sense(createLiteral("clear_allied_provinces"));
-                    for (int i = 0; i < allied.length(); i++) {
-                        JSONObject prov = allied.getJSONObject(i);
-                        sense(createLiteral("allied_province_update", 
-                            createAtom(prov.getString("id")), 
-                            createNumber(prov.getInt("morale")), 
-                            createNumber(prov.getDouble("x")), 
-                            createNumber(prov.getDouble("y")),
-                            createAtom(prov.getBoolean("is_capital") ? "true" : "false"),
-                            createAtom(prov.getBoolean("is_double") ? "true" : "false"),
-                            createAtom(prov.getString("resource"))
-                        ));
-                    }
-                }
-            }
-
-            if (sight.has("enemy_provinces")) {
-                org.json.JSONArray enemies = sight.getJSONArray("enemy_provinces");
-                if (enemies.length() > 0) {
-                    sense(createLiteral("clear_enemy_provinces"));
-                    for (int i = 0; i < enemies.length(); i++) {
-                        JSONObject prov = enemies.getJSONObject(i);
-                        
-                        org.json.JSONArray borders = prov.getJSONArray("bordering_allies");
-                        jason.asSyntax.ListTerm bordersList = new jason.asSyntax.ListTermImpl();
-                        jason.asSyntax.ListTerm tail = bordersList;
-                        for (int j = 0; j < borders.length(); j++) {
-                            tail = tail.append(createAtom(borders.getString(j)));
-                        }
-
-                        sense(createLiteral("enemy_province_update", 
-                            createAtom(prov.getString("id")), 
-                            createAtom(prov.getString("owner")), 
-                            createAtom(prov.getBoolean("has_army") ? "true" : "false"), 
-                            createNumber(prov.getDouble("defense_value")), 
-                            createNumber(prov.getDouble("x")), 
-                            createNumber(prov.getDouble("y")), 
-                            bordersList,
-                            createAtom(prov.getBoolean("is_capital") ? "true" : "false"),
-                            createAtom(prov.getBoolean("is_double") ? "true" : "false"),
-                            createAtom(prov.getString("resource"))
-                        ));
-                    }
-                }
-            }
-
-            if (sight.has("game_rules")) {
-                JSONObject rules = sight.getJSONObject("game_rules");
-                sense(createLiteral("game_rules_update",
-                    createNumber(rules.getInt("riot_threshold")),
-                    createNumber(rules.getInt("riot_breakpoint")),
-                    createNumber(rules.getDouble("riot_base_defense")),
-                    createNumber(rules.getDouble("riot_penalty_multiplier")),
-                    createNumber(rules.getDouble("life_per_unit")),
-                    createNumber(rules.getDouble("attack_per_unit")),
-                    createNumber(rules.getDouble("defense_per_unit")),
-                    createNumber(rules.getInt("max_alliances")),
-                    createNumber(rules.getInt("conquered_morale"))
+            org.json.JSONArray allied = sight.getJSONArray("allied_provinces");
+            sense(createLiteral("clear_allied_provinces"));
+            for (int i = 0; i < allied.length(); i++) {
+                JSONObject prov = allied.getJSONObject(i);
+                sense(createLiteral("allied_province_update", 
+                    createAtom(prov.getString("id")), 
+                    createNumber(prov.getInt("morale")), 
+                    createNumber(prov.getDouble("x")), 
+                    createNumber(prov.getDouble("y")),
+                    createAtom(prov.getBoolean("is_capital") ? "true" : "false"),
+                    createAtom(prov.getBoolean("is_double") ? "true" : "false"),
+                    createAtom(prov.getString("resource"))
                 ));
             }
+
+            org.json.JSONArray enemies = sight.getJSONArray("enemy_provinces");
+            sense(createLiteral("clear_enemy_provinces"));
+            for (int i = 0; i < enemies.length(); i++) {
+                JSONObject prov = enemies.getJSONObject(i);
+                
+                org.json.JSONArray borders = prov.getJSONArray("bordering_allies");
+                jason.asSyntax.ListTerm bordersList = new jason.asSyntax.ListTermImpl();
+                jason.asSyntax.ListTerm tail = bordersList;
+                for (int j = 0; j < borders.length(); j++) {
+                    tail = tail.append(createAtom(borders.getString(j)));
+                }
+
+                sense(createLiteral("enemy_province_update", 
+                    createAtom(prov.getString("id")), 
+                    createAtom(prov.getString("owner")), 
+                    createAtom(prov.getBoolean("has_army") ? "true" : "false"), 
+                    createNumber(prov.getDouble("defense_value")), 
+                    createNumber(prov.getDouble("x")), 
+                    createNumber(prov.getDouble("y")), 
+                    bordersList,
+                    createAtom(prov.getBoolean("is_capital") ? "true" : "false"),
+                    createAtom(prov.getBoolean("is_double") ? "true" : "false"),
+                    createAtom(prov.getString("resource"))
+                ));
+            }
+
+            JSONObject rules = sight.getJSONObject("game_rules");
+            sense(createLiteral("game_rules_update",
+                createNumber(rules.getInt("riot_threshold")),
+                createNumber(rules.getInt("riot_breakpoint")),
+                createNumber(rules.getDouble("riot_base_defense")),
+                createNumber(rules.getDouble("riot_penalty_multiplier")),
+                createNumber(rules.getDouble("life_per_unit")),
+                createNumber(rules.getDouble("attack_per_unit")),
+                createNumber(rules.getDouble("defense_per_unit")),
+                createNumber(rules.getInt("max_alliances")),
+                createNumber(rules.getInt("conquered_morale"))
+            ));
 
             JSONObject strengths = sight.getJSONObject("nation_strengths");
             for (String key : strengths.keySet()) {
                 sense(createLiteral("nation_strength_update", createAtom(key), createNumber(strengths.getInt(key))));
             }
-            
-            if (sight.has("neighbor_nations")) {
-                sense(createLiteral("clear_neighbor_nations"));
-                JSONObject neighborsData = sight.getJSONObject("neighbor_nations");
-                for (String neighborName : neighborsData.keySet()) {
-                    JSONObject neighborRes = neighborsData.getJSONObject(neighborName);
-                    for (String resName : neighborRes.keySet()) {
-                        sense(createLiteral("neighbor_resource_update", createAtom(neighborName), createAtom(resName), createNumber(neighborRes.getInt(resName))));
+
+            sense(createLiteral("clear_neighbor_nations"));
+            JSONObject neighborsData = sight.getJSONObject("neighbor_nations");
+            for (String neighborName : neighborsData.keySet()) {
+                JSONObject neighborRes = neighborsData.getJSONObject(neighborName);
+                for (String resName : neighborRes.keySet()) {
+                    sense(createLiteral("neighbor_resource_update", createAtom(neighborName), createAtom(resName), createNumber(neighborRes.getInt(resName))));
+                }
+            }
+
+            if (sight.has("province_distances")) {
+                JSONObject provDists = sight.getJSONObject("province_distances");
+                for (String p1 : provDists.keySet()) {
+                    JSONObject p1Map = provDists.getJSONObject(p1);
+                    for (String p2 : p1Map.keySet()) {
+                        double d = p1Map.getDouble(p2);
+                        try {
+                            addBel(createLiteral("province_distance", createAtom(p1), createAtom(p2), createNumber(d)));
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
                     }
                 }
             }
-            
-            sense(createLiteral("active_wars_update", createNumber(sight.getInt("active_wars"))));
 
-            if (sight.has("alliances")) {
-                sense(createLiteral("clear_alliances"));
-                org.json.JSONArray alliances = sight.getJSONArray("alliances");
-                for (int i = 0; i < alliances.length(); i++) {
-                    org.json.JSONArray pair = alliances.getJSONArray(i);
-                    sense(createLiteral("alliance_update", createAtom(pair.getString(0)), createAtom(pair.getString(1))));
-                }
-            }
-
-            if (sight.has("day")) {
-                sense(createLiteral("day_cycle_update", createNumber(sight.getInt("day"))));
-            }
+            sense(createLiteral("day_cycle_update", createNumber(sight.getInt("day"))));
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -269,8 +240,14 @@ public class CountryAgent extends VesnaAgent {
 
     private void handle_alliance_established(JSONObject sight) {
         try {
-            String nation = sight.getString("nation");
-            sense(createLiteral("alliance_established_update", createAtom(nation)));
+            if (sight.has("nation1") && sight.has("nation2")) {
+                String n1 = sight.getString("nation1");
+                String n2 = sight.getString("nation2");
+                sense(createLiteral("alliance_established_update", createAtom(n1), createAtom(n2)));
+            } else if (sight.has("nation")) {
+                String nation = sight.getString("nation");
+                sense(createLiteral("alliance_established_update", createAtom(nation)));
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -278,8 +255,14 @@ public class CountryAgent extends VesnaAgent {
 
     private void handle_alliance_broken(JSONObject sight) {
         try {
-            String nation = sight.getString("nation");
-            sense(createLiteral("alliance_broken_update", createAtom(nation)));
+            if (sight.has("nation1") && sight.has("nation2")) {
+                String n1 = sight.getString("nation1");
+                String n2 = sight.getString("nation2");
+                sense(createLiteral("alliance_broken_update", createAtom(n1), createAtom(n2)));
+            } else if (sight.has("nation")) {
+                String nation = sight.getString("nation");
+                sense(createLiteral("alliance_broken_update", createAtom(nation)));
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -316,6 +299,17 @@ public class CountryAgent extends VesnaAgent {
             long id = sight.getLong("id");
             String owner = sight.has("owner") ? sight.getString("owner") : "";
             sense(createLiteral("foreign_army_destroyed_update", createNumber(id), createAtom(owner.isEmpty() ? "unknown" : owner)));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void handle_enemy_province_defense_update(JSONObject sight) {
+        try {
+            String id = sight.getString("id");
+            double defenseValue = sight.getDouble("defense_value");
+            boolean hasArmy = sight.getBoolean("has_army");
+            sense(createLiteral("enemy_province_defense_update", createAtom(id), createAtom(hasArmy ? "true" : "false"), createNumber(defenseValue)));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -395,13 +389,6 @@ public class CountryAgent extends VesnaAgent {
             sense(createLiteral("my_army_update", createNumber(id), createNumber(x), createNumber(y), createNumber(life), createNumber(attackValue), createAtom(loc.isEmpty() ? "unknown" : loc)));
             sense(createLiteral("my_army_travelling_update", createNumber(id), createAtom(travelling ? "true" : "false")));
             sense(createLiteral("my_army_target_update", createNumber(id), createAtom(targetProv.isEmpty() ? "none" : targetProv)));
-            
-            if (sight.has("distances")) {
-                JSONObject distances = sight.getJSONObject("distances");
-                for (String provId : distances.keySet()) {
-                    sense(createLiteral("my_army_distance_update", createNumber(id), createAtom(provId), createNumber(distances.getDouble(provId))));
-                }
-            }
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -416,10 +403,34 @@ public class CountryAgent extends VesnaAgent {
         }
     }
 
+    private void handle_neighbor_nations_update(JSONObject sight) {
+        try {
+            sense(createLiteral("clear_neighbor_nations"));
+            JSONObject neighborsData = sight.getJSONObject("neighbor_nations");
+            for (String neighborName : neighborsData.keySet()) {
+                JSONObject neighborRes = neighborsData.getJSONObject(neighborName);
+                for (String resName : neighborRes.keySet()) {
+                    sense(createLiteral("neighbor_resource_update", createAtom(neighborName), createAtom(resName), createNumber(neighborRes.getInt(resName))));
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     private void handle_day_update(JSONObject sight) {
         try {
             int day = sight.getInt("day");
             sense(createLiteral("day_cycle_update", createNumber(day)));
+
+            JSONObject strengths = sight.getJSONObject("nation_strengths");
+            for (String key : strengths.keySet()) {
+                sense(createLiteral("nation_strength_update", createAtom(key), createNumber(strengths.getInt(key))));
+            }
+
+            if (sight.has("neighbor_nations")) {
+                handle_neighbor_nations_update(sight);
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -446,6 +457,9 @@ public class CountryAgent extends VesnaAgent {
             case "day_update":
                 handle_day_update(sight);
                 break;
+            case "neighbor_nations_update":
+                handle_neighbor_nations_update(sight);
+                break;
             case "resource_change":
                 handle_resource_change(sight);
                 break;
@@ -460,6 +474,9 @@ public class CountryAgent extends VesnaAgent {
                 break;
             case "another_new_my_armie":
                 handle_another_new_my_armie(sight);
+                break;
+            case "enemy_province_defense_update":
+                handle_enemy_province_defense_update(sight);
                 break;
             case "province_morale_update":
                 handle_province_morale_update(sight);

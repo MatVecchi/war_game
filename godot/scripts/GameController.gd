@@ -27,6 +27,7 @@ const CONQUERED_PROVINCE_MORALE: int = 25
 const MAX_POINTS: int = 200
 @export var time_multiplier: float = 1.0
 @export var game_length: int = 30
+@export var hud_enabled: bool = true
 @onready var global_timer: Timer = $GlobalTimer
 @onready var global_hour_timer: Timer = $GlobalHourTimer
 @onready var global_day_timer: Timer = $GlobalDayTimer
@@ -47,12 +48,7 @@ func _create_fog() -> void:
 	fog_material.set_shader_parameter("color_small", FOG_OF_WAR_INNER_CIRCLE_COLOR)
 	fog_material.set_shader_parameter("big_radius_multiplier", FOG_OF_WAR_OUTER_CIRCLE_RADIUS_MULTIPLIER)
 
-func _fog_add_circle(army: Army, pos: Vector2, radius: float) -> void:
-	fog_circles[army] = {
-		"position": pos + Vector2(fog_image.get_size()) / 2 + (fog_sprite.global_position * Vector2(-1.0, -1.0)),
-		"radius": radius
-	}
-	
+func _fog_flush_shader() -> void:
 	var circles_position: Array[Vector2] = []
 	var circles_radius: Array[float] = []
 	
@@ -63,6 +59,14 @@ func _fog_add_circle(army: Army, pos: Vector2, radius: float) -> void:
 	fog_material.set_shader_parameter("circle_count", len(fog_circles))
 	fog_material.set_shader_parameter("pos", circles_position)
 	fog_material.set_shader_parameter("small_radius", circles_radius)
+
+func _fog_add_circle(army: Army, pos: Vector2, radius: float, update_shader: bool = true) -> void:
+	fog_circles[army] = {
+		"position": pos + Vector2(fog_image.get_size()) / 2 + (fog_sprite.global_position * Vector2(-1.0, -1.0)),
+		"radius": radius
+	}
+	if update_shader:
+		_fog_flush_shader()
 	
 func _fog_clear_circles() -> void:
 	fog_circles.clear()
@@ -71,18 +75,8 @@ func _fog_clear_circles() -> void:
 	fog_material.set_shader_parameter("small_radius", [])
 	
 func _fog_del_circle(army: Army) -> void:
-	fog_circles.erase(army)
-	
-	var circles_position: Array[Vector2] = []
-	var circles_radius: Array[float] = []
-	
-	for el in fog_circles:
-		circles_position.append(fog_circles[el]["position"])
-		circles_radius.append(fog_circles[el]["radius"])
-	
-	fog_material.set_shader_parameter("circle_count", len(fog_circles))
-	fog_material.set_shader_parameter("pos", circles_position)
-	fog_material.set_shader_parameter("small_radius", circles_radius)
+	if fog_circles.erase(army):
+		_fog_flush_shader()
 	
 func _fog_map_circles() -> void:
 	var armies: Array[Variant]
@@ -92,21 +86,12 @@ func _fog_map_circles() -> void:
 		armies = view.armies
 	_fog_clear_circles()
 	for army: Army in armies:
-		_fog_add_circle(army, army.global_position, army.VISION_RANGE)
+		_fog_add_circle(army, army.global_position, army.VISION_RANGE, false)
+	_fog_flush_shader()
 	
 func _fog_update_circle_position(army: Army, new_pos: Vector2) -> void:
 	if not fog_circles.has(army): return
 	fog_circles[army]["position"] = new_pos + Vector2(fog_image.get_size()) / 2 + (fog_sprite.global_position * Vector2(-1.0, -1.0))
-	
-	var circles_position: Array[Vector2] = []
-	var circles_radius: Array[float] = []
-	
-	for el in fog_circles:
-		circles_position.append(fog_circles[el]["position"])
-		circles_radius.append(fog_circles[el]["radius"])
-	
-	fog_material.set_shader_parameter("pos", circles_position)
-	fog_material.set_shader_parameter("small_radius", circles_radius)
 
 func _ready() -> void:
 	Engine.time_scale = time_multiplier
@@ -135,7 +120,8 @@ func _ready() -> void:
 			if Enums.Buildings.CAPITAL in province.buildings and capital == null:
 				capital = province
 			elif Enums.Buildings.CAPITAL in province.buildings:
-				province.buildings.remove_at(province.buildings.find(Enums.Buildings.CAPITAL))
+				province.buildings.erase(Enums.Buildings.CAPITAL)
+				province.update_capital_ui()
 	leaderboard.sort_custom(_sort_leaderboard)
 	
 	_create_hud()
@@ -145,7 +131,6 @@ func _ready() -> void:
 	_create_fog()
 	_fog_map_circles()
 	_set_provinces_color()
-	global_timer.timeout.connect(_on_global_timer_timeout)
 
 func _set_provinces_color() -> void:
 	if view == null:
@@ -195,6 +180,7 @@ func _on_global_timer_timeout() -> void:
 		armies = view.armies
 	for el: Army in armies:
 		_fog_update_circle_position(el, el.global_position)
+	_fog_flush_shader()
 		
 	var players = get_tree().get_nodes_in_group("players")
 	for player: Agent in players:
@@ -238,10 +224,47 @@ func _on_relations_changed(_from_player: Agent, _to_player: Agent) -> void:
 	
 func _sort_leaderboard(a, b):
 	return a["points"] > b["points"]
+	
+func notify_province_defense_change(province: Province) -> void:
+	if not is_instance_valid(province): return
+	var agents = get_tree().get_nodes_in_group("players")
+	for agent in agents:
+		if agent is Agent:
+			agent.dispatch_province_defense_update(province)
 
-func add_army_to_province(province: Province, army: Army = null, sn: int = 10) -> void:
+func register_army(army: Army) -> void:
+	if not is_instance_valid(army): return
+	if not army.army_destroyed.is_connected(_on_army_destroyed):
+		army.army_destroyed.connect(_on_army_destroyed)
+	if not army.became_known.is_connected(_on_army_became_known):
+		army.became_known.connect(_on_army_became_known)
+	if not army.became_perfectly_known.is_connected(_on_army_became_perfectly_known):
+		army.became_perfectly_known.connect(_on_army_became_perfectly_known)
+	if not army.became_unknown.is_connected(_on_army_became_unknown):
+		army.became_unknown.connect(_on_army_became_unknown)
+	
+	if army.player == view or view == null:
+		_fog_add_circle(army, army.global_position, army.VISION_RANGE)
+	
+	if army.player != view and view != null:
+		army.hide()
+	army.queue_redraw()
+
+func add_army_to_province(province: Province, army: Army = null, sn: int = 10, force_new: bool = false) -> Army:
 	var agent: Agent = province.get_parent()
 	if army == null:
+		if not force_new and is_instance_valid(agent):
+			for existing in agent.armies:
+				if is_instance_valid(existing) and not existing.travelling:
+					if existing.province_location == province or existing.global_position.distance_to(province.to_global(province.get_city_position())) < 30.0:
+						existing.province_location = province
+						existing.soldier_number += sn
+						existing.life_points += existing.LIFE_PER_UNIT * sn * (float(province.province_morale)/100)
+						existing.queue_redraw()
+						agent.dispatch_my_army_update(existing)
+						notify_province_defense_change(province)
+						return existing
+		
 		var paths: Array[Node] = get_tree().get_nodes_in_group("paths")
 		var army_scene = preload("res://scenes/army.tscn")
 		army = army_scene.instantiate()
@@ -250,9 +273,8 @@ func add_army_to_province(province: Province, army: Army = null, sn: int = 10) -
 		army.soldier_number = sn
 		army.life_points = army.LIFE_PER_UNIT * sn * (float(province.province_morale)/100)
 		army.player = agent
+		army.province_location = province
 		agent.armies.append(army)
-		if is_instance_valid(agent):
-			agent.dispatch_my_army_update(army)
 
 		for el in paths:
 			if el is Path2D:
@@ -267,24 +289,37 @@ func add_army_to_province(province: Province, army: Army = null, sn: int = 10) -
 						break
 				if found:
 					break
-	army.army_destroyed.connect(_on_army_destroyed)
-	army.became_known.connect(_on_army_became_known)
-	army.became_perfectly_known.connect(_on_army_became_perfectly_known)
-	army.became_unknown.connect(_on_army_became_unknown)
-	
-	if army.player == view or view == null:
-		_fog_add_circle(army, army.global_position, army.VISION_RANGE)
-	
-	if agent != view and view != null:
-		army.hide()
-	army.queue_redraw()
+		if is_instance_valid(agent):
+			agent.dispatch_my_army_update(army)
+	register_army(army)
+	notify_province_defense_change(province)
+	return army
+
+var hud_canvas_layer: CanvasLayer = null
+
+func _unhandled_input(event: InputEvent) -> void:
+	if event.is_action_pressed("toggle_hud"):
+		toggle_hud()
+
+func toggle_hud() -> void:
+	if hud:
+		hud_enabled = not hud.visible
+		hud.visible = hud_enabled
+		if hud_canvas_layer:
+			hud_canvas_layer.visible = hud_enabled
+	elif hud_scene:
+		hud_enabled = true
+		_create_hud()
 
 func _create_hud():
-	var canvas_layer = CanvasLayer.new()
-	hud = hud_scene.instantiate()
-	canvas_layer.add_child(hud)
-	hud.view_changed.connect(_on_view_changed)
-	get_tree().current_scene.add_child(canvas_layer)
+	if hud_scene:
+		hud_canvas_layer = CanvasLayer.new()
+		hud = hud_scene.instantiate()
+		hud_canvas_layer.add_child(hud)
+		hud.view_changed.connect(_on_view_changed)
+		get_tree().current_scene.add_child(hud_canvas_layer)
+		hud_canvas_layer.visible = hud_enabled
+		hud.visible = hud_enabled
 	
 func conquer_province(province: Province, agent: Agent, is_riot: bool=false) -> void:
 	var previous_player: Agent = province.get_parent()
@@ -306,38 +341,59 @@ func conquer_province(province: Province, agent: Agent, is_riot: bool=false) -> 
 	previous_player.update_name_position()
 	agent.update_name_position()
 
+	var prov_owner = province.get_parent()
+
+	if Enums.Buildings.CAPITAL in province.buildings:
+		province.buildings.erase(Enums.Buildings.CAPITAL)
+		province.update_capital_ui()
+		province.queue_redraw()
+
+	if not is_riot:
+		province.province_morale = CONQUERED_PROVINCE_MORALE
+		province.conquered = true
+	else:
+		for army in previous_player.armies:
+			if army.global_position == province.get_city_global_position():
+				army.player = prov_owner
+				previous_player.armies.erase(army)
+		print("province riot")
+
+	if hud and selected_province == province:
+		hud.show_province_details(province)
+
+	_send_province_update_to_all(province)
+	for neighbor in province.neighbors:
+		if neighbor is Province:
+			_send_province_update_to_all(neighbor)
+	for p in get_tree().get_nodes_in_group("players"):
+		if p is Agent:
+			p.dispatch_neighbor_nations_update()
+	check_victory_conditions()
+
+func _send_province_update_to_all(target_prov: Province) -> void:
+	if not is_instance_valid(target_prov): return
+	var target_owner = target_prov.get_parent()
 	var players = get_tree().get_nodes_in_group("players")
+	var city_pos = target_prov.to_global(target_prov.get_city_position())
+	
 	for player in players:
 		if player is Agent:
 			var bordering_allies = []
-			for neighbor in province.neighbors:
-				if neighbor.get_parent() == player:
-					bordering_allies.append(neighbor.name)
+			for neighbor in target_prov.neighbors:
+				if neighbor is Province:
+					var np = neighbor.get_parent()
+					if np is Agent and (np == player or np in player.player_in_alliance):
+						bordering_allies.append(neighbor.name)
 					
 			var has_army = false
-			var defense_value = 0.0
-			var prov_owner = province.get_parent()
-			var army_in_province: Army
-			if prov_owner is Agent:
-				for army in prov_owner.armies:
-					if not is_instance_valid(army): continue
-					if army.province_location == province:
+			var defense_value = 0.0 
+			for army in get_tree().get_nodes_in_group("armies"):
+				if not is_instance_valid(army): continue
+				if army.player is Agent and army.player != player and (army.player not in player.player_in_alliance):
+					if army.province_location == target_prov or (not army.travelling and army.global_position.distance_to(city_pos) < 20.0):
 						has_army = true
-						defense_value += (army.soldier_number * army.DEFENSE_PER_UNIT) * army.life_points / (army.soldier_number * army.LIFE_PER_UNIT)
-			
-			if Enums.Buildings.CAPITAL in province.buildings:
-				province.buildings.erase(Enums.Buildings.CAPITAL)
-
-			if not is_riot:
-				province.province_morale = CONQUERED_PROVINCE_MORALE
-				province.conquered = true
-			else:
-				for army in previous_player.armies:
-					if army.global_position == province.get_city_global_position():
-						army.player = prov_owner
-						previous_player.armies.erase(army)
-				print("province riot")
-
+						if army.soldier_number > 0:
+							defense_value += (army.soldier_number * army.DEFENSE_PER_UNIT) * army.life_points / (army.soldier_number * army.LIFE_PER_UNIT)
 
 			var msg: Dictionary = {
 				"type": "sight",
@@ -345,21 +401,20 @@ func conquer_province(province: Province, agent: Agent, is_riot: bool=false) -> 
 				"receiver": player.name,
 				"data": {
 					"type": "province_owner_update",
-					"id": province.name,
-					"owner": prov_owner.name,
-					"morale": province.province_morale,
-					"x": province.to_global(province.get_city_position()).x,
-					"y": province.to_global(province.get_city_position()).y,
+					"id": target_prov.name,
+					"owner": target_owner.name if is_instance_valid(target_owner) else "",
+					"morale": target_prov.province_morale,
+					"x": city_pos.x,
+					"y": city_pos.y,
 					"has_army": has_army,
 					"defense_value": defense_value,
 					"bordering_allies": bordering_allies,
-					"is_capital": Enums.Buildings.CAPITAL in province.buildings,
-					"is_double": province.double_material,
-					"resource": Enums.Resources.keys()[province.province_material].to_lower()
+					"is_capital": Enums.Buildings.CAPITAL in target_prov.buildings,
+					"is_double": target_prov.double_material,
+					"resource": Enums.Resources.keys()[target_prov.province_material].to_lower()
 				}
 			}
 			player.send_vesna_message(msg)
-	check_victory_conditions()
 	
 func get_collision_rect_size(poly: Polygon2D) -> Vector2:
 	var pts = poly.polygon
@@ -423,7 +478,85 @@ func select_province(province: Province) -> void:
 func on_clear_province() -> void:
 	if selected_province != null and is_instance_valid(selected_province):
 		selected_province.fill.modulate = Color.WHITE
+		if Enums.Buildings.CAPITAL not in selected_province.buildings:
+			selected_province.province_name_label.hide()
 		selected_province = null
 		if hud:
 			hud.show_province_details(null)
-		
+
+var pending_peace_votes: Dictionary = {}
+
+func get_war_coalition(agent: Agent, enemy: Agent) -> Array[Agent]:
+	var coalition: Array[Agent] = [agent]
+	for ally in agent.player_in_alliance:
+		if ally is Agent and ally in enemy.player_in_war and not (ally in coalition):
+			coalition.append(ally)
+	return coalition
+
+func get_war_front_key(agent_a: Agent, agent_b: Agent) -> String:
+	var side_a = get_war_coalition(agent_a, agent_b)
+	var side_b = get_war_coalition(agent_b, agent_a)
+	var names_a: Array[String] = []
+	for a in side_a:
+		names_a.append(a.name)
+	names_a.sort()
+	var names_b: Array[String] = []
+	for b in side_b:
+		names_b.append(b.name)
+	names_b.sort()
+	var str_a = ",".join(names_a)
+	var str_b = ",".join(names_b)
+	var sides = [str_a, str_b]
+	sides.sort()
+	return sides[0] + " VS " + sides[1]
+
+func register_peace_request(requester: Agent, target: Agent) -> void:
+	var key = get_war_front_key(requester, target)
+	if not pending_peace_votes.has(key):
+		pending_peace_votes[key] = {}
+	pending_peace_votes[key][requester] = true
+
+func register_peace_vote(voter: Agent, target: Agent) -> void:
+	var side_a = get_war_coalition(voter, target)
+	var side_b = get_war_coalition(target, voter)
+	var key = get_war_front_key(voter, target)
+	if not pending_peace_votes.has(key):
+		pending_peace_votes[key] = {}
+	pending_peace_votes[key][voter] = true
+	
+	var all_agreed = true
+	for m in side_a:
+		if not pending_peace_votes[key].get(m, false):
+			all_agreed = false
+			break
+	if all_agreed:
+		for m in side_b:
+			if not pending_peace_votes[key].get(m, false):
+				all_agreed = false
+				break
+				
+	if all_agreed:
+		pending_peace_votes.erase(key)
+		for a in side_a:
+			for b in side_b:
+				if is_instance_valid(a) and is_instance_valid(b) and (b in a.player_in_war):
+					a.make_peace(b)
+
+func register_peace_decline(decliner: Agent, target: Agent) -> void:
+	var side_a = get_war_coalition(decliner, target)
+	var side_b = get_war_coalition(target, decliner)
+	var key = get_war_front_key(decliner, target)
+	pending_peace_votes.erase(key)
+	
+	for enemy in side_b:
+		if is_instance_valid(enemy):
+			var msg: Dictionary = {
+				"type": "sight",
+				"sender": "body",
+				"receiver": enemy.name,
+				"data": {
+					"type": "peace_request_declined",
+					"sender": decliner.name
+				}
+			}
+			enemy.send_vesna_message(msg)
