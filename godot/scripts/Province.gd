@@ -118,6 +118,7 @@ func _ready():
 		recruit_center.state = Enums.BuildingStates.FUNCTIONING
 		buildings.get_or_add(Enums.Buildings.RECRUIT_CENTER, recruit_center)
 		
+	update_capital_ui()
 	current_army_timer = _calculate_army_generation_wait()
 	_update_army_timer(current_army_timer)
 
@@ -225,7 +226,7 @@ func get_shared_edges(poly1: PackedVector2Array, poly2: PackedVector2Array, epsi
 
 	return shared
 
-func _draw():
+func update_capital_ui() -> void:
 	if province_name_capital_label:
 		province_name_capital_label.text = name
 	if province_name_label:
@@ -234,6 +235,20 @@ func _draw():
 	if Enums.Buildings.CAPITAL in buildings:
 		if province_name_capital_container:
 			province_name_capital_container.show()
+		if province_name_label:
+			province_name_label.hide()
+	else:
+		if province_name_capital_container:
+			province_name_capital_container.hide()
+		if province_name_label:
+			var game: GameController = get_tree().current_scene
+			if is_instance_valid(game) and game.selected_province == self:
+				province_name_label.show()
+			else:
+				province_name_label.hide()
+
+func _draw():
+	update_capital_ui()
 		
 func _on_global_timer_timeout() -> void:
 	target_morale = min(100, 100 - _get_total_morale_penalties() + _get_total_morale_bonuses())
@@ -351,6 +366,7 @@ func _update_army_timer(val: float) -> void:
 func _on_army_timer_timeout() -> void:
 	current_army_timer = _calculate_army_generation_wait()
 	army_timer.wait_time = current_army_timer
+	var game: GameController = get_tree().current_scene
 	for el: Army in get_parent().armies:
 		if el.global_position != to_global(get_city_position()): continue
 		el.soldier_number += 1
@@ -359,10 +375,13 @@ func _on_army_timer_timeout() -> void:
 		var agent = get_parent()
 		if agent is Agent:
 			agent.dispatch_my_army_update(el)
+		if game != null:
+			game.notify_province_defense_change(self)
 		return
 	
-	var game: GameController = get_tree().current_scene
-	game.add_army_to_province(self, null, 1)
+	if game != null:
+		game.add_army_to_province(self, null, 1)
+		game.notify_province_defense_change(self)
 	
 func get_daily_resource_count() -> int:
 	var resource_to_add: int = (province_morale * 24) + 750
@@ -443,6 +462,7 @@ func get_city_global_position() -> Vector2:
 	return to_global(city_node.position)
 	
 func get_province_paths():
+	if not is_inside_tree(): return []
 	var global_paths = get_tree().get_nodes_in_group("paths")
 	var paths = []
 	for el in global_paths:
@@ -458,21 +478,25 @@ func get_province_paths():
 	return paths
 	
 func _notification(what: int) -> void:
-	if get_tree() == null: return
-	if what == NOTIFICATION_PARENTED:
-		for path in get_province_paths():
-				var graph_node_key = 0
-				if path[1] != Vector2.ZERO:
-					graph_node_key = 1
-				
-				var node_id = get_parent().path_to_graph[path[0]][graph_node_key]
-				get_parent().routes.set_point_weight_scale(node_id, 1.0)
-				
-				var players = get_tree().get_nodes_in_group("players")
-				for player in players:
-					if player == get_parent(): continue
-					var enemy_node_id = player.path_to_graph[path[0]][graph_node_key]
-					player.routes.set_point_weight_scale(enemy_node_id, 1.5)
+	if what != NOTIFICATION_PARENTED: return
+	if not is_inside_tree(): return
+	var parent = get_parent()
+	if parent == null or not (parent is Agent): return
+	for path in get_province_paths():
+		var graph_node_key = 0
+		if path[1] != Vector2.ZERO:
+			graph_node_key = 1
+		
+		if path[0] in parent.path_to_graph:
+			var node_id = parent.path_to_graph[path[0]][graph_node_key]
+			parent.routes.set_point_weight_scale(node_id, 1.0)
+		
+		var players = get_tree().get_nodes_in_group("players")
+		for player in players:
+			if player == parent: continue
+			if player is Agent and path[0] in player.path_to_graph:
+				var enemy_node_id = player.path_to_graph[path[0]][graph_node_key]
+				player.routes.set_point_weight_scale(enemy_node_id, 1.5)
 					
 func toggle_selection() -> bool:
 	selected = not selected

@@ -37,7 +37,6 @@ var known_armies: Dictionary[Army, int] = {}
 var _last_watched_army_destinations: Dictionary[Army, Vector2] = {}
 var player_in_war: Array[Agent] = []
 var player_in_alliance: Array[Agent] = []
-var accepted_peace_requests: Dictionary = {}
 var armies: Array[Army] = []
 var next_army_id: int = 0
 var tcp_server := TCPServer.new()
@@ -45,6 +44,7 @@ var ws := WebSocketPeer.new()
 var end_communication: bool = true
 var _last_ws_state = WebSocketPeer.STATE_CLOSED
 var _message_queue: Array[Dictionary] = []
+var _cached_province_distances: Dictionary = {}
 
 const MAX_ALLIANCES: int = 1
 
@@ -55,6 +55,9 @@ const MAX_ALLIANCES: int = 1
 
 
 func _ready() -> void:
+	ws.outbound_buffer_size = 2097152
+	ws.inbound_buffer_size = 2097152
+	ws.max_queued_packets = 4096
 	add_to_group("players")
 	await get_tree().process_frame
 	var paths: Array[Node] = get_tree().get_nodes_in_group("paths")
@@ -137,6 +140,9 @@ func _process(_delta: float) -> void:
 	while tcp_server.is_connection_available():
 		var conn : StreamPeerTCP = tcp_server.take_connection()
 		assert( conn != null )
+		ws.outbound_buffer_size = 2097152
+		ws.inbound_buffer_size = 2097152
+		ws.max_queued_packets = 4096
 		ws.accept_stream( conn )
 		
 	ws.poll()
@@ -191,40 +197,22 @@ func manage(message: Dictionary) -> void:
 			var players = get_tree().get_nodes_in_group("players")
 			for p in players:
 				if p.name == target_name:
-					var alliance_block = [p]
-					for ally in p.player_in_alliance:
-						if ally in player_in_war:
-							alliance_block.append(ally)
-					
-					if alliance_block.size() == 1:
-						make_peace(p)
+					var game: GameController = get_tree().current_scene
+					if game:
+						game.register_peace_vote(self, p)
 					else:
-						accepted_peace_requests[p] = true
-						var all_accepted = true
-						for member in alliance_block:
-							if not accepted_peace_requests.get(member, false):
-								all_accepted = false
-								break
-						if all_accepted:
-							for member in alliance_block:
-								make_peace(member)
-								accepted_peace_requests.erase(member)
+						make_peace(p)
 					break
 		elif action_type == "decline_peace":
 			var target_name = data.get("target")
 			var players = get_tree().get_nodes_in_group("players")
 			for p in players:
 				if p.name == target_name:
-					var alliance_block = [p]
-					for ally in p.player_in_alliance:
-						if ally in player_in_war:
-							alliance_block.append(ally)
-					
-					decline_peace(p)
-					for member in alliance_block:
-						accepted_peace_requests.erase(member)
-						if member != p:
-							decline_peace(member)
+					var game: GameController = get_tree().current_scene
+					if game:
+						game.register_peace_decline(self, p)
+					else:
+						decline_peace(p)
 					break
 		elif action_type == "request_alliance":
 			var target_name = data.get("target")
@@ -306,27 +294,6 @@ func dispatch_my_army_update(army: Army) -> void:
 	var loc_name = ""
 	if army.province_location != null and army.province_location is Province:
 		loc_name = army.province_location.name
-		
-	var all_provinces: Array[Province] = []
-	for node in get_tree().get_nodes_in_group("provinces"):
-		if node is Province:
-			all_provinces.append(node)
-			
-	var distances = {}
-	for allied_prov in all_provinces:
-		if allied_prov.get_parent() == self:
-			var start: int = routes.get_closest_point(army.global_position)
-			var target: int = routes.get_closest_point(allied_prov.to_global(allied_prov.get_city_position()))
-			var path_points = routes.get_id_path(start, target, false)
-			var dist = 0.0
-			if len(path_points) > 0:
-				for j in range(len(path_points) - 1):
-					var p1 = routes.get_point_position(path_points[j])
-					var p2 = routes.get_point_position(path_points[j+1])
-					dist += p1.distance_to(p2)
-			else:
-				dist = 999999.0
-			distances[allied_prov.name] = dist
 
 	var attack_value = (army.soldier_number * army.ATTACK_PER_UNIT) * army.life_points / (army.soldier_number * army.LIFE_PER_UNIT) if army.soldier_number > 0 else 0.0
 
@@ -342,14 +309,13 @@ func dispatch_my_army_update(army: Army) -> void:
 			"life": army.life_points,
 			"attack_value": attack_value,
 			"location": loc_name,
-			"distances": distances,
 			"travelling": army.travelling,
 			"target_province": army.target_province.name if army.target_province != null else ""
 		}
 	}
 	send_vesna_message(msg)
 
-func _on_watched_army_movement(army: Army, next_pos: Vector2) -> void:
+func _on_watched_army_movement(next_pos: Vector2, army: Army) -> void:
 	if not is_instance_valid(army): return
 	if army.player in player_in_alliance: return
 	
@@ -385,6 +351,29 @@ func _on_watched_army_movement(army: Army, next_pos: Vector2) -> void:
 		}
 		send_vesna_message(msg)
 
+func _calculate_nation_strengths() -> Dictionary:
+	var strengths = {}
+	var players = get_tree().get_nodes_in_group("players")
+	var global_soldiers = 0
+	var player_soldiers = {}
+	
+	for p in players:
+		if p is not Agent: continue
+		var strength = 0
+		for a in p.armies:
+			if not is_instance_valid(a): continue
+			strength += a.soldier_number
+		player_soldiers[p.name] = strength
+		global_soldiers += strength
+		
+	for p in players:
+		if p is not Agent: continue
+		var power = 0.0
+		if global_soldiers > 0:
+			power = (float(player_soldiers[p.name]) / global_soldiers) * 100.0
+		strengths[p.name] = int(round(power))
+	return strengths
+
 func _on_global_day_timer_timeout() -> void:
 	var game: GameController = get_tree().current_scene
 	var msg: Dictionary = {
@@ -393,11 +382,11 @@ func _on_global_day_timer_timeout() -> void:
 		"receiver": self.name,
 		"data": {
 			"type": "day_update",
-			"day": game.day_cycle
+			"day": game.day_cycle,
+			"nation_strengths": _calculate_nation_strengths()
 		}
 	}
 	send_vesna_message(msg)
-	send_initial_state()
 
 func _on_match_over() -> void:
 	var msg: Dictionary = {
@@ -639,16 +628,22 @@ func declare_war(player: Agent) -> void:
 	
 	if player in player_in_alliance:
 		player_in_alliance.erase(player)
-		var break_msg: Dictionary = {
-			"type": "sight",
-			"sender": "body",
-			"receiver": self.name,
-			"data": {
-				"type": "alliance_broken",
-				"nation": player.name
-			}
-		}
-		send_vesna_message(break_msg)
+		player.player_in_alliance.erase(self)
+		for p in get_tree().get_nodes_in_group("players"):
+			if p is Agent:
+				var break_msg: Dictionary = {
+					"type": "sight",
+					"sender": "body",
+					"receiver": p.name,
+					"data": {
+						"type": "alliance_broken",
+						"nation1": self.name,
+						"nation2": player.name
+					}
+				}
+				p.send_vesna_message(break_msg)
+		dispatch_neighbor_nations_update()
+		player.dispatch_neighbor_nations_update()
 		
 	# Implicitly declare war on target's allies
 	var target_allies = []
@@ -674,17 +669,22 @@ func declare_war(player: Agent) -> void:
 		declare_war(ally)
 	
 func request_peace(player: Agent) -> void:
+	var game: GameController = get_tree().current_scene
+	var target_coalition: Array[Agent] = game.get_war_coalition(player, self) if game else [player]
+	if game:
+		game.register_peace_request(self, player)
 	emit_signal("peace_requested", self, player)
-	var msg: Dictionary = {
-		"type": "sight",
-		"sender": "body",
-		"receiver": player.name,
-		"data": {
-			"type": "peace_request_received",
-			"sender": self.name
+	for target in target_coalition:
+		var msg: Dictionary = {
+			"type": "sight",
+			"sender": "body",
+			"receiver": target.name,
+			"data": {
+				"type": "peace_request_received",
+				"sender": self.name
+			}
 		}
-	}
-	player.send_vesna_message(msg)
+		target.send_vesna_message(msg)
 
 func decline_peace(player: Agent) -> void:
 	var msg: Dictionary = {
@@ -781,24 +781,44 @@ func make_alliance(player: Agent, is_symmetric_call: bool = false) -> void:
 	if player in player_in_alliance: return
 	
 	if not is_symmetric_call:
-		if len(player_in_alliance) >= MAX_ALLIANCES or len(player.player_in_alliance) >= MAX_ALLIANCES: return
+		if len(player_in_alliance) >= MAX_ALLIANCES or len(player.player_in_alliance) >= MAX_ALLIANCES:
+			var msg: Dictionary = {
+				"type": "sight",
+				"sender": "body",
+				"receiver": self.name,
+				"data": {
+					"type": "alliance_request_declined",
+					"sender": player.name
+				}
+			}
+			send_vesna_message(msg)
+			return
 
 	player_in_alliance.append(player)
 	if not is_symmetric_call:
 		player.make_alliance(self, true)
+		emit_signal("alliance_established", self, player)
+		for p in get_tree().get_nodes_in_group("players"):
+			if p is Agent:
+				var msg: Dictionary = {
+					"type": "sight",
+					"sender": "body",
+					"receiver": p.name,
+					"data": {
+						"type": "alliance_established",
+						"nation1": self.name,
+						"nation2": player.name
+					}
+				}
+				p.send_vesna_message(msg)
+		dispatch_neighbor_nations_update()
+		player.dispatch_neighbor_nations_update()
 
-	emit_signal("alliance_established", self, player)
-
-	var msg: Dictionary = {
-		"type": "sight",
-		"sender": "body",
-		"receiver": self.name,
-		"data": {
-			"type": "alliance_established",
-			"nation": player.name
-		}
-	}
-	send_vesna_message(msg)
+		var game: GameController = get_tree().current_scene
+		if game != null:
+			for prov in get_tree().get_nodes_in_group("provinces"):
+				if prov is Province:
+					game._send_province_update_to_all(prov)
 
 func add_known_army(army: Army) -> void:
 	if not army.movement_updated.is_connected(_on_watched_army_movement.bind(army)):
@@ -806,7 +826,7 @@ func add_known_army(army: Army) -> void:
 		if army.travelling:
 			var next_pos = army._get_next_path_position()
 			if next_pos != Vector2.ZERO:
-				_on_watched_army_movement(army, next_pos)
+				_on_watched_army_movement(next_pos, army)
 	
 	if not army.army_destroyed.is_connected(_on_army_destroyed):
 		army.army_destroyed.connect(_on_army_destroyed)
@@ -840,7 +860,7 @@ func add_perfectly_known_army(army: Army):
 		if army.travelling:
 			var next_pos = army._get_next_path_position()
 			if next_pos != Vector2.ZERO:
-				_on_watched_army_movement(army, next_pos)
+				_on_watched_army_movement(next_pos, army)
 				
 	if not army.army_destroyed.is_connected(_on_army_destroyed):
 		army.army_destroyed.connect(_on_army_destroyed)
@@ -894,6 +914,35 @@ func add_resource(resource: Enums.Resources, qnt: int):
 		}
 		send_vesna_message(msg)
 
+func dispatch_province_defense_update(province: Province) -> void:
+	if not is_instance_valid(province): return
+	var prov_owner = province.get_parent()
+	if prov_owner == self: return
+	
+	var has_army = false
+	var defense_value = 0.0
+	var city_pos = province.to_global(province.get_city_position())
+	for army in get_tree().get_nodes_in_group("armies"):
+		if not is_instance_valid(army): continue
+		if army.player != self and (army.player not in player_in_alliance):
+			if army.province_location == province or (not army.travelling and army.global_position.distance_to(city_pos) < 20.0):
+				has_army = true
+				if army.soldier_number > 0:
+					defense_value += (army.soldier_number * army.DEFENSE_PER_UNIT) * army.life_points / (army.soldier_number * army.LIFE_PER_UNIT)
+					
+	var msg: Dictionary = {
+		"type": "sight",
+		"sender": "body",
+		"receiver": self.name,
+		"data": {
+			"type": "enemy_province_defense_update",
+			"id": province.name,
+			"has_army": has_army,
+			"defense_value": defense_value
+		}
+	}
+	send_vesna_message(msg)
+
 func send_initial_state() -> void:
 	if ws.get_ready_state() != WebSocketPeer.STATE_OPEN: return
 	
@@ -920,17 +969,21 @@ func send_initial_state() -> void:
 		else:
 			var bordering_allies = []
 			for neighbor in province.neighbors:
-				if neighbor.get_parent() == self:
-					bordering_allies.append(neighbor.name)
+				if neighbor is Province:
+					var np = neighbor.get_parent()
+					if np is Agent and (np == self or np in player_in_alliance):
+						bordering_allies.append(neighbor.name)
 					
 			var has_army = false
 			var defense_value = 0.0
-			if prov_owner is Agent:
-				for army in prov_owner.armies:
-					if not is_instance_valid(army): continue
-					if army.province_location == province:
+			var city_pos = province.to_global(province.get_city_position())
+			for army in get_tree().get_nodes_in_group("armies"):
+				if not is_instance_valid(army): continue
+				if army.player is Agent and army.player != self and (army.player not in player_in_alliance):
+					if army.province_location == province or (not army.travelling and army.global_position.distance_to(city_pos) < 20.0):
 						has_army = true
-						defense_value += (army.soldier_number * army.DEFENSE_PER_UNIT) * army.life_points / (army.soldier_number * army.LIFE_PER_UNIT)
+						if army.soldier_number > 0:
+							defense_value += (army.soldier_number * army.DEFENSE_PER_UNIT) * army.life_points / (army.soldier_number * army.LIFE_PER_UNIT)
 			
 			enemy_provinces_data.append({
 				"id": province.name,
@@ -945,93 +998,8 @@ func send_initial_state() -> void:
 				"resource": Enums.Resources.keys()[province.province_material].to_lower()
 			})
 
-	var my_armies_data = []
-	for army in armies:
-		if not is_instance_valid(army): continue
-		var loc_name = ""
-		if army.province_location != null and army.province_location is Province:
-			loc_name = army.province_location.name
-			
-		var distances = {}
-		for allied_prov in all_provinces:
-			if allied_prov.get_parent() == self:
-				var start: int = routes.get_closest_point(army.global_position)
-				var target: int = routes.get_closest_point(allied_prov.to_global(allied_prov.get_city_position()))
-				var path_points = routes.get_id_path(start, target, false)
-				var dist = 0.0
-				if len(path_points) > 0:
-					for j in range(len(path_points) - 1):
-						var p1 = routes.get_point_position(path_points[j])
-						var p2 = routes.get_point_position(path_points[j+1])
-						dist += p1.distance_to(p2)
-				else:
-					dist = 999999.0
-				distances[allied_prov.name] = dist
-
-		my_armies_data.append({
-			"id": army.army_id,
-			"x": army.global_position.x,
-			"y": army.global_position.y,
-			"life": army.life_points,
-			"attack_value": (army.soldier_number * army.ATTACK_PER_UNIT) * army.life_points / (army.soldier_number * army.LIFE_PER_UNIT) if army.soldier_number > 0 else 0.0,
-			"location": loc_name,
-			"distances": distances,
-			"travelling": army.travelling,
-			"target_province": army.target_province.name if army.target_province != null else ""
-		})
-
-	var strengths = {}
-	var players = get_tree().get_nodes_in_group("players")
-	var global_soldiers = 0
-	var player_soldiers = {}
-	
-	for p in players:
-		if p is not Agent: continue
-		var strength = 0
-		for a in p.armies:
-			if not is_instance_valid(a): continue
-			strength += a.soldier_number
-		player_soldiers[p.name] = strength
-		global_soldiers += strength
-		
-	for p in players:
-		if p is not Agent: continue
-		var power = 0.0
-		if global_soldiers > 0:
-			power = (float(player_soldiers[p.name]) / global_soldiers) * 100.0
-		strengths[p.name] = int(round(power))
-
-	var neighbor_nations_dict = {}
-	for prov in get_children():
-		if prov is Province:
-			for neighbor_prov in prov.neighbors:
-				if neighbor_prov is Province and neighbor_prov.get_parent() != self:
-					var neighbor_agent = neighbor_prov.get_parent()
-					if neighbor_agent is Agent:
-						neighbor_nations_dict[neighbor_agent] = true
-
-	var neighbors_data = {}
-	for neighbor_agent in neighbor_nations_dict:
-		var res_production = {}
-		for n_prov in neighbor_agent.get_children():
-			if n_prov is Province:
-				var res_name = Enums.Resources.keys()[n_prov.province_material].to_lower()
-				var count = n_prov.get_daily_resource_count()
-				if res_production.has(res_name):
-					res_production[res_name] += count
-				else:
-					res_production[res_name] = count
-		neighbors_data[neighbor_agent.name] = res_production
-
-	var alliances_list = []
-	for p in players:
-		if p is Agent:
-			for ally in p.player_in_alliance:
-				if ally is Agent:
-					var pair = [p.name, ally.name]
-					pair.sort()
-					if not pair in alliances_list:
-						alliances_list.append(pair)
+	var strengths = _calculate_nation_strengths()
+	var neighbors_data = get_neighbor_nations_data()
 
 	var game: GameController = get_tree().current_scene
 	var game_rules_data = {
@@ -1051,41 +1019,96 @@ func send_initial_state() -> void:
 		"receiver": self.name,
 		"data": {
 			"type": "state_update",
-			"my_armies": my_armies_data,
 			"allied_provinces": allied_provinces_data,
 			"enemy_provinces": enemy_provinces_data,
+			"province_distances": get_province_distances_data(),
 			"nation_strengths": strengths,
-			"active_wars": len(player_in_war),
 			"neighbor_nations": neighbors_data,
 			"day": game.day_cycle,
-			"alliances": alliances_list,
 			"game_rules": game_rules_data
 		}
 	}
 	send_vesna_message(state)
-	
-	for res in resources:
-		var res_name = Enums.Resources.keys()[res].to_lower()
-		var msg: Dictionary = {
-			"type": "sight",
-			"sender": "body",
-			"receiver": self.name,
-			"data": {
-				"type": "resource_change",
-				"resource": res_name,
-				"amount": resources[res]
-			}
+
+func get_province_distances_data() -> Dictionary:
+	if not _cached_province_distances.is_empty():
+		return _cached_province_distances
+
+	var all_provinces: Array[Province] = []
+	for node in get_tree().get_nodes_in_group("provinces"):
+		if node is Province:
+			all_provinces.append(node)
+
+	for p1 in all_provinces:
+		var start: int = routes.get_closest_point(p1.to_global(p1.get_city_position()))
+		var p1_dict: Dictionary = {}
+		for p2 in all_provinces:
+			if p1 == p2:
+				p1_dict[p2.name] = 0.0
+			else:
+				var target: int = routes.get_closest_point(p2.to_global(p2.get_city_position()))
+				var path_points = routes.get_id_path(start, target, false)
+				var dist: float = 0.0
+				if len(path_points) > 0:
+					for j in range(len(path_points) - 1):
+						var pt1 = routes.get_point_position(path_points[j])
+						var pt2 = routes.get_point_position(path_points[j+1])
+						dist += pt1.distance_to(pt2)
+				else:
+					dist = 999999.0
+				p1_dict[p2.name] = snappedf(dist, 0.1)
+		_cached_province_distances[p1.name] = p1_dict
+
+	return _cached_province_distances
+
+func get_neighbor_nations_data() -> Dictionary:
+	var neighbor_nations_dict = {}
+	var alliance_provinces: Array[Province] = []
+	for child in get_children():
+		if child is Province:
+			alliance_provinces.append(child)
+	for ally in player_in_alliance:
+		if is_instance_valid(ally) and ally is Agent:
+			for child in ally.get_children():
+				if child is Province:
+					alliance_provinces.append(child)
+
+	for prov in alliance_provinces:
+		for neighbor_prov in prov.neighbors:
+			if neighbor_prov is Province:
+				var neighbor_agent = neighbor_prov.get_parent()
+				if neighbor_agent is Agent and neighbor_agent != self and (neighbor_agent not in player_in_alliance):
+					var has_prov = false
+					for child in neighbor_agent.get_children():
+						if child is Province:
+							has_prov = true
+							break
+					if has_prov:
+						neighbor_nations_dict[neighbor_agent] = true
+
+	var neighbors_data = {}
+	for neighbor_agent in neighbor_nations_dict:
+		var res_production = {}
+		for n_prov in neighbor_agent.get_children():
+			if n_prov is Province:
+				var res_name = Enums.Resources.keys()[n_prov.province_material].to_lower()
+				var count = n_prov.get_daily_resource_count()
+				if res_production.has(res_name):
+					res_production[res_name] += count
+				else:
+					res_production[res_name] = count
+		neighbors_data[neighbor_agent.name] = res_production
+	return neighbors_data
+
+func dispatch_neighbor_nations_update() -> void:
+	if ws.get_ready_state() != WebSocketPeer.STATE_OPEN: return
+	var msg: Dictionary = {
+		"type": "sight",
+		"sender": "body",
+		"receiver": self.name,
+		"data": {
+			"type": "neighbor_nations_update",
+			"neighbor_nations": get_neighbor_nations_data()
 		}
-		send_vesna_message(msg)
-		
-	for enemy in player_in_war:
-		var msg: Dictionary = {
-			"type": "sight",
-			"sender": "body",
-			"receiver": self.name,
-			"data": {
-				"type": "war_declared",
-				"nation": enemy.name
-			}
-		}
-		send_vesna_message(msg)
+	}
+	send_vesna_message(msg)
