@@ -1,37 +1,37 @@
 mas vesna {
-    agent russia:russia.asl {
+    agent austria-hungary:austria-hungary.asl {
         beliefs:    address( localhost )
                     port( 9080 )
         goals:      start
         ag-class:   vesna.CountryAgent
     }
 
-    agent ukraine:ukraine.asl {
+    agent italy:italy.asl {
         beliefs:    address( localhost )
                     port( 9081 )
         goals:      start
         ag-class:   vesna.CountryAgent
     }
 
-    agent lithuania:lithuania.asl {
+    agent the_german_empire:the_german_empire.asl {
         beliefs:    address( localhost )
                     port( 9082 )
         goals:      start
         ag-class:   vesna.CountryAgent
     }
-    agent finland:finland.asl {
+    agent france:france.asl {
         beliefs:    address( localhost )
                     port( 9083 )
         goals:      start
         ag-class:   vesna.CountryAgent
     }
-    agent sweden:sweden.asl {
+    agent spain:spain.asl {
         beliefs:    address( localhost )
                     port( 9084 )
         goals:      start
         ag-class:   vesna.CountryAgent
     }
-    agent norway:norway.asl {
+    agent united_kingdom:united_kingdom.asl {
         beliefs:    address( localhost )
                     port( 9085 )
         goals:      start
