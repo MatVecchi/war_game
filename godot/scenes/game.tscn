@@ -4319,6 +4319,378 @@ _data = {
 }
 point_count = 2
 
+[sub_resource type="Curve2D" id="Curve2D_cyjwx"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -849, 155, 0, 0, 0, 0, -844, 159)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_5ne4n"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -849, 155, 0, 0, 0, 0, -859, 164)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_ii6pf"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -849, 155, 0, 0, 0, 0, -870, 146)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_ck3nk"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -849, 155, 0, 0, 0, 0, -858, 140)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_0w58c"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -849, 155, 0, 0, 0, 0, -822, 149)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_coq50"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -849, 155, 0, 0, 0, 0, -840, 176)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_jokpc"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -937, 156, 0, 0, 0, 0, -883, 162)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_wpgil"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -894, 171, 0, 0, 0, 0, -883, 162)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_jl2ox"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -869, 169, 0, 0, 0, 0, -883, 162)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_g6pq0"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -869, 169, 0, 0, 0, 0, -887, 147)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_45knu"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -869, 169, 0, 0, 0, 0, -859, 164)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_l2pj7"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -869, 169, 0, 0, 0, 0, -869, 173)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_7jpyf"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -870, 146, 0, 0, 0, 0, -889, 139)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_ob0mt"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -887, 147, 0, 0, 0, 0, -889, 139)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_orh27"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -895, 119, 0, 0, 0, 0, -889, 139)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_3ab43"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -895, 119, 0, 0, 0, 0, -883, 92)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_7ofq4"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -875, 110, 0, 0, 0, 0, -883, 92)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_84csc"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -885, 85, 0, 0, 0, 0, -883, 92)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_sdrsc"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -885, 85, 0, 0, 0, 0, -882, 83)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_afo60"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -885, 85, 0, 0, 0, 0, -890, 84)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_10dt7"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -860, 110, 0, 0, 0, 0, -865, 115)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_or0gl"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -833, 118, 0, 0, 0, 0, -865, 115)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_0s1ur"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -827, 114, 0, 0, 0, 0, -833, 118)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_1tctr"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -872, 117, 0, 0, 0, 0, -865, 115)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_vx0qm"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -872, 117, 0, 0, 0, 0, -814, 138)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_vpl6e"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -872, 117, 0, 0, 0, 0, -858, 140)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_dkbro"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -872, 117, 0, 0, 0, 0, -875, 110)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_66s35"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -860, 110, 0, 0, 0, 0, -857, 93)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_dlrku"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -872, 82, 0, 0, 0, 0, -857, 93)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_ag64a"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -872, 82, 0, 0, 0, 0, -873, 45)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_hxr0q"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -872, 82, 0, 0, 0, 0, -845, 57)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_apoc1"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -872, 82, 0, 0, 0, 0, -832, 85)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_aj0et"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -872, 82, 0, 0, 0, 0, -887, 73)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_8x386"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -872, 82, 0, 0, 0, 0, -882, 83)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_51n3u"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -906, 25, 0, 0, 0, 0, -898, 24)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_wdg23"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -905, 40, 0, 0, 0, 0, -898, 24)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_n3v3u"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -888, 11, 0, 0, 0, 0, -898, 24)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_mvxau"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -888, 11, 0, 0, 0, 0, -871, 9)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_mueuk"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -888, 11, 0, 0, 0, 0, -882, -10)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_s7hae"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -888, 11, 0, 0, 0, 0, -852, 31)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_6e6tn"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -888, 11, 0, 0, 0, 0, -873, 45)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_5f2lq"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -876, -33, 0, 0, 0, 0, -884, -65)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_lyx10"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -876, -33, 0, 0, 0, 0, -857, -38)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_y65v6"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -876, -33, 0, 0, 0, 0, -906, -28)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_223tg"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -876, -33, 0, 0, 0, 0, -843, -19)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_o0lu3"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -876, -33, 0, 0, 0, 0, -882, -10)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_m3iu0"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -986, 62, 0, 0, 0, 0, -973, 45)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_niutm"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -934, 33, 0, 0, 0, 0, -973, 45)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_1vv7e"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -974, 17, 0, 0, 0, 0, -961, 21)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_g3ry6"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -961, 8, 0, 0, 0, 0, -961, 21)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_676x5"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -934, 33, 0, 0, 0, 0, -961, 21)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_jdyap"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -934, 33, 0, 0, 0, 0, -950, 52)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_n1ie6"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -934, 33, 0, 0, 0, 0, -927, 29)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_2sxfr"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -950, 75, 0, 0, 0, 0, -986, 78)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_qqftu"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -950, 75, 0, 0, 0, 0, -951, 88)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_bntbx"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -950, 75, 0, 0, 0, 0, -948, 78)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_4jgvg"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -950, 75, 0, 0, 0, 0, -945, 72)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_qgquc"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -950, 75, 0, 0, 0, 0, -950, 52)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_fkyul"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -996, 80, 0, 0, 0, 0, -1034, 94)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_lmml8"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -996, 80, 0, 0, 0, 0, -1002, 112)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_vwvke"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -996, 80, 0, 0, 0, 0, -986, 78)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_c44qr"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -996, 80, 0, 0, 0, 0, -986, 62)
+}
+point_count = 2
+
 [node name="Game" type="Node2D" unique_id=63633635]
 script = ExtResource("1_lbhrr")
 
@@ -13750,6 +14122,836 @@ script = ExtResource("8_gee14")
 
 [node name="Path2D7" type="Path2D" parent="spain/Badajoz" unique_id=1499217135]
 curve = SubResource("Curve2D_5pb6a")
+script = ExtResource("8_gee14")
+
+[node name="united_kingdom" type="Node2D" parent="." unique_id=716945535]
+script = ExtResource("6_p57ef")
+PORT = 9081
+
+[node name="London" type="Area2D" parent="united_kingdom" unique_id=431763201]
+position = Vector2(260, -39)
+collision_mask = 3
+script = ExtResource("3_lnu2h")
+province_material = 5
+startup_buildings = Array[int]([2, 0])
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="united_kingdom/London" unique_id=43922219]
+polygon = PackedVector2Array(-856, 173, -854, 171, -855, 167, -859, 164, -860, 162, -867, 161, -877, 155, -882, 150, -874, 148, -870, 146, -868, 145, -863, 142, -858, 140, -848, 136, -842, 137, -836, 140, -825, 146, -822, 149, -826, 152, -829, 151, -833, 154, -829, 158, -829, 161, -831, 162, -834, 160, -839, 159, -843, 157, -844, 159, -837, 161, -836, 164, -831, 164, -828, 166, -827, 165, -824, 166, -826, 170, -832, 170, -834, 172, -833, 174, -833, 175, -834, 176, -838, 174, -840, 176, -845, 176, -849, 178, -852, 176, -854, 176)
+
+[node name="Polygon2D" type="Polygon2D" parent="united_kingdom/London" unique_id=1862041123]
+color = Color(0.45490196, 0.43529412, 0.42352942, 1)
+
+[node name="ProvinceBorder" type="Line2D" parent="united_kingdom/London" unique_id=595474819]
+closed = true
+width = 0.3
+default_color = Color(1, 1, 1, 0.78431374)
+joint_mode = 2
+
+[node name="Node2D" parent="united_kingdom/London" unique_id=620072382 instance=ExtResource("7_gee14")]
+position = Vector2(-849, 155)
+
+[node name="Control" type="Control" parent="united_kingdom/London" unique_id=1251181897]
+layout_mode = 3
+anchors_preset = 0
+offset_left = -24.570007
+offset_top = -36.33499
+offset_right = 15.429382
+offset_bottom = 3.6650085
+pivot_offset = Vector2(19.865, 0)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="united_kingdom/London/Control" unique_id=582245633]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.25
+offset_right = 0.00061035156
+offset_bottom = -10.0
+alignment = 1
+
+[node name="PanelContainer" type="PanelContainer" parent="united_kingdom/London/Control/VBoxContainer" unique_id=882015097]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_kvpfn")
+
+[node name="ProvinceName" type="Label" parent="united_kingdom/London/Control/VBoxContainer/PanelContainer" unique_id=1441609203]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="united_kingdom/London/Control/VBoxContainer" unique_id=1823630558]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="united_kingdom/London/Control/VBoxContainer/HBoxContainer" unique_id=1841762701]
+layout_mode = 2
+
+[node name="ResourceCount" type="Label" parent="united_kingdom/London/Control/VBoxContainer/HBoxContainer" unique_id=1443964074]
+layout_mode = 2
+
+[node name="Path2D12" type="Path2D" parent="united_kingdom/London" unique_id=765365560]
+curve = SubResource("Curve2D_cyjwx")
+script = ExtResource("8_gee14")
+
+[node name="Path2D11" type="Path2D" parent="united_kingdom/London" unique_id=2103774204]
+curve = SubResource("Curve2D_5ne4n")
+script = ExtResource("8_gee14")
+
+[node name="Path2D10" type="Path2D" parent="united_kingdom/London" unique_id=830849822]
+curve = SubResource("Curve2D_ii6pf")
+script = ExtResource("8_gee14")
+
+[node name="Path2D9" type="Path2D" parent="united_kingdom/London" unique_id=1819926674]
+curve = SubResource("Curve2D_ck3nk")
+script = ExtResource("8_gee14")
+
+[node name="Path2D8" type="Path2D" parent="united_kingdom/London" unique_id=1046962861]
+curve = SubResource("Curve2D_0w58c")
+script = ExtResource("8_gee14")
+
+[node name="Path2D7" type="Path2D" parent="united_kingdom/London" unique_id=1823994905]
+curve = SubResource("Curve2D_coq50")
+script = ExtResource("8_gee14")
+
+[node name="Control" type="Control" parent="united_kingdom" unique_id=1905243205]
+z_index = 1
+layout_mode = 3
+anchors_preset = 0
+offset_left = 218.115
+offset_right = 356.0
+offset_bottom = 40.0
+
+[node name="PlayerName" type="Label" parent="united_kingdom/Control" unique_id=1212275554]
+layout_mode = 0
+offset_left = -63.59282
+offset_top = 48.412052
+offset_right = 67.40718
+offset_bottom = 71.41205
+theme_override_colors/font_color = Color(1, 1, 1, 0.7490196)
+uppercase = true
+
+[node name="Portsmouth" type="Area2D" parent="united_kingdom" unique_id=70824380]
+position = Vector2(260, -39)
+collision_mask = 3
+script = ExtResource("3_lnu2h")
+province_material = 6
+startup_buildings = Array[int]([2])
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="united_kingdom/Portsmouth" unique_id=1152492842]
+polygon = PackedVector2Array(-882, 150, -887, 147, -894, 144, -896, 146, -903, 148, -903, 152, -905, 152, -918, 147, -925, 147, -922, 149, -926, 152, -931, 148, -934, 148, -935, 153, -937, 156, -936, 158, -938, 160, -943, 158, -949, 164, -951, 163, -954, 167, -959, 167, -961, 169, -964, 169, -963, 172, -961, 170, -956, 172, -956, 176, -953, 175, -955, 171, -942, 169, -938, 172, -934, 171, -934, 169, -932, 171, -930, 174, -926, 174, -926, 179, -924, 179, -922, 176, -919, 177, -921, 173, -916, 170, -912, 165, -906, 168, -907, 166, -903, 166, -903, 168, -900, 169, -898, 172, -894, 171, -891, 174, -889, 170, -880, 172, -874, 169, -872, 172, -869, 173, -856, 173, -854, 171, -855, 167, -859, 164, -860, 162, -867, 161, -877, 155)
+
+[node name="Polygon2D" type="Polygon2D" parent="united_kingdom/Portsmouth" unique_id=1821596844]
+color = Color(0.45490196, 0.43529412, 0.42352942, 1)
+
+[node name="ProvinceBorder" type="Line2D" parent="united_kingdom/Portsmouth" unique_id=1541096289]
+closed = true
+width = 0.3
+default_color = Color(1, 1, 1, 0.78431374)
+joint_mode = 2
+
+[node name="Node2D" parent="united_kingdom/Portsmouth" unique_id=830743398 instance=ExtResource("7_gee14")]
+position = Vector2(-869, 169)
+
+[node name="Control" type="Control" parent="united_kingdom/Portsmouth" unique_id=338295092]
+layout_mode = 3
+anchors_preset = 0
+offset_left = -24.570007
+offset_top = -36.33499
+offset_right = 15.429382
+offset_bottom = 3.6650085
+pivot_offset = Vector2(19.865, 0)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="united_kingdom/Portsmouth/Control" unique_id=957677031]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.25
+offset_right = 0.00061035156
+offset_bottom = -10.0
+alignment = 1
+
+[node name="PanelContainer" type="PanelContainer" parent="united_kingdom/Portsmouth/Control/VBoxContainer" unique_id=1455605286]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_kvpfn")
+
+[node name="ProvinceName" type="Label" parent="united_kingdom/Portsmouth/Control/VBoxContainer/PanelContainer" unique_id=2085768084]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="united_kingdom/Portsmouth/Control/VBoxContainer" unique_id=1499987280]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="united_kingdom/Portsmouth/Control/VBoxContainer/HBoxContainer" unique_id=1265623071]
+layout_mode = 2
+
+[node name="ResourceCount" type="Label" parent="united_kingdom/Portsmouth/Control/VBoxContainer/HBoxContainer" unique_id=915144393]
+layout_mode = 2
+
+[node name="Path2D12" type="Path2D" parent="united_kingdom/Portsmouth" unique_id=1769756311]
+curve = SubResource("Curve2D_jokpc")
+script = ExtResource("8_gee14")
+
+[node name="Path2D11" type="Path2D" parent="united_kingdom/Portsmouth" unique_id=2095832540]
+curve = SubResource("Curve2D_wpgil")
+script = ExtResource("8_gee14")
+
+[node name="Path2D10" type="Path2D" parent="united_kingdom/Portsmouth" unique_id=1392764789]
+curve = SubResource("Curve2D_jl2ox")
+script = ExtResource("8_gee14")
+
+[node name="Path2D9" type="Path2D" parent="united_kingdom/Portsmouth" unique_id=1467846531]
+curve = SubResource("Curve2D_g6pq0")
+script = ExtResource("8_gee14")
+
+[node name="Path2D8" type="Path2D" parent="united_kingdom/Portsmouth" unique_id=1259441600]
+curve = SubResource("Curve2D_45knu")
+script = ExtResource("8_gee14")
+
+[node name="Path2D7" type="Path2D" parent="united_kingdom/Portsmouth" unique_id=1329523376]
+curve = SubResource("Curve2D_l2pj7")
+script = ExtResource("8_gee14")
+
+[node name="Liverpool" type="Area2D" parent="united_kingdom" unique_id=1791880140]
+position = Vector2(260, -39)
+collision_mask = 3
+script = ExtResource("3_lnu2h")
+province_material = 1
+double_material = true
+startup_buildings = Array[int]([2])
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="united_kingdom/Liverpool" unique_id=883514021]
+polygon = PackedVector2Array(-894, 144, -894, 140, -898, 139, -903, 140, -907, 142, -914, 143, -916, 141, -919, 139, -919, 135, -922, 134, -924, 135, -923, 136, -928, 135, -926, 135, -925, 133, -929, 131, -927, 129, -927, 125, -931, 126, -931, 129, -936, 129, -943, 132, -946, 129, -943, 129, -938, 127, -941, 124, -944, 126, -948, 125, -943, 123, -943, 121, -948, 117, -945, 115, -943, 113, -939, 113, -937, 116, -935, 114, -933, 112, -930, 114, -924, 114, -921, 111, -916, 111, -912, 109, -913, 105, -911, 102, -912, 95, -916, 96, -918, 98, -922, 97, -925, 97, -924, 95, -914, 93, -912, 91, -910, 90, -909, 89, -905, 89, -903, 87, -897, 90, -896, 89, -896, 88, -890, 90, -886, 91, -886, 89, -889, 86, -890, 84, -890, 82, -887, 79, -882, 83, -879, 86, -869, 90, -864, 90, -862, 94, -863, 99, -860, 104, -861, 109, -868, 109, -875, 110, -879, 111, -884, 113, -890, 119, -889, 126, -886, 132, -880, 136, -879, 140, -874, 142, -872, 139, -868, 142, -868, 145, -870, 146, -874, 148, -882, 150, -887, 147)
+
+[node name="Polygon2D" type="Polygon2D" parent="united_kingdom/Liverpool" unique_id=1358729088]
+color = Color(0.45490196, 0.43529412, 0.42352942, 1)
+
+[node name="ProvinceBorder" type="Line2D" parent="united_kingdom/Liverpool" unique_id=2057518967]
+closed = true
+width = 0.3
+default_color = Color(1, 1, 1, 0.78431374)
+joint_mode = 2
+
+[node name="Node2D" parent="united_kingdom/Liverpool" unique_id=1949133866 instance=ExtResource("7_gee14")]
+position = Vector2(-885, 85)
+
+[node name="Control" type="Control" parent="united_kingdom/Liverpool" unique_id=1087544502]
+layout_mode = 3
+anchors_preset = 0
+offset_left = -24.570007
+offset_top = -36.33499
+offset_right = 15.429382
+offset_bottom = 3.6650085
+pivot_offset = Vector2(19.865, 0)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="united_kingdom/Liverpool/Control" unique_id=686386548]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.25
+offset_right = 0.00061035156
+offset_bottom = -10.0
+alignment = 1
+
+[node name="PanelContainer" type="PanelContainer" parent="united_kingdom/Liverpool/Control/VBoxContainer" unique_id=948421556]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_kvpfn")
+
+[node name="ProvinceName" type="Label" parent="united_kingdom/Liverpool/Control/VBoxContainer/PanelContainer" unique_id=1024035436]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="united_kingdom/Liverpool/Control/VBoxContainer" unique_id=274998303]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="united_kingdom/Liverpool/Control/VBoxContainer/HBoxContainer" unique_id=738834810]
+layout_mode = 2
+
+[node name="ResourceCount" type="Label" parent="united_kingdom/Liverpool/Control/VBoxContainer/HBoxContainer" unique_id=1758748625]
+layout_mode = 2
+
+[node name="Path2D14" type="Path2D" parent="united_kingdom/Liverpool" unique_id=298752976]
+curve = SubResource("Curve2D_7jpyf")
+script = ExtResource("8_gee14")
+
+[node name="Path2D13" type="Path2D" parent="united_kingdom/Liverpool" unique_id=1561830803]
+curve = SubResource("Curve2D_ob0mt")
+script = ExtResource("8_gee14")
+
+[node name="Path2D12" type="Path2D" parent="united_kingdom/Liverpool" unique_id=1014321738]
+curve = SubResource("Curve2D_orh27")
+script = ExtResource("8_gee14")
+
+[node name="Path2D11" type="Path2D" parent="united_kingdom/Liverpool" unique_id=34117488]
+curve = SubResource("Curve2D_3ab43")
+script = ExtResource("8_gee14")
+
+[node name="Path2D10" type="Path2D" parent="united_kingdom/Liverpool" unique_id=2057221856]
+curve = SubResource("Curve2D_7ofq4")
+script = ExtResource("8_gee14")
+
+[node name="Path2D9" type="Path2D" parent="united_kingdom/Liverpool" unique_id=1519999821]
+curve = SubResource("Curve2D_84csc")
+script = ExtResource("8_gee14")
+
+[node name="Path2D8" type="Path2D" parent="united_kingdom/Liverpool" unique_id=1463755596]
+curve = SubResource("Curve2D_sdrsc")
+script = ExtResource("8_gee14")
+
+[node name="Path2D7" type="Path2D" parent="united_kingdom/Liverpool" unique_id=1954608008]
+curve = SubResource("Curve2D_afo60")
+script = ExtResource("8_gee14")
+
+[node name="Birmingham" type="Area2D" parent="united_kingdom" unique_id=785636346]
+position = Vector2(260, -39)
+collision_mask = 3
+script = ExtResource("3_lnu2h")
+province_material = 4
+double_material = true
+startup_buildings = Array[int]([2])
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="united_kingdom/Birmingham" unique_id=674141575]
+polygon = PackedVector2Array(-861, 109, -860, 110, -858, 114, -854, 115, -851, 110, -847, 105, -841, 104, -841, 106, -836, 112, -833, 116, -831, 115, -831, 113, -828, 113, -827, 114, -823, 118, -822, 118, -821, 116, -816, 117, -815, 120, -811, 123, -813, 127, -811, 135, -814, 138, -815, 144, -818, 146, -819, 143, -825, 146, -836, 140, -842, 137, -848, 136, -858, 140, -863, 142, -868, 145, -868, 142, -872, 139, -874, 142, -879, 140, -880, 136, -886, 132, -889, 126, -890, 119, -884, 113, -879, 111, -875, 110, -868, 109)
+
+[node name="Polygon2D" type="Polygon2D" parent="united_kingdom/Birmingham" unique_id=842751597]
+color = Color(0.45490196, 0.43529412, 0.42352942, 1)
+
+[node name="ProvinceBorder" type="Line2D" parent="united_kingdom/Birmingham" unique_id=815968951]
+closed = true
+width = 0.3
+default_color = Color(1, 1, 1, 0.78431374)
+joint_mode = 2
+
+[node name="Node2D" parent="united_kingdom/Birmingham" unique_id=1753352068 instance=ExtResource("7_gee14")]
+position = Vector2(-872, 117)
+
+[node name="Control" type="Control" parent="united_kingdom/Birmingham" unique_id=481474736]
+layout_mode = 3
+anchors_preset = 0
+offset_left = -24.570007
+offset_top = -36.33499
+offset_right = 15.429382
+offset_bottom = 3.6650085
+pivot_offset = Vector2(19.865, 0)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="united_kingdom/Birmingham/Control" unique_id=832727172]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.25
+offset_right = 0.00061035156
+offset_bottom = -10.0
+alignment = 1
+
+[node name="PanelContainer" type="PanelContainer" parent="united_kingdom/Birmingham/Control/VBoxContainer" unique_id=1804766702]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_kvpfn")
+
+[node name="ProvinceName" type="Label" parent="united_kingdom/Birmingham/Control/VBoxContainer/PanelContainer" unique_id=1156354769]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="united_kingdom/Birmingham/Control/VBoxContainer" unique_id=186281326]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="united_kingdom/Birmingham/Control/VBoxContainer/HBoxContainer" unique_id=2072554820]
+layout_mode = 2
+
+[node name="ResourceCount" type="Label" parent="united_kingdom/Birmingham/Control/VBoxContainer/HBoxContainer" unique_id=331195876]
+layout_mode = 2
+
+[node name="Path2D13" type="Path2D" parent="united_kingdom/Birmingham" unique_id=1749475803]
+curve = SubResource("Curve2D_10dt7")
+script = ExtResource("8_gee14")
+
+[node name="Path2D12" type="Path2D" parent="united_kingdom/Birmingham" unique_id=599380350]
+curve = SubResource("Curve2D_or0gl")
+script = ExtResource("8_gee14")
+
+[node name="Path2D11" type="Path2D" parent="united_kingdom/Birmingham" unique_id=719077315]
+curve = SubResource("Curve2D_0s1ur")
+script = ExtResource("8_gee14")
+
+[node name="Path2D10" type="Path2D" parent="united_kingdom/Birmingham" unique_id=47881423]
+curve = SubResource("Curve2D_1tctr")
+script = ExtResource("8_gee14")
+
+[node name="Path2D9" type="Path2D" parent="united_kingdom/Birmingham" unique_id=81214906]
+curve = SubResource("Curve2D_vx0qm")
+script = ExtResource("8_gee14")
+
+[node name="Path2D8" type="Path2D" parent="united_kingdom/Birmingham" unique_id=1229572092]
+curve = SubResource("Curve2D_vpl6e")
+script = ExtResource("8_gee14")
+
+[node name="Path2D7" type="Path2D" parent="united_kingdom/Birmingham" unique_id=168987067]
+curve = SubResource("Curve2D_dkbro")
+script = ExtResource("8_gee14")
+
+[node name="Manchester" type="Area2D" parent="united_kingdom" unique_id=1918336519]
+position = Vector2(260, -39)
+collision_mask = 3
+script = ExtResource("3_lnu2h")
+province_material = 4
+startup_buildings = Array[int]([2])
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="united_kingdom/Manchester" unique_id=986256992]
+polygon = PackedVector2Array(-887, 79, -888, 75, -887, 73, -884, 71, -882, 66, -883, 60, -887, 58, -882, 55, -877, 46, -873, 45, -864, 45, -863, 46, -858, 47, -855, 46, -854, 49, -854, 53, -851, 54, -848, 56, -845, 57, -841, 60, -833, 70, -834, 75, -831, 79, -834, 78, -832, 85, -831, 91, -837, 85, -839, 86, -844, 85, -841, 88, -837, 90, -836, 92, -835, 93, -834, 96, -833, 98, -833, 102, -830, 107, -833, 112, -836, 112, -841, 106, -841, 104, -847, 105, -851, 110, -854, 115, -858, 114, -860, 110, -861, 109, -860, 104, -863, 99, -862, 94, -864, 90, -869, 90, -879, 86, -882, 83)
+
+[node name="Polygon2D" type="Polygon2D" parent="united_kingdom/Manchester" unique_id=1879194846]
+color = Color(0.45490196, 0.43529412, 0.42352942, 1)
+
+[node name="ProvinceBorder" type="Line2D" parent="united_kingdom/Manchester" unique_id=507367874]
+closed = true
+width = 0.3
+default_color = Color(1, 1, 1, 0.78431374)
+joint_mode = 2
+
+[node name="Node2D" parent="united_kingdom/Manchester" unique_id=1778195258 instance=ExtResource("7_gee14")]
+position = Vector2(-872, 82)
+
+[node name="Control" type="Control" parent="united_kingdom/Manchester" unique_id=1259347840]
+layout_mode = 3
+anchors_preset = 0
+offset_left = -24.570007
+offset_top = -36.33499
+offset_right = 15.429382
+offset_bottom = 3.6650085
+pivot_offset = Vector2(19.865, 0)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="united_kingdom/Manchester/Control" unique_id=969400386]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.25
+offset_right = 0.00061035156
+offset_bottom = -10.0
+alignment = 1
+
+[node name="PanelContainer" type="PanelContainer" parent="united_kingdom/Manchester/Control/VBoxContainer" unique_id=1957174503]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_kvpfn")
+
+[node name="ProvinceName" type="Label" parent="united_kingdom/Manchester/Control/VBoxContainer/PanelContainer" unique_id=776617289]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="united_kingdom/Manchester/Control/VBoxContainer" unique_id=511191022]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="united_kingdom/Manchester/Control/VBoxContainer/HBoxContainer" unique_id=1510080156]
+layout_mode = 2
+
+[node name="ResourceCount" type="Label" parent="united_kingdom/Manchester/Control/VBoxContainer/HBoxContainer" unique_id=1381579199]
+layout_mode = 2
+
+[node name="Path2D13" type="Path2D" parent="united_kingdom/Manchester" unique_id=767190281]
+curve = SubResource("Curve2D_66s35")
+script = ExtResource("8_gee14")
+
+[node name="Path2D12" type="Path2D" parent="united_kingdom/Manchester" unique_id=802321106]
+curve = SubResource("Curve2D_dlrku")
+script = ExtResource("8_gee14")
+
+[node name="Path2D11" type="Path2D" parent="united_kingdom/Manchester" unique_id=678185508]
+curve = SubResource("Curve2D_ag64a")
+script = ExtResource("8_gee14")
+
+[node name="Path2D10" type="Path2D" parent="united_kingdom/Manchester" unique_id=1479943587]
+curve = SubResource("Curve2D_hxr0q")
+script = ExtResource("8_gee14")
+
+[node name="Path2D9" type="Path2D" parent="united_kingdom/Manchester" unique_id=1689242391]
+curve = SubResource("Curve2D_apoc1")
+script = ExtResource("8_gee14")
+
+[node name="Path2D8" type="Path2D" parent="united_kingdom/Manchester" unique_id=1700902275]
+curve = SubResource("Curve2D_aj0et")
+script = ExtResource("8_gee14")
+
+[node name="Path2D7" type="Path2D" parent="united_kingdom/Manchester" unique_id=391426659]
+curve = SubResource("Curve2D_8x386")
+script = ExtResource("8_gee14")
+
+[node name="Glasgow" type="Area2D" parent="united_kingdom" unique_id=1007152428]
+position = Vector2(260, -39)
+collision_mask = 3
+script = ExtResource("3_lnu2h")
+startup_buildings = Array[int]([2])
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="united_kingdom/Glasgow" unique_id=1211901206]
+polygon = PackedVector2Array(-887, 58, -890, 58, -893, 61, -895, 59, -895, 54, -897, 52, -895, 47, -891, 46, -882, 40, -880, 37, -885, 37, -888, 35, -889, 37, -889, 40, -892, 40, -894, 42, -896, 41, -899, 38, -902, 38, -903, 39, -902, 41, -903, 44, -905, 40, -908, 37, -912, 37, -911, 40, -913, 37, -915, 35, -914, 31, -912, 34, -911, 33, -911, 29, -906, 25, -903, 20, -900, 20, -899, 19, -901, 14, -900, 10, -898, 7, -892, 6, -896, 3, -894, -3, -897, -3, -901, 4, -903, 1, -905, 2, -905, 0, -900, -3, -898, -8, -903, -7, -906, -4, -910, -3, -910, 8, -915, 13, -918, 17, -921, 19, -923, 19, -921, 17, -920, 16, -918, 12, -914, 10, -913, 7, -913, 4, -913, 1, -915, -1, -913, -4, -911, -4, -912, -7, -907, -10, -903, -10, -904, -14, -902, -17, -900, -16, -896, -17, -894, -16, -891, -11, -886, -8, -882, -10, -879, -14, -878, -16, -875, -15, -868, -15, -860, -19, -854, -16, -851, -17, -847, -14, -854, -10, -854, -5, -858, -5, -861, -3, -870, -3, -869, 0, -864, 0, -861, 2, -862, 4, -868, 4, -869, 5, -875, 5, -876, 3, -879, 4, -877, 6, -872, 7, -871, 9, -868, 11, -861, 11, -858, 15, -852, 17, -852, 21, -848, 27, -852, 31, -853, 35, -853, 41, -855, 43, -855, 46, -858, 47, -863, 46, -864, 45, -873, 45, -877, 46, -882, 55)
+
+[node name="Polygon2D" type="Polygon2D" parent="united_kingdom/Glasgow" unique_id=925191997]
+color = Color(0.45490196, 0.43529412, 0.42352942, 1)
+
+[node name="ProvinceBorder" type="Line2D" parent="united_kingdom/Glasgow" unique_id=329482928]
+closed = true
+width = 0.3
+default_color = Color(1, 1, 1, 0.78431374)
+joint_mode = 2
+
+[node name="Node2D" parent="united_kingdom/Glasgow" unique_id=917153424 instance=ExtResource("7_gee14")]
+position = Vector2(-888, 11)
+
+[node name="Control" type="Control" parent="united_kingdom/Glasgow" unique_id=1140431793]
+layout_mode = 3
+anchors_preset = 0
+offset_left = -24.570007
+offset_top = -36.33499
+offset_right = 15.429382
+offset_bottom = 3.6650085
+pivot_offset = Vector2(19.865, 0)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="united_kingdom/Glasgow/Control" unique_id=1223310300]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.25
+offset_right = 0.00061035156
+offset_bottom = -10.0
+alignment = 1
+
+[node name="PanelContainer" type="PanelContainer" parent="united_kingdom/Glasgow/Control/VBoxContainer" unique_id=2067397184]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_kvpfn")
+
+[node name="ProvinceName" type="Label" parent="united_kingdom/Glasgow/Control/VBoxContainer/PanelContainer" unique_id=754167252]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="united_kingdom/Glasgow/Control/VBoxContainer" unique_id=1883145612]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="united_kingdom/Glasgow/Control/VBoxContainer/HBoxContainer" unique_id=53840224]
+layout_mode = 2
+
+[node name="ResourceCount" type="Label" parent="united_kingdom/Glasgow/Control/VBoxContainer/HBoxContainer" unique_id=566035758]
+layout_mode = 2
+
+[node name="Path2D13" type="Path2D" parent="united_kingdom/Glasgow" unique_id=565701379]
+curve = SubResource("Curve2D_51n3u")
+script = ExtResource("8_gee14")
+
+[node name="Path2D12" type="Path2D" parent="united_kingdom/Glasgow" unique_id=690201215]
+curve = SubResource("Curve2D_wdg23")
+script = ExtResource("8_gee14")
+
+[node name="Path2D11" type="Path2D" parent="united_kingdom/Glasgow" unique_id=7810844]
+curve = SubResource("Curve2D_n3v3u")
+script = ExtResource("8_gee14")
+
+[node name="Path2D10" type="Path2D" parent="united_kingdom/Glasgow" unique_id=881022911]
+curve = SubResource("Curve2D_mvxau")
+script = ExtResource("8_gee14")
+
+[node name="Path2D9" type="Path2D" parent="united_kingdom/Glasgow" unique_id=681974779]
+curve = SubResource("Curve2D_mueuk")
+script = ExtResource("8_gee14")
+
+[node name="Path2D8" type="Path2D" parent="united_kingdom/Glasgow" unique_id=1590894033]
+curve = SubResource("Curve2D_s7hae")
+script = ExtResource("8_gee14")
+
+[node name="Path2D7" type="Path2D" parent="united_kingdom/Glasgow" unique_id=674135526]
+curve = SubResource("Curve2D_6e6tn")
+script = ExtResource("8_gee14")
+
+[node name="Iverness" type="Area2D" parent="united_kingdom" unique_id=2045627332]
+position = Vector2(260, -39)
+collision_mask = 3
+script = ExtResource("3_lnu2h")
+province_material = 5
+startup_buildings = Array[int]([2])
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="united_kingdom/Iverness" unique_id=2072069663]
+polygon = PackedVector2Array(-896, -17, -896, -21, -904, -21, -908, -19, -909, -20, -907, -21, -911, -24, -914, -24, -916, -26, -913, -27, -906, -28, -903, -30, -902, -34, -898, -32, -897, -34, -901, -37, -898, -41, -901, -41, -902, -46, -899, -44, -897, -48, -897, -52, -894, -55, -890, -54, -889, -52, -886, -55, -887, -61, -884, -65, -882, -63, -879, -66, -877, -72, -873, -74, -871, -73, -870, -67, -868, -69, -862, -68, -860, -68, -857, -67, -851, -69, -847, -68, -848, -66, -850, -65, -847, -60, -851, -57, -854, -59, -864, -53, -864, -50, -869, -49, -871, -52, -874, -52, -870, -46, -865, -45, -868, -44, -873, -44, -876, -43, -876, -39, -871, -39, -866, -38, -861, -40, -857, -38, -849, -37, -847, -35, -844, -36, -842, -35, -839, -35, -836, -33, -835, -30, -838, -24, -843, -22, -843, -19, -847, -14, -851, -17, -854, -16, -860, -19, -868, -15, -875, -15, -878, -16, -879, -14, -882, -10, -886, -8, -891, -11, -894, -16)
+
+[node name="Polygon2D" type="Polygon2D" parent="united_kingdom/Iverness" unique_id=2140350051]
+color = Color(0.45490196, 0.43529412, 0.42352942, 1)
+
+[node name="ProvinceBorder" type="Line2D" parent="united_kingdom/Iverness" unique_id=391921573]
+closed = true
+width = 0.3
+default_color = Color(1, 1, 1, 0.78431374)
+joint_mode = 2
+
+[node name="Node2D" parent="united_kingdom/Iverness" unique_id=130846015 instance=ExtResource("7_gee14")]
+position = Vector2(-876, -33)
+
+[node name="Control" type="Control" parent="united_kingdom/Iverness" unique_id=906764099]
+layout_mode = 3
+anchors_preset = 0
+offset_left = -24.570007
+offset_top = -36.33499
+offset_right = 15.429382
+offset_bottom = 3.6650085
+pivot_offset = Vector2(19.865, 0)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="united_kingdom/Iverness/Control" unique_id=1444891222]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.25
+offset_right = 0.00061035156
+offset_bottom = -10.0
+alignment = 1
+
+[node name="PanelContainer" type="PanelContainer" parent="united_kingdom/Iverness/Control/VBoxContainer" unique_id=764816583]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_kvpfn")
+
+[node name="ProvinceName" type="Label" parent="united_kingdom/Iverness/Control/VBoxContainer/PanelContainer" unique_id=438232502]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="united_kingdom/Iverness/Control/VBoxContainer" unique_id=712685643]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="united_kingdom/Iverness/Control/VBoxContainer/HBoxContainer" unique_id=135128927]
+layout_mode = 2
+
+[node name="ResourceCount" type="Label" parent="united_kingdom/Iverness/Control/VBoxContainer/HBoxContainer" unique_id=423582594]
+layout_mode = 2
+
+[node name="Path2D11" type="Path2D" parent="united_kingdom/Iverness" unique_id=907445363]
+curve = SubResource("Curve2D_5f2lq")
+script = ExtResource("8_gee14")
+
+[node name="Path2D10" type="Path2D" parent="united_kingdom/Iverness" unique_id=508598237]
+curve = SubResource("Curve2D_lyx10")
+script = ExtResource("8_gee14")
+
+[node name="Path2D9" type="Path2D" parent="united_kingdom/Iverness" unique_id=1570805966]
+curve = SubResource("Curve2D_y65v6")
+script = ExtResource("8_gee14")
+
+[node name="Path2D8" type="Path2D" parent="united_kingdom/Iverness" unique_id=1949848255]
+curve = SubResource("Curve2D_223tg")
+script = ExtResource("8_gee14")
+
+[node name="Path2D7" type="Path2D" parent="united_kingdom/Iverness" unique_id=2002797510]
+curve = SubResource("Curve2D_o0lu3")
+script = ExtResource("8_gee14")
+
+[node name="Belfast" type="Area2D" parent="united_kingdom" unique_id=928073124]
+position = Vector2(260, -39)
+collision_mask = 3
+script = ExtResource("3_lnu2h")
+province_material = 5
+startup_buildings = Array[int]([2])
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="united_kingdom/Belfast" unique_id=591145855]
+polygon = PackedVector2Array(-944, 11, -949, 14, -949, 17, -939, 13, -930, 19, -930, 27, -927, 28, -927, 29, -927, 33, -930, 34, -932, 37, -925, 37, -923, 40, -923, 44, -927, 39, -928, 45, -927, 47, -928, 49, -931, 46, -935, 48, -936, 50, -939, 50, -939, 48, -942, 51, -944, 52, -947, 52, -950, 52, -952, 50, -953, 48, -965, 47, -975, 53, -976, 60, -981, 62, -986, 62, -987, 62, -990, 64, -997, 63, -1006, 59, -1003, 57, -1003, 54, -1009, 55, -1015, 53, -1017, 50, -1015, 51, -1015, 49, -1016, 46, -1013, 47, -1011, 48, -1010, 45, -1006, 47, -1006, 46, -1008, 42, -1006, 40, -1001, 41, -1002, 38, -1004, 36, -1002, 32, -1005, 28, -1008, 28, -1007, 25, -1003, 26, -1000, 25, -992, 32, -991, 36, -989, 35, -989, 32, -983, 34, -981, 38, -978, 35, -975, 34, -979, 31, -975, 29, -971, 30, -967, 26, -976, 23, -981, 23, -981, 21, -978, 20, -974, 20, -974, 17, -974, 15, -969, 18, -969, 17, -970, 13, -973, 12, -967, 10, -962, 12, -961, 8, -958, 12, -955, 12, -956, 10, -954, 8, -953, 10, -954, 13, -954, 15, -950, 13, -950, 10, -948, 10, -946, 7)
+
+[node name="Polygon2D" type="Polygon2D" parent="united_kingdom/Belfast" unique_id=1722110825]
+color = Color(0.45490196, 0.43529412, 0.42352942, 1)
+
+[node name="ProvinceBorder" type="Line2D" parent="united_kingdom/Belfast" unique_id=1671095096]
+closed = true
+width = 0.3
+default_color = Color(1, 1, 1, 0.78431374)
+joint_mode = 2
+
+[node name="Node2D" parent="united_kingdom/Belfast" unique_id=978549956 instance=ExtResource("7_gee14")]
+position = Vector2(-934, 33)
+
+[node name="Control" type="Control" parent="united_kingdom/Belfast" unique_id=533947330]
+layout_mode = 3
+anchors_preset = 0
+offset_left = -24.570007
+offset_top = -36.33499
+offset_right = 15.429382
+offset_bottom = 3.6650085
+pivot_offset = Vector2(19.865, 0)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="united_kingdom/Belfast/Control" unique_id=132761847]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.25
+offset_right = 0.00061035156
+offset_bottom = -10.0
+alignment = 1
+
+[node name="PanelContainer" type="PanelContainer" parent="united_kingdom/Belfast/Control/VBoxContainer" unique_id=350409602]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_kvpfn")
+
+[node name="ProvinceName" type="Label" parent="united_kingdom/Belfast/Control/VBoxContainer/PanelContainer" unique_id=85709581]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="united_kingdom/Belfast/Control/VBoxContainer" unique_id=556398359]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="united_kingdom/Belfast/Control/VBoxContainer/HBoxContainer" unique_id=223406253]
+layout_mode = 2
+
+[node name="ResourceCount" type="Label" parent="united_kingdom/Belfast/Control/VBoxContainer/HBoxContainer" unique_id=1482947250]
+layout_mode = 2
+
+[node name="Path2D13" type="Path2D" parent="united_kingdom/Belfast" unique_id=1065650775]
+curve = SubResource("Curve2D_m3iu0")
+script = ExtResource("8_gee14")
+
+[node name="Path2D12" type="Path2D" parent="united_kingdom/Belfast" unique_id=1793918624]
+curve = SubResource("Curve2D_niutm")
+script = ExtResource("8_gee14")
+
+[node name="Path2D11" type="Path2D" parent="united_kingdom/Belfast" unique_id=353979813]
+curve = SubResource("Curve2D_1vv7e")
+script = ExtResource("8_gee14")
+
+[node name="Path2D10" type="Path2D" parent="united_kingdom/Belfast" unique_id=1575491848]
+curve = SubResource("Curve2D_g3ry6")
+script = ExtResource("8_gee14")
+
+[node name="Path2D9" type="Path2D" parent="united_kingdom/Belfast" unique_id=1586599224]
+curve = SubResource("Curve2D_676x5")
+script = ExtResource("8_gee14")
+
+[node name="Path2D8" type="Path2D" parent="united_kingdom/Belfast" unique_id=1720598648]
+curve = SubResource("Curve2D_jdyap")
+script = ExtResource("8_gee14")
+
+[node name="Path2D7" type="Path2D" parent="united_kingdom/Belfast" unique_id=1206033888]
+curve = SubResource("Curve2D_n1ie6")
+script = ExtResource("8_gee14")
+
+[node name="Dublin" type="Area2D" parent="united_kingdom" unique_id=1499551906]
+position = Vector2(260, -39)
+collision_mask = 3
+script = ExtResource("3_lnu2h")
+province_material = 6
+startup_buildings = Array[int]([2])
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="united_kingdom/Dublin" unique_id=1604745184]
+polygon = PackedVector2Array(-944, 52, -943, 58, -945, 63, -944, 68, -945, 72, -948, 78, -947, 82, -951, 88, -954, 88, -953, 91, -956, 93, -957, 98, -961, 99, -958, 102, -959, 105, -964, 104, -962, 102, -967, 102, -969, 97, -972, 100, -981, 98, -982, 102, -985, 90, -981, 83, -984, 81, -986, 78, -980, 75, -976, 71, -976, 60, -975, 53, -965, 47, -953, 48, -952, 50, -950, 52, -947, 52)
+
+[node name="Polygon2D" type="Polygon2D" parent="united_kingdom/Dublin" unique_id=988213978]
+color = Color(0.45490196, 0.43529412, 0.42352942, 1)
+
+[node name="ProvinceBorder" type="Line2D" parent="united_kingdom/Dublin" unique_id=1104928685]
+closed = true
+width = 0.3
+default_color = Color(1, 1, 1, 0.78431374)
+joint_mode = 2
+
+[node name="Node2D" parent="united_kingdom/Dublin" unique_id=1726943685 instance=ExtResource("7_gee14")]
+position = Vector2(-950, 75)
+
+[node name="Control" type="Control" parent="united_kingdom/Dublin" unique_id=656502413]
+layout_mode = 3
+anchors_preset = 0
+offset_left = -24.570007
+offset_top = -36.33499
+offset_right = 15.429382
+offset_bottom = 3.6650085
+pivot_offset = Vector2(19.865, 0)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="united_kingdom/Dublin/Control" unique_id=861915662]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.25
+offset_right = 0.00061035156
+offset_bottom = -10.0
+alignment = 1
+
+[node name="PanelContainer" type="PanelContainer" parent="united_kingdom/Dublin/Control/VBoxContainer" unique_id=806473312]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_kvpfn")
+
+[node name="ProvinceName" type="Label" parent="united_kingdom/Dublin/Control/VBoxContainer/PanelContainer" unique_id=1372704281]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="united_kingdom/Dublin/Control/VBoxContainer" unique_id=749515818]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="united_kingdom/Dublin/Control/VBoxContainer/HBoxContainer" unique_id=1720195994]
+layout_mode = 2
+
+[node name="ResourceCount" type="Label" parent="united_kingdom/Dublin/Control/VBoxContainer/HBoxContainer" unique_id=732028656]
+layout_mode = 2
+
+[node name="Path2D11" type="Path2D" parent="united_kingdom/Dublin" unique_id=1434198084]
+curve = SubResource("Curve2D_2sxfr")
+script = ExtResource("8_gee14")
+
+[node name="Path2D10" type="Path2D" parent="united_kingdom/Dublin" unique_id=981877283]
+curve = SubResource("Curve2D_qqftu")
+script = ExtResource("8_gee14")
+
+[node name="Path2D9" type="Path2D" parent="united_kingdom/Dublin" unique_id=1156190460]
+curve = SubResource("Curve2D_bntbx")
+script = ExtResource("8_gee14")
+
+[node name="Path2D8" type="Path2D" parent="united_kingdom/Dublin" unique_id=852544928]
+curve = SubResource("Curve2D_4jgvg")
+script = ExtResource("8_gee14")
+
+[node name="Path2D7" type="Path2D" parent="united_kingdom/Dublin" unique_id=677372789]
+curve = SubResource("Curve2D_qgquc")
+script = ExtResource("8_gee14")
+
+[node name="Limerick" type="Area2D" parent="united_kingdom" unique_id=685553048]
+position = Vector2(260, -39)
+collision_mask = 3
+script = ExtResource("3_lnu2h")
+province_material = 1
+startup_buildings = Array[int]([2])
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="united_kingdom/Limerick" unique_id=1106549548]
+polygon = PackedVector2Array(-982, 102, -986, 96, -987, 96, -987, 101, -989, 104, -989, 108, -993, 108, -994, 105, -993, 103, -996, 101, -999, 102, -998, 107, -1002, 112, -1008, 111, -1011, 112, -1013, 111, -1017, 111, -1020, 110, -1030, 111, -1030, 107, -1022, 106, -1019, 104, -1020, 103, -1036, 104, -1037, 103, -1032, 102, -1026, 102, -1022, 100, -1022, 97, -1030, 97, -1035, 98, -1034, 94, -1037, 91, -1034, 89, -1028, 89, -1024, 84, -1038, 83, -1038, 80, -1032, 79, -1031, 82, -1027, 79, -1025, 82, -1022, 82, -1023, 80, -1020, 79, -1018, 80, -1018, 77, -1016, 77, -1013, 79, -1001, 80, -997, 78, -999, 76, -998, 73, -999, 71, -1003, 76, -1009, 76, -1011, 74, -1015, 74, -1018, 76, -1018, 74, -1014, 70, -1008, 69, -1007, 69, -1007, 65, -997, 63, -990, 64, -987, 62, -986, 62, -981, 62, -976, 60, -976, 71, -980, 75, -986, 78, -984, 81, -981, 83, -985, 90)
+
+[node name="Polygon2D" type="Polygon2D" parent="united_kingdom/Limerick" unique_id=2013853631]
+color = Color(0.45490196, 0.43529412, 0.42352942, 1)
+
+[node name="ProvinceBorder" type="Line2D" parent="united_kingdom/Limerick" unique_id=963870693]
+closed = true
+width = 0.3
+default_color = Color(1, 1, 1, 0.78431374)
+joint_mode = 2
+
+[node name="Node2D" parent="united_kingdom/Limerick" unique_id=578751595 instance=ExtResource("7_gee14")]
+position = Vector2(-996, 80)
+
+[node name="Control" type="Control" parent="united_kingdom/Limerick" unique_id=1223436609]
+layout_mode = 3
+anchors_preset = 0
+offset_left = -24.570007
+offset_top = -36.33499
+offset_right = 15.429382
+offset_bottom = 3.6650085
+pivot_offset = Vector2(19.865, 0)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="united_kingdom/Limerick/Control" unique_id=1759765407]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.25
+offset_right = 0.00061035156
+offset_bottom = -10.0
+alignment = 1
+
+[node name="PanelContainer" type="PanelContainer" parent="united_kingdom/Limerick/Control/VBoxContainer" unique_id=859739457]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_kvpfn")
+
+[node name="ProvinceName" type="Label" parent="united_kingdom/Limerick/Control/VBoxContainer/PanelContainer" unique_id=2024200776]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="united_kingdom/Limerick/Control/VBoxContainer" unique_id=1963543349]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="united_kingdom/Limerick/Control/VBoxContainer/HBoxContainer" unique_id=1393609734]
+layout_mode = 2
+
+[node name="ResourceCount" type="Label" parent="united_kingdom/Limerick/Control/VBoxContainer/HBoxContainer" unique_id=117941283]
+layout_mode = 2
+
+[node name="Path2D10" type="Path2D" parent="united_kingdom/Limerick" unique_id=733253608]
+curve = SubResource("Curve2D_fkyul")
+script = ExtResource("8_gee14")
+
+[node name="Path2D9" type="Path2D" parent="united_kingdom/Limerick" unique_id=263882071]
+curve = SubResource("Curve2D_lmml8")
+script = ExtResource("8_gee14")
+
+[node name="Path2D8" type="Path2D" parent="united_kingdom/Limerick" unique_id=1652108083]
+curve = SubResource("Curve2D_vwvke")
+script = ExtResource("8_gee14")
+
+[node name="Path2D7" type="Path2D" parent="united_kingdom/Limerick" unique_id=239495804]
+curve = SubResource("Curve2D_c44qr")
 script = ExtResource("8_gee14")
 
 [node name="Line2D" type="Line2D" parent="." unique_id=706389308]
