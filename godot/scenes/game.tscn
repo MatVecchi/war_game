@@ -36,6 +36,888 @@ load_path = "res://.godot/imported/water_point.png-974086534a80e46d2775fcc6f74c7
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_5newe"]
 load_path = "res://.godot/imported/water_point.png-974086534a80e46d2775fcc6f74c7b2a.ctex"
 
+[sub_resource type="Curve2D" id="Curve2D_rysoc"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -701, 113, 0, 0, 0, 0, -701, 76)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_ssvqc"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -627, 34, 0, 0, 0, 0, -657, 23)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_264po"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -658, 471, 0, 0, 0, 0, -638, 472)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_1kice"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -612, 448, 0, 0, 0, 0, -588, 473)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_5newe"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -452, 497, 0, 0, 0, 0, -481, 485)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_37s47"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -463, 441, 0, 0, 0, 0, -441, 422)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_bt5mj"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -463, 441, 0, 0, 0, 0, -454, 454)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_e1j6l"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -463, 441, 0, 0, 0, 0, -437, 445)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_pl11u"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -463, 441, 0, 0, 0, 0, -477, 400)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_bhx41"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -463, 441, 0, 0, 0, 0, -481, 485)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_qnb83"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -510, 436, 0, 0, 0, 0, -481, 485)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_sww3w"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -510, 436, 0, 0, 0, 0, -463, 441)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_suyxu"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -477, 400, 0, 0, 0, 0, -434, 350)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_sgl2t"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -420, 370, 0, 0, 0, 0, -429, 351)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_qouja"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -373, 422, 0, 0, 0, 0, -407, 439)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_wljb1"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -360, 470, 0, 0, 0, 0, -407, 439)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_v2yb1"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -405, 493, 0, 0, 0, 0, -360, 470)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_js0lu"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -405, 493, 0, 0, 0, 0, -340, 522)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_gxtfn"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -355, 549, 0, 0, 0, 0, -395, 524)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_twgab"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -278, 548, 0, 0, 0, 0, -283, 549)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_02fa5"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -278, 548, 0, 0, 0, 0, -276, 548)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_nepv3"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -278, 548, 0, 0, 0, 0, -276, 532)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_7025r"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -302, 490, 0, 0, 0, 0, -276, 532)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_m4url"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -302, 490, 0, 0, 0, 0, -305, 468)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_8ool0"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -302, 490, 0, 0, 0, 0, -360, 470)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_pr1ej"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -241, 425, 0, 0, 0, 0, -233, 404)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_05nbr"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -241, 425, 0, 0, 0, 0, -286, 402)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_0sl42"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -253, 388, 0, 0, 0, 0, -286, 402)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_oaba0"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -301, 427, 0, 0, 0, 0, -286, 402)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_458eo"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -319, 360, 0, 0, 0, 0, -286, 402)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_h3rex"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -319, 360, 0, 0, 0, 0, -360, 349)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_fedci"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -319, 360, 0, 0, 0, 0, -358, 326)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_8qswn"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -319, 360, 0, 0, 0, 0, -323, 339)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_rm0al"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -318, 463, 0, 0, 0, 0, -360, 470)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_i4re6"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -340, 522, 0, 0, 0, 0, -360, 470)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_pf7vy"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -340, 522, 0, 0, 0, 0, -302, 490)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_o8ni1"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -340, 522, 0, 0, 0, 0, -276, 532)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_3hbvx"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -340, 522, 0, 0, 0, 0, -336, 541)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_q8j3a"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -340, 522, 0, 0, 0, 0, -395, 524)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_ms3bu"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -434, 506, 0, 0, 0, 0, -395, 524)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_7ixpq"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -405, 493, 0, 0, 0, 0, -395, 524)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_bk1p3"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -405, 493, 0, 0, 0, 0, -422, 496)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_n8ral"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -405, 493, 0, 0, 0, 0, -407, 439)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_yd4ix"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -422, 452, 0, 0, 0, 0, -407, 439)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_66xif"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -437, 445, 0, 0, 0, 0, -436, 450)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_bnuda"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -437, 445, 0, 0, 0, 0, -435, 441)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_0rmfi"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -437, 445, 0, 0, 0, 0, -407, 439)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_xbak0"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -426, 427, 0, 0, 0, 0, -407, 439)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_3x28f"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -399, 387, 0, 0, 0, 0, -407, 439)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_l6q63"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -420, 370, 0, 0, 0, 0, -407, 439)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_mmvbu"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -420, 370, 0, 0, 0, 0, -399, 387)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_weeiq"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -420, 370, 0, 0, 0, 0, -424, 396)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_uxocx"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -420, 370, 0, 0, 0, 0, -477, 400)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_7nv0b"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -441, 422, 0, 0, 0, 0, -477, 400)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_o8oq8"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -532, 388, 0, 0, 0, 0, -477, 400)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_sxt1d"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -510, 436, 0, 0, 0, 0, -477, 400)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_2iuns"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -510, 436, 0, 0, 0, 0, -532, 388)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_7gkqi"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -510, 436, 0, 0, 0, 0, -560, 437)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_753oq"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -481, 485, 0, 0, 0, 0, -537, 485)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_3x338"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -510, 436, 0, 0, 0, 0, -537, 485)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_1yg85"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -560, 437, 0, 0, 0, 0, -537, 485)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_s0g06"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -597, 501, 0, 0, 0, 0, -537, 485)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_2gnni"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -597, 501, 0, 0, 0, 0, -587, 482)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_vgxg3"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -597, 501, 0, 0, 0, 0, -638, 472)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_4nbsr"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -595, 478, 0, 0, 0, 0, -638, 472)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_fkywm"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -612, 448, 0, 0, 0, 0, -638, 472)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_dku7i"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -612, 448, 0, 0, 0, 0, -597, 426)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_veaf0"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -612, 448, 0, 0, 0, 0, -560, 437)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_flw08"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -588, 422, 0, 0, 0, 0, -560, 437)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_84hbc"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -532, 388, 0, 0, 0, 0, -560, 437)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_15b3c"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -532, 388, 0, 0, 0, 0, -567, 407)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_veukt"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -532, 388, 0, 0, 0, 0, -563, 374)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_nbjts"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -532, 388, 0, 0, 0, 0, -513, 375)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_i1hsc"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -646, -67, 0, 0, 0, 0, -692, -67)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_ounyb"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -701, -31, 0, 0, 0, 0, -692, -67)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_iekjf"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -661, -14, 0, 0, 0, 0, -692, -67)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_okmmv"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -661, -14, 0, 0, 0, 0, -667, -10)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_ja1h7"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -661, -14, 0, 0, 0, 0, -646, -14)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_p4npv"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -661, -14, 0, 0, 0, 0, -657, 23)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_xjcjm"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -645, 1, 0, 0, 0, 0, -657, 23)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_tc8uq"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -658, 50, 0, 0, 0, 0, -630, 45)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_h5tdf"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -658, 50, 0, 0, 0, 0, -657, 23)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_xbifu"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -685, 33, 0, 0, 0, 0, -657, 23)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_gdf8r"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -675, 46, 0, 0, 0, 0, -657, 23)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_x8trd"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -675, 46, 0, 0, 0, 0, -685, 33)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_s33c4"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -675, 46, 0, 0, 0, 0, -688, 39)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_3hv4c"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -675, 46, 0, 0, 0, 0, -658, 50)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_vniw0"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -675, 46, 0, 0, 0, 0, -701, 76)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_lddog"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -675, 46, 0, 0, 0, 0, -691, 49)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_boxkr"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -701, 76, 0, 0, 0, 0, -691, 49)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_de5we"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -701, 76, 0, 0, 0, 0, -747, 94)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_8tghg"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -742, 73, 0, 0, 0, 0, -747, 94)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_473mq"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -701, 113, 0, 0, 0, 0, -747, 94)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_1va0p"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -701, 113, 0, 0, 0, 0, -677, 117)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_2tvof"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -701, 113, 0, 0, 0, 0, -715, 154)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_fsry6"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -431, 50, 0, 0, 0, 0, -496, 62)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_eky20"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -470, -42, 0, 0, 0, 0, -457, 14)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_o3ulk"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -431, 50, 0, 0, 0, 0, -408, 62)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_ghitk"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -431, 50, 0, 0, 0, 0, -457, 14)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_rundi"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -496, 62, 0, 0, 0, 0, -457, 14)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_7kwaa"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -496, 62, 0, 0, 0, 0, -520, 4)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_jye5l"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -457, 14, 0, 0, 0, 0, -520, 4)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_rvhxa"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -568, -36, 0, 0, 0, 0, -520, 4)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_rekj2"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -470, -42, 0, 0, 0, 0, -520, 4)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_ip3rd"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -470, -42, 0, 0, 0, 0, -568, -36)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_s6met"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -470, -42, 0, 0, 0, 0, -538, -96)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_7itva"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -597, -77, 0, 0, 0, 0, -538, -96)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_o5ny5"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -568, -36, 0, 0, 0, 0, -538, -96)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_7ss2i"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -568, -36, 0, 0, 0, 0, -583, -58)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_1id2h"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -568, -36, 0, 0, 0, 0, -611, -30)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_awynl"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -568, -36, 0, 0, 0, 0, -571, 4)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_65ua2"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -520, 4, 0, 0, 0, 0, -571, 4)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_mowrl"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -592, -8, 0, 0, 0, 0, -571, 4)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_g3qou"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -585, 18, 0, 0, 0, 0, -571, 4)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_vvi2r"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -551, 54, 0, 0, 0, 0, -571, 4)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_r2n6p"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -551, 54, 0, 0, 0, 0, -572, 46)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_deyyv"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -551, 54, 0, 0, 0, 0, -567, 75)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_vnd7u"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -551, 54, 0, 0, 0, 0, -496, 62)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_fccuv"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -535, 107, 0, 0, 0, 0, -551, 54)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_kpl5h"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -535, 107, 0, 0, 0, 0, -496, 62)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_nej56"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -535, 107, 0, 0, 0, 0, -554, 99)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_vgiqa"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -535, 107, 0, 0, 0, 0, -555, 124)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_1uieh"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -552, 135, 0, 0, 0, 0, -555, 124)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_x2ts8"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -562, 110, 0, 0, 0, 0, -555, 124)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_1fiuy"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -566, 139, 0, 0, 0, 0, -555, 124)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_fikvi"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -566, 139, 0, 0, 0, 0, -559, 142)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_iwdqm"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -566, 139, 0, 0, 0, 0, -580, 137)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_l0ny2"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -566, 139, 0, 0, 0, 0, -606, 147)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_h1bth"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -596, 180, 0, 0, 0, 0, -606, 147)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_6cwij"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -609, 134, 0, 0, 0, 0, -606, 147)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_bqsge"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -657, 157, 0, 0, 0, 0, -606, 147)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_k2jov"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -657, 157, 0, 0, 0, 0, -634, 132)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_osiit"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -657, 157, 0, 0, 0, 0, -715, 154)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_wvj0x"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -699, 180, 0, 0, 0, 0, -715, 154)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_d1om7"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -724, 212, 0, 0, 0, 0, -715, 154)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_g0jan"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -724, 212, 0, 0, 0, 0, -688, 205)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_uh8v6"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -724, 212, 0, 0, 0, 0, -676, 265)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_1fd0d"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -724, 212, 0, 0, 0, 0, -739, 257)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_0mjh4"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -791, 287, 0, 0, 0, 0, -739, 257)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_bkxpl"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -712, 322, 0, 0, 0, 0, -739, 257)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_y2jf0"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -676, 265, 0, 0, 0, 0, -739, 257)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_g33qm"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -676, 265, 0, 0, 0, 0, -651, 300)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_hy75c"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -676, 265, 0, 0, 0, 0, -712, 322)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_vaoao"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -653, 314, 0, 0, 0, 0, -712, 322)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_uaaia"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -714, 339, 0, 0, 0, 0, -712, 322)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_x1ulb"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -791, 287, 0, 0, 0, 0, -712, 322)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_gco53"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -791, 287, 0, 0, 0, 0, -798, 305)
+}
+point_count = 2
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kvpfn"]
 bg_color = Color(0, 0, 0, 0)
 
@@ -222,12 +1104,6 @@ point_count = 2
 [sub_resource type="Curve2D" id="Curve2D_iq5an"]
 _data = {
 "points": PackedVector2Array(0, 0, 0, 0, -634, 307, 0, 0, 0, 0, -630, 293)
-}
-point_count = 2
-
-[sub_resource type="Curve2D" id="Curve2D_sy8mq"]
-_data = {
-"points": PackedVector2Array(0, 0, 0, 0, -634, 307, 0, 0, 0, 0, -673, 300)
 }
 point_count = 2
 
@@ -717,12 +1593,6 @@ _data = {
 }
 point_count = 2
 
-[sub_resource type="Curve2D" id="Curve2D_bdhac"]
-_data = {
-"points": PackedVector2Array(0, 0, 0, 0, -627, 280, 0, 0, 0, 0, -674, 292)
-}
-point_count = 2
-
 [sub_resource type="Curve2D" id="Curve2D_ptx6v"]
 _data = {
 "points": PackedVector2Array(0, 0, 0, 0, -627, 280, 0, 0, 0, 0, -661, 271)
@@ -1161,15 +2031,15 @@ _data = {
 }
 point_count = 2
 
-[sub_resource type="Curve2D" id="Curve2D_gco53"]
-_data = {
-"points": PackedVector2Array(0, 0, 0, 0, -851, 326, 0, 0, 0, 0, -881, 297)
-}
-point_count = 2
-
 [sub_resource type="Curve2D" id="Curve2D_euews"]
 _data = {
 "points": PackedVector2Array(0, 0, 0, 0, -851, 326, 0, 0, 0, 0, -828, 269)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_ca42v"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -851, 326, 0, 0, 0, 0, -879, 339)
 }
 point_count = 2
 
@@ -2082,7 +2952,7 @@ scale = Vector2(0.365, 0.365)
 texture = SubResource("CompressedTexture2D_264po")
 
 [node name="WaterPoint41" type="Sprite2D" parent="Background" unique_id=83994538]
-position = Vector2(-692, -57)
+position = Vector2(-692, -67)
 scale = Vector2(0.365, 0.365)
 texture = SubResource("CompressedTexture2D_264po")
 
@@ -2280,6 +3150,613 @@ texture = ExtResource("5_kvpfn")
 position = Vector2(-638.00006, 472.00006)
 scale = Vector2(0.365, 0.365)
 texture = ExtResource("5_kvpfn")
+
+[node name="Path2D66" type="Path2D" parent="Background" unique_id=851698935]
+curve = SubResource("Curve2D_rysoc")
+script = ExtResource("8_gee14")
+
+[node name="Path2D79" type="Path2D" parent="Background" unique_id=1042818368]
+curve = SubResource("Curve2D_ssvqc")
+script = ExtResource("8_gee14")
+
+[node name="Path2D95" type="Path2D" parent="Background" unique_id=1863211170]
+curve = SubResource("Curve2D_264po")
+script = ExtResource("8_gee14")
+
+[node name="Path2D96" type="Path2D" parent="Background" unique_id=1367872041]
+curve = SubResource("Curve2D_1kice")
+script = ExtResource("8_gee14")
+
+[node name="Path2D110" type="Path2D" parent="Background" unique_id=1303438617]
+curve = SubResource("Curve2D_5newe")
+script = ExtResource("8_gee14")
+
+[node name="Path2D114" type="Path2D" parent="Background" unique_id=1294754718]
+curve = SubResource("Curve2D_37s47")
+script = ExtResource("8_gee14")
+
+[node name="Path2D113" type="Path2D" parent="Background" unique_id=1351436931]
+curve = SubResource("Curve2D_bt5mj")
+script = ExtResource("8_gee14")
+
+[node name="Path2D112" type="Path2D" parent="Background" unique_id=1032419517]
+curve = SubResource("Curve2D_e1j6l")
+script = ExtResource("8_gee14")
+
+[node name="Path2D111" type="Path2D" parent="Background" unique_id=1972162326]
+curve = SubResource("Curve2D_pl11u")
+script = ExtResource("8_gee14")
+
+[node name="Path2D109" type="Path2D" parent="Background" unique_id=1154641297]
+curve = SubResource("Curve2D_bhx41")
+script = ExtResource("8_gee14")
+
+[node name="Path2D107" type="Path2D" parent="Background" unique_id=1480715652]
+curve = SubResource("Curve2D_qnb83")
+script = ExtResource("8_gee14")
+
+[node name="Path2D106" type="Path2D" parent="Background" unique_id=1719681097]
+curve = SubResource("Curve2D_sww3w")
+script = ExtResource("8_gee14")
+
+[node name="Path2D120" type="Path2D" parent="Background" unique_id=1584403452]
+curve = SubResource("Curve2D_suyxu")
+script = ExtResource("8_gee14")
+
+[node name="Path2D119" type="Path2D" parent="Background" unique_id=1050533625]
+curve = SubResource("Curve2D_sgl2t")
+script = ExtResource("8_gee14")
+
+[node name="Path2D129" type="Path2D" parent="Background" unique_id=1718196194]
+curve = SubResource("Curve2D_qouja")
+script = ExtResource("8_gee14")
+
+[node name="Path2D128" type="Path2D" parent="Background" unique_id=341404799]
+curve = SubResource("Curve2D_wljb1")
+script = ExtResource("8_gee14")
+
+[node name="Path2D135" type="Path2D" parent="Background" unique_id=2130215145]
+curve = SubResource("Curve2D_v2yb1")
+script = ExtResource("8_gee14")
+
+[node name="Path2D134" type="Path2D" parent="Background" unique_id=493746834]
+curve = SubResource("Curve2D_js0lu")
+script = ExtResource("8_gee14")
+
+[node name="Path2D137" type="Path2D" parent="Background" unique_id=737996872]
+curve = SubResource("Curve2D_gxtfn")
+script = ExtResource("8_gee14")
+
+[node name="Path2D148" type="Path2D" parent="Background" unique_id=1117766617]
+curve = SubResource("Curve2D_twgab")
+script = ExtResource("8_gee14")
+
+[node name="Path2D147" type="Path2D" parent="Background" unique_id=917705058]
+curve = SubResource("Curve2D_02fa5")
+script = ExtResource("8_gee14")
+
+[node name="Path2D146" type="Path2D" parent="Background" unique_id=1334098069]
+curve = SubResource("Curve2D_nepv3")
+script = ExtResource("8_gee14")
+
+[node name="Path2D145" type="Path2D" parent="Background" unique_id=552030436]
+curve = SubResource("Curve2D_7025r")
+script = ExtResource("8_gee14")
+
+[node name="Path2D144" type="Path2D" parent="Background" unique_id=2308482]
+curve = SubResource("Curve2D_m4url")
+script = ExtResource("8_gee14")
+
+[node name="Path2D143" type="Path2D" parent="Background" unique_id=848628685]
+curve = SubResource("Curve2D_8ool0")
+script = ExtResource("8_gee14")
+
+[node name="Path2D157" type="Path2D" parent="Background" unique_id=2092546347]
+curve = SubResource("Curve2D_pr1ej")
+script = ExtResource("8_gee14")
+
+[node name="Path2D156" type="Path2D" parent="Background" unique_id=1202328384]
+curve = SubResource("Curve2D_05nbr")
+script = ExtResource("8_gee14")
+
+[node name="Path2D155" type="Path2D" parent="Background" unique_id=456977695]
+curve = SubResource("Curve2D_0sl42")
+script = ExtResource("8_gee14")
+
+[node name="Path2D154" type="Path2D" parent="Background" unique_id=35577121]
+curve = SubResource("Curve2D_oaba0")
+script = ExtResource("8_gee14")
+
+[node name="Path2D153" type="Path2D" parent="Background" unique_id=626699216]
+curve = SubResource("Curve2D_458eo")
+script = ExtResource("8_gee14")
+
+[node name="Path2D152" type="Path2D" parent="Background" unique_id=216980001]
+curve = SubResource("Curve2D_h3rex")
+script = ExtResource("8_gee14")
+
+[node name="Path2D151" type="Path2D" parent="Background" unique_id=1199823211]
+curve = SubResource("Curve2D_fedci")
+script = ExtResource("8_gee14")
+
+[node name="Path2D150" type="Path2D" parent="Background" unique_id=363194339]
+curve = SubResource("Curve2D_8qswn")
+script = ExtResource("8_gee14")
+
+[node name="Path2D142" type="Path2D" parent="Background" unique_id=205048935]
+curve = SubResource("Curve2D_rm0al")
+script = ExtResource("8_gee14")
+
+[node name="Path2D141" type="Path2D" parent="Background" unique_id=1216771819]
+curve = SubResource("Curve2D_i4re6")
+script = ExtResource("8_gee14")
+
+[node name="Path2D140" type="Path2D" parent="Background" unique_id=1567993834]
+curve = SubResource("Curve2D_pf7vy")
+script = ExtResource("8_gee14")
+
+[node name="Path2D139" type="Path2D" parent="Background" unique_id=239535223]
+curve = SubResource("Curve2D_o8ni1")
+script = ExtResource("8_gee14")
+
+[node name="Path2D138" type="Path2D" parent="Background" unique_id=443425474]
+curve = SubResource("Curve2D_3hbvx")
+script = ExtResource("8_gee14")
+
+[node name="Path2D136" type="Path2D" parent="Background" unique_id=1184411865]
+curve = SubResource("Curve2D_q8j3a")
+script = ExtResource("8_gee14")
+
+[node name="Path2D149" type="Path2D" parent="Background" unique_id=1182780455]
+curve = SubResource("Curve2D_ms3bu")
+script = ExtResource("8_gee14")
+
+[node name="Path2D133" type="Path2D" parent="Background" unique_id=1012494070]
+curve = SubResource("Curve2D_7ixpq")
+script = ExtResource("8_gee14")
+
+[node name="Path2D132" type="Path2D" parent="Background" unique_id=420794353]
+curve = SubResource("Curve2D_bk1p3")
+script = ExtResource("8_gee14")
+
+[node name="Path2D127" type="Path2D" parent="Background" unique_id=1460143327]
+curve = SubResource("Curve2D_n8ral")
+script = ExtResource("8_gee14")
+
+[node name="Path2D126" type="Path2D" parent="Background" unique_id=416539742]
+curve = SubResource("Curve2D_yd4ix")
+script = ExtResource("8_gee14")
+
+[node name="Path2D131" type="Path2D" parent="Background" unique_id=1760489090]
+curve = SubResource("Curve2D_66xif")
+script = ExtResource("8_gee14")
+
+[node name="Path2D130" type="Path2D" parent="Background" unique_id=910177572]
+curve = SubResource("Curve2D_bnuda")
+script = ExtResource("8_gee14")
+
+[node name="Path2D125" type="Path2D" parent="Background" unique_id=1808628583]
+curve = SubResource("Curve2D_0rmfi")
+script = ExtResource("8_gee14")
+
+[node name="Path2D124" type="Path2D" parent="Background" unique_id=1757402884]
+curve = SubResource("Curve2D_xbak0")
+script = ExtResource("8_gee14")
+
+[node name="Path2D123" type="Path2D" parent="Background" unique_id=2108375799]
+curve = SubResource("Curve2D_3x28f")
+script = ExtResource("8_gee14")
+
+[node name="Path2D122" type="Path2D" parent="Background" unique_id=424206359]
+curve = SubResource("Curve2D_l6q63")
+script = ExtResource("8_gee14")
+
+[node name="Path2D121" type="Path2D" parent="Background" unique_id=726757870]
+curve = SubResource("Curve2D_mmvbu")
+script = ExtResource("8_gee14")
+
+[node name="Path2D118" type="Path2D" parent="Background" unique_id=931932355]
+curve = SubResource("Curve2D_weeiq")
+script = ExtResource("8_gee14")
+
+[node name="Path2D117" type="Path2D" parent="Background" unique_id=809218448]
+curve = SubResource("Curve2D_uxocx")
+script = ExtResource("8_gee14")
+
+[node name="Path2D116" type="Path2D" parent="Background" unique_id=1702013758]
+curve = SubResource("Curve2D_7nv0b")
+script = ExtResource("8_gee14")
+
+[node name="Path2D115" type="Path2D" parent="Background" unique_id=219867602]
+curve = SubResource("Curve2D_o8oq8")
+script = ExtResource("8_gee14")
+
+[node name="Path2D105" type="Path2D" parent="Background" unique_id=1907975588]
+curve = SubResource("Curve2D_sxt1d")
+script = ExtResource("8_gee14")
+
+[node name="Path2D104" type="Path2D" parent="Background" unique_id=1461041158]
+curve = SubResource("Curve2D_2iuns")
+script = ExtResource("8_gee14")
+
+[node name="Path2D103" type="Path2D" parent="Background" unique_id=1909541049]
+curve = SubResource("Curve2D_7gkqi")
+script = ExtResource("8_gee14")
+
+[node name="Path2D108" type="Path2D" parent="Background" unique_id=1670642093]
+curve = SubResource("Curve2D_753oq")
+script = ExtResource("8_gee14")
+
+[node name="Path2D102" type="Path2D" parent="Background" unique_id=692575801]
+curve = SubResource("Curve2D_3x338")
+script = ExtResource("8_gee14")
+
+[node name="Path2D101" type="Path2D" parent="Background" unique_id=122697066]
+curve = SubResource("Curve2D_1yg85")
+script = ExtResource("8_gee14")
+
+[node name="Path2D100" type="Path2D" parent="Background" unique_id=757512322]
+curve = SubResource("Curve2D_s0g06")
+script = ExtResource("8_gee14")
+
+[node name="Path2D99" type="Path2D" parent="Background" unique_id=1386366869]
+curve = SubResource("Curve2D_2gnni")
+script = ExtResource("8_gee14")
+
+[node name="Path2D98" type="Path2D" parent="Background" unique_id=316190748]
+curve = SubResource("Curve2D_vgxg3")
+script = ExtResource("8_gee14")
+
+[node name="Path2D97" type="Path2D" parent="Background" unique_id=1169349382]
+curve = SubResource("Curve2D_4nbsr")
+script = ExtResource("8_gee14")
+
+[node name="Path2D94" type="Path2D" parent="Background" unique_id=2120064724]
+curve = SubResource("Curve2D_fkywm")
+script = ExtResource("8_gee14")
+
+[node name="Path2D93" type="Path2D" parent="Background" unique_id=21255152]
+curve = SubResource("Curve2D_dku7i")
+script = ExtResource("8_gee14")
+
+[node name="Path2D92" type="Path2D" parent="Background" unique_id=22925554]
+curve = SubResource("Curve2D_veaf0")
+script = ExtResource("8_gee14")
+
+[node name="Path2D91" type="Path2D" parent="Background" unique_id=960820776]
+curve = SubResource("Curve2D_flw08")
+script = ExtResource("8_gee14")
+
+[node name="Path2D90" type="Path2D" parent="Background" unique_id=236932958]
+curve = SubResource("Curve2D_84hbc")
+script = ExtResource("8_gee14")
+
+[node name="Path2D89" type="Path2D" parent="Background" unique_id=1122160556]
+curve = SubResource("Curve2D_15b3c")
+script = ExtResource("8_gee14")
+
+[node name="Path2D88" type="Path2D" parent="Background" unique_id=1854697283]
+curve = SubResource("Curve2D_veukt")
+script = ExtResource("8_gee14")
+
+[node name="Path2D87" type="Path2D" parent="Background" unique_id=2145890635]
+curve = SubResource("Curve2D_nbjts")
+script = ExtResource("8_gee14")
+
+[node name="Path2D86" type="Path2D" parent="Background" unique_id=135805569]
+curve = SubResource("Curve2D_i1hsc")
+script = ExtResource("8_gee14")
+
+[node name="Path2D85" type="Path2D" parent="Background" unique_id=1254674836]
+curve = SubResource("Curve2D_ounyb")
+script = ExtResource("8_gee14")
+
+[node name="Path2D84" type="Path2D" parent="Background" unique_id=1485713135]
+curve = SubResource("Curve2D_iekjf")
+script = ExtResource("8_gee14")
+
+[node name="Path2D83" type="Path2D" parent="Background" unique_id=793503619]
+curve = SubResource("Curve2D_okmmv")
+script = ExtResource("8_gee14")
+
+[node name="Path2D82" type="Path2D" parent="Background" unique_id=1412323337]
+curve = SubResource("Curve2D_ja1h7")
+script = ExtResource("8_gee14")
+
+[node name="Path2D81" type="Path2D" parent="Background" unique_id=1168395467]
+curve = SubResource("Curve2D_p4npv")
+script = ExtResource("8_gee14")
+
+[node name="Path2D78" type="Path2D" parent="Background" unique_id=1141890779]
+curve = SubResource("Curve2D_xjcjm")
+script = ExtResource("8_gee14")
+
+[node name="Path2D80" type="Path2D" parent="Background" unique_id=1703852286]
+curve = SubResource("Curve2D_tc8uq")
+script = ExtResource("8_gee14")
+
+[node name="Path2D77" type="Path2D" parent="Background" unique_id=922419222]
+curve = SubResource("Curve2D_h5tdf")
+script = ExtResource("8_gee14")
+
+[node name="Path2D76" type="Path2D" parent="Background" unique_id=1882225988]
+curve = SubResource("Curve2D_xbifu")
+script = ExtResource("8_gee14")
+
+[node name="Path2D75" type="Path2D" parent="Background" unique_id=1932231263]
+curve = SubResource("Curve2D_gdf8r")
+script = ExtResource("8_gee14")
+
+[node name="Path2D74" type="Path2D" parent="Background" unique_id=1093412355]
+curve = SubResource("Curve2D_x8trd")
+script = ExtResource("8_gee14")
+
+[node name="Path2D73" type="Path2D" parent="Background" unique_id=1370016618]
+curve = SubResource("Curve2D_s33c4")
+script = ExtResource("8_gee14")
+
+[node name="Path2D72" type="Path2D" parent="Background" unique_id=1957973867]
+curve = SubResource("Curve2D_3hv4c")
+script = ExtResource("8_gee14")
+
+[node name="Path2D71" type="Path2D" parent="Background" unique_id=1821610896]
+curve = SubResource("Curve2D_vniw0")
+script = ExtResource("8_gee14")
+
+[node name="Path2D70" type="Path2D" parent="Background" unique_id=281156378]
+curve = SubResource("Curve2D_lddog")
+script = ExtResource("8_gee14")
+
+[node name="Path2D69" type="Path2D" parent="Background" unique_id=37400665]
+curve = SubResource("Curve2D_boxkr")
+script = ExtResource("8_gee14")
+
+[node name="Path2D68" type="Path2D" parent="Background" unique_id=88905030]
+curve = SubResource("Curve2D_de5we")
+script = ExtResource("8_gee14")
+
+[node name="Path2D67" type="Path2D" parent="Background" unique_id=1089532682]
+curve = SubResource("Curve2D_8tghg")
+script = ExtResource("8_gee14")
+
+[node name="Path2D65" type="Path2D" parent="Background" unique_id=256865952]
+curve = SubResource("Curve2D_473mq")
+script = ExtResource("8_gee14")
+
+[node name="Path2D64" type="Path2D" parent="Background" unique_id=1615714888]
+curve = SubResource("Curve2D_1va0p")
+script = ExtResource("8_gee14")
+
+[node name="Path2D26" type="Path2D" parent="Background" unique_id=1625751605]
+curve = SubResource("Curve2D_2tvof")
+script = ExtResource("8_gee14")
+
+[node name="Path2D60" type="Path2D" parent="Background" unique_id=581308674]
+curve = SubResource("Curve2D_fsry6")
+script = ExtResource("8_gee14")
+
+[node name="Path2D61" type="Path2D" parent="Background" unique_id=1249699082]
+curve = SubResource("Curve2D_eky20")
+script = ExtResource("8_gee14")
+
+[node name="Path2D62" type="Path2D" parent="Background" unique_id=1597104731]
+curve = SubResource("Curve2D_o3ulk")
+script = ExtResource("8_gee14")
+
+[node name="Path2D59" type="Path2D" parent="Background" unique_id=172418838]
+curve = SubResource("Curve2D_ghitk")
+script = ExtResource("8_gee14")
+
+[node name="Path2D58" type="Path2D" parent="Background" unique_id=1972009113]
+curve = SubResource("Curve2D_rundi")
+script = ExtResource("8_gee14")
+
+[node name="Path2D57" type="Path2D" parent="Background" unique_id=2081757886]
+curve = SubResource("Curve2D_7kwaa")
+script = ExtResource("8_gee14")
+
+[node name="Path2D56" type="Path2D" parent="Background" unique_id=889828938]
+curve = SubResource("Curve2D_jye5l")
+script = ExtResource("8_gee14")
+
+[node name="Path2D55" type="Path2D" parent="Background" unique_id=1218182664]
+curve = SubResource("Curve2D_rvhxa")
+script = ExtResource("8_gee14")
+
+[node name="Path2D54" type="Path2D" parent="Background" unique_id=1585343645]
+curve = SubResource("Curve2D_rekj2")
+script = ExtResource("8_gee14")
+
+[node name="Path2D53" type="Path2D" parent="Background" unique_id=558046935]
+curve = SubResource("Curve2D_ip3rd")
+script = ExtResource("8_gee14")
+
+[node name="Path2D52" type="Path2D" parent="Background" unique_id=711769622]
+curve = SubResource("Curve2D_s6met")
+script = ExtResource("8_gee14")
+
+[node name="Path2D51" type="Path2D" parent="Background" unique_id=1159446503]
+curve = SubResource("Curve2D_7itva")
+script = ExtResource("8_gee14")
+
+[node name="Path2D50" type="Path2D" parent="Background" unique_id=2046618913]
+curve = SubResource("Curve2D_o5ny5")
+script = ExtResource("8_gee14")
+
+[node name="Path2D49" type="Path2D" parent="Background" unique_id=669976870]
+curve = SubResource("Curve2D_7ss2i")
+script = ExtResource("8_gee14")
+
+[node name="Path2D48" type="Path2D" parent="Background" unique_id=893112973]
+curve = SubResource("Curve2D_1id2h")
+script = ExtResource("8_gee14")
+
+[node name="Path2D47" type="Path2D" parent="Background" unique_id=834038068]
+curve = SubResource("Curve2D_awynl")
+script = ExtResource("8_gee14")
+
+[node name="Path2D46" type="Path2D" parent="Background" unique_id=965846244]
+curve = SubResource("Curve2D_65ua2")
+script = ExtResource("8_gee14")
+
+[node name="Path2D45" type="Path2D" parent="Background" unique_id=44212036]
+curve = SubResource("Curve2D_mowrl")
+script = ExtResource("8_gee14")
+
+[node name="Path2D44" type="Path2D" parent="Background" unique_id=1522510444]
+curve = SubResource("Curve2D_g3qou")
+script = ExtResource("8_gee14")
+
+[node name="Path2D43" type="Path2D" parent="Background" unique_id=1341147764]
+curve = SubResource("Curve2D_vvi2r")
+script = ExtResource("8_gee14")
+
+[node name="Path2D42" type="Path2D" parent="Background" unique_id=1991665592]
+curve = SubResource("Curve2D_r2n6p")
+script = ExtResource("8_gee14")
+
+[node name="Path2D41" type="Path2D" parent="Background" unique_id=13518310]
+curve = SubResource("Curve2D_deyyv")
+script = ExtResource("8_gee14")
+
+[node name="Path2D40" type="Path2D" parent="Background" unique_id=468418404]
+curve = SubResource("Curve2D_vnd7u")
+script = ExtResource("8_gee14")
+
+[node name="Path2D63" type="Path2D" parent="Background" unique_id=2056212289]
+curve = SubResource("Curve2D_fccuv")
+script = ExtResource("8_gee14")
+
+[node name="Path2D39" type="Path2D" parent="Background" unique_id=1139541860]
+curve = SubResource("Curve2D_kpl5h")
+script = ExtResource("8_gee14")
+
+[node name="Path2D38" type="Path2D" parent="Background" unique_id=1642320836]
+curve = SubResource("Curve2D_nej56")
+script = ExtResource("8_gee14")
+
+[node name="Path2D37" type="Path2D" parent="Background" unique_id=180883610]
+curve = SubResource("Curve2D_vgiqa")
+script = ExtResource("8_gee14")
+
+[node name="Path2D36" type="Path2D" parent="Background" unique_id=1930745014]
+curve = SubResource("Curve2D_1uieh")
+script = ExtResource("8_gee14")
+
+[node name="Path2D35" type="Path2D" parent="Background" unique_id=1600602671]
+curve = SubResource("Curve2D_x2ts8")
+script = ExtResource("8_gee14")
+
+[node name="Path2D34" type="Path2D" parent="Background" unique_id=2108878394]
+curve = SubResource("Curve2D_1fiuy")
+script = ExtResource("8_gee14")
+
+[node name="Path2D33" type="Path2D" parent="Background" unique_id=77352137]
+curve = SubResource("Curve2D_fikvi")
+script = ExtResource("8_gee14")
+
+[node name="Path2D32" type="Path2D" parent="Background" unique_id=78945325]
+curve = SubResource("Curve2D_iwdqm")
+script = ExtResource("8_gee14")
+
+[node name="Path2D31" type="Path2D" parent="Background" unique_id=1802553567]
+curve = SubResource("Curve2D_l0ny2")
+script = ExtResource("8_gee14")
+
+[node name="Path2D30" type="Path2D" parent="Background" unique_id=1354566046]
+curve = SubResource("Curve2D_h1bth")
+script = ExtResource("8_gee14")
+
+[node name="Path2D29" type="Path2D" parent="Background" unique_id=1366452201]
+curve = SubResource("Curve2D_6cwij")
+script = ExtResource("8_gee14")
+
+[node name="Path2D28" type="Path2D" parent="Background" unique_id=1163703439]
+curve = SubResource("Curve2D_bqsge")
+script = ExtResource("8_gee14")
+
+[node name="Path2D27" type="Path2D" parent="Background" unique_id=733339205]
+curve = SubResource("Curve2D_k2jov")
+script = ExtResource("8_gee14")
+
+[node name="Path2D25" type="Path2D" parent="Background" unique_id=658532156]
+curve = SubResource("Curve2D_osiit")
+script = ExtResource("8_gee14")
+
+[node name="Path2D24" type="Path2D" parent="Background" unique_id=1053890681]
+curve = SubResource("Curve2D_wvj0x")
+script = ExtResource("8_gee14")
+
+[node name="Path2D23" type="Path2D" parent="Background" unique_id=870691745]
+curve = SubResource("Curve2D_d1om7")
+script = ExtResource("8_gee14")
+
+[node name="Path2D22" type="Path2D" parent="Background" unique_id=1679361890]
+curve = SubResource("Curve2D_g0jan")
+script = ExtResource("8_gee14")
+
+[node name="Path2D21" type="Path2D" parent="Background" unique_id=1709914066]
+curve = SubResource("Curve2D_uh8v6")
+script = ExtResource("8_gee14")
+
+[node name="Path2D20" type="Path2D" parent="Background" unique_id=878629773]
+curve = SubResource("Curve2D_1fd0d")
+script = ExtResource("8_gee14")
+
+[node name="Path2D19" type="Path2D" parent="Background" unique_id=273175062]
+curve = SubResource("Curve2D_0mjh4")
+script = ExtResource("8_gee14")
+
+[node name="Path2D18" type="Path2D" parent="Background" unique_id=1975578634]
+curve = SubResource("Curve2D_bkxpl")
+script = ExtResource("8_gee14")
+
+[node name="Path2D17" type="Path2D" parent="Background" unique_id=182753641]
+curve = SubResource("Curve2D_y2jf0")
+script = ExtResource("8_gee14")
+
+[node name="Path2D16" type="Path2D" parent="Background" unique_id=156403734]
+curve = SubResource("Curve2D_g33qm")
+script = ExtResource("8_gee14")
+
+[node name="Path2D15" type="Path2D" parent="Background" unique_id=1690262787]
+curve = SubResource("Curve2D_hy75c")
+script = ExtResource("8_gee14")
+
+[node name="Path2D14" type="Path2D" parent="Background" unique_id=1087844536]
+curve = SubResource("Curve2D_vaoao")
+script = ExtResource("8_gee14")
+
+[node name="Path2D13" type="Path2D" parent="Background" unique_id=1112446665]
+curve = SubResource("Curve2D_uaaia")
+script = ExtResource("8_gee14")
+
+[node name="Path2D12" type="Path2D" parent="Background" unique_id=511341080]
+curve = SubResource("Curve2D_x1ulb")
+script = ExtResource("8_gee14")
+
+[node name="Path2D11" type="Path2D" parent="Background" unique_id=1441015186]
+curve = SubResource("Curve2D_gco53")
+script = ExtResource("8_gee14")
+
+[node name="Polygon2D2" type="Polygon2D" parent="." unique_id=633054651]
+color = Color(0.597546, 0.5841752, 0.49702424, 1)
+polygon = PackedVector2Array(-493, 285, -491, 291, -487, 291, -483, 286, -476, 286, -479, 291, -474, 292, -473, 298, -472, 300, -465, 298, -459, 300, -449, 296, -445, 294, -442, 288, -438, 289, -437, 296, -433, 297, -430, 303, -426, 304, -423, 288, -420, 287, -416, 290, -416, 293, -412, 294, -409, 294, -405, 297, -402, 295, -402, 292, -401, 289, -396, 291, -394, 278, -401, 275, -401, 278, -406, 279, -414, 270, -415, 266, -413, 261, -410, 256, -414, 253, -417, 251, -422, 247, -422, 249, -426, 251, -428, 248, -431, 249, -434, 246, -438, 247, -438, 252, -442, 251, -445, 253, -449, 252, -452, 249, -456, 250, -459, 254, -463, 254, -464, 251, -467, 252, -470, 257, -466, 258, -473, 264, -480, 270, -482, 275)
+
+[node name="Line2D" type="Line2D" parent="Polygon2D2" unique_id=1036574312]
+points = PackedVector2Array(-466, 258, -473, 264, -480, 270, -482, 275, -492, 284, -493, 285, -491, 291, -487, 291, -483, 286, -476, 286, -479, 291, -474, 292, -473, 298, -472, 300, -465, 298, -459, 300, -449, 296, -445, 294, -442, 288, -438, 289, -437, 296, -433, 297, -430, 303, -426, 304, -423, 288, -420, 287, -416, 290, -416, 293, -412, 294, -409, 294, -405, 297, -402, 295, -402, 292, -401, 289, -396, 291, -394, 278, -401, 275, -401, 278, -406, 279, -414, 270, -415, 266, -413, 261, -410, 256, -414, 253, -417, 251, -422, 247, -422, 249, -426, 251, -428, 248, -431, 249, -434, 246, -438, 247, -438, 252, -442, 251, -445, 253, -449, 252, -452, 249, -456, 250, -459, 254, -463, 254, -464, 251, -467, 252, -470, 257)
+closed = true
+width = 2.6
+default_color = Color(1, 1, 1, 0.78431374)
+
+[node name="Polygon2D" type="Polygon2D" parent="." unique_id=1349573046]
+color = Color(0.597546, 0.5841752, 0.49702424, 1)
+polygon = PackedVector2Array(-540, 134, -533, 134, -527, 134, -522, 130, -512, 131, -505, 128, -503, 125, -506, 123, -511, 119, -509, 117, -506, 120, -504, 124, -500, 127, -492, 124, -494, 121, -502, 120, -507, 115, -497, 101, -493, 86, -489, 86, -490, 89, -488, 89, -488, 92, -487, 94, -483, 92, -480, 93, -478, 96, -479, 97, -485, 95, -486, 100, -485, 102, -488, 105, -486, 107, -477, 108, -472, 105, -470, 103, -471, 100, -470, 99, -467, 100, -466, 96, -469, 92, -473, 90, -477, 90, -480, 87, -478, 84, -478, 80, -475, 78, -471, 77, -470, 79, -465, 76, -462, 77, -460, 80, -458, 80, -458, 77, -447, 77, -448, 81, -444, 86, -449, 97, -453, 96, -454, 99, -455, 101, -451, 101, -450, 104, -452, 107, -457, 116, -454, 119, -459, 122, -463, 120, -466, 121, -468, 123, -466, 127, -466, 135, -469, 139, -472, 142, -473, 150, -470, 156, -473, 160, -476, 170, -476, 177, -472, 180, -475, 188, -477, 190, -482, 191, -485, 188, -490, 190, -492, 182, -498, 177, -497, 171, -501, 167, -504, 168, -508, 174, -514, 172, -511, 164, -515, 160, -520, 164, -523, 157, -530, 157, -532, 145, -535, 144, -541, 144, -544, 142, -539, 138)
+
+[node name="Line2D" type="Line2D" parent="Polygon2D" unique_id=146895277]
+points = PackedVector2Array(-540, 134, -539, 138, -544, 142, -541, 144, -535, 144, -532, 145, -530, 157, -523, 157, -520, 164, -515, 160, -511, 164, -514, 172, -508, 174, -504, 168, -501, 167, -497, 171, -498, 177, -492, 182, -490, 190, -485, 188, -482, 191, -477, 190, -475, 188, -472, 180, -476, 177, -476, 170, -473, 160, -470, 156, -473, 150, -472, 142, -469, 139, -466, 135, -466, 127, -468, 123, -466, 121, -463, 120, -459, 122, -454, 119, -457, 116, -452, 107, -450, 104, -451, 101, -455, 101, -454, 99, -453, 96, -449, 97, -444, 86, -444, 78, -447, 77)
+width = 2.6
+default_color = Color(1, 1, 1, 0.78431374)
 
 [node name="austria-hungary" type="Node2D" parent="." unique_id=23902852]
 script = ExtResource("6_p57ef")
@@ -2822,10 +4299,6 @@ layout_mode = 2
 curve = SubResource("Curve2D_iq5an")
 script = ExtResource("8_gee14")
 
-[node name="Path2D11" type="Path2D" parent="austria-hungary/Innsbruck" unique_id=1911586751]
-curve = SubResource("Curve2D_sy8mq")
-script = ExtResource("8_gee14")
-
 [node name="Path2D10" type="Path2D" parent="austria-hungary/Innsbruck" unique_id=1695740754]
 curve = SubResource("Curve2D_4ao3u")
 script = ExtResource("8_gee14")
@@ -2850,7 +4323,7 @@ province_material = 4
 startup_buildings = Array[int]([2])
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="austria-hungary/Trieste" unique_id=1553381419]
-polygon = PackedVector2Array(-599, 329, -593, 334, -595, 338, -589, 340, -597, 349, -598, 353, -594, 356, -589, 353, -587, 357, -588, 360, -592, 363, -591, 369, -589, 373, -589, 375, -585, 376, -583, 378, -583, 383, -580, 383, -580, 377, -577, 377, -578, 373, -575, 367, -564, 368, -562, 377, -559, 387, -550, 395, -549, 392, -535, 399, -533, 396, -536, 388, -543, 383, -546, 376, -546, 373, -542, 368, -536, 370, -534, 375, -528, 375, -528, 371, -518, 370, -510, 373, -501, 373, -500, 366, -501, 357, -504, 349, -509, 351, -513, 345, -515, 345, -515, 343, -517, 339, -532, 337, -536, 340, -543, 333, -549, 335, -553, 330, -560, 329, -565, 329, -569, 329, -575, 332, -588, 329, -593, 325, -597, 327)
+polygon = PackedVector2Array(-599, 329, -593, 334, -595, 338, -589, 340, -597, 349, -598, 353, -594, 356, -589, 353, -587, 357, -588, 360, -592, 363, -591, 369, -589, 373, -589, 375, -585, 376, -583, 378, -582, 381, -580, 383, -580, 377, -577, 377, -578, 373, -575, 367, -564, 368, -562, 377, -559, 387, -550, 395, -549, 392, -535, 399, -533, 396, -536, 388, -543, 383, -546, 376, -546, 373, -542, 368, -536, 370, -534, 375, -528, 375, -528, 371, -518, 370, -510, 373, -501, 373, -500, 366, -501, 357, -504, 349, -509, 351, -513, 345, -515, 345, -515, 343, -517, 339, -532, 337, -536, 340, -543, 333, -549, 335, -553, 330, -560, 329, -565, 329, -569, 329, -575, 332, -588, 329, -593, 325, -597, 327)
 
 [node name="Polygon2D" type="Polygon2D" parent="austria-hungary/Trieste" unique_id=1810737499]
 color = Color(0.45490196, 0.43529412, 0.42352942, 1)
@@ -3757,7 +5230,7 @@ province_material = 2
 startup_buildings = Array[int]([2])
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="italy/Palermo" unique_id=457350887]
-polygon = PackedVector2Array(-611, 581, -604, 585, -602, 580, -596, 580, -589, 582, -587, 587, -581, 587, -577, 585, -575, 586, -568, 585, -565, 587, -560, 582, -556, 581, -552, 579, -551, 583, -549, 579, -545, 580, -542, 578, -541, 579, -543, 585, -543, 588, -549, 596, -553, 605, -548, 615, -549, 620, -553, 626, -554, 624, -559, 626, -566, 622, -568, 624, -570, 623, -569, 615, -575, 613, -585, 610, -591, 606, -592, 607, -600, 601, -604, 601, -610, 597, -612, 597, -614, 595, -618, 591, -614, 591, -615, 588, -619, 587, -614, 582)
+polygon = PackedVector2Array(-611, 581, -604, 585, -602, 580, -596, 580, -589, 582, -587, 587, -581, 587, -577, 585, -575, 586, -568, 585, -565, 587, -560, 582, -556, 581, -552, 579, -551, 583, -549, 579, -545, 580, -542, 578, -541, 579, -543, 585, -543, 588, -549, 596, -553, 605, -548, 615, -549, 620, -553, 626, -554, 624, -559, 626, -566, 622, -568, 624, -570, 623, -569, 615, -575, 613, -585, 610, -591, 606, -592, 607, -600, 601, -604, 601, -610, 597, -612, 597, -614, 595, -618, 591, -614, 591, -615, 588, -617, 586, -614, 582)
 
 [node name="Polygon2D" type="Polygon2D" parent="italy/Palermo" unique_id=1041673103]
 color = Color(0.45490196, 0.43529412, 0.42352942, 1)
@@ -3967,10 +5440,6 @@ layout_mode = 2
 
 [node name="ResourceCount" type="Label" parent="the_german_empire/Munich/Control/VBoxContainer/HBoxContainer" unique_id=1495139979]
 layout_mode = 2
-
-[node name="Path2D12" type="Path2D" parent="the_german_empire/Munich" unique_id=29751334]
-curve = SubResource("Curve2D_bdhac")
-script = ExtResource("8_gee14")
 
 [node name="Path2D11" type="Path2D" parent="the_german_empire/Munich" unique_id=108996298]
 curve = SubResource("Curve2D_ptx6v")
@@ -5223,6 +6692,10 @@ script = ExtResource("8_gee14")
 
 [node name="Path2D10" type="Path2D" parent="france/Limoges" unique_id=45268534]
 curve = SubResource("Curve2D_euews")
+script = ExtResource("8_gee14")
+
+[node name="Path2D12" type="Path2D" parent="france/Limoges" unique_id=1941591879]
+curve = SubResource("Curve2D_ca42v")
 script = ExtResource("8_gee14")
 
 [node name="Path2D9" type="Path2D" parent="france/Limoges" unique_id=1587704914]
