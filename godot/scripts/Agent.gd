@@ -67,10 +67,13 @@ func _ready() -> void:
 		var start_point_position = el.to_global(el.curve.get_point_position(0))
 		var end_point_position = el.to_global(el.curve.get_point_position(el.curve.point_count - 1))
 		var weight: float
-		if el.get_parent().get_parent() == self:
+		var prov_owner = el.get_parent().get_parent()
+		if el.get_parent() is Background or el.get_parent().is_in_group("background") or el.get_parent().name == "Background":
+			weight = Army.ALLY_TERRITORY_SPEED_MULTIPLIER / Army.SEA_SPEED_MULTIPLIER
+		elif prov_owner == self:
 			weight = 1.0
 		else:
-			weight = 2.0
+			weight = Army.ALLY_TERRITORY_SPEED_MULTIPLIER / Army.ENEMY_TERRITORY_SPEED_MULTIPLIER
 		routes.add_point(c, start_point_position, 1.0)
 		routes.add_point(c + 1, end_point_position, 1.0)
 		routes.connect_points(c, c + 1, weight)
@@ -84,8 +87,10 @@ func _ready() -> void:
 		var connected_points_start: Array[Variant] = el.get_paths_points(0)
 		var connected_points_end: Array[Variant] = el.get_paths_points(el.curve.point_count - 1)
 		var weight: float
-		
-		if el.get_parent().get_parent() == self:
+		var prov_owner = el.get_parent().get_parent()
+		if el.get_parent() is Background or el.get_parent().is_in_group("background") or el.get_parent().name == "Background":
+			weight = Army.ALLY_TERRITORY_SPEED_MULTIPLIER / Army.SEA_SPEED_MULTIPLIER
+		elif prov_owner == self:
 			weight = 1.0
 		else:
 			weight = 1.5

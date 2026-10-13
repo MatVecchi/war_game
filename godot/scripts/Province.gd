@@ -104,7 +104,11 @@ func _ready():
 	var game: GameController = get_tree().current_scene
 	game.match_over.connect(_on_match_over)
 	
-	neighbors = await _get_neighbors(1.1)
+	neighbors = await _get_neighbors()
+	var neighbor_names: Array[String] = []
+	for n in neighbors:
+		neighbor_names.append(n.name)
+	print("[%s (%s)] Detected neighbors: %s" % [name, get_parent().name if get_parent() else "NoOwner", str(neighbor_names)])
 	set_borders()
 	
 	target_morale = min(100, 100 - _get_total_morale_penalties() + _get_total_morale_bonuses())	
@@ -157,6 +161,7 @@ func set_borders() -> void:
 			poly2.append(p)
 
 		var inter = get_shared_edges(poly1, poly2)
+		if inter.is_empty(): continue
 
 		var l = Line2D.new()
 		l.width = 1.3
@@ -181,31 +186,99 @@ func get_total_troop_recruit_percentage() -> int:
 func has_functioning_building(building: Enums.Buildings) -> bool:
 	return building in buildings and buildings[building].state == Enums.BuildingStates.FUNCTIONING
 
-func _get_neighbors(scale_factor: float) -> Array[Area2D]:
-	var polygon: PackedVector2Array = collision_polygon.polygon
-	
-	var center = Vector2.ZERO
-	for point in polygon:
-		center += point
-	center /= polygon.size()
-	
-	var scaled_polygon = PackedVector2Array()
-	for point in polygon:
-		var direction = point - center
-		scaled_polygon.append(center + direction * scale_factor)
-	
-	collision_polygon.polygon = scaled_polygon
+const LAND_NEIGHBOR_MAX_DISTANCE: float = 4.0
+@export var sea_neighbor_max_distance: float = 48.0
+
+func is_coastal() -> bool:
+	for child in get_children():
+		if child is Path2D and child.has_method("get_paths_points"):
+			var pt_count: int = child.curve.point_count
+			if pt_count > 0:
+				for pt_idx in [0, pt_count - 1]:
+					for conn in child.get_paths_points(pt_idx):
+						var other_path = conn[0]
+						if other_path != null:
+							var other_parent = other_path.get_parent()
+							if other_parent != null and (other_parent is Background or other_parent.is_in_group("background") or other_parent.name == "Background"):
+								return true
+	return false
+
+func _get_global_polygon(col: CollisionPolygon2D) -> PackedVector2Array:
+	var res := PackedVector2Array()
+	var xform := col.global_transform
+	for p in col.polygon:
+		res.append(xform * p)
+	return res
+
+func _get_polygon_bounding_box(poly: PackedVector2Array) -> Rect2:
+	if poly.is_empty():
+		return Rect2()
+	var min_p := poly[0]
+	var max_p := poly[0]
+	for p in poly:
+		min_p.x = minf(min_p.x, p.x)
+		min_p.y = minf(min_p.y, p.y)
+		max_p.x = maxf(max_p.x, p.x)
+		max_p.y = maxf(max_p.y, p.y)
+	return Rect2(min_p, max_p - min_p)
+
+func _point_to_segment_distance_sq(p: Vector2, a: Vector2, b: Vector2) -> float:
+	var ab = b - a
+	var ap = p - a
+	var ab_len_sq = ab.length_squared()
+	if ab_len_sq == 0.0:
+		return ap.length_squared()
+	var t = clampf(ap.dot(ab) / ab_len_sq, 0.0, 1.0)
+	var proj = a + t * ab
+	return (p - proj).length_squared()
+
+func _calculate_polygon_distance(poly1: PackedVector2Array, poly2: PackedVector2Array) -> float:
+	var min_dist_sq: float = INF
+	var p2_size = poly2.size()
+	for p in poly1:
+		for i in range(p2_size):
+			var a = poly2[i]
+			var b = poly2[(i + 1) % p2_size]
+			var d_sq = _point_to_segment_distance_sq(p, a, b)
+			if d_sq < min_dist_sq:
+				min_dist_sq = d_sq
+	var p1_size = poly1.size()
+	for p in poly2:
+		for i in range(p1_size):
+			var a = poly1[i]
+			var b = poly1[(i + 1) % p1_size]
+			var d_sq = _point_to_segment_distance_sq(p, a, b)
+			if d_sq < min_dist_sq:
+				min_dist_sq = d_sq
+	return sqrt(min_dist_sq)
+
+func _get_neighbors(_scale_factor: float = 1.1) -> Array[Area2D]:
 	await get_tree().physics_frame
 	await get_tree().physics_frame
 	
 	var res: Array[Area2D] = []
-	for collision in get_overlapping_areas():
-		res.append(collision)
-
-	collision_polygon.polygon = polygon
-	collision_polygon.queue_redraw()
-	await get_tree().process_frame
+	var provinces = get_tree().get_nodes_in_group("provinces")
+	var my_poly_global = _get_global_polygon(collision_polygon)
+	var my_bounds = _get_polygon_bounding_box(my_poly_global)
+	var my_coastal = is_coastal()
 	
+	for other in provinces:
+		if other == self or not other is Province:
+			continue
+		var other_prov = other as Province
+		var other_poly_global = _get_global_polygon(other_prov.collision_polygon)
+		var other_bounds = _get_polygon_bounding_box(other_poly_global)
+		
+		var max_dist = sea_neighbor_max_distance if (my_coastal and other_prov.is_coastal()) else LAND_NEIGHBOR_MAX_DISTANCE
+		if not my_bounds.grow(max_dist).intersects(other_bounds):
+			continue
+			
+		var dist = _calculate_polygon_distance(my_poly_global, other_poly_global)
+		if dist <= LAND_NEIGHBOR_MAX_DISTANCE:
+			res.append(other_prov)
+		elif my_coastal and other_prov.is_coastal() and dist <= sea_neighbor_max_distance:
+			res.append(other_prov)
+			
 	return res
 	
 func get_shared_edges(poly1: PackedVector2Array, poly2: PackedVector2Array, epsilon: float = 0.1) -> Array:

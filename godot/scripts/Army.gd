@@ -37,7 +37,7 @@ const ATTACK_PER_UNIT: float = 4.0
 const DEFENSE_PER_UNIT: float = 5.0 
 const ALLY_TERRITORY_SPEED_MULTIPLIER: float = 0.7
 const ENEMY_TERRITORY_SPEED_MULTIPLIER: float = 0.35
-const SEA_SPEED_MULTIPLIER: float = 0.1
+const SEA_SPEED_MULTIPLIER: float = 0.18
 const ARMY_DAILY_COST_PER_UNIT = {
 	Enums.Resources.GRAIN: 20,
 	Enums.Resources.OIL: 5
@@ -189,7 +189,7 @@ func _on_global_timer_timeout() -> void:
 				_on_destination_reached()
 				return
 			
-			if province_location != null and not player.get_province_owner(province_location) and province_location.get_city_position() == position:
+			if province_location != null and province_location is Province and not player.get_province_owner(province_location) and province_location.get_city_position() == position:
 				var owner = province_location.get_parent()
 				if owner is Agent:
 					if owner not in player.player_in_alliance and owner not in player.player_in_war:
@@ -325,7 +325,7 @@ func _notification(what: int) -> void:
 		province_location = get_parent().get_parent()
 		if player.get_province_owner(province_location) or (province_location.get_parent() is Agent and province_location.get_parent() in player.player_in_alliance):
 			current_speed = SPEED * ALLY_TERRITORY_SPEED_MULTIPLIER
-		elif province_location is Background:
+		elif province_location is Background or province_location.is_in_group("background") or province_location.name == "Background":
 			current_speed = SPEED * SEA_SPEED_MULTIPLIER
 		else:
 			current_speed = SPEED * ENEMY_TERRITORY_SPEED_MULTIPLIER
