@@ -37,7 +37,7 @@ const ATTACK_PER_UNIT: float = 4.0
 const DEFENSE_PER_UNIT: float = 5.0 
 const ALLY_TERRITORY_SPEED_MULTIPLIER: float = 0.7
 const ENEMY_TERRITORY_SPEED_MULTIPLIER: float = 0.35
-const SEA_SPEED_MULTIPLIER: float = 0.18
+const SEA_SPEED_MULTIPLIER: float = 0.1
 const ARMY_DAILY_COST_PER_UNIT = {
 	Enums.Resources.GRAIN: 20,
 	Enums.Resources.OIL: 5
