@@ -256,7 +256,7 @@ func add_army_to_province(province: Province, army: Army = null, sn: int = 10, f
 		if not force_new and is_instance_valid(agent):
 			for existing in agent.armies:
 				if is_instance_valid(existing) and not existing.travelling:
-					if existing.province_location == province or existing.global_position.distance_to(province.to_global(province.get_city_position())) < 30.0:
+					if existing.province_location == province or (existing.province_location == null and existing.global_position.distance_to(province.to_global(province.get_city_position())) < 10.0):
 						existing.province_location = province
 						existing.soldier_number += sn
 						existing.life_points += existing.LIFE_PER_UNIT * sn * (float(province.province_morale)/100)
@@ -353,7 +353,7 @@ func conquer_province(province: Province, agent: Agent, is_riot: bool=false) -> 
 		province.conquered = true
 	else:
 		for army in previous_player.armies:
-			if army.global_position == province.get_city_global_position():
+			if army.province_location == province or (army.province_location == null and army.global_position.distance_to(province.get_city_global_position()) < 10.0):
 				army.player = prov_owner
 				previous_player.armies.erase(army)
 		print("province riot")
@@ -390,7 +390,7 @@ func _send_province_update_to_all(target_prov: Province) -> void:
 			for army in get_tree().get_nodes_in_group("armies"):
 				if not is_instance_valid(army): continue
 				if army.player is Agent and army.player != player and (army.player not in player.player_in_alliance):
-					if army.province_location == target_prov or (not army.travelling and army.global_position.distance_to(city_pos) < 20.0):
+					if army.province_location == target_prov or (not army.travelling and army.province_location == null and army.global_position.distance_to(city_pos) < 10.0):
 						has_army = true
 						if army.soldier_number > 0:
 							defense_value += (army.soldier_number * army.DEFENSE_PER_UNIT) * army.life_points / (army.soldier_number * army.LIFE_PER_UNIT)

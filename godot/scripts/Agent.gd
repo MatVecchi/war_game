@@ -930,7 +930,7 @@ func dispatch_province_defense_update(province: Province) -> void:
 	for army in get_tree().get_nodes_in_group("armies"):
 		if not is_instance_valid(army): continue
 		if army.player != self and (army.player not in player_in_alliance):
-			if army.province_location == province or (not army.travelling and army.global_position.distance_to(city_pos) < 20.0):
+			if army.province_location == province or (not army.travelling and army.province_location == null and army.global_position.distance_to(city_pos) < 10.0):
 				has_army = true
 				if army.soldier_number > 0:
 					defense_value += (army.soldier_number * army.DEFENSE_PER_UNIT) * army.life_points / (army.soldier_number * army.LIFE_PER_UNIT)
@@ -985,7 +985,7 @@ func send_initial_state() -> void:
 			for army in get_tree().get_nodes_in_group("armies"):
 				if not is_instance_valid(army): continue
 				if army.player is Agent and army.player != self and (army.player not in player_in_alliance):
-					if army.province_location == province or (not army.travelling and army.global_position.distance_to(city_pos) < 20.0):
+					if army.province_location == province or (not army.travelling and army.province_location == null and army.global_position.distance_to(city_pos) < 10.0):
 						has_army = true
 						if army.soldier_number > 0:
 							defense_value += (army.soldier_number * army.DEFENSE_PER_UNIT) * army.life_points / (army.soldier_number * army.LIFE_PER_UNIT)

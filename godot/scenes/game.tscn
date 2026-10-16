@@ -2525,9 +2525,9 @@ point_count = 2
 
 [sub_resource type="Curve2D" id="Curve2D_45knu"]
 _data = {
-"points": PackedVector2Array(0, 0, 0, 0, -869, 169, 0, 0, 0, 0, -859, 164)
+"points": PackedVector2Array(0, 0, 0, 0, -869, 169, 0, 0, 0, 0, -863, 166, 0, 0, 0, 0, -859, 164)
 }
-point_count = 2
+point_count = 3
 
 [sub_resource type="Curve2D" id="Curve2D_l2pj7"]
 _data = {
@@ -3758,33 +3758,33 @@ points = PackedVector2Array(-540, 134, -539, 138, -544, 142, -541, 144, -535, 14
 width = 2.6
 default_color = Color(1, 1, 1, 0.78431374)
 
-[node name="austria-hungary" type="Node2D" parent="." unique_id=23902852]
+[node name="austria_hungary" type="Node2D" parent="." unique_id=23902852]
 script = ExtResource("6_p57ef")
 PORT = 9080
 
-[node name="Prague" type="Area2D" parent="austria-hungary" unique_id=553740949]
+[node name="Prague" type="Area2D" parent="austria_hungary" unique_id=553740949]
 position = Vector2(260, -39)
 collision_mask = 3
 script = ExtResource("3_lnu2h")
 province_material = 4
 startup_buildings = Array[int]([2])
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="austria-hungary/Prague" unique_id=598143673]
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="austria_hungary/Prague" unique_id=598143673]
 polygon = PackedVector2Array(-557, 191, -553, 194, -551, 201, -544, 201, -541, 203, -537, 205, -533, 204, -530, 209, -536, 212, -527, 219, -522, 218, -520, 215, -521, 213, -520, 210, -509, 216, -506, 215, -505, 217, -506, 220, -494, 227, -488, 226, -483, 224, -483, 231, -485, 237, -491, 241, -497, 247, -497, 251, -502, 258, -508, 261, -513, 258, -516, 260, -520, 268, -532, 267, -539, 270, -547, 275, -549, 269, -554, 262, -570, 250, -576, 252, -580, 248, -585, 251, -590, 247, -598, 251, -599, 249, -610, 238, -607, 230, -612, 227, -614, 222, -616, 219, -616, 216, -613, 215, -606, 212, -603, 212, -601, 209, -597, 209, -588, 204, -581, 200, -578, 199, -573, 198, -573, 192, -565, 200, -560, 198)
 
-[node name="Polygon2D" type="Polygon2D" parent="austria-hungary/Prague" unique_id=31822659]
+[node name="Polygon2D" type="Polygon2D" parent="austria_hungary/Prague" unique_id=31822659]
 color = Color(0.45490196, 0.43529412, 0.42352942, 1)
 
-[node name="ProvinceBorder" type="Line2D" parent="austria-hungary/Prague" unique_id=533266772]
+[node name="ProvinceBorder" type="Line2D" parent="austria_hungary/Prague" unique_id=533266772]
 closed = true
 width = 0.3
 default_color = Color(1, 1, 1, 0.78431374)
 joint_mode = 2
 
-[node name="Node2D" parent="austria-hungary/Prague" unique_id=104990869 instance=ExtResource("7_gee14")]
+[node name="Node2D" parent="austria_hungary/Prague" unique_id=104990869 instance=ExtResource("7_gee14")]
 position = Vector2(-571, 220)
 
-[node name="Control" type="Control" parent="austria-hungary/Prague" unique_id=580855478]
+[node name="Control" type="Control" parent="austria_hungary/Prague" unique_id=580855478]
 layout_mode = 3
 anchors_preset = 0
 offset_left = -24.570007
@@ -3793,7 +3793,7 @@ offset_right = 15.429382
 offset_bottom = 3.6650085
 pivot_offset = Vector2(19.865, 0)
 
-[node name="VBoxContainer" type="VBoxContainer" parent="austria-hungary/Prague/Control" unique_id=1711720788]
+[node name="VBoxContainer" type="VBoxContainer" parent="austria_hungary/Prague/Control" unique_id=1711720788]
 layout_mode = 1
 anchors_preset = -1
 anchor_right = 1.0
@@ -3802,65 +3802,65 @@ offset_right = 0.00061035156
 offset_bottom = -10.0
 alignment = 1
 
-[node name="PanelContainer" type="PanelContainer" parent="austria-hungary/Prague/Control/VBoxContainer" unique_id=515789089]
+[node name="PanelContainer" type="PanelContainer" parent="austria_hungary/Prague/Control/VBoxContainer" unique_id=515789089]
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_kvpfn")
 
-[node name="ProvinceName" type="Label" parent="austria-hungary/Prague/Control/VBoxContainer/PanelContainer" unique_id=1108693148]
+[node name="ProvinceName" type="Label" parent="austria_hungary/Prague/Control/VBoxContainer/PanelContainer" unique_id=1108693148]
 layout_mode = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="austria-hungary/Prague/Control/VBoxContainer" unique_id=1412487453]
+[node name="HBoxContainer" type="HBoxContainer" parent="austria_hungary/Prague/Control/VBoxContainer" unique_id=1412487453]
 layout_mode = 2
 
-[node name="TextureRect" type="TextureRect" parent="austria-hungary/Prague/Control/VBoxContainer/HBoxContainer" unique_id=1001296338]
+[node name="TextureRect" type="TextureRect" parent="austria_hungary/Prague/Control/VBoxContainer/HBoxContainer" unique_id=1001296338]
 layout_mode = 2
 
-[node name="ResourceCount" type="Label" parent="austria-hungary/Prague/Control/VBoxContainer/HBoxContainer" unique_id=1345206872]
+[node name="ResourceCount" type="Label" parent="austria_hungary/Prague/Control/VBoxContainer/HBoxContainer" unique_id=1345206872]
 layout_mode = 2
 
-[node name="Path2D11" type="Path2D" parent="austria-hungary/Prague" unique_id=2120168303]
+[node name="Path2D11" type="Path2D" parent="austria_hungary/Prague" unique_id=2120168303]
 curve = SubResource("Curve2D_heelr")
 script = ExtResource("8_gee14")
 
-[node name="Path2D10" type="Path2D" parent="austria-hungary/Prague" unique_id=514889732]
+[node name="Path2D10" type="Path2D" parent="austria_hungary/Prague" unique_id=514889732]
 curve = SubResource("Curve2D_gpcsa")
 script = ExtResource("8_gee14")
 
-[node name="Path2D9" type="Path2D" parent="austria-hungary/Prague" unique_id=2086305384]
+[node name="Path2D9" type="Path2D" parent="austria_hungary/Prague" unique_id=2086305384]
 curve = SubResource("Curve2D_vm2bb")
 script = ExtResource("8_gee14")
 
-[node name="Path2D8" type="Path2D" parent="austria-hungary/Prague" unique_id=1668130250]
+[node name="Path2D8" type="Path2D" parent="austria_hungary/Prague" unique_id=1668130250]
 curve = SubResource("Curve2D_q175f")
 script = ExtResource("8_gee14")
 
-[node name="Path2D7" type="Path2D" parent="austria-hungary/Prague" unique_id=524169047]
+[node name="Path2D7" type="Path2D" parent="austria_hungary/Prague" unique_id=524169047]
 curve = SubResource("Curve2D_dinhu")
 script = ExtResource("8_gee14")
 
-[node name="Cracow" type="Area2D" parent="austria-hungary" unique_id=1196534836]
+[node name="Cracow" type="Area2D" parent="austria_hungary" unique_id=1196534836]
 position = Vector2(260, -39)
 collision_mask = 3
 script = ExtResource("3_lnu2h")
 province_material = 5
 startup_buildings = Array[int]([2])
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="austria-hungary/Cracow" unique_id=1102812065]
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="austria_hungary/Cracow" unique_id=1102812065]
 polygon = PackedVector2Array(-480, 225, -472, 225, -465, 223, -457, 223, -449, 231, -428, 215, -427, 211, -423, 213, -420, 209, -416, 214, -418, 218, -415, 220, -415, 221, -413, 227, -407, 230, -406, 232, -403, 235, -408, 237, -411, 240, -405, 242, -402, 252, -402, 256, -408, 263, -431, 249, -436, 253, -440, 254, -438, 259, -465, 257, -470, 260, -479, 254, -493, 259, -497, 259, -501, 258, -502, 258, -497, 251, -497, 247, -491, 241, -485, 237, -483, 231, -483, 224)
 
-[node name="Polygon2D" type="Polygon2D" parent="austria-hungary/Cracow" unique_id=2009129853]
+[node name="Polygon2D" type="Polygon2D" parent="austria_hungary/Cracow" unique_id=2009129853]
 color = Color(0.45490196, 0.43529412, 0.42352942, 1)
 
-[node name="ProvinceBorder" type="Line2D" parent="austria-hungary/Cracow" unique_id=430412582]
+[node name="ProvinceBorder" type="Line2D" parent="austria_hungary/Cracow" unique_id=430412582]
 closed = true
 width = 0.3
 default_color = Color(1, 1, 1, 0.78431374)
 joint_mode = 2
 
-[node name="Node2D" parent="austria-hungary/Cracow" unique_id=1987854687 instance=ExtResource("7_gee14")]
+[node name="Node2D" parent="austria_hungary/Cracow" unique_id=1987854687 instance=ExtResource("7_gee14")]
 position = Vector2(-459, 227)
 
-[node name="Control" type="Control" parent="austria-hungary/Cracow" unique_id=188240205]
+[node name="Control" type="Control" parent="austria_hungary/Cracow" unique_id=188240205]
 layout_mode = 3
 anchors_preset = 0
 offset_left = -24.570007
@@ -3869,7 +3869,7 @@ offset_right = 15.429382
 offset_bottom = 3.6650085
 pivot_offset = Vector2(19.865, 0)
 
-[node name="VBoxContainer" type="VBoxContainer" parent="austria-hungary/Cracow/Control" unique_id=1908829611]
+[node name="VBoxContainer" type="VBoxContainer" parent="austria_hungary/Cracow/Control" unique_id=1908829611]
 layout_mode = 1
 anchors_preset = -1
 anchor_right = 1.0
@@ -3878,81 +3878,81 @@ offset_right = 0.00061035156
 offset_bottom = -10.0
 alignment = 1
 
-[node name="PanelContainer" type="PanelContainer" parent="austria-hungary/Cracow/Control/VBoxContainer" unique_id=805210790]
+[node name="PanelContainer" type="PanelContainer" parent="austria_hungary/Cracow/Control/VBoxContainer" unique_id=805210790]
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_kvpfn")
 
-[node name="ProvinceName" type="Label" parent="austria-hungary/Cracow/Control/VBoxContainer/PanelContainer" unique_id=859613548]
+[node name="ProvinceName" type="Label" parent="austria_hungary/Cracow/Control/VBoxContainer/PanelContainer" unique_id=859613548]
 layout_mode = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="austria-hungary/Cracow/Control/VBoxContainer" unique_id=435163980]
+[node name="HBoxContainer" type="HBoxContainer" parent="austria_hungary/Cracow/Control/VBoxContainer" unique_id=435163980]
 layout_mode = 2
 
-[node name="TextureRect" type="TextureRect" parent="austria-hungary/Cracow/Control/VBoxContainer/HBoxContainer" unique_id=1230658732]
+[node name="TextureRect" type="TextureRect" parent="austria_hungary/Cracow/Control/VBoxContainer/HBoxContainer" unique_id=1230658732]
 layout_mode = 2
 
-[node name="ResourceCount" type="Label" parent="austria-hungary/Cracow/Control/VBoxContainer/HBoxContainer" unique_id=1723322989]
+[node name="ResourceCount" type="Label" parent="austria_hungary/Cracow/Control/VBoxContainer/HBoxContainer" unique_id=1723322989]
 layout_mode = 2
 
-[node name="Path2D16" type="Path2D" parent="austria-hungary/Cracow" unique_id=692861562]
+[node name="Path2D16" type="Path2D" parent="austria_hungary/Cracow" unique_id=692861562]
 curve = SubResource("Curve2D_hw4h7")
 script = ExtResource("8_gee14")
 
-[node name="Path2D15" type="Path2D" parent="austria-hungary/Cracow" unique_id=1484046252]
+[node name="Path2D15" type="Path2D" parent="austria_hungary/Cracow" unique_id=1484046252]
 curve = SubResource("Curve2D_ogl7x")
 script = ExtResource("8_gee14")
 
-[node name="Path2D13" type="Path2D" parent="austria-hungary/Cracow" unique_id=1855652288]
+[node name="Path2D13" type="Path2D" parent="austria_hungary/Cracow" unique_id=1855652288]
 curve = SubResource("Curve2D_ji0c1")
 script = ExtResource("8_gee14")
 
-[node name="Path2D12" type="Path2D" parent="austria-hungary/Cracow" unique_id=33372739]
+[node name="Path2D12" type="Path2D" parent="austria_hungary/Cracow" unique_id=33372739]
 curve = SubResource("Curve2D_xs5ak")
 script = ExtResource("8_gee14")
 
-[node name="Path2D11" type="Path2D" parent="austria-hungary/Cracow" unique_id=474814998]
+[node name="Path2D11" type="Path2D" parent="austria_hungary/Cracow" unique_id=474814998]
 curve = SubResource("Curve2D_234fr")
 script = ExtResource("8_gee14")
 
-[node name="Path2D10" type="Path2D" parent="austria-hungary/Cracow" unique_id=2077076965]
+[node name="Path2D10" type="Path2D" parent="austria_hungary/Cracow" unique_id=2077076965]
 curve = SubResource("Curve2D_kp2vo")
 script = ExtResource("8_gee14")
 
-[node name="Path2D9" type="Path2D" parent="austria-hungary/Cracow" unique_id=92196604]
+[node name="Path2D9" type="Path2D" parent="austria_hungary/Cracow" unique_id=92196604]
 curve = SubResource("Curve2D_idjgk")
 script = ExtResource("8_gee14")
 
-[node name="Path2D8" type="Path2D" parent="austria-hungary/Cracow" unique_id=1068926287]
+[node name="Path2D8" type="Path2D" parent="austria_hungary/Cracow" unique_id=1068926287]
 curve = SubResource("Curve2D_oxd07")
 script = ExtResource("8_gee14")
 
-[node name="Path2D7" type="Path2D" parent="austria-hungary/Cracow" unique_id=574696151]
+[node name="Path2D7" type="Path2D" parent="austria_hungary/Cracow" unique_id=574696151]
 curve = SubResource("Curve2D_dinhu")
 script = ExtResource("8_gee14")
 
-[node name="Lemberg" type="Area2D" parent="austria-hungary" unique_id=708275823]
+[node name="Lemberg" type="Area2D" parent="austria_hungary" unique_id=708275823]
 position = Vector2(260, -39)
 collision_mask = 3
 script = ExtResource("3_lnu2h")
 province_material = 3
 startup_buildings = Array[int]([2])
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="austria-hungary/Lemberg" unique_id=763450933]
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="austria_hungary/Lemberg" unique_id=763450933]
 polygon = PackedVector2Array(-407, 230, -408, 227, -403, 220, -395, 222, -389, 217, -379, 221, -381, 215, -378, 215, -372, 214, -368, 209, -363, 212, -366, 216, -360, 218, -359, 214, -351, 216, -346, 221, -336, 224, -334, 229, -329, 232, -329, 236, -322, 242, -320, 248, -317, 253, -326, 254, -327, 256, -329, 258, -328, 263, -333, 263, -339, 269, -342, 265, -352, 272, -365, 266, -372, 253, -375, 254, -383, 258, -387, 254, -393, 253, -402, 252, -405, 242, -411, 240, -408, 237, -403, 235, -406, 232)
 
-[node name="Polygon2D" type="Polygon2D" parent="austria-hungary/Lemberg" unique_id=794081785]
+[node name="Polygon2D" type="Polygon2D" parent="austria_hungary/Lemberg" unique_id=794081785]
 color = Color(0.45490196, 0.43529412, 0.42352942, 1)
 
-[node name="ProvinceBorder" type="Line2D" parent="austria-hungary/Lemberg" unique_id=2132447350]
+[node name="ProvinceBorder" type="Line2D" parent="austria_hungary/Lemberg" unique_id=2132447350]
 closed = true
 width = 0.3
 default_color = Color(1, 1, 1, 0.78431374)
 joint_mode = 2
 
-[node name="Node2D" parent="austria-hungary/Lemberg" unique_id=985080381 instance=ExtResource("7_gee14")]
+[node name="Node2D" parent="austria_hungary/Lemberg" unique_id=985080381 instance=ExtResource("7_gee14")]
 position = Vector2(-376, 229)
 
-[node name="Control" type="Control" parent="austria-hungary/Lemberg" unique_id=1991605547]
+[node name="Control" type="Control" parent="austria_hungary/Lemberg" unique_id=1991605547]
 layout_mode = 3
 anchors_preset = 0
 offset_left = -24.570007
@@ -3961,7 +3961,7 @@ offset_right = 15.429382
 offset_bottom = 3.6650085
 pivot_offset = Vector2(19.865, 0)
 
-[node name="VBoxContainer" type="VBoxContainer" parent="austria-hungary/Lemberg/Control" unique_id=338753628]
+[node name="VBoxContainer" type="VBoxContainer" parent="austria_hungary/Lemberg/Control" unique_id=338753628]
 layout_mode = 1
 anchors_preset = -1
 anchor_right = 1.0
@@ -3970,35 +3970,35 @@ offset_right = 0.00061035156
 offset_bottom = -10.0
 alignment = 1
 
-[node name="PanelContainer" type="PanelContainer" parent="austria-hungary/Lemberg/Control/VBoxContainer" unique_id=239155523]
+[node name="PanelContainer" type="PanelContainer" parent="austria_hungary/Lemberg/Control/VBoxContainer" unique_id=239155523]
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_kvpfn")
 
-[node name="ProvinceName" type="Label" parent="austria-hungary/Lemberg/Control/VBoxContainer/PanelContainer" unique_id=1444990147]
+[node name="ProvinceName" type="Label" parent="austria_hungary/Lemberg/Control/VBoxContainer/PanelContainer" unique_id=1444990147]
 layout_mode = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="austria-hungary/Lemberg/Control/VBoxContainer" unique_id=121938115]
+[node name="HBoxContainer" type="HBoxContainer" parent="austria_hungary/Lemberg/Control/VBoxContainer" unique_id=121938115]
 layout_mode = 2
 
-[node name="TextureRect" type="TextureRect" parent="austria-hungary/Lemberg/Control/VBoxContainer/HBoxContainer" unique_id=909182405]
+[node name="TextureRect" type="TextureRect" parent="austria_hungary/Lemberg/Control/VBoxContainer/HBoxContainer" unique_id=909182405]
 layout_mode = 2
 
-[node name="ResourceCount" type="Label" parent="austria-hungary/Lemberg/Control/VBoxContainer/HBoxContainer" unique_id=2104997586]
+[node name="ResourceCount" type="Label" parent="austria_hungary/Lemberg/Control/VBoxContainer/HBoxContainer" unique_id=2104997586]
 layout_mode = 2
 
-[node name="Path2D12" type="Path2D" parent="austria-hungary/Lemberg" unique_id=1304888278]
+[node name="Path2D12" type="Path2D" parent="austria_hungary/Lemberg" unique_id=1304888278]
 curve = SubResource("Curve2D_kpo2q")
 script = ExtResource("8_gee14")
 
-[node name="Path2D11" type="Path2D" parent="austria-hungary/Lemberg" unique_id=2103484025]
+[node name="Path2D11" type="Path2D" parent="austria_hungary/Lemberg" unique_id=2103484025]
 curve = SubResource("Curve2D_ffk41")
 script = ExtResource("8_gee14")
 
-[node name="Path2D7" type="Path2D" parent="austria-hungary/Lemberg" unique_id=664035770]
+[node name="Path2D7" type="Path2D" parent="austria_hungary/Lemberg" unique_id=664035770]
 curve = SubResource("Curve2D_vb4m1")
 script = ExtResource("8_gee14")
 
-[node name="Control" type="Control" parent="austria-hungary" unique_id=674733650]
+[node name="Control" type="Control" parent="austria_hungary" unique_id=674733650]
 z_index = 1
 layout_mode = 3
 anchors_preset = 0
@@ -4006,7 +4006,7 @@ offset_left = 218.115
 offset_right = 356.0
 offset_bottom = 40.0
 
-[node name="PlayerName" type="Label" parent="austria-hungary/Control" unique_id=1248838537]
+[node name="PlayerName" type="Label" parent="austria_hungary/Control" unique_id=1248838537]
 layout_mode = 0
 offset_left = -63.59282
 offset_top = 48.412052
@@ -4015,28 +4015,28 @@ offset_bottom = 71.41205
 theme_override_colors/font_color = Color(1, 1, 1, 0.7490196)
 uppercase = true
 
-[node name="Miskolc" type="Area2D" parent="austria-hungary" unique_id=1169294200]
+[node name="Miskolc" type="Area2D" parent="austria_hungary" unique_id=1169294200]
 position = Vector2(260, -39)
 collision_mask = 3
 script = ExtResource("3_lnu2h")
 startup_buildings = Array[int]([2])
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="austria-hungary/Miskolc" unique_id=1882920358]
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="austria_hungary/Miskolc" unique_id=1882920358]
 polygon = PackedVector2Array(-438, 259, -445, 265, -441, 268, -439, 273, -442, 277, -446, 276, -448, 280, -446, 286, -439, 292, -434, 296, -433, 299, -435, 312, -429, 317, -416, 308, -409, 301, -404, 300, -399, 301, -395, 299, -397, 291, -391, 288, -388, 286, -384, 279, -393, 276, -390, 266, -383, 261, -379, 259, -383, 258, -387, 254, -393, 253, -402, 252, -402, 256, -408, 263, -431, 249, -436, 253, -440, 254)
 
-[node name="Polygon2D" type="Polygon2D" parent="austria-hungary/Miskolc" unique_id=68810146]
+[node name="Polygon2D" type="Polygon2D" parent="austria_hungary/Miskolc" unique_id=68810146]
 color = Color(0.45490196, 0.43529412, 0.42352942, 1)
 
-[node name="ProvinceBorder" type="Line2D" parent="austria-hungary/Miskolc" unique_id=1080859158]
+[node name="ProvinceBorder" type="Line2D" parent="austria_hungary/Miskolc" unique_id=1080859158]
 closed = true
 width = 0.3
 default_color = Color(1, 1, 1, 0.78431374)
 joint_mode = 2
 
-[node name="Node2D" parent="austria-hungary/Miskolc" unique_id=1525151387 instance=ExtResource("7_gee14")]
+[node name="Node2D" parent="austria_hungary/Miskolc" unique_id=1525151387 instance=ExtResource("7_gee14")]
 position = Vector2(-419, 288)
 
-[node name="Control" type="Control" parent="austria-hungary/Miskolc" unique_id=1054127538]
+[node name="Control" type="Control" parent="austria_hungary/Miskolc" unique_id=1054127538]
 layout_mode = 3
 anchors_preset = 0
 offset_left = -24.570007
@@ -4045,7 +4045,7 @@ offset_right = 15.429382
 offset_bottom = 3.6650085
 pivot_offset = Vector2(19.865, 0)
 
-[node name="VBoxContainer" type="VBoxContainer" parent="austria-hungary/Miskolc/Control" unique_id=919206909]
+[node name="VBoxContainer" type="VBoxContainer" parent="austria_hungary/Miskolc/Control" unique_id=919206909]
 layout_mode = 1
 anchors_preset = -1
 anchor_right = 1.0
@@ -4054,35 +4054,35 @@ offset_right = 0.00061035156
 offset_bottom = -10.0
 alignment = 1
 
-[node name="PanelContainer" type="PanelContainer" parent="austria-hungary/Miskolc/Control/VBoxContainer" unique_id=1464356883]
+[node name="PanelContainer" type="PanelContainer" parent="austria_hungary/Miskolc/Control/VBoxContainer" unique_id=1464356883]
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_kvpfn")
 
-[node name="ProvinceName" type="Label" parent="austria-hungary/Miskolc/Control/VBoxContainer/PanelContainer" unique_id=1862706104]
+[node name="ProvinceName" type="Label" parent="austria_hungary/Miskolc/Control/VBoxContainer/PanelContainer" unique_id=1862706104]
 layout_mode = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="austria-hungary/Miskolc/Control/VBoxContainer" unique_id=1596539883]
+[node name="HBoxContainer" type="HBoxContainer" parent="austria_hungary/Miskolc/Control/VBoxContainer" unique_id=1596539883]
 layout_mode = 2
 
-[node name="TextureRect" type="TextureRect" parent="austria-hungary/Miskolc/Control/VBoxContainer/HBoxContainer" unique_id=1947634538]
+[node name="TextureRect" type="TextureRect" parent="austria_hungary/Miskolc/Control/VBoxContainer/HBoxContainer" unique_id=1947634538]
 layout_mode = 2
 
-[node name="ResourceCount" type="Label" parent="austria-hungary/Miskolc/Control/VBoxContainer/HBoxContainer" unique_id=686274667]
+[node name="ResourceCount" type="Label" parent="austria_hungary/Miskolc/Control/VBoxContainer/HBoxContainer" unique_id=686274667]
 layout_mode = 2
 
-[node name="Path2D10" type="Path2D" parent="austria-hungary/Miskolc" unique_id=1565705543]
+[node name="Path2D10" type="Path2D" parent="austria_hungary/Miskolc" unique_id=1565705543]
 curve = SubResource("Curve2D_hpdb7")
 script = ExtResource("8_gee14")
 
-[node name="Path2D8" type="Path2D" parent="austria-hungary/Miskolc" unique_id=521179699]
+[node name="Path2D8" type="Path2D" parent="austria_hungary/Miskolc" unique_id=521179699]
 curve = SubResource("Curve2D_vinkk")
 script = ExtResource("8_gee14")
 
-[node name="Path2D7" type="Path2D" parent="austria-hungary/Miskolc" unique_id=1796368603]
+[node name="Path2D7" type="Path2D" parent="austria_hungary/Miskolc" unique_id=1796368603]
 curve = SubResource("Curve2D_n7tu4")
 script = ExtResource("8_gee14")
 
-[node name="Budapest" type="Area2D" parent="austria-hungary" unique_id=219782086]
+[node name="Budapest" type="Area2D" parent="austria_hungary" unique_id=219782086]
 position = Vector2(260, -39)
 collision_mask = 3
 script = ExtResource("3_lnu2h")
@@ -4090,22 +4090,22 @@ province_material = 5
 double_material = true
 startup_buildings = Array[int]([2])
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="austria-hungary/Budapest" unique_id=717950176]
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="austria_hungary/Budapest" unique_id=717950176]
 polygon = PackedVector2Array(-438, 259, -465, 257, -470, 260, -479, 254, -493, 259, -495, 271, -500, 277, -496, 286, -490, 293, -490, 294, -490, 302, -490, 308, -492, 313, -485, 318, -470, 318, -461, 318, -452, 316, -447, 322, -440, 323, -430, 319, -429, 317, -435, 312, -433, 299, -434, 296, -439, 292, -446, 286, -448, 280, -446, 276, -442, 277, -439, 273, -441, 268, -445, 265)
 
-[node name="Polygon2D" type="Polygon2D" parent="austria-hungary/Budapest" unique_id=1044007862]
+[node name="Polygon2D" type="Polygon2D" parent="austria_hungary/Budapest" unique_id=1044007862]
 color = Color(0.45490196, 0.43529412, 0.42352942, 1)
 
-[node name="ProvinceBorder" type="Line2D" parent="austria-hungary/Budapest" unique_id=1765064046]
+[node name="ProvinceBorder" type="Line2D" parent="austria_hungary/Budapest" unique_id=1765064046]
 closed = true
 width = 0.3
 default_color = Color(1, 1, 1, 0.78431374)
 joint_mode = 2
 
-[node name="Node2D" parent="austria-hungary/Budapest" unique_id=416814977 instance=ExtResource("7_gee14")]
+[node name="Node2D" parent="austria_hungary/Budapest" unique_id=416814977 instance=ExtResource("7_gee14")]
 position = Vector2(-472, 300)
 
-[node name="Control" type="Control" parent="austria-hungary/Budapest" unique_id=723441749]
+[node name="Control" type="Control" parent="austria_hungary/Budapest" unique_id=723441749]
 layout_mode = 3
 anchors_preset = 0
 offset_left = -24.570007
@@ -4114,7 +4114,7 @@ offset_right = 15.429382
 offset_bottom = 3.6650085
 pivot_offset = Vector2(19.865, 0)
 
-[node name="VBoxContainer" type="VBoxContainer" parent="austria-hungary/Budapest/Control" unique_id=562107346]
+[node name="VBoxContainer" type="VBoxContainer" parent="austria_hungary/Budapest/Control" unique_id=562107346]
 layout_mode = 1
 anchors_preset = -1
 anchor_right = 1.0
@@ -4123,60 +4123,60 @@ offset_right = 0.00061035156
 offset_bottom = -10.0
 alignment = 1
 
-[node name="PanelContainer" type="PanelContainer" parent="austria-hungary/Budapest/Control/VBoxContainer" unique_id=1637831726]
+[node name="PanelContainer" type="PanelContainer" parent="austria_hungary/Budapest/Control/VBoxContainer" unique_id=1637831726]
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_kvpfn")
 
-[node name="ProvinceName" type="Label" parent="austria-hungary/Budapest/Control/VBoxContainer/PanelContainer" unique_id=473165292]
+[node name="ProvinceName" type="Label" parent="austria_hungary/Budapest/Control/VBoxContainer/PanelContainer" unique_id=473165292]
 layout_mode = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="austria-hungary/Budapest/Control/VBoxContainer" unique_id=235037829]
+[node name="HBoxContainer" type="HBoxContainer" parent="austria_hungary/Budapest/Control/VBoxContainer" unique_id=235037829]
 layout_mode = 2
 
-[node name="TextureRect" type="TextureRect" parent="austria-hungary/Budapest/Control/VBoxContainer/HBoxContainer" unique_id=256236086]
+[node name="TextureRect" type="TextureRect" parent="austria_hungary/Budapest/Control/VBoxContainer/HBoxContainer" unique_id=256236086]
 layout_mode = 2
 
-[node name="ResourceCount" type="Label" parent="austria-hungary/Budapest/Control/VBoxContainer/HBoxContainer" unique_id=1839112560]
+[node name="ResourceCount" type="Label" parent="austria_hungary/Budapest/Control/VBoxContainer/HBoxContainer" unique_id=1839112560]
 layout_mode = 2
 
-[node name="Path2D10" type="Path2D" parent="austria-hungary/Budapest" unique_id=569409658]
+[node name="Path2D10" type="Path2D" parent="austria_hungary/Budapest" unique_id=569409658]
 curve = SubResource("Curve2D_muk0n")
 script = ExtResource("8_gee14")
 
-[node name="Path2D9" type="Path2D" parent="austria-hungary/Budapest" unique_id=780469929]
+[node name="Path2D9" type="Path2D" parent="austria_hungary/Budapest" unique_id=780469929]
 curve = SubResource("Curve2D_lvqk5")
 script = ExtResource("8_gee14")
 
-[node name="Path2D8" type="Path2D" parent="austria-hungary/Budapest" unique_id=1948460866]
+[node name="Path2D8" type="Path2D" parent="austria_hungary/Budapest" unique_id=1948460866]
 curve = SubResource("Curve2D_lfodm")
 script = ExtResource("8_gee14")
 
-[node name="Path2D7" type="Path2D" parent="austria-hungary/Budapest" unique_id=1323804225]
+[node name="Path2D7" type="Path2D" parent="austria_hungary/Budapest" unique_id=1323804225]
 curve = SubResource("Curve2D_egdlk")
 script = ExtResource("8_gee14")
 
-[node name="Vienna" type="Area2D" parent="austria-hungary" unique_id=898144940]
+[node name="Vienna" type="Area2D" parent="austria_hungary" unique_id=898144940]
 position = Vector2(260, -39)
 collision_mask = 3
 script = ExtResource("3_lnu2h")
 startup_buildings = Array[int]([2, 0])
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="austria-hungary/Vienna" unique_id=1964349259]
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="austria_hungary/Vienna" unique_id=1964349259]
 polygon = PackedVector2Array(-598, 251, -597, 256, -592, 261, -587, 262, -582, 270, -585, 272, -593, 272, -592, 275, -595, 279, -604, 282, -603, 299, -602, 308, -594, 312, -593, 325, -588, 329, -575, 332, -569, 329, -565, 329, -560, 329, -553, 330, -549, 335, -543, 333, -536, 340, -532, 337, -517, 339, -514, 327, -509, 325, -503, 326, -501, 323, -498, 319, -492, 317, -492, 313, -490, 308, -490, 302, -490, 294, -490, 293, -496, 286, -500, 277, -495, 271, -493, 259, -497, 259, -502, 258, -508, 261, -513, 258, -516, 260, -520, 268, -532, 267, -539, 270, -547, 275, -549, 269, -554, 262, -570, 250, -576, 252, -580, 248, -585, 251, -590, 247)
 
-[node name="Polygon2D" type="Polygon2D" parent="austria-hungary/Vienna" unique_id=2052997973]
+[node name="Polygon2D" type="Polygon2D" parent="austria_hungary/Vienna" unique_id=2052997973]
 color = Color(0.45490196, 0.43529412, 0.42352942, 1)
 
-[node name="ProvinceBorder" type="Line2D" parent="austria-hungary/Vienna" unique_id=916917006]
+[node name="ProvinceBorder" type="Line2D" parent="austria_hungary/Vienna" unique_id=916917006]
 closed = true
 width = 0.3
 default_color = Color(1, 1, 1, 0.78431374)
 joint_mode = 2
 
-[node name="Node2D" parent="austria-hungary/Vienna" unique_id=897739212 instance=ExtResource("7_gee14")]
+[node name="Node2D" parent="austria_hungary/Vienna" unique_id=897739212 instance=ExtResource("7_gee14")]
 position = Vector2(-532, 283)
 
-[node name="Control" type="Control" parent="austria-hungary/Vienna" unique_id=2025000792]
+[node name="Control" type="Control" parent="austria_hungary/Vienna" unique_id=2025000792]
 layout_mode = 3
 anchors_preset = 0
 offset_left = -24.570007
@@ -4185,7 +4185,7 @@ offset_right = 15.429382
 offset_bottom = 3.6650085
 pivot_offset = Vector2(19.865, 0)
 
-[node name="VBoxContainer" type="VBoxContainer" parent="austria-hungary/Vienna/Control" unique_id=1914045562]
+[node name="VBoxContainer" type="VBoxContainer" parent="austria_hungary/Vienna/Control" unique_id=1914045562]
 layout_mode = 1
 anchors_preset = -1
 anchor_right = 1.0
@@ -4194,51 +4194,51 @@ offset_right = 0.00061035156
 offset_bottom = -10.0
 alignment = 1
 
-[node name="PanelContainer" type="PanelContainer" parent="austria-hungary/Vienna/Control/VBoxContainer" unique_id=13532574]
+[node name="PanelContainer" type="PanelContainer" parent="austria_hungary/Vienna/Control/VBoxContainer" unique_id=13532574]
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_kvpfn")
 
-[node name="ProvinceName" type="Label" parent="austria-hungary/Vienna/Control/VBoxContainer/PanelContainer" unique_id=571467388]
+[node name="ProvinceName" type="Label" parent="austria_hungary/Vienna/Control/VBoxContainer/PanelContainer" unique_id=571467388]
 layout_mode = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="austria-hungary/Vienna/Control/VBoxContainer" unique_id=381763107]
+[node name="HBoxContainer" type="HBoxContainer" parent="austria_hungary/Vienna/Control/VBoxContainer" unique_id=381763107]
 layout_mode = 2
 
-[node name="TextureRect" type="TextureRect" parent="austria-hungary/Vienna/Control/VBoxContainer/HBoxContainer" unique_id=419861781]
+[node name="TextureRect" type="TextureRect" parent="austria_hungary/Vienna/Control/VBoxContainer/HBoxContainer" unique_id=419861781]
 layout_mode = 2
 
-[node name="ResourceCount" type="Label" parent="austria-hungary/Vienna/Control/VBoxContainer/HBoxContainer" unique_id=363448358]
+[node name="ResourceCount" type="Label" parent="austria_hungary/Vienna/Control/VBoxContainer/HBoxContainer" unique_id=363448358]
 layout_mode = 2
 
-[node name="Path2D13" type="Path2D" parent="austria-hungary/Vienna" unique_id=1757059879]
+[node name="Path2D13" type="Path2D" parent="austria_hungary/Vienna" unique_id=1757059879]
 curve = SubResource("Curve2D_yflaq")
 script = ExtResource("8_gee14")
 
-[node name="Path2D12" type="Path2D" parent="austria-hungary/Vienna" unique_id=1898511713]
+[node name="Path2D12" type="Path2D" parent="austria_hungary/Vienna" unique_id=1898511713]
 curve = SubResource("Curve2D_l6jii")
 script = ExtResource("8_gee14")
 
-[node name="Path2D11" type="Path2D" parent="austria-hungary/Vienna" unique_id=1483782767]
+[node name="Path2D11" type="Path2D" parent="austria_hungary/Vienna" unique_id=1483782767]
 curve = SubResource("Curve2D_o58jo")
 script = ExtResource("8_gee14")
 
-[node name="Path2D10" type="Path2D" parent="austria-hungary/Vienna" unique_id=657425001]
+[node name="Path2D10" type="Path2D" parent="austria_hungary/Vienna" unique_id=657425001]
 curve = SubResource("Curve2D_hjved")
 script = ExtResource("8_gee14")
 
-[node name="Path2D9" type="Path2D" parent="austria-hungary/Vienna" unique_id=1645076848]
+[node name="Path2D9" type="Path2D" parent="austria_hungary/Vienna" unique_id=1645076848]
 curve = SubResource("Curve2D_7m0dp")
 script = ExtResource("8_gee14")
 
-[node name="Path2D8" type="Path2D" parent="austria-hungary/Vienna" unique_id=665019149]
+[node name="Path2D8" type="Path2D" parent="austria_hungary/Vienna" unique_id=665019149]
 curve = SubResource("Curve2D_fqn7g")
 script = ExtResource("8_gee14")
 
-[node name="Path2D7" type="Path2D" parent="austria-hungary/Vienna" unique_id=704012563]
+[node name="Path2D7" type="Path2D" parent="austria_hungary/Vienna" unique_id=704012563]
 curve = SubResource("Curve2D_bexe8")
 script = ExtResource("8_gee14")
 
-[node name="Innsbruck" type="Area2D" parent="austria-hungary" unique_id=1790665943]
+[node name="Innsbruck" type="Area2D" parent="austria_hungary" unique_id=1790665943]
 position = Vector2(260, -39)
 collision_mask = 3
 script = ExtResource("3_lnu2h")
@@ -4246,22 +4246,22 @@ province_material = 1
 double_material = true
 startup_buildings = Array[int]([2])
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="austria-hungary/Innsbruck" unique_id=1229203857]
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="austria_hungary/Innsbruck" unique_id=1229203857]
 polygon = PackedVector2Array(-603, 299, -606, 295, -611, 290, -621, 288, -630, 293, -634, 296, -643, 296, -643, 292, -649, 293, -656, 292, -654, 299, -660, 300, -663, 294, -670, 295, -673, 300, -675, 305, -674, 309, -666, 318, -661, 317, -661, 314, -654, 317, -656, 330, -653, 331, -651, 334, -655, 339, -655, 350, -650, 347, -640, 353, -635, 345, -630, 344, -626, 339, -625, 335, -620, 334, -616, 327, -608, 327, -599, 329, -597, 327, -593, 325, -594, 312, -602, 308)
 
-[node name="Polygon2D" type="Polygon2D" parent="austria-hungary/Innsbruck" unique_id=1516724168]
+[node name="Polygon2D" type="Polygon2D" parent="austria_hungary/Innsbruck" unique_id=1516724168]
 color = Color(0.45490196, 0.43529412, 0.42352942, 1)
 
-[node name="ProvinceBorder" type="Line2D" parent="austria-hungary/Innsbruck" unique_id=256491099]
+[node name="ProvinceBorder" type="Line2D" parent="austria_hungary/Innsbruck" unique_id=256491099]
 closed = true
 width = 0.3
 default_color = Color(1, 1, 1, 0.78431374)
 joint_mode = 2
 
-[node name="Node2D" parent="austria-hungary/Innsbruck" unique_id=1984846691 instance=ExtResource("7_gee14")]
+[node name="Node2D" parent="austria_hungary/Innsbruck" unique_id=1984846691 instance=ExtResource("7_gee14")]
 position = Vector2(-634, 307)
 
-[node name="Control" type="Control" parent="austria-hungary/Innsbruck" unique_id=1018176917]
+[node name="Control" type="Control" parent="austria_hungary/Innsbruck" unique_id=1018176917]
 layout_mode = 3
 anchors_preset = 0
 offset_left = -24.570007
@@ -4270,7 +4270,7 @@ offset_right = 15.429382
 offset_bottom = 3.6650085
 pivot_offset = Vector2(19.865, 0)
 
-[node name="VBoxContainer" type="VBoxContainer" parent="austria-hungary/Innsbruck/Control" unique_id=1041568240]
+[node name="VBoxContainer" type="VBoxContainer" parent="austria_hungary/Innsbruck/Control" unique_id=1041568240]
 layout_mode = 1
 anchors_preset = -1
 anchor_right = 1.0
@@ -4279,65 +4279,65 @@ offset_right = 0.00061035156
 offset_bottom = -10.0
 alignment = 1
 
-[node name="PanelContainer" type="PanelContainer" parent="austria-hungary/Innsbruck/Control/VBoxContainer" unique_id=952285352]
+[node name="PanelContainer" type="PanelContainer" parent="austria_hungary/Innsbruck/Control/VBoxContainer" unique_id=952285352]
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_kvpfn")
 
-[node name="ProvinceName" type="Label" parent="austria-hungary/Innsbruck/Control/VBoxContainer/PanelContainer" unique_id=1539123526]
+[node name="ProvinceName" type="Label" parent="austria_hungary/Innsbruck/Control/VBoxContainer/PanelContainer" unique_id=1539123526]
 layout_mode = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="austria-hungary/Innsbruck/Control/VBoxContainer" unique_id=449684746]
+[node name="HBoxContainer" type="HBoxContainer" parent="austria_hungary/Innsbruck/Control/VBoxContainer" unique_id=449684746]
 layout_mode = 2
 
-[node name="TextureRect" type="TextureRect" parent="austria-hungary/Innsbruck/Control/VBoxContainer/HBoxContainer" unique_id=1301278227]
+[node name="TextureRect" type="TextureRect" parent="austria_hungary/Innsbruck/Control/VBoxContainer/HBoxContainer" unique_id=1301278227]
 layout_mode = 2
 
-[node name="ResourceCount" type="Label" parent="austria-hungary/Innsbruck/Control/VBoxContainer/HBoxContainer" unique_id=824638721]
+[node name="ResourceCount" type="Label" parent="austria_hungary/Innsbruck/Control/VBoxContainer/HBoxContainer" unique_id=824638721]
 layout_mode = 2
 
-[node name="Path2D12" type="Path2D" parent="austria-hungary/Innsbruck" unique_id=631889670]
+[node name="Path2D12" type="Path2D" parent="austria_hungary/Innsbruck" unique_id=631889670]
 curve = SubResource("Curve2D_iq5an")
 script = ExtResource("8_gee14")
 
-[node name="Path2D10" type="Path2D" parent="austria-hungary/Innsbruck" unique_id=1695740754]
+[node name="Path2D10" type="Path2D" parent="austria_hungary/Innsbruck" unique_id=1695740754]
 curve = SubResource("Curve2D_4ao3u")
 script = ExtResource("8_gee14")
 
-[node name="Path2D9" type="Path2D" parent="austria-hungary/Innsbruck" unique_id=1606814507]
+[node name="Path2D9" type="Path2D" parent="austria_hungary/Innsbruck" unique_id=1606814507]
 curve = SubResource("Curve2D_gfj2m")
 script = ExtResource("8_gee14")
 
-[node name="Path2D8" type="Path2D" parent="austria-hungary/Innsbruck" unique_id=729716765]
+[node name="Path2D8" type="Path2D" parent="austria_hungary/Innsbruck" unique_id=729716765]
 curve = SubResource("Curve2D_oxsfg")
 script = ExtResource("8_gee14")
 
-[node name="Path2D7" type="Path2D" parent="austria-hungary/Innsbruck" unique_id=1720792691]
+[node name="Path2D7" type="Path2D" parent="austria_hungary/Innsbruck" unique_id=1720792691]
 curve = SubResource("Curve2D_mr1u0")
 script = ExtResource("8_gee14")
 
-[node name="Trieste" type="Area2D" parent="austria-hungary" unique_id=1818951528]
+[node name="Trieste" type="Area2D" parent="austria_hungary" unique_id=1818951528]
 position = Vector2(260, -39)
 collision_mask = 3
 script = ExtResource("3_lnu2h")
 province_material = 4
 startup_buildings = Array[int]([2])
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="austria-hungary/Trieste" unique_id=1553381419]
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="austria_hungary/Trieste" unique_id=1553381419]
 polygon = PackedVector2Array(-599, 329, -593, 334, -595, 338, -589, 340, -597, 349, -598, 353, -594, 356, -589, 353, -587, 357, -588, 360, -592, 363, -591, 369, -589, 373, -589, 375, -585, 376, -583, 378, -582, 381, -580, 383, -580, 377, -577, 377, -578, 373, -575, 367, -564, 368, -562, 377, -559, 387, -550, 395, -549, 392, -535, 399, -533, 396, -536, 388, -543, 383, -546, 376, -546, 373, -542, 368, -536, 370, -534, 375, -528, 375, -528, 371, -518, 370, -510, 373, -501, 373, -500, 366, -501, 357, -504, 349, -509, 351, -513, 345, -515, 345, -515, 343, -517, 339, -532, 337, -536, 340, -543, 333, -549, 335, -553, 330, -560, 329, -565, 329, -569, 329, -575, 332, -588, 329, -593, 325, -597, 327)
 
-[node name="Polygon2D" type="Polygon2D" parent="austria-hungary/Trieste" unique_id=1810737499]
+[node name="Polygon2D" type="Polygon2D" parent="austria_hungary/Trieste" unique_id=1810737499]
 color = Color(0.45490196, 0.43529412, 0.42352942, 1)
 
-[node name="ProvinceBorder" type="Line2D" parent="austria-hungary/Trieste" unique_id=711976082]
+[node name="ProvinceBorder" type="Line2D" parent="austria_hungary/Trieste" unique_id=711976082]
 closed = true
 width = 0.3
 default_color = Color(1, 1, 1, 0.78431374)
 joint_mode = 2
 
-[node name="Node2D" parent="austria-hungary/Trieste" unique_id=19112533 instance=ExtResource("7_gee14")]
+[node name="Node2D" parent="austria_hungary/Trieste" unique_id=19112533 instance=ExtResource("7_gee14")]
 position = Vector2(-585, 356)
 
-[node name="Control" type="Control" parent="austria-hungary/Trieste" unique_id=1006454754]
+[node name="Control" type="Control" parent="austria_hungary/Trieste" unique_id=1006454754]
 layout_mode = 3
 anchors_preset = 0
 offset_left = -24.570007
@@ -4346,7 +4346,7 @@ offset_right = 15.429382
 offset_bottom = 3.6650085
 pivot_offset = Vector2(19.865, 0)
 
-[node name="VBoxContainer" type="VBoxContainer" parent="austria-hungary/Trieste/Control" unique_id=1103271074]
+[node name="VBoxContainer" type="VBoxContainer" parent="austria_hungary/Trieste/Control" unique_id=1103271074]
 layout_mode = 1
 anchors_preset = -1
 anchor_right = 1.0
@@ -4355,77 +4355,77 @@ offset_right = 0.00061035156
 offset_bottom = -10.0
 alignment = 1
 
-[node name="PanelContainer" type="PanelContainer" parent="austria-hungary/Trieste/Control/VBoxContainer" unique_id=1212896284]
+[node name="PanelContainer" type="PanelContainer" parent="austria_hungary/Trieste/Control/VBoxContainer" unique_id=1212896284]
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_kvpfn")
 
-[node name="ProvinceName" type="Label" parent="austria-hungary/Trieste/Control/VBoxContainer/PanelContainer" unique_id=514426422]
+[node name="ProvinceName" type="Label" parent="austria_hungary/Trieste/Control/VBoxContainer/PanelContainer" unique_id=514426422]
 layout_mode = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="austria-hungary/Trieste/Control/VBoxContainer" unique_id=2093447267]
+[node name="HBoxContainer" type="HBoxContainer" parent="austria_hungary/Trieste/Control/VBoxContainer" unique_id=2093447267]
 layout_mode = 2
 
-[node name="TextureRect" type="TextureRect" parent="austria-hungary/Trieste/Control/VBoxContainer/HBoxContainer" unique_id=1015659086]
+[node name="TextureRect" type="TextureRect" parent="austria_hungary/Trieste/Control/VBoxContainer/HBoxContainer" unique_id=1015659086]
 layout_mode = 2
 
-[node name="ResourceCount" type="Label" parent="austria-hungary/Trieste/Control/VBoxContainer/HBoxContainer" unique_id=128321458]
+[node name="ResourceCount" type="Label" parent="austria_hungary/Trieste/Control/VBoxContainer/HBoxContainer" unique_id=128321458]
 layout_mode = 2
 
-[node name="Path2D14" type="Path2D" parent="austria-hungary/Trieste" unique_id=1335132747]
+[node name="Path2D14" type="Path2D" parent="austria_hungary/Trieste" unique_id=1335132747]
 curve = SubResource("Curve2D_7odbu")
 script = ExtResource("8_gee14")
 
-[node name="Path2D13" type="Path2D" parent="austria-hungary/Trieste" unique_id=2035865164]
+[node name="Path2D13" type="Path2D" parent="austria_hungary/Trieste" unique_id=2035865164]
 curve = SubResource("Curve2D_n5r1y")
 script = ExtResource("8_gee14")
 
-[node name="Path2D12" type="Path2D" parent="austria-hungary/Trieste" unique_id=288585203]
+[node name="Path2D12" type="Path2D" parent="austria_hungary/Trieste" unique_id=288585203]
 curve = SubResource("Curve2D_5dv3s")
 script = ExtResource("8_gee14")
 
-[node name="Path2D11" type="Path2D" parent="austria-hungary/Trieste" unique_id=2044103791]
+[node name="Path2D11" type="Path2D" parent="austria_hungary/Trieste" unique_id=2044103791]
 curve = SubResource("Curve2D_j2dl0")
 script = ExtResource("8_gee14")
 
-[node name="Path2D10" type="Path2D" parent="austria-hungary/Trieste" unique_id=768243430]
+[node name="Path2D10" type="Path2D" parent="austria_hungary/Trieste" unique_id=768243430]
 curve = SubResource("Curve2D_2l5a6")
 script = ExtResource("8_gee14")
 
-[node name="Path2D9" type="Path2D" parent="austria-hungary/Trieste" unique_id=133441641]
+[node name="Path2D9" type="Path2D" parent="austria_hungary/Trieste" unique_id=133441641]
 curve = SubResource("Curve2D_hqgn7")
 script = ExtResource("8_gee14")
 
-[node name="Path2D8" type="Path2D" parent="austria-hungary/Trieste" unique_id=644153234]
+[node name="Path2D8" type="Path2D" parent="austria_hungary/Trieste" unique_id=644153234]
 curve = SubResource("Curve2D_r02hr")
 script = ExtResource("8_gee14")
 
-[node name="Path2D7" type="Path2D" parent="austria-hungary/Trieste" unique_id=41858919]
+[node name="Path2D7" type="Path2D" parent="austria_hungary/Trieste" unique_id=41858919]
 curve = SubResource("Curve2D_425x1")
 script = ExtResource("8_gee14")
 
-[node name="Szeged" type="Area2D" parent="austria-hungary" unique_id=86123478]
+[node name="Szeged" type="Area2D" parent="austria_hungary" unique_id=86123478]
 position = Vector2(260, -39)
 collision_mask = 3
 script = ExtResource("3_lnu2h")
 province_material = 5
 startup_buildings = Array[int]([2])
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="austria-hungary/Szeged" unique_id=238166986]
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="austria_hungary/Szeged" unique_id=238166986]
 polygon = PackedVector2Array(-501, 373, -491, 373, -476, 373, -475, 377, -468, 377, -463, 375, -456, 377, -456, 380, -446, 380, -441, 380, -441, 377, -436, 376, -433, 379, -427, 381, -419, 375, -414, 376, -413, 380, -405, 382, -403, 383, -399, 383, -399, 379, -397, 376, -399, 370, -398, 367, -392, 361, -391, 356, -386, 356, -389, 347, -386, 346, -387, 340, -393, 340, -405, 340, -412, 336, -419, 337, -425, 334, -431, 335, -431, 331, -430, 329, -429, 324, -430, 319, -440, 323, -447, 322, -452, 316, -461, 318, -485, 318, -492, 313, -492, 317, -498, 319, -501, 323, -503, 326, -509, 325, -514, 327, -517, 339, -515, 343, -515, 345, -513, 345, -509, 351, -504, 349, -501, 357, -500, 366)
 
-[node name="Polygon2D" type="Polygon2D" parent="austria-hungary/Szeged" unique_id=1859778426]
+[node name="Polygon2D" type="Polygon2D" parent="austria_hungary/Szeged" unique_id=1859778426]
 color = Color(0.45490196, 0.43529412, 0.42352942, 1)
 
-[node name="ProvinceBorder" type="Line2D" parent="austria-hungary/Szeged" unique_id=2068231283]
+[node name="ProvinceBorder" type="Line2D" parent="austria_hungary/Szeged" unique_id=2068231283]
 closed = true
 width = 0.3
 default_color = Color(1, 1, 1, 0.78431374)
 joint_mode = 2
 
-[node name="Node2D" parent="austria-hungary/Szeged" unique_id=1601719055 instance=ExtResource("7_gee14")]
+[node name="Node2D" parent="austria_hungary/Szeged" unique_id=1601719055 instance=ExtResource("7_gee14")]
 position = Vector2(-450, 332)
 
-[node name="Control" type="Control" parent="austria-hungary/Szeged" unique_id=439464286]
+[node name="Control" type="Control" parent="austria_hungary/Szeged" unique_id=439464286]
 layout_mode = 3
 anchors_preset = 0
 offset_left = -24.570007
@@ -4434,7 +4434,7 @@ offset_right = 15.429382
 offset_bottom = 3.6650085
 pivot_offset = Vector2(19.865, 0)
 
-[node name="VBoxContainer" type="VBoxContainer" parent="austria-hungary/Szeged/Control" unique_id=476567946]
+[node name="VBoxContainer" type="VBoxContainer" parent="austria_hungary/Szeged/Control" unique_id=476567946]
 layout_mode = 1
 anchors_preset = -1
 anchor_right = 1.0
@@ -4443,65 +4443,65 @@ offset_right = 0.00061035156
 offset_bottom = -10.0
 alignment = 1
 
-[node name="PanelContainer" type="PanelContainer" parent="austria-hungary/Szeged/Control/VBoxContainer" unique_id=917716495]
+[node name="PanelContainer" type="PanelContainer" parent="austria_hungary/Szeged/Control/VBoxContainer" unique_id=917716495]
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_kvpfn")
 
-[node name="ProvinceName" type="Label" parent="austria-hungary/Szeged/Control/VBoxContainer/PanelContainer" unique_id=2056232214]
+[node name="ProvinceName" type="Label" parent="austria_hungary/Szeged/Control/VBoxContainer/PanelContainer" unique_id=2056232214]
 layout_mode = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="austria-hungary/Szeged/Control/VBoxContainer" unique_id=1466897955]
+[node name="HBoxContainer" type="HBoxContainer" parent="austria_hungary/Szeged/Control/VBoxContainer" unique_id=1466897955]
 layout_mode = 2
 
-[node name="TextureRect" type="TextureRect" parent="austria-hungary/Szeged/Control/VBoxContainer/HBoxContainer" unique_id=1609815382]
+[node name="TextureRect" type="TextureRect" parent="austria_hungary/Szeged/Control/VBoxContainer/HBoxContainer" unique_id=1609815382]
 layout_mode = 2
 
-[node name="ResourceCount" type="Label" parent="austria-hungary/Szeged/Control/VBoxContainer/HBoxContainer" unique_id=872532971]
+[node name="ResourceCount" type="Label" parent="austria_hungary/Szeged/Control/VBoxContainer/HBoxContainer" unique_id=872532971]
 layout_mode = 2
 
-[node name="Path2D11" type="Path2D" parent="austria-hungary/Szeged" unique_id=369274412]
+[node name="Path2D11" type="Path2D" parent="austria_hungary/Szeged" unique_id=369274412]
 curve = SubResource("Curve2D_vl524")
 script = ExtResource("8_gee14")
 
-[node name="Path2D10" type="Path2D" parent="austria-hungary/Szeged" unique_id=736424295]
+[node name="Path2D10" type="Path2D" parent="austria_hungary/Szeged" unique_id=736424295]
 curve = SubResource("Curve2D_v6i8x")
 script = ExtResource("8_gee14")
 
-[node name="Path2D9" type="Path2D" parent="austria-hungary/Szeged" unique_id=1460735875]
+[node name="Path2D9" type="Path2D" parent="austria_hungary/Szeged" unique_id=1460735875]
 curve = SubResource("Curve2D_t4ldf")
 script = ExtResource("8_gee14")
 
-[node name="Path2D8" type="Path2D" parent="austria-hungary/Szeged" unique_id=1899740515]
+[node name="Path2D8" type="Path2D" parent="austria_hungary/Szeged" unique_id=1899740515]
 curve = SubResource("Curve2D_ndn07")
 script = ExtResource("8_gee14")
 
-[node name="Path2D7" type="Path2D" parent="austria-hungary/Szeged" unique_id=662116832]
+[node name="Path2D7" type="Path2D" parent="austria_hungary/Szeged" unique_id=662116832]
 curve = SubResource("Curve2D_xfwri")
 script = ExtResource("8_gee14")
 
-[node name="Sarajevo" type="Area2D" parent="austria-hungary" unique_id=1692316487]
+[node name="Sarajevo" type="Area2D" parent="austria_hungary" unique_id=1692316487]
 position = Vector2(260, -39)
 collision_mask = 3
 script = ExtResource("3_lnu2h")
 province_material = 6
 startup_buildings = Array[int]([2])
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="austria-hungary/Sarajevo" unique_id=93173820]
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="austria_hungary/Sarajevo" unique_id=93173820]
 polygon = PackedVector2Array(-550, 395, -542, 400, -543, 405, -551, 402, -553, 403, -550, 407, -546, 408, -541, 416, -536, 417, -532, 425, -531, 424, -532, 421, -524, 423, -520, 423, -517, 426, -513, 427, -507, 430, -504, 434, -494, 439, -498, 441, -507, 437, -511, 437, -506, 440, -499, 442, -493, 443, -490, 447, -480, 452, -476, 449, -478, 438, -472, 429, -472, 420, -470, 418, -462, 411, -463, 405, -460, 403, -456, 405, -452, 403, -460, 395, -465, 391, -462, 383, -463, 375, -468, 377, -475, 377, -476, 373, -491, 373, -501, 373, -510, 373, -518, 370, -528, 371, -528, 375, -534, 375, -536, 370, -542, 368, -546, 373, -546, 376, -543, 383, -536, 388, -533, 396, -535, 399, -549, 392)
 
-[node name="Polygon2D" type="Polygon2D" parent="austria-hungary/Sarajevo" unique_id=121172805]
+[node name="Polygon2D" type="Polygon2D" parent="austria_hungary/Sarajevo" unique_id=121172805]
 color = Color(0.45490196, 0.43529412, 0.42352942, 1)
 
-[node name="ProvinceBorder" type="Line2D" parent="austria-hungary/Sarajevo" unique_id=483441989]
+[node name="ProvinceBorder" type="Line2D" parent="austria_hungary/Sarajevo" unique_id=483441989]
 closed = true
 width = 0.3
 default_color = Color(1, 1, 1, 0.78431374)
 joint_mode = 2
 
-[node name="Node2D" parent="austria-hungary/Sarajevo" unique_id=1758152871 instance=ExtResource("7_gee14")]
+[node name="Node2D" parent="austria_hungary/Sarajevo" unique_id=1758152871 instance=ExtResource("7_gee14")]
 position = Vector2(-481, 409)
 
-[node name="Control" type="Control" parent="austria-hungary/Sarajevo" unique_id=1455618205]
+[node name="Control" type="Control" parent="austria_hungary/Sarajevo" unique_id=1455618205]
 layout_mode = 3
 anchors_preset = 0
 offset_left = -24.570007
@@ -4510,7 +4510,7 @@ offset_right = 15.429382
 offset_bottom = 3.6650085
 pivot_offset = Vector2(19.865, 0)
 
-[node name="VBoxContainer" type="VBoxContainer" parent="austria-hungary/Sarajevo/Control" unique_id=1427572672]
+[node name="VBoxContainer" type="VBoxContainer" parent="austria_hungary/Sarajevo/Control" unique_id=1427572672]
 layout_mode = 1
 anchors_preset = -1
 anchor_right = 1.0
@@ -4519,39 +4519,39 @@ offset_right = 0.00061035156
 offset_bottom = -10.0
 alignment = 1
 
-[node name="PanelContainer" type="PanelContainer" parent="austria-hungary/Sarajevo/Control/VBoxContainer" unique_id=1134403630]
+[node name="PanelContainer" type="PanelContainer" parent="austria_hungary/Sarajevo/Control/VBoxContainer" unique_id=1134403630]
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_kvpfn")
 
-[node name="ProvinceName" type="Label" parent="austria-hungary/Sarajevo/Control/VBoxContainer/PanelContainer" unique_id=1809811723]
+[node name="ProvinceName" type="Label" parent="austria_hungary/Sarajevo/Control/VBoxContainer/PanelContainer" unique_id=1809811723]
 layout_mode = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="austria-hungary/Sarajevo/Control/VBoxContainer" unique_id=385906983]
+[node name="HBoxContainer" type="HBoxContainer" parent="austria_hungary/Sarajevo/Control/VBoxContainer" unique_id=385906983]
 layout_mode = 2
 
-[node name="TextureRect" type="TextureRect" parent="austria-hungary/Sarajevo/Control/VBoxContainer/HBoxContainer" unique_id=244888695]
+[node name="TextureRect" type="TextureRect" parent="austria_hungary/Sarajevo/Control/VBoxContainer/HBoxContainer" unique_id=244888695]
 layout_mode = 2
 
-[node name="ResourceCount" type="Label" parent="austria-hungary/Sarajevo/Control/VBoxContainer/HBoxContainer" unique_id=952795355]
+[node name="ResourceCount" type="Label" parent="austria_hungary/Sarajevo/Control/VBoxContainer/HBoxContainer" unique_id=952795355]
 layout_mode = 2
 
-[node name="Path2D11" type="Path2D" parent="austria-hungary/Sarajevo" unique_id=1969349145]
+[node name="Path2D11" type="Path2D" parent="austria_hungary/Sarajevo" unique_id=1969349145]
 curve = SubResource("Curve2D_lq4e1")
 script = ExtResource("8_gee14")
 
-[node name="Path2D10" type="Path2D" parent="austria-hungary/Sarajevo" unique_id=2112391419]
+[node name="Path2D10" type="Path2D" parent="austria_hungary/Sarajevo" unique_id=2112391419]
 curve = SubResource("Curve2D_8huhj")
 script = ExtResource("8_gee14")
 
-[node name="Path2D9" type="Path2D" parent="austria-hungary/Sarajevo" unique_id=1420776653]
+[node name="Path2D9" type="Path2D" parent="austria_hungary/Sarajevo" unique_id=1420776653]
 curve = SubResource("Curve2D_28se1")
 script = ExtResource("8_gee14")
 
-[node name="Path2D8" type="Path2D" parent="austria-hungary/Sarajevo" unique_id=1733839339]
+[node name="Path2D8" type="Path2D" parent="austria_hungary/Sarajevo" unique_id=1733839339]
 curve = SubResource("Curve2D_7nklg")
 script = ExtResource("8_gee14")
 
-[node name="Path2D7" type="Path2D" parent="austria-hungary/Sarajevo" unique_id=1044117611]
+[node name="Path2D7" type="Path2D" parent="austria_hungary/Sarajevo" unique_id=1044117611]
 curve = SubResource("Curve2D_dcx0s")
 script = ExtResource("8_gee14")
 

@@ -1,5 +1,5 @@
 mas vesna {
-    agent austria-hungary:austria-hungary.asl {
+    agent austria_hungary:austria_hungary.asl {
         beliefs:    address( localhost )
                     port( 9080 )
         goals:      start

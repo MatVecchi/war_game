@@ -441,7 +441,8 @@ func _on_army_timer_timeout() -> void:
 	army_timer.wait_time = current_army_timer
 	var game: GameController = get_tree().current_scene
 	for el: Army in get_parent().armies:
-		if el.global_position != to_global(get_city_position()): continue
+		if not is_instance_valid(el) or el.travelling: continue
+		if not (el.province_location == self or (el.province_location == null and el.global_position.distance_to(to_global(get_city_position())) < 10.0)): continue
 		el.soldier_number += 1
 		el.life_points += el.LIFE_PER_UNIT * (float(province_morale)/100)
 		el.queue_redraw()
