@@ -166,7 +166,7 @@ func _input(_event):
 		control.scale = Vector2(1,1)/get_viewport().get_camera_2d().zoom
 
 func _on_friendly_collision(other: Army) -> void:
-	if other.player in player.player_in_alliance: return
+	if other.player != player or other.player in player.player_in_alliance: return
 	if not travelling or other.travelling: return
 	if nodes_travelled < len(path) - 1: return
 	
@@ -367,6 +367,14 @@ func _notification(what: int) -> void:
 			game.notify_province_defense_change(province_location)
 		
 func _on_battle_timer_timeout(other: Army, battle_timer: Timer) -> void:
+	if not is_instance_valid(other) or other.destroyed:
+		_end_battle_with(other, battle_timer)
+		return
+		
+	if is_instance_valid(player) and other.player not in player.player_in_war:
+		_end_battle_with(other, battle_timer)
+		return
+
 	var random_attacker_multiplier: float = rng.randf_range(0.5, 1.5)
 	var random_defender_multiplier: float = rng.randf_range(0.5, 1.5)
 	var attacker_strength: float = 0.0
@@ -397,7 +405,7 @@ func _on_battle_timer_timeout(other: Army, battle_timer: Timer) -> void:
 		if is_instance_valid(other.player):
 			other.player.dispatch_my_army_update(other)
 	
-	if (soldier_number <= 0 or life_points <= 0) and not battle_finished:
+	if soldier_number <= 0 or life_points <= 0:
 		destroy_self()
 		battle_finished = true
 	else:
@@ -420,13 +428,19 @@ func _on_view_changed(view: Agent) -> void:
 		
 func destroy_self() -> void:
 	destroyed = true
-	for enemy in active_battles.keys():
-		var b_timer = active_battles[enemy]
+	var ongoing_battles = active_battles.duplicate()
+	active_battles.clear()
+	day_battle = false
+	for enemy in ongoing_battles.keys():
+		var b_timer = ongoing_battles[enemy]
 		if is_instance_valid(b_timer):
 			b_timer.stop()
 			b_timer.queue_free()
-	active_battles.clear()
-	day_battle = false
+		if is_instance_valid(enemy):
+			if enemy.active_battles.has(self):
+				enemy.active_battles.erase(self)
+			enemy.day_battle = (enemy.active_battles.size() > 0)
+			enemy._check_resume_movement()
 	for i in range(len(player.armies)):
 		if player.armies[i] != self: continue
 		player.armies.remove_at(i)
@@ -435,6 +449,21 @@ func destroy_self() -> void:
 		
 func _get_morale_percentage() -> float:
 	return life_points/((soldier_number+death_count)*LIFE_PER_UNIT)*100
+
+func _check_resume_movement() -> void:
+	if not is_inside_tree() or destroyed:
+		return
+	if not active_battles.is_empty():
+		return
+	day_battle = false
+	if path != null and len(path) > 0 and nodes_travelled < len(path):
+		if not travelling:
+			travelling = true
+			_update_direction_lines()
+			if is_instance_valid(player):
+				player.dispatch_my_army_update(self)
+	elif not travelling:
+		call_deferred("_on_destination_reached")
 
 func begin_attack(other: Army) -> void:
 	if not is_instance_valid(other) or other == self: return
@@ -446,11 +475,14 @@ func begin_attack(other: Army) -> void:
 	battle_timer.timeout.connect(_on_battle_timer_timeout.bind(other, battle_timer))
 	add_child(battle_timer)
 	active_battles[other] = battle_timer
+	other.active_battles[self] = battle_timer
 	day_battle = true
 	other.day_battle = true
 	
 	if not other.army_destroyed.is_connected(_on_enemy_destroyed.bind(battle_timer)):
 		other.army_destroyed.connect(_on_enemy_destroyed.bind(battle_timer))
+	if not army_destroyed.is_connected(other._on_enemy_destroyed.bind(battle_timer)):
+		army_destroyed.connect(other._on_enemy_destroyed.bind(battle_timer))
 		
 	_on_battle_timer_timeout(other, battle_timer)
 
@@ -465,14 +497,9 @@ func _end_battle_with(other: Army, battle_timer: Timer) -> void:
 		if other.active_battles.has(self):
 			other.active_battles.erase(self)
 		other.day_battle = (other.active_battles.size() > 0)
-	if active_battles.is_empty() and not destroyed:
-		if path != null and len(path) > 0 and not travelling:
-			travelling = true
-			_update_direction_lines()
-			if is_instance_valid(player):
-				player.dispatch_my_army_update(self)
-		elif not travelling:
-			call_deferred("_on_destination_reached")
+		other._check_resume_movement()
+
+	_check_resume_movement()
 
 func _on_enemy_destroyed(destroyed_army: Army, battle_timer: Timer) -> void:
 	_end_battle_with(destroyed_army, battle_timer)
