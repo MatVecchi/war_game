@@ -322,7 +322,11 @@ func _create_hud():
 		hud.visible = hud_enabled
 	
 func conquer_province(province: Province, agent: Agent, is_riot: bool=false) -> void:
-	var previous_player: Agent = province.get_parent()
+	if not is_instance_valid(province) or not is_instance_valid(agent):
+		return
+	var previous_player = province.get_parent()
+	if previous_player == agent or not (previous_player is Agent):
+		return
 	province.reparent(agent)
 
 	if province.get_parent() == view:

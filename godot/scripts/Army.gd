@@ -109,6 +109,17 @@ func _create_texture(size: Vector2i, gradient_colors: PackedColorArray) -> Gradi
 	gradient.gradient.interpolation_mode = Gradient.GRADIENT_INTERPOLATE_CONSTANT
 	gradient.gradient.colors = gradient_colors
 	return gradient
+
+func _get_game() -> GameController:
+	if is_inside_tree():
+		var tree = get_tree()
+		if tree != null:
+			return tree.current_scene as GameController
+	elif is_instance_valid(player) and player.is_inside_tree():
+		var tree = player.get_tree()
+		if tree != null:
+			return tree.current_scene as GameController
+	return null
 	
 func _draw() -> void:
 	if soldier_number_visible:
@@ -120,8 +131,8 @@ func _draw() -> void:
 	
 	label_army_id.text = str(army_id)
 		
-	var game: GameController = get_tree().current_scene
-	if game.view != null and player in game.view.player_in_war:
+	var game: GameController = _get_game()
+	if game != null and game.view != null and player in game.view.player_in_war:
 		label_panel_style_box.bg_color = ENEMY_LABEL_BACKGROUND
 		label_panel.remove_theme_stylebox_override("panel")
 		label_panel.add_theme_stylebox_override("panel", label_panel_style_box)
@@ -189,14 +200,17 @@ func _on_global_timer_timeout() -> void:
 				_on_destination_reached()
 				return
 			
-			if province_location != null and province_location is Province and not player.get_province_owner(province_location) and province_location.get_city_position() == position:
-				var owner = province_location.get_parent()
-				if owner is Agent:
-					if owner not in player.player_in_alliance and owner not in player.player_in_war:
-						player.declare_war(owner)
-					if owner in player.player_in_war:
-						var game: GameController = get_tree().current_scene
-						game.conquer_province(province_location, player)
+			if province_location != null and province_location is Province and not player.get_province_owner(province_location):
+				var city_global = province_location.to_global(province_location.get_city_position())
+				if global_position.distance_to(city_global) < 15.0:
+					var owner = province_location.get_parent()
+					if owner is Agent:
+						if owner not in player.player_in_alliance and owner not in player.player_in_war:
+							player.declare_war(owner)
+						if owner in player.player_in_war:
+							var game: GameController = _get_game()
+							if game != null:
+								game.conquer_province(province_location, player)
 			
 			var new_path = player.graph_to_path[path[nodes_travelled]][0]
 			var point = player.graph_to_path[path[nodes_travelled]][1]
@@ -215,44 +229,49 @@ func _on_global_timer_timeout() -> void:
 				player.dispatch_my_army_update(self)
 			
 func _on_destination_reached() -> void:
+	if not is_inside_tree() or destroyed or not is_instance_valid(player):
+		return
 	if target_province != null:
 		province_location = target_province
 	target_province = null
 	_update_direction_lines()
 	if province_location == null:
-		var all_provinces = get_tree().get_nodes_in_group("provinces")
+		var tree = get_tree() if is_inside_tree() else null
+		if tree == null: return
+		var all_provinces = tree.get_nodes_in_group("provinces")
 		for prov in all_provinces:
 			if prov is Province and prov.to_global(prov.get_city_position()).distance_to(global_position) < 10.0:
 				province_location = prov
 				break
 	if province_location == null: return
 	
-	for el in player.armies:
-		if el != self and is_instance_valid(el) and not el.travelling:
-			if el.province_location == province_location or el.global_position.distance_to(global_position) < 10.0:
-				el.province_location = province_location
-				el.merge_armies(self)
-				return
-			
 	if not player.get_province_owner(province_location):
 		var owner = province_location.get_parent()
 		if owner is Agent:
 			if owner not in player.player_in_alliance and owner not in player.player_in_war:
 				player.declare_war(owner)
 			if owner in player.player_in_war:
-				var game: GameController = get_tree().current_scene
-				game.conquer_province(province_location, player)
+				var game: GameController = _get_game()
+				if game != null:
+					game.conquer_province(province_location, player)
+
+	for el in player.armies:
+		if el != self and is_instance_valid(el) and not el.destroyed and not el.travelling:
+			if el.province_location == province_location or el.global_position.distance_to(global_position) < 10.0:
+				el.province_location = province_location
+				el.merge_armies(self)
+				return
 			
 	if is_instance_valid(player):
 		player.dispatch_my_army_update(self)
-	var game: GameController = get_tree().current_scene
+	var game: GameController = _get_game()
 	if game != null and province_location != null and province_location is Province:
 		game.notify_province_defense_change(province_location)
 
 func check_and_merge_stationary() -> bool:
-	if travelling or not is_instance_valid(player) or province_location == null: return false
+	if not is_inside_tree() or destroyed or travelling or not is_instance_valid(player) or province_location == null: return false
 	for el in player.armies:
-		if el != self and is_instance_valid(el) and not el.travelling:
+		if el != self and is_instance_valid(el) and not el.destroyed and not el.travelling:
 			if el.province_location == province_location or el.global_position.distance_to(global_position) < 10.0:
 				if el.army_id < self.army_id:
 					el.province_location = province_location
@@ -343,7 +362,7 @@ func _notification(what: int) -> void:
 				}
 			}
 			player.send_vesna_message(msg)
-		var game: GameController = get_tree().current_scene
+		var game: GameController = _get_game()
 		if game != null and province_location != null and province_location is Province:
 			game.notify_province_defense_change(province_location)
 		
@@ -452,18 +471,24 @@ func _end_battle_with(other: Army, battle_timer: Timer) -> void:
 			_update_direction_lines()
 			if is_instance_valid(player):
 				player.dispatch_my_army_update(self)
+		elif not travelling:
+			call_deferred("_on_destination_reached")
 
 func _on_enemy_destroyed(destroyed_army: Army, battle_timer: Timer) -> void:
 	_end_battle_with(destroyed_army, battle_timer)
 	
 func merge_armies(other: Army) -> void:
+	if not is_inside_tree() or destroyed:
+		return
+	if not is_instance_valid(other) or other.destroyed:
+		return
 	soldier_number += other.soldier_number
 	life_points += other.life_points
 	other.destroy_self()
 	queue_redraw()
 	if is_instance_valid(player):
 		player.dispatch_my_army_update(self)
-	var game: GameController = get_tree().current_scene
+	var game: GameController = _get_game()
 	if game != null and province_location != null and province_location is Province:
 		game.notify_province_defense_change(province_location)
 
@@ -480,7 +505,7 @@ func split(soldiers_to_split: int) -> Army:
 	if is_instance_valid(player):
 		player.dispatch_my_army_update(self)
 	
-	var game: GameController = get_tree().current_scene
+	var game: GameController = _get_game()
 	var new_army: Army = null
 
 	if not travelling and province_location != null and province_location is Province and game != null:
@@ -575,7 +600,7 @@ func order(city: Province) -> void:
 		emit_signal("movement_updated", next_pos)
 	if is_instance_valid(player):
 		player.dispatch_my_army_update(self)
-	var game: GameController = get_tree().current_scene
+	var game: GameController = _get_game()
 	if game != null and prev_loc != null and prev_loc is Province:
 		game.notify_province_defense_change(prev_loc)
 
@@ -585,7 +610,7 @@ func _update_direction_lines() -> void:
 		direction_line_partial.clear_points()
 		return
 	
-	var game: GameController = get_tree().current_scene
+	var game: GameController = _get_game()
 	if is_instance_valid(game):
 		_on_view_changed(game.view)
 	

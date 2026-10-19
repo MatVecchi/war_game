@@ -307,9 +307,14 @@ public class CountryAgent extends VesnaAgent {
     private void handle_enemy_province_defense_update(JSONObject sight) {
         try {
             String id = sight.getString("id");
+            String owner = sight.has("owner") ? sight.getString("owner") : "";
             double defenseValue = sight.getDouble("defense_value");
             boolean hasArmy = sight.getBoolean("has_army");
-            sense(createLiteral("enemy_province_defense_update", createAtom(id), createAtom(hasArmy ? "true" : "false"), createNumber(defenseValue)));
+            if (!owner.isEmpty()) {
+                sense(createLiteral("enemy_province_defense_update", createAtom(id), createAtom(owner), createAtom(hasArmy ? "true" : "false"), createNumber(defenseValue)));
+            } else {
+                sense(createLiteral("enemy_province_defense_update", createAtom(id), createAtom(hasArmy ? "true" : "false"), createNumber(defenseValue)));
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }

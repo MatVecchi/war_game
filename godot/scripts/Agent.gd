@@ -627,7 +627,6 @@ func update_name_position() -> void:
 	
 func declare_war(player: Agent) -> void:
 	if player in player_in_war: return
-	if player in player_in_alliance: return
 
 	player_in_war.append(player)
 	
@@ -649,6 +648,11 @@ func declare_war(player: Agent) -> void:
 				p.send_vesna_message(break_msg)
 		dispatch_neighbor_nations_update()
 		player.dispatch_neighbor_nations_update()
+		var game: GameController = get_tree().current_scene
+		if game != null:
+			for prov in get_tree().get_nodes_in_group("provinces"):
+				if prov is Province:
+					game._send_province_update_to_all(prov)
 		
 	# Implicitly declare war on target's allies
 	var target_allies = []
@@ -942,6 +946,7 @@ func dispatch_province_defense_update(province: Province) -> void:
 		"data": {
 			"type": "enemy_province_defense_update",
 			"id": province.name,
+			"owner": prov_owner.name if is_instance_valid(prov_owner) else "",
 			"has_army": has_army,
 			"defense_value": defense_value
 		}

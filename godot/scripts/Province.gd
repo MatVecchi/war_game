@@ -413,7 +413,7 @@ func _trigger_riot() -> void:
 
 	var new_owner = possible_nations[rng.randi_range(0, possible_nations.size() - 1)]
 	var game: GameController = get_tree().current_scene
-	game.conquer_province(self, new_owner)
+	game.conquer_province(self, new_owner, true)
 	
 func _on_match_over() -> void:
 	army_timer.stop()

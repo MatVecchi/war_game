@@ -368,6 +368,7 @@ my_army_path_distance(ArmyId, ProvId, Dist) :-
 
 +allied_province_update(Id, Morale, X, Y, IsCapital, IsDouble, Resource)
   <- .abolish(allied_province(Id, _, _, _, _, _, _));
+     .abolish(enemy_province_status(Id, _, _, _, _, _, _, _, _, _));
      +allied_province(Id, Morale, X, Y, IsCapital, IsDouble, Resource).
 
 +allied_province_owner_update(Id, Morale, X, Y, IsCapital, IsDouble, Resource)
@@ -438,8 +439,16 @@ my_army_path_distance(ArmyId, ProvId, Dist) :-
      +targeted_province(TargetProv).
 
 +enemy_province_update(Id, Owner, HasArmyStr, DefenseValue, X, Y, BorderingAllies, IsCapital, IsDouble, Resource)
-  <- .abolish(enemy_province_status(Id, _, _, _, _, _, _, _, _, _));
+  <- .abolish(allied_province(Id, _, _, _, _, _, _));
+     .abolish(enemy_province_status(Id, _, _, _, _, _, _, _, _, _));
      +enemy_province_status(Id, Owner, HasArmyStr, DefenseValue, X, Y, BorderingAllies, IsCapital, IsDouble, Resource).
+
++enemy_province_defense_update(Id, Owner, HasArmyStr, DefenseValue)
+  <- .abolish(allied_province(Id, _, _, _, _, _, _));
+     if (enemy_province_status(Id, _, _, _, X, Y, BorderingAllies, IsCapital, IsDouble, Resource)) {
+         .abolish(enemy_province_status(Id, _, _, _, _, _, _, _, _, _));
+         +enemy_province_status(Id, Owner, HasArmyStr, DefenseValue, X, Y, BorderingAllies, IsCapital, IsDouble, Resource);
+     }.
 
 +enemy_province_defense_update(Id, HasArmyStr, DefenseValue)
   : enemy_province_status(Id, Owner, _, _, X, Y, BorderingAllies, IsCapital, IsDouble, Resource)
