@@ -14,12 +14,7 @@ get_riot_penalty_multiplier(Val) :- game_rules(_, _, _, Val, _, _, _, _, _).
 get_life_per_unit(Val)           :- game_rules(_, _, _, _, Val, _, _, _, _).
 get_attack_per_unit(Val)         :- game_rules(_, _, _, _, _, Val, _, _, _).
 get_defense_per_unit(Val)        :- game_rules(_, _, _, _, _, _, Val, _, _).
-// --- [EXPERIMENT START] Disable any possibility of forming an alliance ---
-get_max_alliances(0).
-
-// Original definition (uncomment to revert):
-// get_max_alliances(Val)           :- game_rules(_, _, _, _, _, _, _, Val, _).
-// --- [EXPERIMENT END] ---
+get_max_alliances(Val)           :- game_rules(_, _, _, _, _, _, _, Val, _).
 get_conquered_morale(Val)        :- game_rules(_, _, _, _, _, _, _, _, Val).
 
 province_under_threat(ProvId) :-
@@ -37,36 +32,30 @@ total_enemy_strength(TotalStrength) :-
 total_enemy_strength(Me, TotalStrength) :-
     total_enemy_strength(TotalStrength).
 
-// --- [EXPERIMENT START] Allow declaring and sustaining wars with multiple nations without limits ---
-can_support_new_war(Me, TargetNation) :- true.
-can_sustain_war_against(TargetNation) :- true.
+can_support_new_war(Me, TargetNation) :-
+    alliance_strength(Me, MyStrength) &
+    total_enemy_strength(CurrentTotalEnemyStrength) &
+    alliance_strength(TargetNation, TargetStrength) &
+    .count(allied_with(_), AllyCount) &
+    MaxWars = 1 + AllyCount &
+    .findall(Rep, is_war_block_representative(Rep), CurrentWarBlocks) &
+    .length(CurrentWarBlocks, CurrentWarCount) &
+    CurrentWarCount < MaxWars &
+    CurrentTotalEnemyStrength + TargetStrength <= MyStrength * 1.5 &
+    MyStrength >= TargetStrength.
 
-// Original definitions (uncomment to revert):
-// can_support_new_war(Me, TargetNation) :-
-//     alliance_strength(Me, MyStrength) &
-//     total_enemy_strength(CurrentTotalEnemyStrength) &
-//     alliance_strength(TargetNation, TargetStrength) &
-//     .count(allied_with(_), AllyCount) &
-//     MaxWars = 1 + AllyCount &
-//     .findall(Rep, is_war_block_representative(Rep), CurrentWarBlocks) &
-//     .length(CurrentWarBlocks, CurrentWarCount) &
-//     CurrentWarCount < MaxWars &
-//     CurrentTotalEnemyStrength + TargetStrength <= MyStrength * 1.5 &
-//     MyStrength >= TargetStrength.
-// 
-// can_sustain_war_against(TargetNation) :-
-//     .my_name(Me) &
-//     alliance_strength(Me, MyStrength) &
-//     total_enemy_strength(CurrentTotalEnemyStrength) &
-//     alliance_strength(TargetNation, TargetStrength) &
-//     .count(allied_with(_), AllyCount) &
-//     MaxWars = 1 + AllyCount &
-//     .findall(Rep, is_war_block_representative(Rep), CurrentWarBlocks) &
-//     .length(CurrentWarBlocks, CurrentWarCount) &
-//     CurrentWarCount <= MaxWars &
-//     CurrentTotalEnemyStrength <= MyStrength * 1.5 &
-//     MyStrength >= TargetStrength.
-// --- [EXPERIMENT END] ---
+can_sustain_war_against(TargetNation) :-
+    .my_name(Me) &
+    alliance_strength(Me, MyStrength) &
+    total_enemy_strength(CurrentTotalEnemyStrength) &
+    alliance_strength(TargetNation, TargetStrength) &
+    .count(allied_with(_), AllyCount) &
+    MaxWars = 1 + AllyCount &
+    .findall(Rep, is_war_block_representative(Rep), CurrentWarBlocks) &
+    .length(CurrentWarBlocks, CurrentWarCount) &
+    CurrentWarCount <= MaxWars &
+    CurrentTotalEnemyStrength <= MyStrength * 1.5 &
+    MyStrength >= TargetStrength.
 
 get_enemy_peace_priority(Enemy, 1) :- needs_war_with(Enemy).
 get_enemy_peace_priority(Enemy, 0) :- not needs_war_with(Enemy).
@@ -980,9 +969,7 @@ my_army_path_distance(ArmyId, ProvId, Dist) :-
       .findall(Rep, is_war_block_representative(Rep), WarBlockList);
       .length(WarBlockList, WarCount);
       
-      // --- [EXPERIMENT: Disabled multi-front peace request when exceeding MaxWars] ---
-      // if (WarCount > MaxWars & TotalEnemyStrength > MyStrength * 1.5) {
-      if (false) {
+      if (WarCount > MaxWars & TotalEnemyStrength > MyStrength * 1.5) {
           // Overwhelmed by wars exceeding alliance capacity: choose an enemy to make peace with
           !choose_enemy_for_peace(EnemyList, EnemyToRequest);
           if (EnemyToRequest \== none & not sent_peace_request(EnemyToRequest)) {
