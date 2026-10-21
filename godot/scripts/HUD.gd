@@ -86,7 +86,7 @@ func _ready() -> void:
 		var container: HBoxContainer = HBoxContainer.new()
 		var label_name: Label = Label.new()
 		var label_points: Label = Label.new()
-		label_name.text = "%d° - %s:" % [i + 1, player_name.capitalize()]
+		label_name.text = "#%d - %s:" % [i + 1, player_name.capitalize()]
 		label_points.text = "%d pts" % [points]
 		label_points.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		label_points.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
@@ -171,7 +171,7 @@ func _on_timer_timeout():
 		var container: HBoxContainer = HBoxContainer.new()
 		var label_name: Label = Label.new()
 		var label_points: Label = Label.new()
-		label_name.text = "%d° - %s:" % [i + 1, player_name.capitalize()]
+		label_name.text = "#%d - %s:" % [i + 1, player_name.capitalize()]
 		label_points.text = "%d pts" % [points]
 		label_points.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		label_points.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
@@ -267,7 +267,7 @@ func _update_most_powerful_armies() -> void:
 		var label_name: Label = Label.new()
 		var label_value: Label = Label.new()
 		
-		label_name.text = "%d° - %s:" % [i + 1, agent.name.capitalize()]
+		label_name.text = "#%d - %s:" % [i + 1, agent.name.capitalize()]
 		label_value.text = "%.1f%%" % power
 		label_value.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		label_value.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
@@ -314,7 +314,7 @@ func _update_best_economies() -> void:
 		var label_name: Label = Label.new()
 		var label_value: Label = Label.new()
 		
-		label_name.text = "%d° - %s:" % [i + 1, agent.name.capitalize()]
+		label_name.text = "#%d - %s:" % [i + 1, agent.name.capitalize()]
 		label_value.text = prod_str
 		label_value.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		label_value.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
@@ -359,7 +359,7 @@ func _update_most_popular_nations() -> void:
 		var label_name: Label = Label.new()
 		var label_value: Label = Label.new()
 		
-		label_name.text = "%d° - %s:" % [i + 1, agent.name.capitalize()]
+		label_name.text = "#%d - %s:" % [i + 1, agent.name.capitalize()]
 		label_value.text = "%.1f%%" % morale
 		label_value.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		label_value.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
@@ -461,7 +461,7 @@ func _update_province_details_ui() -> void:
 		var time_left = selected_province.army_timer.time_left
 		province_troop_recruitment_timer.text = _format_time(time_left)
 	else:
-		province_troop_recruitment_timer.text = "Non attivo"
+		province_troop_recruitment_timer.text = "Inactive"
 		
 	if morale_modifier_list:
 		for child in morale_modifier_list.get_children():

@@ -63,12 +63,12 @@ layout_mode = 2
 [node name="HBoxContainer" type="HBoxContainer" parent="AgentInfoPanel/HBoxContainer/VBoxContainer" unique_id=2021199584]
 layout_mode = 2
 
-[node name="Position" type="Label" parent="AgentInfoPanel/HBoxContainer/VBoxContainer/HBoxContainer" unique_id=6392583]
-layout_mode = 2
-
 [node name="Label2" type="Label" parent="AgentInfoPanel/HBoxContainer/VBoxContainer/HBoxContainer" unique_id=472312417]
 layout_mode = 2
-text = "°"
+text = "#"
+
+[node name="Position" type="Label" parent="AgentInfoPanel/HBoxContainer/VBoxContainer/HBoxContainer" unique_id=6392583]
+layout_mode = 2
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="AgentInfoPanel/HBoxContainer/VBoxContainer" unique_id=1820619148]
 layout_mode = 2
@@ -108,7 +108,7 @@ layout_mode = 2
 
 [node name="Label" type="Label" parent="VBoxContainer/PanelContainer3/HBoxContainer" unique_id=1079533394]
 layout_mode = 2
-text = "Giorno: "
+text = "Day: "
 
 [node name="DayCycle" type="Label" parent="VBoxContainer/PanelContainer3/HBoxContainer" unique_id=516091417]
 layout_mode = 2
@@ -161,7 +161,7 @@ layout_mode = 2
 [node name="MatchOverText" type="Label" parent="Leaderboard/MarginContainer/VBoxContainer" unique_id=1381832866]
 visible = false
 layout_mode = 2
-text = "PARTITA TERMINATA"
+text = "MATCH OVER"
 horizontal_alignment = 1
 
 [node name="Label2" type="Label" parent="Leaderboard/MarginContainer/VBoxContainer" unique_id=937111475]
@@ -274,7 +274,7 @@ layout_mode = 2
 
 [node name="Label" type="Label" parent="HBoxContainer/ProvinceDetails/VBoxContainer/VBoxContainer/VBoxContainer" unique_id=1764872037]
 layout_mode = 2
-text = "Produzione giornaliera:"
+text = "Daily production:"
 
 [node name="ProvinceResourceProduction" type="HBoxContainer" parent="HBoxContainer/ProvinceDetails/VBoxContainer/VBoxContainer/VBoxContainer" unique_id=811010366]
 unique_name_in_owner = true
@@ -285,7 +285,7 @@ layout_mode = 2
 
 [node name="Label" type="Label" parent="HBoxContainer/ProvinceDetails/VBoxContainer/VBoxContainer/VBoxContainer2" unique_id=1189523195]
 layout_mode = 2
-text = "Edifici:"
+text = "Buildings:"
 
 [node name="ProvinceBuildingList" type="HBoxContainer" parent="HBoxContainer/ProvinceDetails/VBoxContainer/VBoxContainer/VBoxContainer2" unique_id=509036297]
 unique_name_in_owner = true
@@ -296,7 +296,7 @@ layout_mode = 2
 
 [node name="Label" type="Label" parent="HBoxContainer/ProvinceDetails/VBoxContainer/VBoxContainer/HBoxContainer2" unique_id=1601579844]
 layout_mode = 2
-text = "Produzione truppe:"
+text = "Troop recruitment:"
 
 [node name="TroopRecruitmentTimer" type="Label" parent="HBoxContainer/ProvinceDetails/VBoxContainer/VBoxContainer/HBoxContainer2" unique_id=765723496]
 unique_name_in_owner = true

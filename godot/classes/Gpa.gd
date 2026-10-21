@@ -25,7 +25,7 @@ func get_closest_point(to_position: Vector2, include_disabled: bool = false) -> 
 	return closest_point.id
 	
 func get_id_path(from_id: int, to_id: int, allow_partial_path: bool = false) -> PackedInt64Array:
-	# Controlli di sicurezza iniziali
+	# Initial safety checks
 	if from_id < 0 or from_id >= graph.size() or to_id < 0 or to_id >= graph.size():
 		return PackedInt64Array()
 	if graph[from_id] == null or graph[to_id] == null:
@@ -42,12 +42,12 @@ func get_id_path(from_id: int, to_id: int, allow_partial_path: bool = false) -> 
 	var f_score: Dictionary = {}
 	f_score[from_id] = _heuristic(from_id, to_id)
 	
-	# Variabili per tracciare il percorso parziale
+	# Variables to track partial path
 	var closest_node: int = from_id
 	var min_h_score: float = f_score[from_id]
 
 	while open_set.size() > 0:
-		# Trova il nodo in open_set con l'f_score più basso
+		# Find the node in open_set with the lowest f_score
 		var current_index: int = 0
 		var current: int = open_set[0]
 		var lowest_f: float = f_score.get(current, INF)
@@ -60,14 +60,14 @@ func get_id_path(from_id: int, to_id: int, allow_partial_path: bool = false) -> 
 				current = node_id
 				current_index = i
 				
-		# Se abbiamo raggiunto la destinazione, ricostruiamo il percorso
+		# If destination is reached, reconstruct the path
 		if current == to_id:
 			return _reconstruct_path(came_from, current)
 			
 		open_set.remove_at(current_index)
 		var current_node: GPANode = graph[current]
 		
-		# Analizza i vicini
+		# Analyze neighbors
 		for edge in current_node.connections:
 			var neighbor_id: int = edge.get_to_id()
 			var neighbor_node: GPANode = graph[neighbor_id]
@@ -75,10 +75,10 @@ func get_id_path(from_id: int, to_id: int, allow_partial_path: bool = false) -> 
 			if neighbor_node.disabled:
 				continue
 				
-			# Calcola il costo (g_score) verso questo vicino, moltiplicato per il suo weight_scale
+			# Calculate cost (g_score) to this neighbor, multiplied by its weight_scale
 			var tentative_g: float = g_score[current] + (edge.get_weight() * neighbor_node.weight_scale)
 			
-			# Se abbiamo trovato un percorso migliore per arrivare a neighbor_id
+			# If a better path to neighbor_id was found
 			if tentative_g < g_score.get(neighbor_id, INF):
 				came_from[neighbor_id] = current
 				g_score[neighbor_id] = tentative_g
@@ -86,7 +86,7 @@ func get_id_path(from_id: int, to_id: int, allow_partial_path: bool = false) -> 
 				var h: float = _heuristic(neighbor_id, to_id)
 				f_score[neighbor_id] = tentative_g + h
 				
-				# Aggiorna il nodo più vicino per il calcolo del partial path
+				# Update closest node for partial path computation
 				if h < min_h_score:
 					min_h_score = h
 					closest_node = neighbor_id
@@ -94,20 +94,20 @@ func get_id_path(from_id: int, to_id: int, allow_partial_path: bool = false) -> 
 				if not open_set.has(neighbor_id):
 					open_set.append(neighbor_id)
 					
-	# Se il ciclo finisce e non abbiamo trovato target_id, controlliamo allow_partial_path
+	# If loop finishes without reaching to_id, check allow_partial_path
 	if allow_partial_path and closest_node != from_id:
 		return _reconstruct_path(came_from, closest_node)
 		
-	# Nessun percorso trovato
+	# No path found
 	return PackedInt64Array()
 
-# --- FUNZIONI DI SUPPORTO ---
+# --- HELPER FUNCTIONS ---
 
-# Calcola la distanza in linea d'aria tra due nodi (Euristica A*)
+# Calculate distance between two nodes (A* Heuristic)
 func _heuristic(from_id: int, to_id: int) -> float:
 	return graph[from_id].position.distance_to(graph[to_id].position)
 
-# Ricostruisce il percorso a ritroso dal dizionario came_from
+# Reconstruct path backwards from came_from dictionary
 func _reconstruct_path(came_from: Dictionary, current: int) -> PackedInt64Array:
 	var path: PackedInt64Array = PackedInt64Array()
 	path.append(current)
@@ -115,7 +115,7 @@ func _reconstruct_path(came_from: Dictionary, current: int) -> PackedInt64Array:
 		current = came_from[current]
 		path.append(current)
 		
-	# Inverti per avere il percorso dal punto di partenza alla destinazione
+	# Reverse to get the path from start to destination
 	path.reverse()
 	return path
 
